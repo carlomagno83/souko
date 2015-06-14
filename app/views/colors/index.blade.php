@@ -11,7 +11,7 @@ background-color:#fff;
 
 @section("main")
 
-<h3>Tabla maestra Colores cambio</h3>
+<h3>Tabla maestra Colores</h3>
  
 <p>{{ link_to_route('colors.create', 'Agregar nuevo Color', null, array('class' => 'btn btn-lg btn-success')) }}</p>
 
