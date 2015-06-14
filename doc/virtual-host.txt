@@ -1,0 +1,8 @@
+  <VirtualHost *>
+    DocumentRoot "D:\XAMPP\htdocs\globaltech\maestro\public"
+    ServerName maestro.dev
+  <Directory "D:\XAMPP\htdocs\globaltech\maestro\public">
+    Order allow,deny
+    Allow from all
+  </Directory>
+  </VirtualHost>
