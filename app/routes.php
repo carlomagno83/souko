@@ -7,7 +7,7 @@ Route::get('/', function()
 
 Route::post('test/route', function()
 {
-    return "test";
+    return "test222";
 });
 
 
