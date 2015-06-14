@@ -2,12 +2,13 @@
 
 Route::get('/', function()
 {
+    return "prueba de git";
     return View::make('index');
 });
 
 Route::post('test/route', function()
 {
-    return "test";
+    return "test ";
 });
 
 
