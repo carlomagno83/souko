@@ -139,7 +139,7 @@
 									<a href="liquidacionguiadev">Liquidación de Guía de Devolución</a>
 								</li>								
 								<li>
-									<a href="#">Devoluciones de Pto de Venta</a>
+									<a href="devolucionptoventa">Devoluciones de Pto de Venta</a>
 								</li>
 							</ul>
 						</li>	
@@ -147,13 +147,13 @@
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="#">Reporte por ....</a>
+									<a href="reporteingreso">Reporte de ingresos</a>
 								</li>
 								<li>
-									<a href="#">Reporte por ...</a>
+									<a href="reporteventa">Reporte de Ventas</a>
 								</li>
 								<li>
-									<a href="#">Reporte por ...</a>
+									<a href="reportestock">Reporte de stock</a>
 								</li>
 
 

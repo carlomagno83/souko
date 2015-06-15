@@ -2,7 +2,12 @@
 
 
 class IngresoproveedorController extends BaseController {
-  
+   
+  public function index()
+ {
+   return View::make('ingresoproveedor.createingresoproveedor');
+} 
+ 
  public function ingreso()
  {
   //return "ingreso";

@@ -46,12 +46,22 @@ class UsersController extends BaseController {
 		$input = Input::all();
 		$input['password']=Hash::make($input['password']);
 
+		dd($input);
+
 		$validation = Validator::make($input, User::$rules);
 
 		if ($validation->passes())
 		{
+$user = new User();			
+$user->username = Input::get('username');
+$user->desusuario = Input::get('desusuario');		
+$user->rolusuario = Input::get('rolusuario');		
+$user->password = Input::get('password');		
+$user->usuario_id = Input::get('usuario_id');
+dd($user);		
+$user->save();
 
-			$this->user->create($input);
+			//$this->user->create($input); obviar el modo automatico
 
 			return Redirect::route('users.index');
 		}
@@ -107,8 +117,15 @@ class UsersController extends BaseController {
 		{
 			$user = $this->user->find($id);
 			$input['password']=Hash::make($input['password']);
-
-			$user->update($input);
+$user = new User();			
+$user->username = Input::get('username');
+$user->desusuario = Input::get('desusuario');		
+$user->rolusuario = Input::get('rolusuario');		
+$user->password = Input::get('password');		
+$user->usuario_id = Input::get('usuario_id');
+dd($user);		
+$user->save();
+			//$user->update($input); //evitar el modo automatico
 
 			return Redirect::route('users.show', $id);
 		}

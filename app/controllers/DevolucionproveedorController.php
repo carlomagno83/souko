@@ -2,6 +2,11 @@
 
 class DevolucionproveedorController extends BaseController {
 
+	public function index()
+	{
+		return View::make('devolucionproveedor.devolucionproveedor');
+	}
+	
 	public function ingreso()
 	{
 		//return "ingreso";

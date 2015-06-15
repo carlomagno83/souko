@@ -2,7 +2,6 @@
 
 Route::get('/', function()
 {
-    return "prueba de git";
     return View::make('index');
 });
 
@@ -35,16 +34,21 @@ Route::resource('mercaderias', 'MercaderiasController');
 Route::resource('movimientos', 'MovimientosController');
 
 
-//Route::resource('ingresoproveedor', 'IngresoproveedorController');
+Route::resource('ingresoproveedor', 'IngresoproveedorController');
 
 Route::resource('confirmacioningreso', 'confirmacioningresoController');
 Route::resource('trasladoalmacpto', 'TrasladoalmacptoController');
 Route::resource('trasladoptopto', 'TrasladoptoptoController');
 Route::resource('ventas', 'VentasController');
-Route::resource('ventas', 'DevolucionproveedorController');
+Route::resource('devolucionproveedor', 'DevolucionproveedorController');
 Route::resource('generaguiadev', 'GeneraguiadevController');
 Route::resource('liquidacionguiadev', 'LiquidacionguiadevController');
+Route::resource('devolucionptoventa', 'DevolucionptoventaController');
 
+//Reportes
+Route::resource('reporteingreso', 'ReporteingresoController');
+Route::resource('reporteventa', 'ReporteventaController');
+Route::resource('reportestock', 'ReportestockController');
 
 
 /*Auth*/
@@ -52,24 +56,7 @@ Route::get('login', 'AuthController@showLogin'); // Mostrar login
 Route::post('login', 'AuthController@postLogin'); // Verificar datos
 Route::get('logout', 'AuthController@logOut'); // Finalizar sesión
 
-
-
-/*Route::get('ingresoproveedor2', function()
-{
-		$movimientos = new Movimiento;
-		$movimientos = $movimientos->all();
-		return View::make('ingresoproveedor.createingresoproveedor', compact('ingprov'));
-});
-*/
-Route::get('confirmacioningreso', function()
-{
-		$movimientos = new Movimiento;
-		$movimientos = $movimientos->all();
-		return View::make('confirmacioningreso.createconfirmacioningreso', compact('confingr'));
-});
-
-
-
+/*
 Route::get('ingresoproveedor', 'IngresoproveedorController@ingreso');
 Route::post('ingresoproveedor', 'IngresoproveedorController@graba');
 
@@ -84,5 +71,5 @@ Route::get('devolucionproveedor', 'DevolucionproveedorController@ingreso');
 Route::get('generaguiadev', 'GeneraguiadevController@ingreso');
 
 Route::get('liquidacionguiadev', 'liquidacionguiadevController@ingreso');
-
+*/
 
