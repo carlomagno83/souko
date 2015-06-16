@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
-        <h1>Create User</h1>
+        <h3>Crear Usuario</h3>
 
         @if ($errors->any())
         	<div class="alert alert-danger">
@@ -19,21 +19,21 @@
 {{ Form::open(array('route' => 'users.store', 'class' => 'form-horizontal')) }}
 
         <div class="form-group">
-            {{ Form::label('username', 'Username:', array('class'=>'col-md-2 control-label')) }}
+            {{ Form::label('username', 'Username (Max 6 Caracteres):', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
               {{ Form::text('username', Input::old('codusuario6'), array('class'=>'form-control', 'placeholder'=>'Codusuario6')) }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('desusuario', 'Desusuario:', array('class'=>'col-md-2 control-label')) }}
+            {{ Form::label('desusuario', 'Nombre Completo:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
               {{ Form::text('desusuario', Input::old('desusuario'), array('class'=>'form-control', 'placeholder'=>'Desusuario')) }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('rolusuario', 'Rolusuario:', array('class'=>'col-md-2 control-label')) }}
+            {{ Form::label('rolusuario', 'Rol:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
               {{ Form::text('rolusuario', Input::old('rolusuario'), array('class'=>'form-control', 'placeholder'=>'Rolusuario')) }}
             </div>

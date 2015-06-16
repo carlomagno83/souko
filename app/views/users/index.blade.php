@@ -2,19 +2,19 @@
 
 @section('main')
 
-<h1>All Users</h1>
+<h3>Tabla Maestra de Usuarios</h3>
 
-<p>{{ link_to_route('users.create', 'Add New User', null, array('class' => 'btn btn-lg btn-success')) }}</p>
+<p>{{ link_to_route('users.create', 'Agregar Nuevo Usuario', null, array('class' => 'btn btn-lg btn-success')) }}</p>
 
 @if ($users->count())
 	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Username</th>
-				<th>Desusuario</th>
-				<th>Rolusuario</th>
+				<th>Nombre Completo</th>
+				<th>Rol</th>
 				<th>Password</th>
-				<th>Usuario_id</th>
+				<th>Usuario Creador/Modif</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -25,20 +25,20 @@
 					<td>{{{ $user->username }}}</td>
 					<td>{{{ $user->desusuario }}}</td>
 					<td>{{{ $user->rolusuario }}}</td>
-					<td>{{{ $user->password }}}</td>
+					<td>{{ "******" }}</td>
 					<td>{{{ $user->usuario_id }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('users.destroy', $user->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
-                        {{ link_to_route('users.edit', 'Edit', array($user->id), array('class' => 'btn btn-info')) }}
+                        {{ link_to_route('users.edit', 'Editar', array($user->id), array('class' => 'btn btn-info')) }}
                     </td>
 				</tr>
 			@endforeach
 		</tbody>
 	</table>
 @else
-	There are no users
+	No hay Usuarios para mostrar
 @endif
 
 @stop

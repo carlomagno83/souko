@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>Show User</h1>
+<h3>Tabla Maestra de Usuarios</h3>
 
 <p>{{ link_to_route('users.index', 'Regresar a la Tabla de Usuarios', null, array('class'=>'btn btn-lg btn-primary')) }}</p>
 
@@ -10,10 +10,10 @@
 	<thead>
 		<tr>
 				<th>Username</th>
-				<th>Desusuario</th>
-				<th>Rolusuario</th>
+				<th>Nombre Completo</th>
+				<th>Rol</th>
 				<th>Password</th>
-				<th>Usuario_id</th>
+				<th>Modif/creado por</th>
 		</tr>
 	</thead>
 
@@ -23,7 +23,7 @@
 					<td>{{{ $user->username }}}</td>
 					<td>{{{ $user->desusuario }}}</td>
 					<td>{{{ $user->rolusuario }}}</td>
-					<td>{{{ $user->password }}}</td>
+					<td>{{ "******" }}</td>
 					<td>{{{ $user->usuario_id }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('users.destroy', $user->id))) }}

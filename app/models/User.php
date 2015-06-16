@@ -6,7 +6,8 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
-	protected $fillable = array('username', 'desusuario', 'rolusuario', 'password');
+	//problemas para ingresar el password hasheado
+	//protected $fillable = array('username', 'desusuario', 'rolusuario', 'password');
 
 	use UserTrait, RemindableTrait;
 
@@ -24,11 +25,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
-
-	public  function setPasswordAttribute()
+//modif para error de hasheado
+	/*public  function setPasswordAttribute()
 	{
 	    $this->password = Hash::make($this->password);
-	}
+	}*/
 
 	public static $rules = array(
 	              	'username' 	=> 'required',

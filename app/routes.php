@@ -56,6 +56,16 @@ Route::get('login', 'AuthController@showLogin'); // Mostrar login
 Route::post('login', 'AuthController@postLogin'); // Verificar datos
 Route::get('logout', 'AuthController@logOut'); // Finalizar sesión
 
+/*Rutas privadas solo para usuarios autenticados*/ //Comentado para que no estorbe
+/*Route::group(['before' => 'auth'], function()
+{
+    Route::get('/', function(){return View::make('index');
+
+
+});
+});
+*/
+
 /*
 Route::get('ingresoproveedor', 'IngresoproveedorController@ingreso');
 Route::post('ingresoproveedor', 'IngresoproveedorController@graba');
