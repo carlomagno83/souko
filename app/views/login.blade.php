@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Embajador Shoes</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    {{ HTML::style('assets/css/signin.css') }}
+    {{ HTML::style('css/signin.css') }}
 </head>
 <body>
     <div class="container">
@@ -24,7 +24,7 @@
 
             {{ Form::label('password', 'Password', ['class' => 'sr-only']) }}
             {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
-
+            <br>
 
             {{ Form::submit('Ingresar', ['class' => 'btn btn-primary btn-block']) }}
     
