@@ -237,4 +237,29 @@ class ProductosController extends BaseController {
 		return "ingresaexcel";
 		$input = Input::all();		
 	}
+
+	    public function search()
+    {
+        dd(Input::get('term'));
+        $term = Input::get('term');
+
+        $data = DB::table('productos')  
+            ->where("marca_id","=","$term")
+            ->select('id','RAZON_SOCIAL AS label','RAZON_SOCIAL AS value')
+            ->get();
+
+
+        $term = Input::get('term');
+        $pag = Input::get('pag');
+            
+
+        //Formato
+        /*$data = array(
+                      array('id'=>'iddd','label'=>'laaa','value'=>'vaaa'),
+                      array('id'=>'iddd','label'=>'laaa','value'=>'vaaa'),
+                );*/
+
+        return $data;
+
+    }
 }

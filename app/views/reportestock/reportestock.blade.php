@@ -2,53 +2,43 @@
 
 @section('main')
 
-<h1>All Movimientos</h1>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#datepicker1" ).datepicker();
+  });  
+  $(function() {
+    $( "#datepicker2" ).datepicker();
+  });
+  </script>
 
-<table class="table table-striped ">
-<thead>
-<tr>
-	<th>{{ Form::text('fechaIni', Input::old('fechaIni'), array('class'=>'form-control')) }}</th>
-	<th>{{ Form::text('fechaFin', Input::old('fechaFin'), array('class'=>'form-control')) }}</th>
-	<th>
-<p>{{ link_to_action('HomeController@movimiento', 'Filtro XLS', null, array('class' => 'btn btn-lg btn-success')) }}</p>
-	</th>
-<th>
-<p>{{ link_to_action('HomeController@movimientop', 'Reporte PDF', null, array('class' => 'btn btn-lg btn-success')) }}</p>
-</th>
-<th>
-<p>{{ link_to_action('HomeController@movimiento', 'Reporte Excel', null, array('class' => 'btn btn-lg btn-success')) }}</p>
-</th>
-</tr>
+<h3>Reporte de Stocks</h3>
 
-@if ($movimientos->count())
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Movimientos_id</th>
-				<th>Mercaderia_id</th>
-				<th>Producto_id</th>	
-				<th>codProducto31</th>								
-				<th>Precio Venta</th>
-			
+<div class="row">
+    <div class="col-lg-3">
+        <div class="input-group">
+            <span class="input-group-addon" id="documento_id">Fecha Inicio</span>
+            <input type="text" id="datepicker1" name="fechaini" class="form-control" aria-describedby="basic-addon1">
+        </div>
+    </div><!-- /.col-lg-6 -->
 
-			</tr>
-		</thead>
-         
-		<tbody>
-			@foreach ($movimientos as $movimiento)
-				<tr>
-					<td>{{{ $movimiento->id }}}</td>
-					<td>{{{ $movimiento->mercaderia_id }}}</td>					
-					<td>{{{ $movimiento->producto_id }}}</td>
-					<td>{{{ $movimiento->codproducto31 }}}</td>
-					<td>{{{ $movimiento->precioventa }}}</td>
+     <div class="col-lg-3">
+        <div class="input-group">
+            <span class="input-group-addon" id="documento_id">Fecha Fin</span>
+            <input type="text" id="datepicker2" name="fechafin" class="form-control" aria-describedby="basic-addon1">
+        </div>
+    </div><!-- /.col-lg-6 -->
 
-				</tr>
-			@endforeach
-		</tbody>
-	</table>
-@else
-	There are no movimientos
-@endif
+    <div class="col-lg-3">
+        {{ Form::submit('Filtrar por fechas', array('class' => 'btn btn-info')) }}
+        
+    </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+
+
+
 
 @stop

@@ -39,18 +39,6 @@
 
 <body>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-
-            @if (Session::has('message'))
-                <div class="flash alert">
-                    <p>{{ Session::get('message') }}</p>
-                </div>
-            @endif     
-
-        </div>
-    </div>
-
 
 	<div class="row clearfix">
 		<div class="col-md-12 column">
@@ -158,6 +146,7 @@
 							</ul>
 						</li>
 					</ul>					
+
 					<form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
 							<input class="form-control" type="text">
@@ -172,6 +161,17 @@
 				
 			</nav>
 			<div class="jumbotron">
+			    <div class="row">
+			        <div class="col-md-12">
+
+			            @if (Session::has('message'))
+			                <div style="color: {{{$color}}}" class="flash alert">
+			                    <p>{{ Session::get('message') }}</p>
+			                </div>
+			            @endif     
+
+			        </div>
+			    </div>
 					@yield("main")
 			</div>
 		</div>

@@ -21,6 +21,7 @@ class MarcasController extends BaseController {
 	 */
 	public function index()
 	{
+
 		$marcas = $this->marca->join('users','marcas.usuario_id','=','users.id')
                               ->select('marcas.id',
                                        'marcas.codmarca3',
@@ -114,7 +115,9 @@ class MarcasController extends BaseController {
 		if ($validation->passes())
 		{
 			$marca = $this->marca->find($id);
-			$marca->update($input);
+			$marca->usuario_id=Auth::user()->id;
+			$marca->save();
+			//$marca->update($input);
 
 			return Redirect::route('marcas.show', $id);
 		}
@@ -135,7 +138,7 @@ class MarcasController extends BaseController {
 	{
 		$this->marca->find($id)->delete();
 
-		return Redirect::route('marcas.index');
+		return Redirect::route('marcas.index')->with('message', 'Eliminado satisfactoriamente.');
 	}
 
 }

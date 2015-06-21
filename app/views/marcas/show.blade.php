@@ -18,14 +18,14 @@
 	<tbody>
 		<tr>
 			<td>{{{ $marca->codmarca3 }}}</td>
-					<td>{{{ $marca->desmarca }}}</td>
-					<td>{{{ $marca->usuario_id }}}</td>
-                    <td>
-                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('marcas.destroy', $marca->id))) }}
-                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
-                        {{ link_to_route('marcas.edit', 'Editar', array($marca->id), array('class' => 'btn btn-info')) }}
-                    </td>
+			<td>{{{ $marca->desmarca }}}</td>
+			<td>{{{ $marca->usuario_id }}}</td>
+            <td>
+                {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('marcas.destroy', $marca->id))) }}
+                    {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
+                {{ Form::close() }}
+                {{ link_to_route('marcas.edit', 'Editar', array($marca->id), array('class' => 'btn btn-info')) }}
+            </td>
 		</tr>
 	</tbody>
 </table>
