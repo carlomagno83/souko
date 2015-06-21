@@ -89,7 +89,10 @@
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresos<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="ingresoproveedor">Desde Proveedor</a>
+									<a href="ingresos-proveedor">Todos los movimientos</a>
+								</li>
+								<li>
+									<a href="ingresos-proveedor-create">Nuevo ingreso Proveedor</a>
 								</li>
  								<li>
 									<a href="confirmacioningreso">Eliminar Guía de Ingreso</a>

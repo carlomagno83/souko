@@ -27,12 +27,13 @@ Route::resource('productos', 'ProductosController');
 Route::resource('users', 'UsersController');
 Route::resource('providers', 'ProvidersController');
 
-//Operaciones
 Route::resource('mercaderias', 'MercaderiasController');
 Route::resource('movimientos', 'MovimientosController');
 
-
-Route::resource('ingresoproveedor', 'IngresoproveedorController');
+//Operaciones
+Route::get('ingresos-proveedor', 'IngresoproveedorController@index');
+Route::any('ingresos-proveedor-create', 'IngresoproveedorController@create');
+Route::post('ingresos-proveedor-store', 'IngresoproveedorController@store');
 
 Route::resource('confirmacioningreso', 'confirmacioningresoController');
 Route::resource('trasladoalmacpto', 'TrasladoalmacptoController');
