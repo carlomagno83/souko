@@ -12,8 +12,8 @@
 	<!--script src="js/less-1.3.3.min.js"></script-->
 	<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
 
-	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
+	<link href="{{url('css/neon.bootstrap.css')}}" rel="stylesheet">
+	<link href="{{url('css/style.css')}}" rel="stylesheet">
 
 
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -155,25 +155,18 @@
 								<li>
 									<a href="reportestock">Reporte de stock</a>
 								</li>
-
-
 							</ul>
 						</li>
 					</ul>					
 					<form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
 							<input class="form-control" type="text">
-						</div> <button type="submit" class="btn btn-default">Submit</button>
+						</div> <button type="submit" class="btn btn-default">Buscar</button>
 					</form>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<a href="#">Link</a>
+							<a href="{{ url('logout') }}">Salir</a>
 						</li>
-						<li>
-							<a href="{{ action('AuthController@logOut') }}">Log out</a>
-						</li>
-
-
 					</ul>
 				</div>
 				
