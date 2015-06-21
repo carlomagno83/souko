@@ -2,14 +2,12 @@
 
 Route::get('/', function()
 {
-    return View::make('index');
+    return View::make('layouts.scaffold');
 });
 
-Route::post('test/route', function()
+Route::get('layout-old', function()
 {
-
-    return "test222";
-
+    return View::make('index');
 });
 
 
