@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     {{ HTML::style('css/signin.css') }}
 </head>
-<body>
+<body background="img/leather.jpg">
     <div class="container">
         {{ Form::open(['url' => 'login', 'autocomplete' => 'off', 'class' => 'form-signin', 'role' => 'form']) }}
 
@@ -17,7 +17,7 @@
                 </div>
             @endif
 
-            <h2 class="form-signin-heading">Ingreso al Sistema</h2>
+            <h2 class="form-signin-heading" align="center">Ingreso al Sistema</h2>
 
             {{ Form::label('username', 'Username', ['class' => 'sr-only']) }}
             {{ Form::text('username', null, ['class' => 'form-control', 'placeholder' => 'Username', 'autofocus' => '']) }}
