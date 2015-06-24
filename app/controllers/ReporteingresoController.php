@@ -41,7 +41,7 @@ class ReporteingresoController extends BaseController {
 			$fecha_ini = $_POST["fecha_ini_txt"];
 			$fecha_fin = $_POST["fecha_fin_txt"];
 			$movimientos = $this->Datos($fecha_ini ,$fecha_fin);
-			return View::make('repexcel',compact('movimientos'));
+			return View::make('reporteingreso.reporteingreso',compact('movimientos'));
 
 			}elseif(isset($_POST["baja_pdf_btn"]))
 			{
@@ -50,7 +50,7 @@ class ReporteingresoController extends BaseController {
 				$movimientos = new Movimiento;
 				$movimientos = $this->Datos($fecha_ini ,$fecha_fin);
 				$data = array('movimientos'=>$movimientos);
-				$pdf = PDF::loadView('repexcelpdf',$data);
+				$pdf = PDF::loadView('reporteingreso.reporteingresopdf',$data);
 				return $pdf->download('invoice.pdf');
 				}elseif(isset($_POST["baja_xls_btn"]))
 				{
@@ -71,7 +71,7 @@ class ReporteingresoController extends BaseController {
 						$fecha_ini = date("Y-m-d");
 						$fecha_fin = date("Y-m-d");			
 						$movimientos = $this->Datos($fecha_ini ,$fecha_fin);
-						return View::make('repexcel',compact('movimientos'));	
+						return View::make('reporteingreso.reporteingreso',compact('movimientos'));	
 					}
 	}
 }
