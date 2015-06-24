@@ -138,7 +138,7 @@
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="reporteingreso">Reporte de ingresos</a>
+									<a href="reporte-muestra">Reporte de ingresos</a>
 								</li>
 								<li>
 									<a href="reporteventa">Reporte de Ventas</a>

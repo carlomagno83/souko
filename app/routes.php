@@ -51,10 +51,12 @@ Route::resource('liquidacionguiadev', 'LiquidacionguiadevController');
 Route::resource('devolucionptoventa', 'DevolucionptoventaController');
 
 //Reportes
+Route::any('reporte-muestra', 'ReporteingresoController@getmuestra');
+/*
 Route::resource('reporteingreso', 'ReporteingresoController');
 Route::resource('reporteventa', 'ReporteventaController');
 Route::resource('reportestock', 'ReportestockController');
-
+*/
 
 /*Auth*/
 Route::get('login', 'AuthController@showLogin'); // Mostrar login

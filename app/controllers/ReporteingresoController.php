@@ -1,126 +1,132 @@
+
 <?php
 
 class ReporteingresoController extends BaseController {
 
-
-
-	public function index()
+	public function Datos($fecha_ini, $fecha_fin)
 	{
-		$movimientos = new Movimiento;
-		// $movimientos = $movimientos->all();
-	
-		$movimientos = $movimientos->join('mercaderias','movimientos.mercaderia_id','=','mercaderias.id')
-								   ->join('productos','mercaderias.producto_id','=','productos.id')
-                              ->select('movimientos.id',
-                                       'movimientos.mercaderia_id',
-                                       'mercaderias.producto_id',
-                                       'productos.codproducto31',
-                                       'mercaderias.precioventa')
-                              ->orderBy('movimientos.id', 'asc')
-                              ->get();
-		//dd($movimientos);
-		return View::make('reporteingreso.reporteingreso')->with('movimientos',$movimientos);
-	}
+	/*
+	funcion que devuelve los datos para generar el reporte
+	se usa query builder
+	http://laravel.com/docs/4.2/queries
+    http://www.anerbarrena.com/date-input-html5-2829/
+	getIndex = muestra resultado total de registros
 
-	public function repexcel()
-	{
-		$movimientos = new Movimiento;
-		// $movimientos = $movimientos->all();
-	
-		$movimientos = $movimientos->join('mercaderias','movimientos.mercaderia_id','=','mercaderias.id')
-								   ->join('productos','mercaderias.producto_id','=','productos.id')
-                              ->select('movimientos.id',
-                                       'movimientos.mercaderia_id',
-                                       'mercaderias.producto_id',
-                                       'productos.codproducto31',
-                                       'mercaderias.precioventa')
-                              ->orderBy('movimientos.id', 'asc')
-                              ->get();
+	*/
 		
-		//return View::make('repexcel',compact('movimientos'));
+		$movimientos = new Movimiento;
+		$movimientos = $movimientos->join('mercaderias','movimientos.mercaderia_id','=','mercaderias.id')
+								   ->join('productos','mercaderias.producto_id','=','productos.id')
+								   ->join('documentos', 'movimientos.documento_id','=','documentos.id')
+								   ->where("documentos.fechadocumento",">=", "$fecha_ini")
+								   ->where("documentos.fechadocumento","<=", "$fecha_fin")
+                              	   ->select('movimientos.id',
+                              	   			'documentos.fechadocumento',
+                              	   	        'movimientos.mercaderia_id',
+                                            'mercaderias.producto_id',
+                                            'productos.codproducto31',
+                                            'mercaderias.precioventa')
+                              	   ->orderBy('movimientos.id', 'asc')
+                                   ->get();		
+        return $movimientos;                      
 	}
 
 
-	public function excel()
+	public function getmuestra()
 	{
-		/*
-		return View::make('hello');
-		*/
-		\Excel::create('1er apl', function($excel)
+		
+		if(isset($_POST["filtra_fecha_btn"]))
 		{
-			$excel->sheet('Sheetname', function($sheet)
-			{
-				$data = [];
-				array_push($data, array('augusto','miyagi'));
-				$sheet->fromarray($data, null, 'A5',false,false);
-			});
-		})->download('xls');
-	}
 
-	public function movimiento()
-	{
+			$fecha_ini = $_POST["fecha_ini_txt"];
+			$fecha_fin = $_POST["fecha_fin_txt"];
+			$movimientos = $this->Datos($fecha_ini ,$fecha_fin);
+			return View::make('reporteingreso.reporteingreso',compact('movimientos'));
+
+			}elseif(isset($_POST["baja_pdf_btn"]))
+			{
+				$fecha_ini = $_POST["fecha_ini_txt"];
+				$fecha_fin = $_POST["fecha_fin_txt"];
+				$movimientos = new Movimiento;
+				$movimientos = $this->Datos($fecha_ini ,$fecha_fin);
+				$data = array('movimientos'=>$movimientos);
+				$pdf = PDF::loadView('reporteingreso.reporteingresopdf',$data);
+				return $pdf->download('invoice.pdf');
+				}elseif(isset($_POST["baja_xls_btn"]))
+				{
+					Excel::create('1er_apl', function($excel)
+					{
+						$excel->sheet('1ra_hoja', function($sheet)
+						{
+							$fecha_ini = $_POST["fecha_ini_txt"];
+							$fecha_fin = $_POST["fecha_fin_txt"];
+							$movimientos = new Movimiento;
+							$movimientos = $this->Datos($fecha_ini ,$fecha_fin);
+							$sheet->fromArray($movimientos);
+						});
+					})->download('xlsx');
+					}elseif(empty(isset($_GET["filtra_fecha_btn"])))
+
+					{
+						$fecha_ini = date("Y-m-d");
+						$fecha_fin = date("Y-m-d");			
+						$movimientos = $this->Datos($fecha_ini ,$fecha_fin);
+						return View::make('reporteingreso.reporteingreso',compact('movimientos'));	
+					}
+	}
+}
+/*
+		if(isset($_GET["filtra_fecha_btn"]))
+		{
+			$fecha_ini = $_GET["fecha_ini_txt"];
+			$fecha_fin = $_GET["fecha_fin_txt"];
+		}else 
+		{
+			$fecha_ini = date("Y-m-d");
+			$fecha_fin = date("Y-m-d");
+		}
+		
+		
+		
 		$input = Input::all();
 		return $input;
+		$movimientos = $movimientos->all();
+		return View::make('repexcel',compact('movimientos'));
 		
-		\Excel::create('1er apl', function($excel)
-		{
-			$excel->sheet('Sheetname', function($sheet)
-			{
-				$movimientos = new Movimiento;
-				$movimientos = $movimientos->join('mercaderias','movimientos.mercaderia_id','=','mercaderias.id')
-								           ->join('productos','mercaderias.producto_id','=','productos.id')
-                                           ->select('movimientos.id',
-                                       				'movimientos.mercaderia_id',
-                                       				'mercaderias.producto_id',
-                                       				'productos.codproducto31',
-                                       				'mercaderias.precioventa')
-                              				->orderBy('movimientos.id', 'asc')
-                              				->get();
-				$sheet->fromArray($movimientos);
-			});
-		})->download('xls');	
 	}
 
-	public function movimientop()
+	public function obtenerXls()
 	{
 		
-		\Excel::create('1er apl', function($excel)
+		Excel::create('1er_apl', function($excel)
 		{
-			$excel->sheet('Sheetname', function($sheet)
+			$excel->sheet('1ra_hoja', function($sheet)
 			{
+				
+				$fecha_ini = "2015-06-20";
+				$fecha_fin = "2015-06-20";
 				$movimientos = new Movimiento;
-				$movimientos = $movimientos->join('mercaderias','movimientos.mercaderia_id','=','mercaderias.id')
-								           ->join('productos','mercaderias.producto_id','=','productos.id')
-                                           ->select('movimientos.id',
-                                       				'movimientos.mercaderia_id',
-                                       				'mercaderias.producto_id',
-                                       				'productos.codproducto31',
-                                       				'mercaderias.precioventa')
-                              				->orderBy('movimientos.id', 'asc')
-                              				->get();
+				$movimientos = $this->Datos($fecha_ini ,$fecha_fin);
+				
+				//$movimientos=[];
+				//array_push($movimientos, array('augusto','miyagi'));
+				
 				$sheet->fromArray($movimientos);
 			});
-		})->download('pdf');	
+		})->download('xlsx');	
 	}
 
-
-	public function excel1()
+	public function obtenerPdf()
 	{
-		/*
-		return View::make('hello');
-		*/
-
-		\Excel::create('1er apl', function($excel)
-		{
-			$excel->sheet('Sheetname', function($sheet)
-			{
-				$data = [];
-				array_push($data, array('augusto','miyagi'));
-				$sheet->fromArray($data);
-			});
-		})->download('xls');
+		//return $para;
+		$fecha_ini = "2015-06-20";
+		$fecha_fin = "2015-06-20";
+		$movimientos = new Movimiento;
+		$movimientos = $this->Datos($fecha_ini ,$fecha_fin);
+		$data = array('movimientos'=>$movimientos);
+		$pdf = PDF::loadView('repexcelpdf',$data);
+		return $pdf->download('invoice.pdf');			
 	}
-
-
-}	
+}
+*/
 ?>
