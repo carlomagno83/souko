@@ -24,6 +24,8 @@ Route::resource('tallas', 'TallasController');
 Route::resource('tipomovimientos', 'TipomovimientosController');
 Route::resource('documentos', 'DocumentosController');
 Route::resource('productos', 'ProductosController');
+Route::get('productos-index', 'ProductosController@index');//filtros para busqueda de producto
+Route::any('productos-filtrar', 'ProductosController@filtrar');
 Route::resource('users', 'UsersController');
 Route::resource('providers', 'ProvidersController');
 
@@ -35,7 +37,11 @@ Route::get('ingresos-proveedor', 'IngresoproveedorController@index');
 Route::any('ingresos-proveedor-create', 'IngresoproveedorController@create');
 Route::post('ingresos-proveedor-store', 'IngresoproveedorController@store');
 
-Route::resource('confirmacioningreso', 'confirmacioningresoController');
+Route::get('eliminacionguia', 'EliminacionguiaController@index');
+Route::any('eliminacionguia-create', 'EliminacionguiaController@create');
+Route::post('eliminacionguia-store', 'EliminacionguiaController@store');
+
+
 Route::resource('trasladoalmacpto', 'TrasladoalmacptoController');
 Route::resource('trasladoptopto', 'TrasladoptoptoController');
 Route::resource('ventas', 'VentasController');

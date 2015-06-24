@@ -95,7 +95,7 @@
 									<a href="ingresos-proveedor-create">Nuevo ingreso Proveedor</a>
 								</li>
  								<li>
-									<a href="confirmacioningreso">Eliminar Guía de Ingreso</a>
+									<a href="eliminacionguia">Eliminar Guía de Ingreso</a>
 								</li>
 							</ul>
 						</li>						
