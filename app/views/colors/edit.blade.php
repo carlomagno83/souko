@@ -21,21 +21,21 @@
 
         <div class="form-group">
             {{ Form::label('codcolor6', 'Código 6 (etqta):', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('codcolor6', Input::old('codcolor6'), array('class'=>'form-control', 'placeholder'=>'Codcolor6')) }}
+            <div class="col-sm-5">
+              {{ Form::text('codcolor6', Input::old('codcolor6'), array('class'=>'form-control', 'placeholder'=>'Codcolor6', 'maxlength'=>'6')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('descolor', 'Descripción:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               {{ Form::text('descolor', Input::old('descolor'), array('class'=>'form-control', 'placeholder'=>'Descolor')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('usuario_id', 'Usuario:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
+            <div class="col-sm-5">
 <!--              {{ Form::input('number', 'usuario_id', Input::old('usuario_id'), array('class'=>'form-control')) }}-->
               {{ Form::select('usuario_id', $users, Input::old('usuario_id'), array('class'=>'form-control')) }}
 

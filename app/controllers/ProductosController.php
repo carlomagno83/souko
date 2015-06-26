@@ -39,60 +39,22 @@ class ProductosController extends BaseController {
 	 */
 	public function filtrar()
 	{
+		//Si no hay filtro
+		//dd(Input::get('provider_id'));
+		$tmptot = 0;
+		$tmp1 = Input::get('provider_id');
+		$tmp2 = Input::get('marca_id');
+		$tmp3 = Input::get('tipo_id');
+		$tmp4 = Input::get('modelo_id');
+		$tmp5 = Input::get('color_id');
+		$tmp6 = Input::get('material_id');
+		$tmp7 = Input::get('rango_id');
+		$tmptot = $tmp1 + $tmp2 + $tmp3 + $tmp4 + $tmp5 + $tmp6 + $tmp7 ;
+		
+		if( $tmptot == 0 ){
 
-       	//Si hay filtros
-
-		if(Input::get('provider_id')>0){
-            $datoprovider = Input::get('provider_id');
-        }
-        else{
-            $datoprovider = " '>', 0";
-        }
-
-		if(Input::get('marca_id')>0){
-            $datomarca = Input::get('marca_id');
-        }
-        else{
-            $datomarca = " '>', 0";
-        }
-
-		if(Input::get('tipo_id')>0){
-            $datotipo = Input::get('tipo_id');
-        }
-        else{
-            $datotipo = " '>', 0";
-        }
-
-		if(Input::get('modelo_id')>0){
-            $datomodelo = Input::get('modelo_id');
-        }
-        else{
-            $datomodelo = " '>', 0";
-        }
-
-		if(Input::get('color_id')>0){
-            $datocolor = Input::get('color_id');
-        }
-        else{
-            $datocolor = " '>', 0";
-        }
-
-		if(Input::get('material_id')>0){
-            $datomaterial = Input::get('material_id');
-        }
-        else{
-            $datomaterial = " '>', 0";
-        }
-
-		if(Input::get('rango_id')>0){
-            $datorango = Input::get('rango_id');
-        }
-        else{
-            $datorango = " '>', 0";
-        }
-
-
-		$productos = $this->producto->join('providers','productos.provider_id','=','providers.id')
+				$productos = Producto::where('provider_id','>',0);
+				$productos = $productos->join('providers','productos.provider_id','=','providers.id')
 									->join('marcas','productos.marca_id','=','marcas.id')
 									->join('tipos','productos.tipo_id','=','tipos.id')
 									->join('modelos','productos.modelo_id','=','modelos.id')
@@ -118,18 +80,67 @@ class ProductosController extends BaseController {
                                        'productos.codproducto31',
                                        'productos.preciocompra',
                                        'productos.precioventa')
+								->orderBy('productos.codproducto31')
+								->get();
+			return View::make('productos.index')->with('productos',$productos);	
 
-                              ->where('provider_id', $datoprovider)
-                              ->where('marca_id', $datomarca)
-                              ->where('tipo_id', $datotipo)
-                              ->where('modelo_id', $datomodelo)
-                              ->where('color_id', $datocolor)
-                              ->where('material_id', $datomaterial)
-                              ->where('rango_id', $datorango)
-                              ->orderBy('productos.codproducto31', 'asc')                              
-                              ->get();
 
-		return View::make('productos.index', compact('productos'));
+		}
+
+       	//Si hay filtros
+       	$productos = Producto::where('provider_id','>',0);
+       	if(Input::get('provider_id')>0)
+        	$productos = $productos->where('provider_id',Input::get('provider_id'));
+
+       	if(Input::get('marca_id')>0)
+        	$productos = $productos->where('marca_id',Input::get('marca_id'));
+
+        if(Input::get('tipo_id')>0)
+            $productos = $productos->where('tipo_id',Input::get('tipo_id'));
+
+        if(Input::get('modelo_id')>0)
+            $productos = $productos->where('modelo_id',Input::get('modelo_id'));
+
+        if(Input::get('color_id')>0)
+            $productos = $productos->where('color_id',Input::get('color_id'));
+
+        if(Input::get('material_id')>0)
+            $productos = $productos->where('material_id',Input::get('material_id'));
+
+        if(Input::get('rango_id')>0)
+            $productos = $productos->where('rango_id',Input::get('rango_id'));
+
+
+		$productos = $productos->join('providers','productos.provider_id','=','providers.id')
+									->join('marcas','productos.marca_id','=','marcas.id')
+									->join('tipos','productos.tipo_id','=','tipos.id')
+									->join('modelos','productos.modelo_id','=','modelos.id')
+									->join('materials','productos.material_id','=','materials.id')
+									->join('colors','productos.color_id','=','colors.id')
+									->join('rangos','productos.rango_id','=','rangos.id')
+                              ->select('productos.id',
+                                       'productos.provider_id',
+                                       'providers.codprovider3',
+                                       'productos.marca_id',
+                                       'marcas.codmarca3',
+                                       'productos.tipo_id',
+                                       'tipos.codtipo8',                                       
+                                       'productos.modelo_id',
+                                       'modelos.codmodelo6',
+                                       'productos.material_id',
+                                       'materials.codmaterial3',
+                                       'productos.color_id',
+                                       'colors.codcolor6',
+                                       'productos.rango_id',
+                                       'rangos.codrango3',
+                                       'productos.talla_id',
+                                       'productos.codproducto31',
+                                       'productos.preciocompra',
+                                       'productos.precioventa')
+								->get();
+
+
+        return View::make('productos.index')->with('productos',$productos);		
 
 
 	}	

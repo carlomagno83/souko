@@ -20,21 +20,21 @@
 
         <div class="form-group">
             {{ Form::label('codmarca3', 'Código 3 (etqta):', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('codmarca3', Input::old('codmarca3'), array('class'=>'form-control', 'placeholder'=>'Codmarca3')) }}
+            <div class="col-sm-5">
+              {{ Form::text('codmarca3', Input::old('codmarca3'), array('class'=>'form-control', 'maxlength'=>'3')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('desmarca', 'Descripción:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('desmarca', Input::old('desmarca'), array('class'=>'form-control', 'placeholder'=>'Desmarca')) }}
+            <div class="col-sm-5">
+              {{ Form::text('desmarca', Input::old('desmarca'), array('class'=>'form-control')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('usuario_id', 'Usuario:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               {{ Form::input('number', 'usuario_id', Input::old('usuario_id'), array('class'=>'form-control')) }}
             </div>
         </div>

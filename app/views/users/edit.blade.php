@@ -21,7 +21,7 @@
         <div class="form-group">
             {{ Form::label('username', 'Username (Max 6 caracteres):', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-5">
-              {{ Form::text('username', Input::old('username'), array('class'=>'form-control', 'placeholder'=>'Codusuario6')) }}
+              {{ Form::text('username', Input::old('username'), array('class'=>'form-control', 'placeholder'=>'Codusuario6', 'maxlength'=>'6')) }}
             </div>
         </div>
 

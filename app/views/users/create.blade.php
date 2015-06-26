@@ -20,36 +20,36 @@
 
         <div class="form-group">
             {{ Form::label('username', 'Username (Max 6 Caracteres):', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('username', Input::old('codusuario6'), array('class'=>'form-control', 'placeholder'=>'Codusuario6')) }}
+            <div class="col-sm-5">
+              {{ Form::text('username', Input::old('codusuario6'), array('class'=>'form-control', 'maxlength'=>'6')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('desusuario', 'Nombre Completo:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('desusuario', Input::old('desusuario'), array('class'=>'form-control', 'placeholder'=>'Desusuario')) }}
+            <div class="col-sm-5">
+              {{ Form::text('desusuario', Input::old('desusuario'), array('class'=>'form-control')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('rolusuario', 'Rol:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('rolusuario', Input::old('rolusuario'), array('class'=>'form-control', 'placeholder'=>'Rolusuario')) }}
+            <div class="col-sm-5">
+              {{ Form::select('rolusuario', array(''=>'','SUPER'=>'SUPER', 'ADMIN'=>'ADMIN', 'ALMAC'=>'ALMAC', 'VENDE'=>'VENDE'), Input::old('rolusuario'), array( 'class'=>'form-control')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('password', 'Password:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('password', Input::old('password'), array('class'=>'form-control', 'placeholder'=>'Password')) }}
+            <div class="col-sm-5">
+              {{ Form::text('password', Input::old('password'), array('class'=>'form-control')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('usuario_id', 'Usuario_id:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('usuario_id', Input::old('usuario_id'), array('class'=>'form-control', 'placeholder'=>'Usuario_id')) }}
+            <div class="col-sm-5">
+              {{ Form::text('usuario_id', Input::old('usuario_id'), array('class'=>'form-control')) }}
             </div>
         </div>
 

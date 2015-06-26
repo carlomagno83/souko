@@ -21,14 +21,14 @@
         <div class="form-group">
             {{ Form::label('codrango3', 'Código 3 (etqta):', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
-              {{ Form::text('codrango3', Input::old('codrango3'), array('class'=>'form-control', 'placeholder'=>'Codrango3')) }}
+              {{ Form::text('codrango3', Input::old('codrango3'), array('class'=>'form-control', 'placeholder'=>'Codrango3', 'maxlength'=>'3')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('codrango6', 'Código 6 (xx-yy):', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-10">
-              {{ Form::text('codrango6', Input::old('codrango6'), array('class'=>'form-control', 'placeholder'=>'Codrango6')) }}
+              {{ Form::text('codrango6', Input::old('codrango6'), array('class'=>'form-control', 'placeholder'=>'Codrango6', 'maxlength'=>'6')) }}
             </div>
         </div>
 

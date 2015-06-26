@@ -20,28 +20,28 @@
 
         <div class="form-group">
             {{ Form::label('codlocal3', 'Código 3 (etqta):', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('codlocal3', Input::old('codlocal3'), array('class'=>'form-control', 'placeholder'=>'Codlocal3')) }}
+            <div class="col-sm-5">
+              {{ Form::text('codlocal3', Input::old('codlocal3'), array('class'=>'form-control', 'maxlength'=>'3')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('codlocal6', 'Código 6:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('codlocal6', Input::old('codlocal6'), array('class'=>'form-control', 'placeholder'=>'Codlocal6')) }}
+            <div class="col-sm-5">
+              {{ Form::text('codlocal6', Input::old('codlocal6'), array('class'=>'form-control', 'maxlength'=>'6')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('deslocal', 'Descripción:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('deslocal', Input::old('deslocal'), array('class'=>'form-control', 'placeholder'=>'Deslocal')) }}
+            <div class="col-sm-5">
+              {{ Form::text('deslocal', Input::old('deslocal'), array('class'=>'form-control')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('usuario_id', 'Usuario:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               {{ Form::input('number', 'usuario_id', Input::old('usuario_id'), array('class'=>'form-control')) }}
             </div>
         </div>
