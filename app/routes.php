@@ -41,6 +41,10 @@ Route::get('eliminacionguia', 'EliminacionguiaController@index');
 Route::any('eliminacionguia-create', 'EliminacionguiaController@create');
 Route::post('eliminacionguia-store', 'EliminacionguiaController@store');
 
+Route::get('reimprimeguiaentrada', 'ReimprimeguiaentradaController@index');
+Route::any('reimprimeguiaentrada-buscar', 'ReimprimeguiaentradaController@buscar');
+Route::post('reimprimeguiaentrada-reimprime', 'ReimprimeguiaentradaController@reimprime');
+
 
 Route::resource('trasladoalmacpto', 'TrasladoalmacptoController');
 Route::resource('trasladoptopto', 'TrasladoptoptoController');

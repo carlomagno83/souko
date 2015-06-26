@@ -20,28 +20,28 @@
 
         <div class="form-group">
             {{ Form::label('producto_id', 'Producto:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               {{ Form::select('producto_id', $productos, Input::old('producto_id'), array( 'class'=>'form-control', 'disabled')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('local_id', 'Local:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               {{ Form::select('local_id', $locals, Input::old('local_id'), array( 'class'=>'form-control', 'disabled')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('estado', 'Estado:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               {{ Form::select('estado', array('ACT'=>'ACT', 'INA'=>'INA'), Input::old('estado'), array( 'class'=>'form-control')) }}
             </div>
         </div>
 
         <div class="form-group">
             {{ Form::label('usuario_id', 'Usuario:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               {{ Form::select('usuario_id', $users, Input::old('usuario_id'), array( 'class'=>'form-control', 'disabled')) }}
             </div>
         </div>

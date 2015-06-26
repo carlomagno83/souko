@@ -54,10 +54,20 @@
             <div class="col-sm-2">
               {{ Form::select('rango_id',[""=>'Escoja una opción'] + $rangos, Input::old('rango_id'), array('class'=>'form-control')) }}
             </div>
+
         </div>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-md-12 col-md-offset-0">
+        <div class="form-group">
+            {{ Form::label('precioventa', 'Precio Venta:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-2">
+              <input type="text" name="precioventa" id="precioventa" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div class="form-group">

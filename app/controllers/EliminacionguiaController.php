@@ -32,12 +32,14 @@ class EliminacionguiaController extends BaseController
                 //dd($documentos);
                 $mercaderias = $this->mercaderia->join('movimientos','mercaderias.id','=','movimientos.mercaderia_id')
                                                 ->join('productos','mercaderias.producto_id','=','productos.id')
+                                                ->join('documentos', 'movimientos.documento_id','=','documentos.id')
                           ->select('mercaderias.id',
                                    'movimientos.documento_id',
                                    'mercaderias.producto_id',
                                    'mercaderias.estado',
                                    'mercaderias.preciocompra',
                                    'productos.codproducto31')
+                          ->where('documentos.tipomovimiento_id','=','1')
                           ->orderBy('productos.codproducto31', 'asc')
                           ->orderBy('mercaderias.id', 'asc')
                           ->where('movimientos.documento_id','=', Input::get('documento_id'))

@@ -19,41 +19,20 @@
 </div>
 
 
-
- <!--       <div class="form-group">
-            {{ Form::label('mercaderia_id', 'Mercaderia_id:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::input('number', 'mercaderia_id', Input::old('mercaderia_id'), array('class'=>'form-control')) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {{ Form::label('documento_id', 'Documento_id:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::input('number', 'documento_id', Input::old('documento_id'), array('class'=>'form-control')) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {{ Form::label('flagoferta', 'Flagoferta:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('flagoferta', Input::old('flagoferta'), array('class'=>'form-control', 'placeholder'=>'Flagoferta')) }}
-            </div>
-        </div>
--->
 <div class="row">
-    <div class="col-lg-4">
-        <div class="input-group">
-            <span class="input-group-addon" id="usuario_id">Usuario vendedor</span>
-            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
-        </div>
-    </div><!-- /.col-lg-6 -->    
-    <div class="col-lg-3">
-        <div class="input-group">
-            <span class="input-group-addon" id="local_id">Local o Pto de Venta</span>
-            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
-        </div>
-    </div><!-- /.col-lg-6 -->
+        <div class="col-lg-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="usuario_id">Usuario Vendedor</span>
+                {{Form::select('usuario_id', [0=>'Seleccione'] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control'))}}
+            </div>
+        </div><!-- /.col-lg-6 -->
+
+        <div class="col-lg-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="local_id">Local o Pto de Venta</span>
+                {{Form::select('local_id',[0=>'Seleccione'] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'),null,array('class'=>'form-control'))}}
+           </div>
+        </div><!-- /.col-lg-6 -->    
 </div><!-- /.row -->
 
 

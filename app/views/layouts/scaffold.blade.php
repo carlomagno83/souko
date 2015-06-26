@@ -97,6 +97,10 @@
  								<li>
 									<a href="eliminacionguia">Eliminar Guía de Ingreso</a>
 								</li>
+								<li role="presentation" class="divider"></li>								
+ 								<li>
+									<a href="reimprimeguiaentrada">Re-imprimir etiquetas</a>
+								</li>
 							</ul>
 						</li>						
 					
@@ -168,7 +172,7 @@
 			        <div class="col-md-12">
 
 			            @if (Session::has('message'))
-			                <div style="color: {{{$color}}}" class="flash alert">
+			                <div style="color: #FE2E2E" class="flash alert">
 			                    <p>{{ Session::get('message') }}</p>
 			                </div>
 			            @endif     

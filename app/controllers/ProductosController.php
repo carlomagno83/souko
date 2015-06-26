@@ -24,14 +24,73 @@ class ProductosController extends BaseController {
 	{
 		//filtro de busqueda
 		//dd($request->get('marca_id'));
+		$productos = Producto::find(0);
 	//	$productos = $this->producto->all(); //cambio para mostrar datos
-		$providers = DB::table('providers')->orderBy('desprovider')->lists('desprovider','id');
-		$marcas = DB::table('marcas')->orderBy('desmarca')->lists('desmarca','id');
-       	$tipos = DB::table('tipos')->orderBy('destipo')->lists('destipo','id');
-       	$modelos = DB::table('modelos')->orderBy('desmodelo')->lists('desmodelo','id');
-       	$materials = DB::table('materials')->orderBy('desmaterial')->lists('desmaterial','id');
-       	$colors = DB::table('colors')->orderBy('descolor')->lists('descolor','id');
-       	$rangos = DB::table('rangos')->orderBy('desrango')->lists('desrango','id');
+
+
+
+		return View::make('productos.index', compact('productos'));
+	}
+
+	/**
+	 * Muestra los detalles filtrados.
+	 *
+	 * @return Response
+	 */
+	public function filtrar()
+	{
+
+       	//Si hay filtros
+
+		if(Input::get('provider_id')>0){
+            $datoprovider = Input::get('provider_id');
+        }
+        else{
+            $datoprovider = " '>', 0";
+        }
+
+		if(Input::get('marca_id')>0){
+            $datomarca = Input::get('marca_id');
+        }
+        else{
+            $datomarca = " '>', 0";
+        }
+
+		if(Input::get('tipo_id')>0){
+            $datotipo = Input::get('tipo_id');
+        }
+        else{
+            $datotipo = " '>', 0";
+        }
+
+		if(Input::get('modelo_id')>0){
+            $datomodelo = Input::get('modelo_id');
+        }
+        else{
+            $datomodelo = " '>', 0";
+        }
+
+		if(Input::get('color_id')>0){
+            $datocolor = Input::get('color_id');
+        }
+        else{
+            $datocolor = " '>', 0";
+        }
+
+		if(Input::get('material_id')>0){
+            $datomaterial = Input::get('material_id');
+        }
+        else{
+            $datomaterial = " '>', 0";
+        }
+
+		if(Input::get('rango_id')>0){
+            $datorango = Input::get('rango_id');
+        }
+        else{
+            $datorango = " '>', 0";
+        }
+
 
 		$productos = $this->producto->join('providers','productos.provider_id','=','providers.id')
 									->join('marcas','productos.marca_id','=','marcas.id')
@@ -56,19 +115,24 @@ class ProductosController extends BaseController {
                                        'productos.rango_id',
                                        'rangos.codrango3',
                                        'productos.talla_id',
-                                       'productos.codproducto31')
-                              ->orderBy('productos.codproducto31', 'asc')
+                                       'productos.codproducto31',
+                                       'productos.preciocompra',
+                                       'productos.precioventa')
+
+                              ->where('provider_id', $datoprovider)
+                              ->where('marca_id', $datomarca)
+                              ->where('tipo_id', $datotipo)
+                              ->where('modelo_id', $datomodelo)
+                              ->where('color_id', $datocolor)
+                              ->where('material_id', $datomaterial)
+                              ->where('rango_id', $datorango)
+                              ->orderBy('productos.codproducto31', 'asc')                              
                               ->get();
 
-		return View::make('productos.index', compact('productos'))->with('providers',$providers)
-											->with('marcas',$marcas)
-   											->with('tipos',$tipos)
-   											->with('modelos',$modelos)
-   											->with('materials',$materials)
-   											->with('colors',$colors)
-   											->with('rangos',$rangos);
-	}
+		return View::make('productos.index', compact('productos'));
 
+
+	}	
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -184,14 +248,17 @@ class ProductosController extends BaseController {
 	 */
 	public function edit($id)
 	{
+
 		$producto = $this->producto->find($id);
+		$providers = DB::table('providers')->lists('desprovider','id');
 
 		if (is_null($producto))
 		{
 			return Redirect::route('productos.index');
 		}
 
-		return View::make('productos.edit', compact('producto'));
+		return View::make('productos.edit', compact('producto'))
+												->with('providers',$providers);
 	}
 
 	/**
@@ -203,6 +270,7 @@ class ProductosController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
+		//dd($input);
 		$validation = Validator::make($input, Producto::$rules);
 
 		if ($validation->passes())

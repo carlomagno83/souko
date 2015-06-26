@@ -30,7 +30,7 @@
 
         <div class="col-lg-6">
             <div class="input-group">
-                <input type="submit" value="Buscar Documento" class="btn btn-danger">
+                <input type="submit" value="Buscar Documento" class=" btn btn-success"> 
             </div>
         </div><!-- /.col-lg-6 -->
   
@@ -92,7 +92,7 @@
 </table>
 
     <div class="col-lg-4">
-      {{ Form::submit('Borrar documento en caso de diferencia de cantidades', array('class' => 'btn btn-lg btn-primary')) }}
+      {{ Form::submit('Borrar documento en caso de diferencia de cantidades', array('class' => 'btn btn-danger')) }}
     </div>  
 <br>
 <br>
