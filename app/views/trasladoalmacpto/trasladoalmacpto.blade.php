@@ -3,19 +3,22 @@
 @section('main')
 
 
-<script type="text/javascript">
+<script src="../lib/jquery.js"></script>
+<script src="../dist/jquery.validate.js"></script>
+<script>
+  // only for demo purposes
+  $.validator.setDefaults({
+    submitHandler: function() {
+      alert("submitted!");
+    }
+  });
 
-function agregareg($mercaderia_id) {
-  
-  var producto = document.getElementById("productoId").value;
-  var cantidad = document.getElementById("cantidad").value;
-  var nuevoElemento = "<li>" + "pone cualquier cosa"  + "</li>"; 
-  
- 
-  lista.innerHTML = lista.innerHTML + nuevoElemento;
-    
-}
+  $(document).ready(function() {
+    $("#validadorjs").validate();
+  });
 </script>
+
+
 
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
@@ -32,22 +35,25 @@ function agregareg($mercaderia_id) {
 </div>
 
 
-<form method="POST" action="{{url('trasladoalmacpto-store')}}">
+<form id="validadorjs" method="POST" action="{{url('trasladoalmacpto-store')}}">
+
+
 <div class="row">
         <div class="col-lg-4">
             <div class="input-group">
                 <span class="input-group-addon" id="usuario_id">Vendedor</span>
-                {{Form::select('usuario_id', [0=>'Seleccione'] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control'))}}
+                {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null, array('class'=>'form-control', 'required'=>'required'))}}
             </div>
         </div><!-- /.col-lg-6 -->
 
         <div class="col-lg-4">
             <div class="input-group">
                 <span class="input-group-addon" id="local_id">Local</span>
-                {{Form::select('local_id',[0=>'Seleccione'] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'),null,array('class'=>'form-control'))}}
+                {{Form::select('local_id',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'), null ,array('class'=>'form-control', 'required'=>'required'))}}
            </div>
         </div><!-- /.col-lg-6 -->
 </div>  
+
 
 
 
@@ -61,31 +67,18 @@ function agregareg($mercaderia_id) {
        </div>
     </div><!-- /.col-lg-6 --> 
   <!-- Botón para agregar filas -->
-    <input type="button" value="Agregar Registro" onclick="agregareg(mercaderia_id)" class="btn btn-info"> 
+    <input type="button"  value="Agregar Registro" onclick="agregareg(mercaderia_id)" class="btn btn-primary" > 
 </div><!-- /.row -->
 <br>
 <br>
-
-  <br>
-  <br>
-  <label for="Codigo producto">Codigo de Producto:</label>
-  <input type="text" id="productoId" name="productoId" /><br/>
- 
-  <label for="Cantidad"> Cantidad:</label>
-  <input type="text" id="cantidad" name="cantidad" /><br/>  
-
-<br>
 <br>
 <br>
 <br>
 
-  <ul id="lista">
-  </ul>
   <div class="col-lg-4">
     {{ Form::submit('Finalizar', array('class' => 'btn btn-lg btn-primary')) }}
   </div>
 </form>   
-
 
  <br>
  <br>

@@ -1,8 +1,22 @@
 @extends('layouts.scaffold')
 
 @section('main')
+<script src="../lib/jquery.js"></script>
+<script src="../dist/jquery.validate.js"></script>
+<script>
+  // only for demo purposes
+  $.validator.setDefaults({
+    submitHandler: function() {
+      alert("submitted!");
+    }
+  });
 
-<form method="POST">
+  $(document).ready(function() {
+    $("#validadorjs").validate();
+  });
+</script>
+
+<form id="validadorjs" method="POST">
 
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
@@ -23,14 +37,14 @@
         <div class="col-lg-4">
             <div class="input-group">
                 <span class="input-group-addon" id="usuario_id">Usuario Vendedor</span>
-                {{Form::select('usuario_id', [0=>'Seleccione'] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control'))}}
+                {{Form::select('usuario_id', [''=>'Seleccione'] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
             </div>
         </div><!-- /.col-lg-6 -->
 
         <div class="col-lg-4">
             <div class="input-group">
                 <span class="input-group-addon" id="local_id">Local o Pto de Venta</span>
-                {{Form::select('local_id',[0=>'Seleccione'] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'),null,array('class'=>'form-control'))}}
+                {{Form::select('local_id',[''=>'Seleccione'] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
            </div>
         </div><!-- /.col-lg-6 -->    
 </div><!-- /.row -->
@@ -49,7 +63,7 @@
     <div class="col-lg-4">
         <div class="input-group">
             <span class="input-group-addon" id="mercaderia_id">Precio de venta</span>
-            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" required>
        </div>
     </div><!-- /.col-lg-6 -->    
     <div class="col-lg-4">
@@ -124,7 +138,7 @@
     <div class="col-lg-4">
       {{ Form::submit('Finalizar', array('class' => 'btn btn-lg btn-primary')) }}
     </div>
-{{ Form::close() }}    
+</form> 
 <br>
 <br>
 <br>

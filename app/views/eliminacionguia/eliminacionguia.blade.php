@@ -72,20 +72,20 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Mercadería id</th>
-            <th>Producto id</th>
+            <th width="20%">Mercadería id</th>
+            <th width="20%">Producto id</th>
             <th>Descripción cod31</th>
-            <th>Precio Compra</th>
+            <th width="20%">Precio Compra</th>
     </thead>
 
     @if (count($mercaderias)>0)
 
        @foreach ($mercaderias as $mercaderia)
         <tr>
-            <td><input type="text" name="id[]" id="id[]" value="{{$mercaderia->id}}" class="form-control" readonly></td>
-            <td><input type="text" name="producto_id[]" id="producto_id[]" value="{{$mercaderia->producto_id}}" readonly class="form-control"></td>
+            <td width="20%"><input type="text" name="id[]" id="id[]" value="{{$mercaderia->id}}" class="form-control" readonly></td>
+            <td width="20%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{$mercaderia->producto_id}}" readonly class="form-control"></td>
             <td><input type="text"  value="{{$mercaderia->codproducto31}}" readonly class="form-control"></td>
-            <td><input type="text"  value="{{$mercaderia->preciocompra}}" readonly class="form-control"></td>
+            <td width="20%"><input type="text"  value="{{$mercaderia->preciocompra}}" readonly class="form-control"></td>
         </tr>
         @endforeach
     @endif

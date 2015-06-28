@@ -11,7 +11,7 @@ class Producto extends Eloquent {
 		'color_id' => 'required',
 		'rango_id' => 'required',
 		'material_id' => 'required',
-//		'desproducto' => 'required',
+		'precioventa' => 'required',
 //		'codproducto21' => 'required',
 //		'usuario_id' => 'required'
 	);

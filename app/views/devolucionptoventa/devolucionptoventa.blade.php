@@ -21,7 +21,7 @@
 
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
-        <h3>Traslado de mercadería de un Punto de Venta a otro Punto de Venta</h3>
+        <h3>Devolución de mercadería de un Punto de Venta a Almacén</h3>
 
         @if ($errors->any())
         	<div class="alert alert-danger">
@@ -42,19 +42,20 @@
                 {{Form::select('usuario_id', [''=>'Seleccione'] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
             </div>
         </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
-<br>
-<div class="row">
         <div class="col-lg-4">
             <div class="input-group">
                 <span class="input-group-addon" id="localini">Local Inicial</span>
                 {{Form::select('localini',[''=>'Seleccione'] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
            </div>
         </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+<br>
+<div class="row">
+
         <div class="col-lg-4">
             <div class="input-group">
-                <span class="input-group-addon" id="localfin">Local Final</span>
-                {{Form::select('localfin',[''=>'Seleccione'] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
+                <span class="input-group-addon" id="localfin">Motivo devolución</span>
+                {{Form::select('localfin',['ACT'=>'Activo', 'INA'=>'Inactivo', 'DEV'=>'Devolución', 'BAJ'=>'Baja'] ,null,array('class'=>'form-control', 'required'=>'required'))}}
            </div>
         </div><!-- /.col-lg-6 -->
 </div><!-- /.row -->

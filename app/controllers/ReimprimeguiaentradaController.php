@@ -104,7 +104,7 @@ class ReimprimeguiaentradaController extends BaseController
                   $sheet->cell('C'.$fila, function($cell) { $cell->setAlignment('center'); $cell->setValignment('top'); });
                   if($i+1>$cont){
                       $sheet->row($fila, array($mercaderias[$i]->codproducto31 ));
-                      $sheet->setHeight($fila, 81);
+                      $sheet->setHeight($fila, 85);
                       $fila=$fila+1;
                       $sheet->cell('A'.$fila, function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); $cell->setFontFamily('MRV Code39MA Free'); $cell->setFontSize(22); });
                       $sheet->cell('B'.$fila, function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); $cell->setFontFamily('MRV Code39MA Free'); $cell->setFontSize(22); });
@@ -114,7 +114,7 @@ class ReimprimeguiaentradaController extends BaseController
                   }    
                   if($i+2>$cont){
                       $sheet->row($fila, array($mercaderias[$i]->codproducto31, $mercaderias[$i+1]->codproducto31 ));
-                      $sheet->setHeight($fila, 81);
+                      $sheet->setHeight($fila, 85);
                       $fila=$fila+1;
                       $sheet->cell('A'.$fila, function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); $cell->setFontFamily('MRV Code39MA Free'); $cell->setFontSize(22); });
                       $sheet->cell('B'.$fila, function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); $cell->setFontFamily('MRV Code39MA Free'); $cell->setFontSize(22); });
@@ -124,13 +124,13 @@ class ReimprimeguiaentradaController extends BaseController
                   }
               
                   $sheet->row($fila, array($mercaderias[$i]->codproducto31, $mercaderias[$i+1]->codproducto31,$mercaderias[$i+2]->codproducto31 ));
-                  $sheet->setHeight($fila, 81);
+                  $sheet->setHeight($fila, 85);
                   $fila=$fila+1;
                   $sheet->cell('A'.$fila, function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); $cell->setFontFamily('MRV Code39MA Free'); $cell->setFontSize(22); });
                   $sheet->cell('B'.$fila, function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); $cell->setFontFamily('MRV Code39MA Free'); $cell->setFontSize(22); });
                   $sheet->cell('C'.$fila, function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); $cell->setFontFamily('MRV Code39MA Free'); $cell->setFontSize(22); });
                   $sheet->row($fila, array('*'. $mercaderias[$i]->id .'*', '*'. $mercaderias[$i+1]->id .'*', '*'. $mercaderias[$i+2]->id .'*' ));
-                  $sheet->setHeight($fila, 81);
+                  $sheet->setHeight($fila, 85);
                   $i=$i+3;
                   
                   $fila=$fila+1;

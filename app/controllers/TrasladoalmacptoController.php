@@ -4,8 +4,8 @@ class TrasladoalmacptoController extends BaseController {
 
 	public function index()
 	{
-
-		return View::make('trasladoalmacpto.trasladoalmacpto');
+	
+			return View::make('trasladoalmacpto.trasladoalmacpto');
 	}
 
 	public function ingreso()
