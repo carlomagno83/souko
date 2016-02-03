@@ -11,7 +11,6 @@
 		<tr>
 			<th>Código 3 (etqta)</th>
 				<th>Descripción</th>
-				<th>Usuario</th>
 		</tr>
 	</thead>
 
@@ -19,7 +18,6 @@
 		<tr>
 			<td>{{{ $marca->codmarca3 }}}</td>
 			<td>{{{ $marca->desmarca }}}</td>
-			<td>{{{ $marca->usuario_id }}}</td>
             <td>
                 {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('marcas.destroy', $marca->id))) }}
                     {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}

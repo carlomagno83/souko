@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', function()
+/*   Route::get('/', function()
 {
     return View::make('layouts.scaffold');
 });
@@ -8,51 +8,17 @@ Route::get('/', function()
 Route::get('layout-old', function()
 {
     return View::make('index');
-});
+});  */
 
 
-//Maestros
-Route::resource('colors', 'ColorsController');
-Route::resource('locals', 'LocalsController');
-Route::resource('estados', 'EstadosController');
-Route::resource('marcas', 'MarcasController');
-Route::resource('tipos', 'TiposController');
-Route::resource('modelos', 'ModelosController');
-Route::resource('materials', 'MaterialsController');
-Route::resource('rangos', 'RangosController');
-Route::resource('tallas', 'TallasController');
-Route::resource('tipomovimientos', 'TipomovimientosController');
-Route::resource('documentos', 'DocumentosController');
-Route::resource('productos', 'ProductosController');
-Route::get('productos-index', 'ProductosController@index');//filtros para busqueda de producto
-Route::any('productos-filtrar', 'ProductosController@filtrar');
-Route::resource('users', 'UsersController');
-Route::resource('providers', 'ProvidersController');
-
-Route::resource('mercaderias', 'MercaderiasController');
-Route::resource('movimientos', 'MovimientosController');
-
-//Operaciones
-Route::get('ingresos-proveedor', 'IngresoproveedorController@index');
-Route::any('ingresos-proveedor-create', 'IngresoproveedorController@create');
-Route::post('ingresos-proveedor-store', 'IngresoproveedorController@store');
-
-Route::get('eliminacionguia', 'EliminacionguiaController@index');
-Route::any('eliminacionguia-create', 'EliminacionguiaController@create');
-Route::post('eliminacionguia-store', 'EliminacionguiaController@store');
-
-Route::get('reimprimeguiaentrada', 'ReimprimeguiaentradaController@index');
-Route::any('reimprimeguiaentrada-buscar', 'ReimprimeguiaentradaController@buscar');
-Route::post('reimprimeguiaentrada-reimprime', 'ReimprimeguiaentradaController@reimprime');
 
 
-Route::resource('trasladoalmacpto', 'TrasladoalmacptoController');
-Route::resource('trasladoptopto', 'TrasladoptoptoController');
-Route::resource('ventas', 'VentasController');
-Route::resource('devolucionproveedor', 'DevolucionproveedorController');
-Route::resource('generaguiadev', 'GeneraguiadevController');
-Route::resource('liquidacionguiadev', 'LiquidacionguiadevController');
-Route::resource('devolucionptoventa', 'DevolucionptoventaController');
+
+
+
+//Route::resource('devolucionproveedor', 'DevolucionproveedorController');
+
+
 
 //Reportes
 Route::any('reporte-muestra', 'ReporteingresoController@getmuestra');
@@ -67,44 +33,99 @@ Route::get('login', 'AuthController@showLogin'); // Mostrar login
 Route::post('login', 'AuthController@postLogin'); // Verificar datos
 Route::get('logout', 'AuthController@logOut'); // Finalizar sesión
 
-/*Rutas privadas solo para usuarios autenticados*/ //Comentado para que no estorbe
-/*Route::group(['before' => 'auth'], function()
+/*Rutas privadas solo para usuarios autenticados*/ 
+if (Auth::check())
+{	
+Route::group(['before' => 'auth'], function()
 {
-    Route::get('/', function(){return View::make('index');});
-	Route::resource('colors', 'ColorsController');
-	Route::resource('locals', 'LocalsController');
-	Route::resource('estados', 'EstadosController');
-	Route::resource('marcas', 'MarcasController');
-	Route::resource('tipos', 'TiposController');
-	Route::resource('modelos', 'ModelosController');
-	Route::resource('materials', 'MaterialsController');
-	Route::resource('rangos', 'RangosController');
-	Route::resource('tallas', 'TallasController');
-	Route::resource('tipomovimientos', 'TipomovimientosController');
-	Route::resource('documentos', 'DocumentosController');
-	Route::resource('productos', 'ProductosController');
-	Route::resource('users', 'UsersController');
-	Route::resource('providers', 'ProvidersController');
-	//Operaciones
+    Route::get('/', function(){return View::make('layouts.scaffold');});
+    Route::get('login', 'AuthController@showLogin'); // Mostrar login
+	Route::post('login', 'AuthController@postLogin'); // Verificar datos
+	Route::get('logout', 'AuthController@logOut');
+
+    if( Auth::user()->rolusuario=='SUPER' )
+    {
+	//Maestros
+		Route::resource('colors', 'ColorsController');
+		Route::resource('locals', 'LocalsController');
+		Route::resource('estados', 'EstadosController');
+		Route::resource('marcas', 'MarcasController');
+		Route::resource('tipos', 'TiposController');
+		Route::resource('modelos', 'ModelosController');
+		Route::resource('materials', 'MaterialsController');
+		Route::resource('rangos', 'RangosController');
+		Route::resource('tallas', 'TallasController');
+		Route::resource('tipomovimientos', 'TipomovimientosController');
+		Route::resource('documentos', 'DocumentosController');
+		Route::resource('productos', 'ProductosController');
+		Route::get('productos-index', 'ProductosController@index');//filtros para busqueda de producto
+		Route::any('productos-filtrar', 'ProductosController@filtrar');
+		Route::resource('users', 'UsersController');
+		Route::resource('providers', 'ProvidersController');
+	}
+
+    if( Auth::user()->rolusuario=='SUPER' )
+    {
 	Route::resource('mercaderias', 'MercaderiasController');
 	Route::resource('movimientos', 'MovimientosController');
-	Route::resource('ingresoproveedor', 'IngresoproveedorController');
-	Route::resource('confirmacioningreso', 'confirmacioningresoController');
-	Route::resource('trasladoalmacpto', 'TrasladoalmacptoController');
-	Route::resource('trasladoptopto', 'TrasladoptoptoController');
-	Route::resource('ventas', 'VentasController');
-	Route::resource('devolucionproveedor', 'DevolucionproveedorController');
-	Route::resource('generaguiadev', 'GeneraguiadevController');
-	Route::resource('liquidacionguiadev', 'LiquidacionguiadevController');
-	Route::resource('devolucionptoventa', 'DevolucionptoventaController');
+
+	//Operaciones
+	Route::get('ingresos-proveedor', 'IngresoproveedorController@index');
+	Route::any('ingresos-proveedor-create', 'IngresoproveedorController@index');
+	Route::post('ingresos-proveedor-store', 'IngresoproveedorController@store');
+	Route::any('ingresos-proveedor-filtrar', 'IngresoproveedorController@filtrar');
+	Route::any('ingresos-proveedor-agregar', 'IngresoproveedorController@agregar');
+	Route::get('ingresoproveedor/delete/{producto_id}', 'IngresoproveedorController@getDelete');
+
+	Route::get('eliminacionguia', 'EliminacionguiaController@index');
+	Route::any('eliminacionguia-create', 'EliminacionguiaController@create');
+	Route::any('eliminacionguia-createfisico', 'EliminacionguiaController@createfisico');
+	Route::post('eliminacionguia-store', 'EliminacionguiaController@store');
+
+	Route::get('reimprimeguiaentrada', 'ReimprimeguiaentradaController@index');
+	Route::any('reimprimeguiaentrada-buscar', 'ReimprimeguiaentradaController@buscar');
+	Route::any('reimprimeguiaentrada-buscarfisico', 'ReimprimeguiaentradaController@buscarfisico');
+	Route::post('reimprimeguiaentrada-reimprime', 'ReimprimeguiaentradaController@reimprime');
+
+	Route::get('trasladoalmacpto', 'TrasladoalmacptoController@index');
+	Route::any('trasladoalmacpto-agregareg', 'TrasladoalmacptoController@agregareg');
+	Route::post('trasladoalmacpto-store', 'TrasladoalmacptoController@store');
+	Route::get('trasladoalmacpto/delete/{mercaderia_id}','TrasladoalmacptoController@getDelete');
+
+	Route::get('trasladoptopto', 'TrasladoptoptoController@index');
+	Route::any('trasladoptopto-agregareg', 'TrasladoptoptoController@agregareg');
+	Route::post('trasladoptopto-store', 'TrasladoptoptoController@store');
+	Route::get('trasladoptopto/delete/{mercaderia_id}','TrasladoptoptoController@getDelete');
+
+	Route::get('ventas', 'VentasController@index');
+	Route::any('ventas-agregareg', 'VentasController@agregareg');
+	Route::post('ventas-store', 'VentasController@store');
+	Route::get('ventas/delete/{mercaderia_id}','VentasController@getDelete');
+
+	Route::get('devolucionptoventa', 'DevolucionptoventaController@index');
+	Route::any('devolucionptoventa-agregareg', 'DevolucionptoventaController@agregareg');
+	Route::post('devolucionptoventa-store', 'DevolucionptoventaController@store');
+	Route::get('devolucionptoventa/delete/{mercaderia_id}','DevolucionptoventaController@getDelete');
+
+	Route::get('generaguiadev', 'GeneraguiadevController@index');
+	Route::any('generaguiadev-filtrar', 'GeneraguiadevController@filtrar');
+	Route::any('generaguiadev-agregareg', 'GeneraguiadevController@agregareg');
+	Route::post('generaguiadev-store', 'GeneraguiadevController@store');
+	Route::get('generaguiadev/delete/{mercaderia_id}','GeneraguiadevController@getDelete');
+
+	Route::get('liquidacionguiadev', 'LiquidacionguiadevController@index');
+	Route::post('liquidacionguiadev-store', 'LiquidacionguiadevController@store');
 
 	//Reportes
 	Route::resource('reporteingreso', 'ReporteingresoController');
 	Route::resource('reporteventa', 'ReporteventaController');
 	Route::resource('reportestock', 'ReportestockController');
+	}
 
 });
-*/
+}
+
+
 
 /*
 Route::get('ingresoproveedor', 'IngresoproveedorController@ingreso');
@@ -123,3 +144,4 @@ Route::get('generaguiadev', 'GeneraguiadevController@ingreso');
 Route::get('liquidacionguiadev', 'liquidacionguiadevController@ingreso');
 */
 
+?>

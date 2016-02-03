@@ -7,6 +7,6 @@ class Tipo extends Eloquent {
 //		'codtipo3' => 'required',
 		'codtipo8' => 'required',
 		'destipo' => 'required',
-		'usuario_id' => 'required'
+		//'usuario_id' => 'required'
 	);
 }

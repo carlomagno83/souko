@@ -17,8 +17,18 @@
   });
 </script>
 
-<form id="validadorjs" method="POST">
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#storebutton").click(function(){
+    $(this).hide();
+    $("#muestramsg").show();
+    return true;});
+ });
+</script>
 
+<div align="right">
+    <a id="home" href=" {{ URL::to('/') }} "><img src='img/home.ico' border='0'></a>
+</div>
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
         <h3>Traslado de mercadería de un Punto de Venta a otro Punto de Venta</h3>
@@ -33,108 +43,131 @@
     </div>
 </div>
 
-
-
-<div class="row">
-        <div class="col-lg-4">
-            <div class="input-group">
-                <span class="input-group-addon" id="marca_id">Vendedor</span>
-                {{Form::select('usuario_id', [''=>'Seleccione'] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
-            </div>
-        </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
-<br>
-<div class="row">
-        <div class="col-lg-4">
-            <div class="input-group">
-                <span class="input-group-addon" id="localini">Local Inicial</span>
-                {{Form::select('localini',[''=>'Seleccione'] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
-           </div>
-        </div><!-- /.col-lg-6 -->
-        <div class="col-lg-4">
-            <div class="input-group">
-                <span class="input-group-addon" id="localfin">Local Final</span>
-                {{Form::select('localfin',[''=>'Seleccione'] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
-           </div>
-        </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
-<br>
+<form method="POST" id="validadorjs" action="{{url('trasladoptopto-agregareg')}}">
 <br>
 <div class="row">
     <div class="col-lg-5">
         <div class="input-group">
             <span class="input-group-addon" id="mercaderia_id">Mercadería</span>
-            <input type="text" class="form-control" placeholder="Necesario #de merca en guia de traslado" aria-describedby="basic-addon1">
+            <input type="text" name='mercaderia_id' class="form-control" placeholder="Necesario #de merca en guia de traslado" aria-describedby="basic-addon1">
        </div>
     </div><!-- /.col-lg-6 -->  
-    [Aparece codproducto31]  
+    <!-- Botón para agregar filas -->
+    <input type="submit" value="Agrega Mercaderia" class=" btn btn-success"> 
+    
 </div><!-- /.row -->
+</form>
+<br>
+<form method="POST" id="validadorjs" action="{{url('trasladoptopto-store')}}">
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Mercadería</th>
-            <th>codproducto31</th>
+            <th width="10%">Mercadería id</th>
+            <th width="8%">Producto id</th>
+            <th>Descripción cod31</th>
+            <th width="20%">Local actual</th>
+            <th width="15%">Ultimo Usuario</th>
+            <th width="7%">Estado</th>
+        </tr>    
     </thead>
-<!-- en duro para llenar uno por uno-->
-    <tbody>
+
+@if (count($traslados)>0)
+<?php $deslocalini = DB::table('traslados')->select('deslocal')->pluck('deslocal');
+    $localini_id = DB::table('locals')->select('id')->where('deslocal', '=', $deslocalini)->pluck('id');
+ ?>
+        @foreach ($traslados as $traslado)
         <tr>
-            <td><input type="text" name="mercaderia_id1"></td>
-            <td><input type="text" name="codproducto311" aria-describedby="basic-addon1"></td>
-            <td>
-                {{ Form::open() }}
-                {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                {{ Form::close() }}
-            </td>
+            <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$traslado->mercaderia_id}}" class="form-control" readonly tabindex="-1"></td>
+            <td width="8%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{$traslado->producto_id}}" readonly class="form-control" tabindex="-1"></td>
+            <td><input type="text"  value="{{$traslado->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
+            @if ($traslado->deslocal=='ALMACEN')
+                <td width="20%" class="danger"><input type="text"  value="{{$traslado->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+            @else
+                @if(count($traslados)>1)
+                    @if($traslado->deslocal == $deslocalini)
+                        <td width="15%"><input type="text"  value="{{$traslado->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                    @else
+                        <td width="15%" class="danger"><input type="text"  value="{{$traslado->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                    @endif
+                @else
+                    <td width="15%"><input type="text"  value="{{$traslado->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                @endif    
+            @endif            
+            <td width="15%"><input type="text"  value="{{$traslado->desusuario}}" readonly class="form-control" tabindex="-1"></td>
+            @if ($traslado->estado<>'ACT')
+                <td width="7%" class="danger"><input type="text"  value="{{$traslado->estado}}" readonly class="form-control" tabindex="-1"></td>
+            @else
+                <td width="7%"><input type="text"  value="{{$traslado->estado}}" readonly class="form-control" tabindex="-1"></td>
+            @endif
+
+            <td><a id="link_delete" href=" {{ URL::to('trasladoptopto/delete/'.$traslado->mercaderia_id) }} ">Eliminar</a>  </td>
         </tr>
-        <tr>
-            <td><input type="text" name="mercaderia_id2" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="codproducto312" aria-describedby="basic-addon1"></td>
-            <td>
-                {{ Form::open() }}
-                {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                {{ Form::close() }}
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="mercaderia_id3" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="codproducto313" aria-describedby="basic-addon1"></td>
-            <td>
-                {{ Form::open() }}
-                {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                {{ Form::close() }}
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="mercaderia_id4" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="codproducto314" aria-describedby="basic-addon1"></td>
-            <td>
-                {{ Form::open() }}
-                {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                {{ Form::close() }}
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="mercaderia_id5" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="codproducto315" aria-describedby="basic-addon1"></td>
-            <td>
-                {{ Form::open() }}
-                {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                {{ Form::close() }}
-            </td>
-        </tr>
-    </tbody>
+        @endforeach
+    
 </table>
+<br>
 
+<div class="row">
+        <div class="col-lg-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="localini">Local Inicial</span>
+                <input type="text" name="deslocalini" value={{ DB::table('traslados')->select('deslocal')->pluck('deslocal') }} readonly class="form-control" tabindex="-1">
+           </div>
+        </div><!-- /.col-lg-6 -->
+        <div class="col-lg-1">
+            <div class="input-group">
+            </div>
+        </div><!-- /.col-lg-6 -->
+        <div class="col-lg-1">
+            <div class="input-group">
+                <a href="" tabindex="-1"><img src="img/arrow.png"></a> 
+           </div>
+        </div><!-- /.col-lg-6 -->
+        <div class="col-lg-1">
+            <div class="input-group">
+            </div>
+        </div><!-- /.col-lg-6 -->
+        <div class="col-lg-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="localfin">Local Final</span>
+                {{Form::select('localfin',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->where('id', '<>', $localini_id)->orderby('deslocal')->lists('deslocal','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
+           </div>
+        </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+
+<div class="row">
+        <div class="col-lg-7">
+            <div class="input-group">
+                <input type="text" style="display: none;" name="localini" value={{ $localini_id }} readonly class="form-control">
+            </div>
+        </div><!-- /.col-lg-6 -->
+        <div class="col-lg-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="marca_id">Solicitante</span>
+                {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
+            </div>
+        </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+<br>
+<br>
+<div class="row">
     <div class="col-lg-4">
-      {{ Form::submit('Finalizar', array('class' => 'btn btn-lg btn-primary')) }}
+        <input id="storebutton" type="submit" value="Finalizar" class="btn btn-lg btn-primary">
     </div>
-{{ Form::close() }}    
+</div>    
+<div class="row">
+    <div class="col-lg-4">
+        <input id="muestramsg" style="display:none;" type="submit" value="Finalizado, espere la descarga del Archivo Excel ..." class="btn btn-lg btn-success" disabled>
+    </div>
+    <div class="col-lg-8">
+    </div>
+</div>   
+</form>  
 <br>
 <br>
 <br>
 <br>
-
-
+@endif
 
 @stop
 

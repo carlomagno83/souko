@@ -32,13 +32,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            {{ Form::label('usuario_id', 'Usuario:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-5">
-              {{ Form::input('number', 'usuario_id', Input::old('usuario_id'), array('class'=>'form-control')) }}
-            </div>
-        </div>
-
 
 <div class="form-group">
     <label class="col-sm-2 control-label">&nbsp;</label>

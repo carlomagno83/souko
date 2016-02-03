@@ -11,15 +11,12 @@
 		<tr>
 			<th>Código 6 (etqta)</th>
 			<th>Descripción</th>
-			<th>Usuario</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
 			<td>{{{ $color->codcolor6 }}}</td>
 			<td>{{{ $color->descolor }}}</td>
-			<td>{{{ $users }}}</td>
-
             <td>
                 {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('colors.destroy', $color->id))) }}
                     {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}

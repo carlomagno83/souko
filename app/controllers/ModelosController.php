@@ -56,6 +56,8 @@ class ModelosController extends BaseController {
 
 		if ($validation->passes())
 		{
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;
 			$this->modelo->create($input);
 
 			return Redirect::route('modelos.index');
@@ -112,6 +114,8 @@ class ModelosController extends BaseController {
 		if ($validation->passes())
 		{
 			$modelo = $this->modelo->find($id);
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;			
 			$modelo->update($input);
 
 			return Redirect::route('modelos.show', $id);

@@ -12,7 +12,6 @@
 			<th>Código 3 (etqta)</th>
 				<th>Código 6</th>
 				<th>Descripción</th>
-				<th>Usuario</th>
 		</tr>
 	</thead>
 
@@ -21,7 +20,6 @@
 			<td>{{{ $local->codlocal3 }}}</td>
 					<td>{{{ $local->codlocal6 }}}</td>
 					<td>{{{ $local->deslocal }}}</td>
-					<td>{{{ $local->usuario_id }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('locals.destroy', $local->id))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}

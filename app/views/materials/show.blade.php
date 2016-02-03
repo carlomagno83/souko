@@ -11,7 +11,6 @@
 		<tr>
 			<th>Código 3 (etqta)</th>
 				<th>Descripción</th>
-				<th>Usuario</th>
 		</tr>
 	</thead>
 
@@ -19,7 +18,6 @@
 		<tr>
 			<td>{{{ $material->codmaterial3 }}}</td>
 					<td>{{{ $material->desmaterial }}}</td>
-					<td>{{{ $material->usuario_id }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('materials.destroy', $material->id))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}

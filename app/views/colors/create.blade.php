@@ -2,6 +2,10 @@
 
 @section('main')
 
+
+<div align="right">
+    <a id="home" href=" {{ URL::to('/') }} "><img src='../img/home.ico' border='0'></a>
+</div>
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
         <h3>Nuevo Color</h3>
@@ -31,14 +35,6 @@
               {{ Form::text('descolor', Input::old('descolor'), array('class'=>'form-control')) }}
             </div>
         </div>
-
-        <div class="form-group">
-            {{ Form::label('usuario_id', 'Usuario:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-5">
-              {{ Form::select('usuario_id',$users, Input::old('usuario_id'), array('class'=>'form-control')) }}
-            </div>
-        </div>
-
 
 <div class="form-group">
     <label class="col-sm-2 control-label">&nbsp;</label>

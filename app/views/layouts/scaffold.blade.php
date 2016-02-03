@@ -48,6 +48,7 @@
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maestros<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
+							@if( Auth::user()->rolusuario=='SUPER' )
 								<li>
 									<a href="marcas">Marcas</a>
 								</li>
@@ -79,7 +80,8 @@
 								<li role="presentation" class="divider"></li>
 								<li>
 									<a href="productos">Productos</a>
-								</li>								
+								</li>	
+							@endif							
 								<li>
 									<a href="mercaderias">Mercaderias</a>
 								</li>																
@@ -88,9 +90,6 @@
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresos<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
-								<li>
-									<a href="ingresos-proveedor">Todos los movimientos</a>
-								</li>
 								<li>
 									<a href="ingresos-proveedor-create">Nuevo ingreso Proveedor</a>
 								</li>
@@ -116,17 +115,14 @@
 								<li>
 									<a href="ventas">Ventas</a>
 								</li>
-								<li>
-									<a href="#">Generar Excel</a>
-								</li>								
 							</ul>
 						</li>	
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Devoluciones<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
-								<li>
+<!--								<li>
 									<a href="devolucionproveedor">Devoluciones a Proveedor</a>
-								</li>
+								</li>-->
 								<li>
 									<a href="generaguiadev">Genera guía de devolución</a>
 								</li>
@@ -154,12 +150,15 @@
 						</li>
 					</ul>					
 
-					<form class="navbar-form navbar-left" role="search">
+					<!--<form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
 							<input class="form-control" type="text">
 						</div> <button type="submit" class="btn btn-default">Buscar</button>
-					</form>
+					</form>-->
 					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a >Hola, {{ Auth::user()->username }}</a>
+						</li>						
 						<li>
 							<a href="{{ url('logout') }}">Salir</a>
 						</li>
@@ -172,7 +171,7 @@
 			        <div class="col-md-12">
 
 			            @if (Session::has('message'))
-			                <div style="color: #FE2E2E" class="flash alert">
+			                <div style="color: #FE2E2E" class="alert">
 			                    <p>{{ Session::get('message') }}</p>
 			                </div>
 			            @endif     

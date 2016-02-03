@@ -11,7 +11,6 @@
 		<tr>
 				<th>Código 8 (etqta)</th>
 				<th>Descripción</th>
-				<th>Usuario</th>
 		</tr>
 	</thead>
 
@@ -19,7 +18,6 @@
 		<tr>
 					<td>{{{ $tipo->codtipo8 }}}</td>
 					<td>{{{ $tipo->destipo }}}</td>
-					<td>{{{ $tipo->usuario_id }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('tipos.destroy', $tipo->id))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}

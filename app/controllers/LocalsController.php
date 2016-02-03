@@ -56,6 +56,8 @@ class LocalsController extends BaseController {
 
 		if ($validation->passes())
 		{
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;			
 			$this->local->create($input);
 
 			return Redirect::route('locals.index');
@@ -112,6 +114,8 @@ class LocalsController extends BaseController {
 		if ($validation->passes())
 		{
 			$local = $this->local->find($id);
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;			
 			$local->update($input);
 
 			return Redirect::route('locals.show', $id);

@@ -61,6 +61,8 @@ class ColorsController extends BaseController {
 
 		if ($validation->passes())
 		{
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;			
 			$this->color->create($input);
 
 			return Redirect::route('colors.index');
@@ -117,13 +119,13 @@ class ColorsController extends BaseController {
 
 		//$users = DB::table('users')->where('id', '=', $input["usuario_id"])->get(); //para visualizar la descripcion de usuario
 
-		//dd($users);
-		//dd($colors);
 		$validation = Validator::make($input, Color::$rules);
 
 		if ($validation->passes())
 		{
 			$color = $this->color->find($id);
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;			
 			$color->update($input);
 
           	return Redirect::route('colors.show', $id);
@@ -143,6 +145,7 @@ class ColorsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
+
 		$this->color->find($id)->delete();
 
 		return Redirect::route('colors.index');

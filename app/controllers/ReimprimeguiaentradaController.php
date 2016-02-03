@@ -22,6 +22,7 @@ class ReimprimeguiaentradaController extends BaseController
 		return View::make('reimprimeguiaentrada.reimprimeguiaentrada')->with('mercaderias',$mercaderias);
 	}
 
+    //solo busca documentos con tipo de movimiento =1
     public function buscar()
     {
         if(Input::get('documento_id')!=null) 
@@ -53,6 +54,38 @@ class ReimprimeguiaentradaController extends BaseController
         return View::make('reimprimeguiaentrada.reimprimeguiaentrada')->withInput('documento_id')->with('mercaderias',$mercaderias)->with('message','No se encuentra el documento');
     }
 
+    public function buscarfisico()
+    {
+
+        if(Input::get('numdocfisico')!=null) 
+        {    
+            $documentos = Documento::where('numdocfisico', Input::get('numdocfisico'))->where('tipomovimiento_id','1')->firstOrFail();
+            //dd($documentos);
+            if($documentos)
+            {
+                
+                $mercaderias = $this->mercaderia->join('movimientos','mercaderias.id','=','movimientos.mercaderia_id')
+                                                ->join('productos','mercaderias.producto_id','=','productos.id')
+                                                ->join('documentos', 'movimientos.documento_id','=','documentos.id')
+                          ->select('mercaderias.id',
+                                   'movimientos.documento_id',
+                                   'mercaderias.producto_id',
+                                   'mercaderias.estado',
+                                   'mercaderias.preciocompra',
+                                   'productos.codproducto31')
+                          ->where('documentos.tipomovimiento_id','=','1')
+                          ->orderBy('productos.codproducto31', 'asc')
+                          ->orderBy('mercaderias.id', 'asc')
+                          ->where('documentos.numdocfisico','=', Input::get('numdocfisico'))
+                            
+                          ->get();
+
+                return View::make('reimprimeguiaentrada.reimprimeguiaentrada', compact('mercaderias'))->withInput('numdocfisico')->with('documentos',$documentos);
+            }
+        } 
+        $mercaderias = Mercaderia::find(0);
+        return View::make('reimprimeguiaentrada.reimprimeguiaentrada')->withInput('documento_id')->with('mercaderias',$mercaderias)->with('message','No se encuentra el documento');
+    }
 
     public function reimprime()
     {

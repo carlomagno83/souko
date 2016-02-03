@@ -56,6 +56,8 @@ class TiposController extends BaseController {
 
 		if ($validation->passes())
 		{
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;			
 			$this->tipo->create($input);
 
 			return Redirect::route('tipos.index');
@@ -112,6 +114,8 @@ class TiposController extends BaseController {
 		if ($validation->passes())
 		{
 			$tipo = $this->tipo->find($id);
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;			
 			$tipo->update($input);
 
 			return Redirect::route('tipos.show', $id);

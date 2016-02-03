@@ -23,10 +23,13 @@
 		<tr>
 			<td>{{{ $productos }}}</td>
 					<td>{{{ $locals }}}</td>
-					<td>{{{ $mercaderia->estado }}}</td>
+					@if ($mercaderia->estado=='ACT')
+					    <td><input type="text" value="{{ $mercaderia->estado }}" readonly class="form-control"></td>
+					@else
+					    <td class="danger"><input value="{{ $mercaderia->estado }}" readonly class="form-control"></td>
+					@endif              
 					<td>{{{ $users }}}</td>
                     <td>
-
                         {{ link_to_route('mercaderias.edit', 'Editar', array($mercaderia->id), array('class' => 'btn btn-info')) }}
                     </td>
 		</tr>

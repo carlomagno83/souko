@@ -7,6 +7,6 @@ class Local extends Eloquent {
 		'codlocal3' => 'required',
 		'codlocal6' => 'required',
 		'deslocal' => 'required',
-		'usuario_id' => 'required'
+		//'usuario_id' => 'required'
 	);
 }

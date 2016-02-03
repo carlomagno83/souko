@@ -12,7 +12,6 @@
 			<th>Código 3 (etqta)</th>
 				<th>Código 6</th>
 				<th>Descripción</th>
-				<th>Usuario</th>
 		</tr>
 	</thead>
 
@@ -21,7 +20,6 @@
 			<td>{{{ $rango->codrango3 }}}</td>
 					<td>{{{ $rango->codrango6 }}}</td>
 					<td>{{{ $rango->desrango }}}</td>
-					<td>{{{ $rango->usuario_id }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('rangos.destroy', $rango->id))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}

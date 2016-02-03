@@ -1,8 +1,8 @@
 @extends('layouts.scaffold')
 
 @section("styles")
-<style>
 
+<style>
 body{
 background-color:#fff;
 }
@@ -10,6 +10,7 @@ background-color:#fff;
 @stop
 
 @section("main")
+
 
 <h3>Tabla maestra Colores</h3>
  
@@ -34,7 +35,7 @@ background-color:#fff;
 					<td>{{{ $color->desusuario }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('colors.destroy', $color->id))) }}
-                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger',  'onClick'=>'confirmar()' )) }}
                         {{ Form::close() }}
                         {{ link_to_route('colors.edit', 'Editar', array($color->id), array('class' => 'btn btn-info')) }}
                     </td>

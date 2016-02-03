@@ -7,6 +7,6 @@ class Rango extends Eloquent {
 		'codrango3' => 'required',
 		'codrango6' => 'required',
 		'desrango' => 'required',
-		'usuario_id' => 'required'
+		//'usuario_id' => 'required'
 	);
 }

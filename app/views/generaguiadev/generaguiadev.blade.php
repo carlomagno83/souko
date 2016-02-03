@@ -2,8 +2,33 @@
 
 @section('main')
 
-<form method="POST">
+<script src="../lib/jquery.js"></script>
+<script src="../dist/jquery.validate.js"></script>
+<script>
+  // only for demo purposes
+  $.validator.setDefaults({
+    submitHandler: function() {
+      alert("submitted!");
+    }
+  });
 
+  $(document).ready(function() {
+    $("#validadorjs").validate();
+  });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#storebutton").click(function(){
+    $(this).hide();
+    $("#muestramsg").show();
+    return true;});
+ });
+</script>
+
+<div align="right">
+    <a id="home" href=" {{ URL::to('/') }} "><img src='img/home.ico' border='0'></a>
+</div>
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
         <h3>Generación de Guía de devolución para el Proveedor</h3>
@@ -17,142 +42,118 @@
         @endif
     </div>
 </div>
-
-
-
- <!--       <div class="form-group">
-            {{ Form::label('mercaderia_id', 'Mercaderia_id:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::input('number', 'mercaderia_id', Input::old('mercaderia_id'), array('class'=>'form-control')) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {{ Form::label('documento_id', 'Documento_id:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::input('number', 'documento_id', Input::old('documento_id'), array('class'=>'form-control')) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {{ Form::label('flagoferta', 'Flagoferta:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-10">
-              {{ Form::text('flagoferta', Input::old('flagoferta'), array('class'=>'form-control', 'placeholder'=>'Flagoferta')) }}
-            </div>
-        </div>
--->
-<div class="row">
-    <div class="col-lg-4">
+<form method="POST" action="{{url('generaguiadev-filtrar')}}"><div class="row">
+    <div class="col-lg-3">
         <div class="input-group">
-            <span class="input-group-addon" id="proveedor_id">Proveedor</span>
-            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
+            <span class="input-group-addon" id="provider_id">Proveedor</span>
+            {{Form::select('provider_id', [''=>''] + DB::table('providers')->orderby('desprovider')->lists('desprovider','id'), Input::get('provider_id'),array('class'=>'form-control', 'required'=>'required'))}}
         </div>
-    </div><!-- /.col-lg-6 -->    
+    </div><!-- /.col-lg-6 -->
+    <input type="submit" value="Buscar Mercaderías para Devolución de Proveedor seleccionado" class="btn btn-info">  
 </div><!-- /.row -->
 <br>
+</form>
 
+
+<form method="POST" action="{{url('generaguiadev-agregareg')}}">
+@if (count($mercaderias)>0)
+<section style="border:3px solid black; background-color:#D8D8D8">
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Mercadería</th>
-            <th>codproducto31</th>
-            <th>Precio</th>
-            <th>Seleccione</th>
-
+            <th width="10%">Proveedor</th>
+            <th width="10%">Mercadería id</th>
+            <th>Descripción cod31</th>
+            <th width="8%">Estado</th>
+            <th width="15%">Local</th>
+            <th width="8%">P. Compra</th>
+            <th width="10%">Seleccione</th>
+        </tr>    
     </thead>
-<!-- en duro para llenar uno por uno-->
-    <tbody>
+    @if (count($mercaderias)>0)
+        <?php $i=0 ?>
+        @foreach ($mercaderias as $mercaderia)
         <tr>
-            <td><input type="text" name="mercaderia_id1"></td>
-            <td><input type="text" name="codproducto311" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="precio1"></td>
-            <td>
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                            <input type="checkbox" aria-label="...">
-                            </span>
-                        </div>  
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="mercaderia_id2" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="codproducto312" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="precio2"></td>
-            <td>
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                            <input type="checkbox" aria-label="...">
-                            </span>
-                        </div>  
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="mercaderia_id3" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="codproducto313" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="precio3"></td>
-            <td>
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                            <input type="checkbox" aria-label="...">
-                            </span>
-                        </div>  
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="mercaderia_id4" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="codproducto314" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="precio4"></td>
-            <td>
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                            <input type="checkbox" aria-label="...">
-                            </span>
-                        </div>  
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="mercaderia_id5" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="codproducto315" aria-describedby="basic-addon1"></td>
-            <td><input type="text" name="precio5"></td>
-            <td>
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                            <input type="checkbox" aria-label="...">
-                            </span>
-                        </div>  
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
+            <td width="10%"><input type="text" name="codprovider3[]" id="mercaderia_id[]" value="{{$mercaderia->codprovider3}}" class="form-control" readonly></td>
+            <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$mercaderia->id}}" class="form-control" readonly></td>
+            <td><input type="text" name="codproducto31[]" value="{{$mercaderia->codproducto31}}" readonly class="form-control"></td>
+            @if ($mercaderia->estado=='ACT')
+                <td width="8%"><input type="text" name="estado[]" value="{{$mercaderia->estado}}" readonly class="form-control"></td>
+            @else
+                <td width="8%" class="danger"><input type="text" name="estado[]" value="{{$mercaderia->estado}}" readonly class="form-control"></td>
+            @endif              
 
-    <div class="col-lg-4">
-      {{ Form::submit('Generar Guía con los productos seleccionados', array('class' => 'btn btn-lg btn-primary')) }}
+            <td width="15%"><input type="text" name="deslocal[]" value="{{$mercaderia->deslocal}}" readonly class="form-control"></td>
+            <td width="8%"><input type="text" name="preciocompra[]" value="{{$mercaderia->preciocompra}}" readonly class="form-control"></td>
+            <td width="10%"><input type="checkbox" name="checkbox[{{$i}}]" class="form-control"/></td>
+            <?php $i=$i+1 ?>
+        </tr>
+        @endforeach
+    @endif
+</table>
+<div class="row">
+    <div class="col-lg-8">
     </div>
-{{ Form::close() }}    
+    <div class="col-lg-3">
+        <input type="submit" value="Agrega Mercaderías Seleccionadas" class="btn btn-lg btn-success">
+    </div>
+</div>        
+<br><br>
+</section> 
+@endif 
+</form>
+
+<form method="POST" action="{{url('generaguiadev-store')}}">
+@if (count($devueltos)>0)
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th width="10%">Proveedor</th>
+            <th width="10%">Mercadería id</th>
+            <th>Descripción cod31</th>
+            <th width="8%">Estado</th>
+            <th width="15%">Local</th>
+            <th width="8%">P. Compra</th>
+        </tr>    
+    </thead>
+    @if (count($devueltos)>0)
+        @foreach ($devueltos as $devuelto)
+        <tr>
+            <td width="10%"><input type="text" name="codprovider3[]" id="mercaderia_id[]" value="{{$devuelto->codprovider3}}" class="form-control" readonly></td>
+            <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$devuelto->mercaderia_id}}" class="form-control" readonly></td>
+            <td><input type="text" name="codproducto31[]" value="{{$devuelto->codproducto31}}" readonly class="form-control"></td>
+            @if ($devuelto->estado=='ACT')
+                <td width="8%"><input type="text" name="estado[]" value="{{$devuelto->estado}}" readonly class="form-control"></td>
+            @else
+                <td width="8%" class="danger"><input type="text" name="estado[]" value="{{$devuelto->estado}}" readonly class="form-control"></td>
+            @endif              
+
+            <td width="15%"><input type="text" name="deslocal[]" value="{{$devuelto->deslocal}}" readonly class="form-control"></td>
+            <td width="8%"><input type="text" name="preciocompra[]" value="{{$devuelto->preciocompra}}" readonly class="form-control"></td>
+            <td><a id="link_delete" href=" {{ URL::to('generaguiadev/delete/'.$devuelto->mercaderia_id) }} ">Eliminar</a>  </td>
+
+        </tr>
+        @endforeach
+    @endif
+</table>
+<br>
+<div class="row">
+    <div class="col-lg-4">
+        <input id="storebutton" type="submit" value="Generar Guía con los productos seleccionados" class="btn btn-lg btn-primary">      
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4">
+    <input id="muestramsg" style="display:none;" type="submit" value="Finalizado, espere la descarga del Archivo Excel ..." class="btn btn-lg btn-success" disabled>
+    </div>
+    <div class="col-lg-8">
+    </div>
+</div>       
+@endif
 <br>
 <br>
-<br>
-<br>
+</form>
+
 
 
 

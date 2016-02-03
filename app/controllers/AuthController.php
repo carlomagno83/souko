@@ -25,6 +25,14 @@ class AuthController extends BaseController {
         // Verificamos los datos
         if (Auth::attempt($data, Input::get('remember'))) // Como segundo parámetro pasámos el checkbox para sabes si queremos recordar la contraseña
         {
+            //borramos datos de temporales
+            DB::table('entradas')->where('usuario_id', '=', Auth::user()->id )->delete();
+            DB::table('devueltos')->where('usuario_id', '=', Auth::user()->id )->delete();
+            DB::table('devuelves')->where('usuario_id', '=', Auth::user()->id )->delete();
+            DB::table('tempos')->where('usuario_id', '=', Auth::user()->id )->delete();
+            DB::table('traslados')->where('usuario_id', '=', Auth::user()->id )->delete();
+            DB::table('vendidos')->where('usuario_id', '=', Auth::user()->id )->delete();
+
             // Si nuestros datos son correctos mostramos la página de inicio
             return Redirect::intended('/');
         }

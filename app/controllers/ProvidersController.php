@@ -56,6 +56,8 @@ class ProvidersController extends BaseController {
 
 		if ($validation->passes())
 		{
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;			
 			$this->provider->create($input);
 
 			return Redirect::route('providers.index');
@@ -112,6 +114,8 @@ class ProvidersController extends BaseController {
 		if ($validation->passes())
 		{
 			$provider = $this->provider->find($id);
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;			
 			$provider->update($input);
 
 			return Redirect::route('providers.show', $id);

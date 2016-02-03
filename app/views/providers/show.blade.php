@@ -12,7 +12,6 @@
 			<th>Código 3</th>
 				<th>Código 6</th>
 				<th>Descripción</th>
-				<th>Usuario</th>
 		</tr>
 	</thead>
 
@@ -21,7 +20,6 @@
 			<td>{{{ $provider->codprovider3 }}}</td>
 					<td>{{{ $provider->codprovider6 }}}</td>
 					<td>{{{ $provider->desprovider }}}</td>
-					<td>{{{ $provider->usuario_id }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('providers.destroy', $provider->id))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}

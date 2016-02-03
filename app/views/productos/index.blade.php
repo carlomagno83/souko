@@ -8,44 +8,44 @@
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="provider_id">Proveedor</span>
-                {{Form::select('provider_id', [0=>'Seleccione'] + DB::table('providers')->orderby('desprovider')->lists('desprovider','id'),null,array('class'=>'form-control'))}}
+                {{Form::select('provider_id', [0=>''] + DB::table('providers')->orderby('desprovider')->lists('desprovider','id'), Input::get('provider_id'),array('class'=>'form-control'))}}
             </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="marca_id">Marca</span>
-                {{Form::select('marca_id',[0=>'Seleccione'] + DB::table('marcas')->orderby('desmarca')->lists('desmarca','id'),null,array('class'=>'form-control'))}}
+                {{Form::select('marca_id',[0=>''] + DB::table('marcas')->orderby('desmarca')->lists('desmarca','id'), Input::get('marca_id'),array('class'=>'form-control'))}}
            </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="tipo_id">Tipo</span>
-                {{Form::select('tipo_id', [0=>'Seleccione'] + DB::table('tipos')->orderby('destipo')->lists('destipo','id'),null,array('class'=>'form-control'))}}
+                {{Form::select('tipo_id', [0=>''] + DB::table('tipos')->orderby('destipo')->lists('destipo','id'), Input::get('tipo_id'),array('class'=>'form-control'))}}
             </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="modelo_id">Modelo</span>
-                {{Form::select('modelo_id',[0=>'Seleccione'] + DB::table('modelos')->orderby('desmodelo')->lists('desmodelo','id'),null,array('class'=>'form-control'))}}
+                {{Form::select('modelo_id',[0=>''] + DB::table('modelos')->orderby('desmodelo')->lists('desmodelo','id'), Input::get('modelo_id'),array('class'=>'form-control'))}}
            </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="material_id">Material</span>
-                {{Form::select('material_id', [0=>'Seleccione'] + DB::table('materials')->orderby('desmaterial')->lists('desmaterial','id'),null,array('class'=>'form-control'))}}
+                {{Form::select('material_id', [0=>''] + DB::table('materials')->orderby('desmaterial')->lists('desmaterial','id'), Input::get('material_id'),array('class'=>'form-control'))}}
             </div>
         </div><!-- /.col-lg-6 -->
 
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="color_id">Color</span>
-                {{Form::select('color_id',[0=>'Seleccione'] + DB::table('colors')->orderby('descolor')->lists('descolor','id'),null,array('class'=>'form-control'))}}
+                {{Form::select('color_id',[0=>''] + DB::table('colors')->orderby('descolor')->lists('descolor','id'), Input::get('color_id'),array('class'=>'form-control'))}}
            </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="rango_id">Rango</span>
-                {{Form::select('rango_id',[0=>'Seleccione'] + DB::table('rangos')->orderby('desrango')->lists('desrango','id'),null,array('class'=>'form-control'))}}
+                {{Form::select('rango_id',[0=>''] + DB::table('rangos')->orderby('desrango')->lists('desrango','id'), Input::get('rango_id'),array('class'=>'form-control'))}}
            </div>
         </div><!-- /.col-lg-6 -->
         <br>

@@ -7,6 +7,6 @@ class Material extends Eloquent {
 		'codmaterial3' => 'required',
 //		'codmaterial6' => 'required',
 		'desmaterial' => 'required',
-		'usuario_id' => 'required'
+		//'usuario_id' => 'required'
 	);
 }

@@ -27,10 +27,12 @@ class MercaderiasController extends BaseController {
        	$users = DB::table('users')->orderBy('username')->lists('username','id');
 
 		$mercaderias = $this->mercaderia->join('productos','mercaderias.producto_id','=','productos.id')
+									->join('providers', 'productos.provider_id', '=', 'providers.id')
 									->join('locals','mercaderias.local_id','=','locals.id')
 									->join('users','mercaderias.usuario_id','=','users.id')
                               ->select('mercaderias.id',
                                        'mercaderias.producto_id',
+                                       'providers.codprovider3',
                                        'productos.codproducto31',
                                        'mercaderias.mercaderiacambio_id',
                                        'mercaderias.local_id',
@@ -70,6 +72,8 @@ class MercaderiasController extends BaseController {
 
 		if ($validation->passes())
 		{
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;
 			$this->mercaderia->create($input);
 
 			return Redirect::route('mercaderias.index');
@@ -134,6 +138,8 @@ class MercaderiasController extends BaseController {
 		if ($validation->passes())
 		{
 			$mercaderia = $this->mercaderia->find($id);
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;			
 			$mercaderia->update($input);
 
 			return Redirect::route('mercaderias.show', $id);

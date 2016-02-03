@@ -20,6 +20,7 @@ class ReporteingresoController extends BaseController {
 								   ->join('documentos', 'movimientos.documento_id','=','documentos.id')
 								   ->where("documentos.fechadocumento",">=", "$fecha_ini")
 								   ->where("documentos.fechadocumento","<=", "$fecha_fin")
+								   //->where("documentos.tipomovimiento_id", "=", 1)
                               	   ->select('movimientos.id',
                               	   			'documentos.fechadocumento',
                               	   	        'movimientos.mercaderia_id',
@@ -34,7 +35,7 @@ class ReporteingresoController extends BaseController {
 
 	public function getmuestra()
 	{
-		
+		//dd($data);
 		if(isset($_POST["filtra_fecha_btn"]))
 		{
 

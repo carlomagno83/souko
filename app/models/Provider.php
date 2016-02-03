@@ -7,6 +7,6 @@ class Provider extends Eloquent {
 		'codprovider3' => 'required',
 		'codprovider6' => 'required',
 		'desprovider' => 'required',
-		'usuario_id' => 'required'
+		//'usuario_id' => 'required'
 	);
 }

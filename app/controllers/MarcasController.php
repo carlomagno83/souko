@@ -59,6 +59,8 @@ class MarcasController extends BaseController {
 
 		if ($validation->passes())
 		{
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;
 			$this->marca->create($input);
 
 			return Redirect::route('marcas.index');
@@ -114,10 +116,10 @@ class MarcasController extends BaseController {
 
 		if ($validation->passes())
 		{
+			//usuario logueado
 			$marca = $this->marca->find($id);
-			$marca->usuario_id=Auth::user()->id;
-			$marca->save();
-			//$marca->update($input);
+			$marca['usuario_id'] = Auth::user()->id;
+			$marca->update($input);
 
 			return Redirect::route('marcas.show', $id);
 		}

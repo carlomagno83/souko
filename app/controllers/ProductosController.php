@@ -139,9 +139,7 @@ class ProductosController extends BaseController {
                                        'productos.precioventa')
 								->get();
 
-
-        return View::make('productos.index')->with('productos',$productos);		
-
+        return View::make('productos.index')->withInput('provider_id', 'marca_id', 'tipo_id', 'modelo_id', 'material_id', 'color_id' , 'rango_id')->with('productos',$productos);		
 
 	}	
 	/**
@@ -159,6 +157,8 @@ class ProductosController extends BaseController {
        	$materials = DB::table('materials')->orderBy('desmaterial')->lists('desmaterial','id');
        	$colors = DB::table('colors')->orderBy('descolor')->lists('descolor','id');
        	$rangos = DB::table('rangos')->orderBy('desrango')->lists('desrango','id');
+       	//usuario logueado
+		//$usuario_id = Auth::user()->id;
 
        	return View::make('productos.create')->with('providers',$providers)
        										->with('marcas',$marcas)
@@ -200,6 +200,8 @@ class ProductosController extends BaseController {
 												"$colors"."-".
 												"$rangos"."-".
 												$input["talla_id"];
+					//usuario logueado
+					$input['usuario_id'] = Auth::user()->id;												
 					
 					$this->producto->create($input);
 					return Redirect::route('productos.index');
@@ -221,7 +223,8 @@ class ProductosController extends BaseController {
 											"$rangos"."-".
 											"$tallas";
 				$input["talla_id"] = "$tallas";							
-	
+				//usuario logueado
+				$input['usuario_id'] = Auth::user()->id;	
 				$this->producto->create($input);						
 			}
 
@@ -261,6 +264,7 @@ class ProductosController extends BaseController {
 	{
 
 		$producto = $this->producto->find($id);
+
 		$providers = DB::table('providers')->lists('desprovider','id');
 
 		if (is_null($producto))
@@ -287,6 +291,8 @@ class ProductosController extends BaseController {
 		if ($validation->passes())
 		{
 			$producto = $this->producto->find($id);
+			//usuario logueado
+			$input['usuario_id'] = Auth::user()->id;
 			$producto->update($input);
 
 			return Redirect::route('productos.show', $id);

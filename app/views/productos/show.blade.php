@@ -13,7 +13,6 @@
 				<th>Codproducto31</th>				
 				<th>Prec. compra</th>
 				<th>Prec. Venta</th>
-				<th>Usuario_id</th>
 		</tr>
 	</thead>
 
@@ -23,7 +22,6 @@
 					<td>{{{ $producto->codproducto31 }}}</td>
 					<td>{{{ $producto->preciocompra }}}</td>
 					<td>{{{ $producto->precioventa }}}</td>
-					<td>{{{ $producto->usuario_id }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('productos.destroy', $producto->id))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}

@@ -8,6 +8,6 @@ class Color extends Eloquent {
 		//'codcolor3' => 'required',
 		'codcolor6' => 'required',
 		'descolor' => 'required',
-		'usuario_id' => 'required'
+		//'usuario_id' => 'required'
 	);
 }

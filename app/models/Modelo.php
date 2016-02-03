@@ -7,6 +7,6 @@ class Modelo extends Eloquent {
 		//'codmodelo3' => 'required',
 		'codmodelo6' => 'required',
 		'desmodelo' => 'required',
-		'usuario_id' => 'required'
+		//'usuario_id' => 'required'
 	);
 }

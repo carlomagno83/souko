@@ -7,6 +7,6 @@ class Marca extends Eloquent {
 		'codmarca3' => 'required',
 		//'codmarca6' => 'required',
 		'desmarca' => 'required',
-		'usuario_id' => 'required'
+		//'usuario_id' => 'required'
 	);
 }
