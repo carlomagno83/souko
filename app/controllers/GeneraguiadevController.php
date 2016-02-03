@@ -143,7 +143,15 @@ class GeneraguiadevController extends BaseController {
             foreach($value as $key2=>$indice)
             {
                 //dd($key2); //el key2 muestra el indice                       
-                DB::table('movimientos')->insert(array('mercaderia_id' => $data['mercaderia_id'][$key2], 'documento_id' => $documento_id, 'flagoferta' => 0));
+                //DB::table('movimientos')->insert(array('mercaderia_id' => $data['mercaderia_id'][$key2], 'documento_id' => $documento_id, 'flagoferta' => 0));
+                //cambio para timestamp
+                $movimiento = new Movimiento();
+                $movimiento->mercaderia_id = $data['mercaderia_id'][$key];
+                $movimiento->documento_id = $documento_id;
+                //$movimiento->tipodocumento_id = 7;
+                $movimiento->flagoferta = 0;
+                $movimiento->save();          
+                      
 //hay que cambiar por usuario logueado
                 DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key2])->update(array('estado' => 'DEV', 'usuario_id' =>1 )); 
             }

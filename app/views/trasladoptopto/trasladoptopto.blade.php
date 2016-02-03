@@ -148,6 +148,18 @@ $(document).ready(function(){
             </div>
         </div><!-- /.col-lg-6 -->
 </div><!-- /.row -->
+
+<div class="row">
+        <div class="col-lg-7">
+        </div><!-- /.col-lg-6 -->
+        <div class="col-lg-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="numdocfisico">Número de Documento Físico</span>
+                <input type="text" name="numdocfisico" class="form-control" placeholder="" aria-describedby="basic-addon1">
+            </div>
+        </div>    
+</div><!-- /.row -->
+
 <br>
 <br>
 <div class="row">

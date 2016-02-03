@@ -49,7 +49,7 @@ $(document).ready(function(){
     <div class="col-lg-4">
         <div class="input-group">
             <span class="input-group-addon" id="mercaderia_id">Mercadería</span>
-            <input type="text" name="mercaderia_id" class="form-control" placeholder="Necesario #de merca en guia de traslado" aria-describedby="basic-addon1">
+            <input type="text" name="mercaderia_id" class="form-control" placeholder="Uso de pistola" aria-describedby="basic-addon1">
        </div>
     </div><!-- /.col-lg-6 -->  
     <div class="col-lg-4">

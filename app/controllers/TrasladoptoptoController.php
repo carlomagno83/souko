@@ -76,12 +76,21 @@ class TrasladoptoptoController extends BaseController {
 		$data = Input::all();
         //dd($data['mercaderia_id'][2]);
         // hay que agregar un control de txn
-        $documento_id = $this->saveDocumento(Input::get('localini'), Input::get('localfin'));
+        //$documento_id = $this->saveDocumento(Input::get('localini'), Input::get('localfin'));  //cambio para doc fisico
+        $documento_id = $this->saveDocumento(Input::get('localini'), Input::get('localfin'), Input::get('numdocfisico'));
         
         foreach($data['mercaderia_id'] as $key=>$value)
         {
             //echo $data['id'][$key];
-            DB::table('movimientos')->insert(array('mercaderia_id' => $data['mercaderia_id'][$key], 'documento_id' => $documento_id, 'flagoferta' => 0));
+            //DB::table('movimientos')->insert(array('mercaderia_id' => $data['mercaderia_id'][$key], 'documento_id' => $documento_id, 'flagoferta' => 0));
+            //se cambia para grabar el timestamp
+            $movimiento = new Movimiento();
+            $movimiento->mercaderia_id = $data['mercaderia_id'][$key];
+            $movimiento->documento_id = $documento_id;
+            //$movimiento->tipodocumento_id = 4;
+            $movimiento->flagoferta = 0;
+            $movimiento->save();
+
             DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => $data['localfin'], 'usuario_id' => $data['usuario_id']));
         }
 		$this->imprime();
@@ -91,12 +100,14 @@ class TrasladoptoptoController extends BaseController {
 
     }
 
-    private function saveDocumento($localini, $localfin)
+    //private function saveDocumento($localini, $localfin)  //cambio para doc fisico
+    private function saveDocumento($localini, $localfin, $numdocfisico)
     {
 
         $documento = new Documento(); //Agrega nuevo documento
         $documento->fechadocumento = date('Y-m-d');
         $documento->tipomovimiento_id = 4; //tipo de movimiento pto a pto
+        $documento->numdocfisico = $numdocfisico;
         $documento->usuario_id =  Auth::user()->id ; // usuario logueado
         $documento->flagestado = 'ACT';
         $documento->localini_id = $localini;
@@ -128,7 +139,8 @@ class TrasladoptoptoController extends BaseController {
                 $sheet->setStyle(array( 'font' => array('name' => 'Arial','size' => 11,'bold' => false )));
                 $sheet->setColumnFormat(array( 'E' => '0.00' ));
                 //Buscamos datos
-                $documento_id = DB::table('documentos')->select('id')->orderBy('id', 'desc')->pluck('id');  
+                $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '4')->orderBy('id', 'desc')->pluck('id');  //busca por tipomov
+                $numdocfisico = DB::table('documentos')->select('numdocfisico')->where('tipomovimiento_id', '=', '4')->orderBy('id', 'desc')->pluck('id');  //numdocfisico
                 $localini = DB::table('locals')->join('documentos', 'locals.id', '=', 'documentos.localini_id')
 												->select('deslocal')
 												->where('documentos.id', '=', $documento_id)
@@ -154,12 +166,13 @@ class TrasladoptoptoController extends BaseController {
                     $sheet->cell('A3', function($cell) { $cell->setFontSize(20); $cell->setFontWeight('bold'); });
                 $sheet->row(5, array('Número de documento interno:   '. $documento_id, ''));
                     $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); });
-                $sheet->row(6, array('Local Inicial:   '. $localini, '', '', 'Fecha:   '.date('Y-m-d')));
+                $sheet->row(6, array('Local Inicial:   '. $localini, '                 Fecha:   '.date('Y-m-d')));
                     $sheet->cell('A6', function($cell) { $cell->setFontWeight('bold'); });                 
                     $sheet->cell('D6', function($cell) { $cell->setFontWeight('bold'); }); 
                 $sheet->row(7, array('Local Solicitante:  '. $localfin .'         Solicitante:  '. $usuario, ''));
                     $sheet->cell('A7', function($cell) { $cell->setFontWeight('bold'); });                 
-                $sheet->row(8, array('Generado por :  '. Auth::user()->desusuario ));
+                //$sheet->row(8, array('Generado por :  '. Auth::user()->desusuario ));  //numdocfisico
+                $sheet->row(8, array('Generado por :  '. Auth::user()->desusuario . '      Num Doc Físico:   '. $numdocfisico));     
                     $sheet->cell('A8', function($cell) { $cell->setFontWeight('bold'); });                 
 
                 $sheet->row(10, array('MERCADERIA', 'PROD', 'DESCRIPCION', 'ESTADO'));

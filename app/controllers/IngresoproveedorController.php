@@ -256,6 +256,8 @@ class IngresoproveedorController extends BaseController
         $movimiento = new Movimiento();
         $movimiento->mercaderia_id = $mercaderia_id;
         $movimiento->documento_id = $documento_id;
+        //$movimiento->tipodocumento_id = 1;
+        $movimiento->flagoferta = 0;
         $movimiento->save();
 
     }
@@ -292,8 +294,9 @@ class IngresoproveedorController extends BaseController
               $sheet->setColumnFormat(array( 'E' => '0.00' ));
               $sheet->setColumnFormat(array( 'F' => '0.00' ));
               //Buscamos datos
-              $documento_id = DB::table('documentos')->select('id')->orderBy('id', 'desc')->pluck('id'); 
-              $numdocfisico =  DB::table('documentos')->select('numdocfisico')->orderBy('id', 'desc')->pluck('numdocfisico'); //agrega numdocfisico
+              // cambio por agregar tipo de doc
+              $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '1')->orderBy('id', 'desc')->pluck('id'); 
+              $numdocfisico =  DB::table('documentos')->select('numdocfisico')->where('id', '=', $documento_id)->pluck('numdocfisico'); //agrega numdocfisico
 //usuario logueado
               $entradas = DB::table('entradas')->where('usuario_id','=',Auth::user()->id)->get(); 
 //usuario logueado  

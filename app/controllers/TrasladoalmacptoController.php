@@ -95,7 +95,14 @@ class TrasladoalmacptoController extends BaseController {
         foreach($data['mercaderia_id'] as $key=>$value)
         {
             //echo $data['id'][$key];
-            DB::table('movimientos')->insert(array('mercaderia_id' => $data['mercaderia_id'][$key], 'documento_id' => $documento_id, 'flagoferta' => 0));
+            //DB::table('movimientos')->insert(array('mercaderia_id' => $data['mercaderia_id'][$key], 'documento_id' => $documento_id, 'flagoferta' => 0));
+            //cambio para agregar timestamp
+            $movimiento = new Movimiento();
+            $movimiento->mercaderia_id =  $data['mercaderia_id'][$key];
+            //$movimiento->tipodocumento_id = 2;
+            $movimiento->documento_id = $documento_id;
+            $movimiento->flagoferta = 0;
+            $movimiento->save();
             DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => $data['local_id'], 'usuario_id' => $data['usuario_id']));
         }
 

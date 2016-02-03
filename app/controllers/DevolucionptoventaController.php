@@ -88,7 +88,15 @@ class DevolucionptoventaController extends BaseController {
         foreach($data['mercaderia_id'] as $key=>$value)
         {
             //echo $data['id'][$key];
-            DB::table('movimientos')->insert(array('mercaderia_id' => $data['mercaderia_id'][$key], 'documento_id' => $documento_id, 'flagoferta' => 0));
+            //DB::table('movimientos')->insert(array('mercaderia_id' => $data['mercaderia_id'][$key], 'documento_id' => $documento_id, 'flagoferta' => 0));
+            //cambio para timestamp
+            $movimiento = new Movimiento();
+            $movimiento->mercaderia_id = $data['mercaderia_id'][$key];
+            $movimiento->documento_id = $documento_id;
+            //$movimiento->tipodocumento_id = 6;
+            $movimiento->flagoferta = 0;
+            $movimiento->save();
+
             DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => 1, 'estado' => $data['nuevoestado'][$key], 'usuario_id' => $data['usuario_id']));
         }
         
