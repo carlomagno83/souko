@@ -139,14 +139,15 @@ class GeneraguiadevController extends BaseController {
 //usuario logueado
             $codprovider3 = DB::table('devueltos')->select('codprovider3')->where('usuario_id','=', Auth::user()->id )->pluck('codprovider3');  
             $codprovider_id = DB::table('providers')->select('id')->where('codprovider3', '=', $codprovider3)->pluck('id');
-            $documento_id = $this->saveDocumento($codprovider_id);
+            
+            $documento_id = $this->saveDocumento($codprovider_id, Input::get('numdocfisico'));
             foreach($value as $key2=>$indice)
             {
                 //dd($key2); //el key2 muestra el indice                       
                 //DB::table('movimientos')->insert(array('mercaderia_id' => $data['mercaderia_id'][$key2], 'documento_id' => $documento_id, 'flagoferta' => 0));
                 //cambio para timestamp
                 $movimiento = new Movimiento();
-                $movimiento->mercaderia_id = $data['mercaderia_id'][$key];
+                $movimiento->mercaderia_id = $data['mercaderia_id'][$key2];
                 $movimiento->documento_id = $documento_id;
                 //$movimiento->tipodocumento_id = 7;
                 $movimiento->flagoferta = 0;
@@ -163,7 +164,7 @@ class GeneraguiadevController extends BaseController {
         $this->index();
     }
 
-    private function saveDocumento($codprovider_id)
+    private function saveDocumento($codprovider_id, $numdocfisico)
     {
 
         $documento = new Documento(); //Agrega nuevo documento
@@ -171,6 +172,7 @@ class GeneraguiadevController extends BaseController {
         $documento->tipomovimiento_id = 7; //tipo de movimiento devolucion a proveedor
 //usuario logueado
         $documento->usuario_id =  Auth::user()->id ; 
+        $documento->numdocfisico = $numdocfisico;
         $documento->flagestado = 'ACT';
         $documento->localini_id = 1;        
         $documento->localfin_id = $codprovider_id; //solo para el tipomov 7 ingresamos id de proveedor
@@ -199,7 +201,9 @@ class GeneraguiadevController extends BaseController {
                 $sheet->setStyle(array( 'font' => array('name' => 'Arial','size' => 11,'bold' => false )));
                 $sheet->setColumnFormat(array( 'F' => '0.00' ));
                 //Buscamos datos
-                $documento_id = DB::table('documentos')->select('id')->orderBy('id', 'desc')->pluck('id');
+                $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '7')->orderBy('id', 'desc')->pluck('id');
+                $numdocfisico =  DB::table('documentos')->select('numdocfisico')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '7')->pluck('numdocfisico'); //agrega numdocfisico
+
 //usuario logueado
                 $codprovider3 = DB::table('devueltos')->select('codprovider3')->where('usuario_id','=', Auth::user()->id )->pluck('codprovider3');  
                 $desprovider = DB::table('providers')->where('providers.codprovider3', '=', $codprovider3)->pluck('desprovider');
@@ -215,8 +219,9 @@ class GeneraguiadevController extends BaseController {
 
                 $sheet->row(3, array('GUIA DE DEVOLUCION A PROVEEDOR'));
                     $sheet->cell('A3', function($cell) { $cell->setFontSize(20); $cell->setFontWeight('bold'); });
-                $sheet->row(5, array('Número de documento interno:   '. $documento_id, ''));
+                $sheet->row(5, array('Número de documento interno:   '. $documento_id, '', '', 'Doc. Físico:   '.$numdocfisico));
                     $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); });
+                    $sheet->cell('D5', function($cell) { $cell->setFontWeight('bold'); });
                 $sheet->row(6, array('Proveedor :   '. $desprovider, '', '', 'Fecha:   '.date('Y-m-d')));
                     $sheet->cell('A6', function($cell) { $cell->setFontWeight('bold'); });                 
                     $sheet->cell('D6', function($cell) { $cell->setFontWeight('bold'); }); 

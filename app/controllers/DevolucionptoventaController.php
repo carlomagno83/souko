@@ -83,7 +83,8 @@ class DevolucionptoventaController extends BaseController {
         $data = Input::all();
         //dd($data['mercaderia_id'][2]);
         // hay que agregar un control de txn
-        $documento_id = $this->saveDocumento(Input::get('localini'));
+        //$documento_id = $this->saveDocumento(Input::get('localini')); // cambio por numdocfisico
+        $documento_id = $this->saveDocumento(Input::get('localini'), Input::get('numdocfisico'));
         
         foreach($data['mercaderia_id'] as $key=>$value)
         {
@@ -110,12 +111,13 @@ class DevolucionptoventaController extends BaseController {
     }
 
 
-    private function saveDocumento($local_id)
+    private function saveDocumento($local_id, $numdocfisico)
     {
 
         $documento = new Documento(); //Agrega nuevo documento
         $documento->fechadocumento = date('Y-m-d');
         $documento->tipomovimiento_id = 6; //tipo de movimiento devolucion de pto vta
+        $documento->numdocfisico = $numdocfisico;
 //usuario logueado
         $documento->usuario_id =  Auth::user()->id ; 
         $documento->flagestado = 'ACT';
@@ -148,7 +150,10 @@ class DevolucionptoventaController extends BaseController {
                 $sheet->setStyle(array( 'font' => array('name' => 'Arial','size' => 11,'bold' => false )));
                 $sheet->setColumnFormat(array( 'E' => '0.00' ));
                 //Buscamos datos
-                $documento_id = DB::table('documentos')->select('id')->orderBy('id', 'desc')->pluck('id');  
+                //$documento_id = DB::table('documentos')->select('id')->orderBy('id', 'desc')->pluck('id');  //tipodoc
+                $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '6')->orderBy('id', 'desc')->pluck('id');
+                $numdocfisico =  DB::table('documentos')->select('numdocfisico')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '6')->pluck('numdocfisico'); //agrega numdocfisico
+
                 $localini = DB::table('locals')->join('documentos', 'locals.id', '=', 'documentos.localini_id')
 												->select('deslocal')
 												->where('documentos.id', '=', $documento_id)
@@ -168,7 +173,7 @@ class DevolucionptoventaController extends BaseController {
 
                 $sheet->row(3, array('GUIA DE DEVOLUCION A ALMACEN'));
                     $sheet->cell('A3', function($cell) { $cell->setFontSize(20); $cell->setFontWeight('bold'); });
-                $sheet->row(5, array('Número de documento interno:   '. $documento_id, ''));
+                $sheet->row(5, array('Número de documento interno:   '. $documento_id, '', '', 'Doc Físico:   '.$numdocfisico));
                     $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); });
                 $sheet->row(6, array('Local que Devuelve :   '. $localini, '', '', 'Fecha:   '.date('Y-m-d')));
                     $sheet->cell('A6', function($cell) { $cell->setFontWeight('bold'); });                 

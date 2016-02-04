@@ -74,17 +74,17 @@ $(document).ready(function(){
         <?php $i=0 ?>
         @foreach ($mercaderias as $mercaderia)
         <tr>
-            <td width="10%"><input type="text" name="codprovider3[]" id="mercaderia_id[]" value="{{$mercaderia->codprovider3}}" class="form-control" readonly></td>
-            <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$mercaderia->id}}" class="form-control" readonly></td>
-            <td><input type="text" name="codproducto31[]" value="{{$mercaderia->codproducto31}}" readonly class="form-control"></td>
+            <td width="10%"><input type="text" name="codprovider3[]" id="mercaderia_id[]" value="{{$mercaderia->codprovider3}}" class="form-control" readonly tabindex="-1"></td>
+            <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$mercaderia->id}}" class="form-control" readonly tabindex="-1"></td>
+            <td><input type="text" name="codproducto31[]" value="{{$mercaderia->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             @if ($mercaderia->estado=='ACT')
-                <td width="8%"><input type="text" name="estado[]" value="{{$mercaderia->estado}}" readonly class="form-control"></td>
+                <td width="8%"><input type="text" name="estado[]" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
             @else
-                <td width="8%" class="danger"><input type="text" name="estado[]" value="{{$mercaderia->estado}}" readonly class="form-control"></td>
+                <td width="8%" class="danger"><input type="text" name="estado[]" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
             @endif              
 
-            <td width="15%"><input type="text" name="deslocal[]" value="{{$mercaderia->deslocal}}" readonly class="form-control"></td>
-            <td width="8%"><input type="text" name="preciocompra[]" value="{{$mercaderia->preciocompra}}" readonly class="form-control"></td>
+            <td width="15%"><input type="text" name="deslocal[]" value="{{$mercaderia->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="8%"><input type="text" name="preciocompra[]" value="{{$mercaderia->preciocompra}}" readonly class="form-control" tabindex="-1"></td>
             <td width="10%"><input type="checkbox" name="checkbox[{{$i}}]" class="form-control"/></td>
             <?php $i=$i+1 ?>
         </tr>
@@ -119,17 +119,17 @@ $(document).ready(function(){
     @if (count($devueltos)>0)
         @foreach ($devueltos as $devuelto)
         <tr>
-            <td width="10%"><input type="text" name="codprovider3[]" id="mercaderia_id[]" value="{{$devuelto->codprovider3}}" class="form-control" readonly></td>
-            <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$devuelto->mercaderia_id}}" class="form-control" readonly></td>
-            <td><input type="text" name="codproducto31[]" value="{{$devuelto->codproducto31}}" readonly class="form-control"></td>
+            <td width="10%"><input type="text" name="codprovider3[]" id="mercaderia_id[]" value="{{$devuelto->codprovider3}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$devuelto->mercaderia_id}}" readonly class="form-control" tabindex="-1"></td>
+            <td><input type="text" name="codproducto31[]" value="{{$devuelto->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             @if ($devuelto->estado=='ACT')
-                <td width="8%"><input type="text" name="estado[]" value="{{$devuelto->estado}}" readonly class="form-control"></td>
+                <td width="8%"><input type="text" name="estado[]" value="{{$devuelto->estado}}" readonly class="form-control" tabindex="-1"></td>
             @else
-                <td width="8%" class="danger"><input type="text" name="estado[]" value="{{$devuelto->estado}}" readonly class="form-control"></td>
+                <td width="8%" class="danger"><input type="text" name="estado[]" value="{{$devuelto->estado}}" readonly class="form-control" tabindex="-1"</td>
             @endif              
 
-            <td width="15%"><input type="text" name="deslocal[]" value="{{$devuelto->deslocal}}" readonly class="form-control"></td>
-            <td width="8%"><input type="text" name="preciocompra[]" value="{{$devuelto->preciocompra}}" readonly class="form-control"></td>
+            <td width="15%"><input type="text" name="deslocal[]" value="{{$devuelto->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="8%"><input type="text" name="preciocompra[]" value="{{$devuelto->preciocompra}}" readonly class="form-control" tabindex="-1"></td>
             <td><a id="link_delete" href=" {{ URL::to('generaguiadev/delete/'.$devuelto->mercaderia_id) }} ">Eliminar</a>  </td>
 
         </tr>
@@ -137,6 +137,17 @@ $(document).ready(function(){
     @endif
 </table>
 <br>
+<div class="row">
+        <div class="col-lg-7">
+        </div><!-- /.col-lg-6 -->
+        <div class="col-lg-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="numdocfisico">Número de Documento Físico</span>
+                <input type="text" name="numdocfisico" class="form-control" placeholder="" aria-describedby="basic-addon1">
+            </div>
+        </div>    
+</div><!-- /.row -->
+
 <div class="row">
     <div class="col-lg-4">
         <input id="storebutton" type="submit" value="Generar Guía con los productos seleccionados" class="btn btn-lg btn-primary">      

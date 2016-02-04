@@ -39,7 +39,8 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	//'timezone' => 'UTC',	//time difiere del sistema
+	'timezone' => 'America/Lima',
 
 	/*
 	|--------------------------------------------------------------------------

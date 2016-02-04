@@ -55,7 +55,7 @@ $(document).ready(function(){
     <div class="col-lg-4">
         <div class="input-group">
             <span class="input-group-addon" id="estado">Motivo devolución</span>
-            {{Form::select('estado',['ACT'=>'ACTIVO', 'INA'=>'INACTIVO', 'BAJ'=>'BAJA'] ,null,array('class'=>'form-control', 'required'=>'required'))}}
+            {{Form::select('estado',[''=>'', 'ACT'=>'ACTIVO', 'INA'=>'INACTIVO', 'BAJ'=>'BAJA'] ,null,array('class'=>'form-control', 'required'=>'required'))}} <!-- cambio para escoger motivo -->
        </div>
     </div><!-- /.col-lg-6 -->
     <input type="submit" value="Agrega Mercaderia" class=" btn btn-success"> 
@@ -81,32 +81,32 @@ $(document).ready(function(){
 <?php $deslocal=DB::table('devuelves')->select('deslocal')->pluck('deslocal'); ?>
         @foreach ($devuelves as $devuelve)
         <tr>
-            <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$devuelve->mercaderia_id}}" class="form-control" readonly></td>
-            <td width="10%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{$devuelve->producto_id}}" readonly class="form-control"></td>
-            <td><input type="text"  value="{{$devuelve->codproducto31}}" readonly class="form-control"></td>
+            <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$devuelve->mercaderia_id}}" class="form-control" readonly tabindex="-1"></td>
+            <td width="10%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{$devuelve->producto_id}}" readonly class="form-control" tabindex="-1"></td>
+            <td><input type="text"  value="{{$devuelve->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             @if($devuelve->deslocal<>'ALMACEN' )
                 @if (count($devuelves)>1)
                     @if($devuelve->deslocal == $deslocal)
-                        <td width="20%"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control"></td>
+                        <td width="20%"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                     @else
-                        <td width="20%" class="danger"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control"></td>
+                        <td width="20%" class="danger"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                     @endif
                 @else
-                    <td width="20%"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control"></td>
+                    <td width="20%"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                 @endif
             @else
-                <td width="20%" class="danger"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control"></td>
+                <td width="20%" class="danger"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control" tabindex="-1"></td>
             @endif    
             @if ($devuelve->estado=='ACT')
-                <td width="10%"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control"></td>
+                <td width="10%"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
             @else
-                <td width="10%" class="danger"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control"></td>
+                <td width="10%" class="danger"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
             @endif              
 
             @if ($devuelve->nuevoestado=='ACT')
-                <td width="8%"><input type="text" name="nuevoestado[]" value="{{$devuelve->nuevoestado}}" readonly class="form-control"></td>
+                <td width="8%"><input type="text" name="nuevoestado[]" value="{{$devuelve->nuevoestado}}" readonly class="form-control" tabindex="-1"></td>
             @else
-                <td width="8%" class="danger"><input type="text" name="nuevoestado[]" value="{{$devuelve->nuevoestado}}" readonly class="form-control"></td>
+                <td width="8%" class="danger"><input type="text" name="nuevoestado[]" value="{{$devuelve->nuevoestado}}" readonly class="form-control" tabindex="-1"></td>
             @endif              
             <td><a id="link_delete" href=" {{ URL::to('devolucionptoventa/delete/'.$devuelve->mercaderia_id) }} ">Eliminar</a>  </td>
         </tr>
@@ -128,6 +128,12 @@ $(document).ready(function(){
                 {{Form::select('localini',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
            </div>
         </div><!-- /.col-lg-6 -->
+        <div class="col-lg-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="numdocfisico">Número de Documento Físico</span>
+                <input type="text" name="numdocfisico" class="form-control" placeholder="" aria-describedby="basic-addon1">
+            </div>
+        </div>           
 </div><!-- /.row -->
 <br>
 <div class="row">

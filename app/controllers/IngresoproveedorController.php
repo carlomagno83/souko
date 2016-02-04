@@ -30,7 +30,7 @@ class IngresoproveedorController extends BaseController
     }
 
     public function filtrar()
-    {
+    { 
         //$entradas = DB::table('entradas')->where('usuario_id','=',1)->get();//hay que cambiar por usuario logueado
         //usuario logueado
         $entradas = DB::table('entradas')->where('usuario_id','=', Auth::user()->id)->get();//hay que cambiar por usuario logueado
@@ -296,7 +296,7 @@ class IngresoproveedorController extends BaseController
               //Buscamos datos
               // cambio por agregar tipo de doc
               $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '1')->orderBy('id', 'desc')->pluck('id'); 
-              $numdocfisico =  DB::table('documentos')->select('numdocfisico')->where('id', '=', $documento_id)->pluck('numdocfisico'); //agrega numdocfisico
+              $numdocfisico =  DB::table('documentos')->select('numdocfisico')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '1')->pluck('numdocfisico'); //agrega numdocfisico
 //usuario logueado
               $entradas = DB::table('entradas')->where('usuario_id','=',Auth::user()->id)->get(); 
 //usuario logueado  

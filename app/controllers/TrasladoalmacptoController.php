@@ -151,7 +151,9 @@ class TrasladoalmacptoController extends BaseController {
                 $sheet->setStyle(array( 'font' => array('name' => 'Arial','size' => 11,'bold' => false )));
                 $sheet->setColumnFormat(array( 'E' => '0.00' ));
                 //Buscamos datos
-                $documento_id = DB::table('documentos')->select('id')->orderBy('id', 'desc')->pluck('id');  
+                $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '2')->orderBy('id', 'desc')->pluck('id'); //buscar tipo 
+                $numdocfisico =  DB::table('documentos')->select('numdocfisico')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '2')->pluck('numdocfisico'); //agrega numdocfisico
+
                 $local = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')
                                             ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
                                             ->join('documentos', 'movimientos.documento_id', '=', 'documentos.id')
@@ -173,9 +175,9 @@ class TrasladoalmacptoController extends BaseController {
 
                 $sheet->row(3, array('GUIA DE SALIDAS DE ALMACEN'));
                     $sheet->cell('A3', function($cell) { $cell->setFontSize(20); $cell->setFontWeight('bold'); });
-                $sheet->row(5, array('Número de documento interno:   '. $documento_id, ''));
+                $sheet->row(5, array('Número de documento interno:   '. $documento_id, '                         Doc Físico:   '.$numdocfisico));
                     $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); });
-                $sheet->row(6, array('Local:   '. $local, '', '', 'Fecha:   '.date('Y-m-d')));
+                $sheet->row(6, array('Local:   '. $local, '                         Fecha:   '.date('Y-m-d')));
                     $sheet->cell('A6', function($cell) { $cell->setFontWeight('bold'); });                 
                     $sheet->cell('D6', function($cell) { $cell->setFontWeight('bold'); }); 
                 $sheet->row(7, array('Vendedor:   '. $usuario, ''));

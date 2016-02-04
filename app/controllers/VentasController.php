@@ -163,7 +163,7 @@ class VentasController extends BaseController {
 
                     $mercaderias = new Mercaderia;
                     //obtener datos
-                    $documento_id = DB::table('documentos')->select('id')->orderBy('id', 'desc')->pluck('id');  
+                    $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '3')->orderBy('id', 'desc')->pluck('id');  //cambio por tipo mov
 
                     $local = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')
                                                 ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')

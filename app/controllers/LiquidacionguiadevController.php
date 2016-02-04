@@ -21,6 +21,7 @@ class LiquidacionguiadevController extends BaseController {
 											->join('mercaderias', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
 											->select('documentos.id',
 											'documentos.fechadocumento',
+											'documentos.numdocfisico',
 											'providers.desprovider',
 											DB::raw('sum(preciocompra) AS totalcompra'),
 											DB::raw('count(preciocompra) AS totalitem'))
