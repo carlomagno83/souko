@@ -149,7 +149,7 @@ class GeneraguiadevController extends BaseController {
                 $movimiento = new Movimiento();
                 $movimiento->mercaderia_id = $data['mercaderia_id'][$key2];
                 $movimiento->documento_id = $documento_id;
-                //$movimiento->tipodocumento_id = 7;
+                //$movimiento->tipodocumento_id = 7; // liberar al cambiar BD
                 $movimiento->flagoferta = 0;
                 $movimiento->save();          
                       

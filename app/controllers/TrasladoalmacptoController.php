@@ -99,7 +99,7 @@ class TrasladoalmacptoController extends BaseController {
             //cambio para agregar timestamp
             $movimiento = new Movimiento();
             $movimiento->mercaderia_id =  $data['mercaderia_id'][$key];
-            //$movimiento->tipodocumento_id = 2;
+            //$movimiento->tipodocumento_id = 2; // liberar al cambiar BD
             $movimiento->documento_id = $documento_id;
             $movimiento->flagoferta = 0;
             $movimiento->save();

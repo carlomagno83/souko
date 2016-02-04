@@ -87,7 +87,7 @@ class TrasladoptoptoController extends BaseController {
             $movimiento = new Movimiento();
             $movimiento->mercaderia_id = $data['mercaderia_id'][$key];
             $movimiento->documento_id = $documento_id;
-            //$movimiento->tipodocumento_id = 4;
+            //$movimiento->tipodocumento_id = 4; // liberar al cambiar BD
             $movimiento->flagoferta = 0;
             $movimiento->save();
 

@@ -94,7 +94,7 @@ class DevolucionptoventaController extends BaseController {
             $movimiento = new Movimiento();
             $movimiento->mercaderia_id = $data['mercaderia_id'][$key];
             $movimiento->documento_id = $documento_id;
-            //$movimiento->tipodocumento_id = 6;
+            //$movimiento->tipodocumento_id = 6; // liberar al cambiar BD
             $movimiento->flagoferta = 0;
             $movimiento->save();
 

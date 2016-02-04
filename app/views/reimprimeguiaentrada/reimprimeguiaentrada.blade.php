@@ -74,7 +74,7 @@
         </div>
         <div class="col-lg-2">
             <div class="input-group">
-                 <input type="text" name="documento_id" id="documento_id" value="{{$documentos->id}}" class="form-control" readonly>
+                 <input type="text" name="documento_id" id="documento_id" value="{{$documentos->id}}" class="form-control" readonly tabindex="-1">
             </div>
         </div>
         <div class="col-lg-1">
@@ -88,7 +88,7 @@
         </div>
         <div class="col-lg-2">
             <div class="input-group">
-                <input type="text" value="{{$documentos->fechadocumento }}" class="form-control" readonly>
+                <input type="text" value="{{$documentos->fechadocumento }}" class="form-control" readonly tabindex="-1">
             </div>
         </div>
         <div class="col-lg-2">
@@ -98,7 +98,7 @@
         </div>
         <div class="col-lg-2">
             <div class="input-group">
-                <input type="text" value="{{$documentos->numdocfisico }}" class="form-control" readonly>
+                <input type="text" name="numdocfisico" id="numdocfisico" value="{{$documentos->numdocfisico }}" class="form-control" readonly tabindex="-1">
             </div>
         </div>
     
@@ -113,7 +113,7 @@
         </div>
         <div class="col-lg-2">
             <div class="input-group">
-                <input type="text" value={{$desproveedor}} class="form-control" readonly>
+                <input type="text" value={{$desproveedor}} class="form-control" readonly tabindex="-1">
             </div>
         </div> 
         <div class="col-lg-5">
@@ -143,10 +143,10 @@
 
        @foreach ($mercaderias as $mercaderia)
         <tr>
-            <td width="15%"><input type="text" name="id[]" id="id[]" value="{{$mercaderia->id}}" class="form-control" readonly></td>
-            <td width="15%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{$mercaderia->producto_id}}" readonly class="form-control"></td>
-            <td><input type="text"  value="{{$mercaderia->codproducto31}}" readonly class="form-control"></td>
-            <td width="20%"><input type="text"  value="{{$mercaderia->preciocompra}}" readonly class="form-control"></td>
+            <td width="15%"><input type="text" name="id[]" id="id[]" value="{{$mercaderia->id}}" class="form-control" readonly tabindex="-1"></td>
+            <td width="15%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{$mercaderia->producto_id}}" readonly class="form-control" tabindex="-1"></td>
+            <td><input type="text"  value="{{$mercaderia->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="20%"><input type="text"  value="{{$mercaderia->preciocompra}}" readonly class="form-control" tabindex="-1"></td>
         </tr>
         @endforeach
     @endif
