@@ -20,14 +20,15 @@ class GeneraguiadevController extends BaseController {
 
 	public function filtrar()
 	{
-//usuario logueado    
+//usuario logueado   
         DB::table('devueltos')->where('usuario_id','=', Auth::user()->id )->delete();
 		$data = Input::all();
         $devueltos = DB::table('devueltos')->where('usuario_id','=', Auth::user()->id )->get();//usuario logueado
 
-        if(Input::get('provider_id')>0) 
+        if(Input::get('desprovider')<>'') 
         {
-            $codprovider3 = DB::table('providers')->select('codprovider3')->where('providers.id', '=', Input::get('provider_id'))->pluck('codprovider3');
+            $provider_id = DB::table('providers')->select('id')->where('providers.desprovider', '=', Input::get('desprovider'))->pluck('id');
+            $codprovider3 = DB::table('providers')->select('codprovider3')->where('providers.id', '=', $provider_id)->pluck('codprovider3');
 
             $mercaderias = DB::table('mercaderias')->join('locals', 'locals.id', '=', 'mercaderias.local_id')
         										->join('productos', 'productos.id', '=', 'mercaderias.producto_id')
@@ -38,14 +39,14 @@ class GeneraguiadevController extends BaseController {
         											'mercaderias.estado',
                                                     'mercaderias.preciocompra',
         											'locals.deslocal')
-        										->where('productos.provider_id', '=', Input::get('provider_id'))
+        										->where('productos.provider_id', '=', $provider_id)
         										->where('mercaderias.estado', '=', 'INA')
         										->get();
 
-            return View::make('generaguiadev.generaguiadev', compact('mercaderias'))->withInput('provider_id')->with('devueltos', $devueltos);
+            return View::make('generaguiadev.generaguiadev', compact('mercaderias'))->withInput('desprovider')->with('devueltos', $devueltos);
 
         } 
-		return View::make('generaguiadev.generaguiadev', compact('mercaderias'))->withInput('provider_id')->with('devueltos', $devueltos);
+		return View::make('generaguiadev.generaguiadev', compact('mercaderias'))->withInput('desprovider')->with('devueltos', $devueltos);
 	}
 
     public function agregareg()
@@ -192,7 +193,7 @@ class GeneraguiadevController extends BaseController {
             $excel->sheet('Hoja1', function($sheet)
             {
                 $sheet->setPageMargin(array( 0.8, 0.8, 0.8, 0.8 ));
-                $sheet->setWidth('A',7);
+                $sheet->setWidth('A',14);
                 $sheet->setWidth('B',10.5);
                 $sheet->setWidth('C',42);
                 $sheet->setWidth('D',12);

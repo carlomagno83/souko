@@ -45,8 +45,14 @@ $(document).ready(function(){
 <form method="POST" action="{{url('generaguiadev-filtrar')}}"><div class="row">
     <div class="col-lg-3">
         <div class="input-group">
-            <span class="input-group-addon" id="provider_id">Proveedor</span>
-            {{Form::select('provider_id', [''=>''] + DB::table('providers')->orderby('desprovider')->lists('desprovider','id'), Input::get('provider_id'),array('class'=>'form-control', 'required'=>'required'))}}
+            <span class="input-group-addon" id="desprovider">Proveedor</span>
+            {{Form::select('desprovider', DB::table('providers')
+                            ->join('productos', 'providers.id', '=', 'productos.provider_id')
+                            ->join('mercaderias', 'productos.id', '=', 'mercaderias.producto_id')
+                            ->where('mercaderias.estado', '=', 'INA')
+                            ->groupBy('desprovider')
+                            ->orderby('desprovider')->lists('desprovider', 'desprovider'), Input::get('desprovider'), array('class'=>'form-control', 'required'=>'required'))}}
+
         </div>
     </div><!-- /.col-lg-6 -->
     <input type="submit" value="Buscar Mercaderías para Devolución de Proveedor seleccionado" class="btn btn-info">  

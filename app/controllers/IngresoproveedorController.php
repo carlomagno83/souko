@@ -283,7 +283,7 @@ class IngresoproveedorController extends BaseController
             $excel->sheet('Hoja1', function($sheet)
             {
               $sheet->setPageMargin(array( 0.8, 0.8, 0.8, 0.8 ));
-              $sheet->setWidth('A',7);
+              $sheet->setWidth('A',14);
               $sheet->setWidth('B',10.5);
               $sheet->setWidth('C',42);
               $sheet->setWidth('D',12);
@@ -314,7 +314,7 @@ class IngresoproveedorController extends BaseController
               $sheet->row(3, array('GUIA DE ENTRADA'));
                   $sheet->cell('A3', function($cell) { $cell->setFontSize(20); $cell->setFontWeight('bold'); });
               //$sheet->row(5, array('Número de documento interno:   '. $documento_id, '')); agrega numdocfisico
-              $sheet->row(5, array('Número de documento interno:   '. $documento_id, '', '', 'Documento Físico:  '. $numdocfisico));    
+              $sheet->row(5, array('Número de documento interno:   '. $documento_id, '', '', '', 'Documento Físico:  '. $numdocfisico));    
 
                   $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); }); 
                   $sheet->cell('D5', function($cell) { $cell->setFontWeight('bold'); }); //agrega numdocfisico              

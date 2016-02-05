@@ -142,7 +142,7 @@ class DevolucionptoventaController extends BaseController {
             $excel->sheet('Hoja1', function($sheet)
             {
                 $sheet->setPageMargin(array( 0.8, 0.8, 0.8, 0.8 ));
-                $sheet->setWidth('A',7);
+                $sheet->setWidth('A',14);
                 $sheet->setWidth('B',10.5);
                 $sheet->setWidth('C',42);
                 $sheet->setWidth('D',12);

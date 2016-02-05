@@ -131,7 +131,7 @@ class TrasladoptoptoController extends BaseController {
             $excel->sheet('Hoja1', function($sheet)
             {
                 $sheet->setPageMargin(array( 0.8, 0.8, 0.8, 0.8 ));
-                $sheet->setWidth('A',7);
+                $sheet->setWidth('A',14);
                 $sheet->setWidth('B',10.5);
                 $sheet->setWidth('C',42);
                 $sheet->setWidth('D',12);
@@ -166,7 +166,7 @@ class TrasladoptoptoController extends BaseController {
                     $sheet->cell('A3', function($cell) { $cell->setFontSize(20); $cell->setFontWeight('bold'); });
                 $sheet->row(5, array('Número de documento interno:   '. $documento_id, ''));
                     $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); });
-                $sheet->row(6, array('Local Inicial:   '. $localini, '                 Fecha:   '.date('Y-m-d')));
+                $sheet->row(6, array('Local Inicial:   '. $localini. '                 Fecha:   '.date('Y-m-d')));
                     $sheet->cell('A6', function($cell) { $cell->setFontWeight('bold'); });                 
                     $sheet->cell('D6', function($cell) { $cell->setFontWeight('bold'); }); 
                 $sheet->row(7, array('Local Solicitante:  '. $localfin .'         Solicitante:  '. $usuario, ''));
