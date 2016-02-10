@@ -72,10 +72,11 @@ $(document).ready(function(){
         <tr>
             <th width="10%">Mercadería id</th>
             <th width="10%">Producto id</th>
-            <th>Descripción cod31</th>
-            <th width="20%">Local actual</th>
-            <th width="7%">Estado</th>
-            <th width="10%">Precio Venta</th>
+            <th width="30%">Descripción cod31</th>
+            <th width="10%">Local actual</th>
+            <th width="5%">Estado</th>
+            <th width="8%">P. Sugerido</th>
+            <th width="8%">Precio Venta</th>
         </tr>    
     </thead>
 
@@ -85,33 +86,67 @@ $(document).ready(function(){
         <tr>
             <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$vendido->mercaderia_id}}" readonly class="form-control" tabindex="-1"></td>
             <td width="10%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{$vendido->producto_id}}" readonly class="form-control" tabindex="-1"></td>
-            <td><input type="text"  value="{{$vendido->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="30%"><input type="text"  value="{{$vendido->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             @if ($vendido->deslocal=='ALMACEN')
-                <td width="20%" class="danger"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="10%" class="danger"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
             @else
                 @if (count($vendidos)>1)
                     @if($vendido->deslocal==$deslocal)
-                        <td width="20%"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                        <td width="10%"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                     @else
-                        <td width="20%" class="danger"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                        <td width="10%" class="danger"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                     @endif
                 @else
-                    <td width="20%"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                    <td width="10%"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                 @endif
             @endif
             @if ($vendido->estado<>'ACT')
-                <td width="7%" class="danger"><input type="text" name="estado[]" value="{{$vendido->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="5%" class="danger"><input type="text" name="estado[]" value="{{$vendido->estado}}" readonly class="form-control" tabindex="-1"></td>
             @else
-                <td width="7%"><input type="text" name="estado[]" value="{{$vendido->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="5%"><input type="text" name="estado[]" value="{{$vendido->estado}}" readonly class="form-control" tabindex="-1"></td>
             @endif
+
+            <td width="10%"><input type="text" name="preciosugerido[]" id="preciosugerido[]" value="{{$vendido->preciosugerido}}" readonly class="form-control" tabindex="-1"></td>
+
             @if ($vendido->estado=='VEN')
                 <td width="10%" class="danger"><input type="text" name="precioventa[]" id="precioventa[]" value="-{{$vendido->precioventa}}" readonly class="form-control"></td>
             @else
                 <td width="10%"><input type="text" name="precioventa[]" id="precioventa[]" value="{{$vendido->precioventa}}" readonly class="form-control" tabindex="-1"></td>
-            @endif    
+            @endif   
+
             <td><a id="link_delete" href=" {{ URL::to('ventas/delete/'.$vendido->mercaderia_id) }} ">Eliminar</a>  </td>
         </tr>
         @endforeach
+
+
+        <tr>
+            <td width="10%"></td>
+            <td width="10%"></td>
+            <td></td>
+            <td width="20%"></td>
+            <td width="7%">Totales</td>
+            <?php   
+                $totalsugerido = DB::table('vendidos')->sum('preciosugerido');
+                $totalventa = DB::table('vendidos')->sum('precioventa');
+                $saldotot = $totalventa - $totalsugerido
+            ?>
+
+            <td width="10%"><input type="text" name="totalsugerido" id="totalsugerido" value="{{$totalsugerido}}" readonly class="form-control"></td>
+            <td width="10%"><input type="text" name="totalventa" id="totalventa" value="{{$totalventa}}" readonly class="form-control"></td>
+                
+
+            @if ($saldotot > 0)
+                <td width="10%" class="info"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control"></td>
+            @else
+                @if ($saldotot < 0)
+                    <td width="10%" class="danger"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control"></td>
+                @else    
+                    <td width="10%"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control"></td>
+                @endif    
+            @endif   
+
+            <td></td>
+        </tr>
     
 </table>
 <br>

@@ -30,7 +30,9 @@ class VentasController extends BaseController {
 
                     $producto_id = DB::table('mercaderias')->select('producto_id')->where('id', '=', Input::get('mercaderia_id'))->pluck('producto_id');
                     $estado = DB::table('mercaderias')->select('estado')->where('id', '=', Input::get('mercaderia_id'))->pluck('estado');
-	                $codproducto31 =  DB::table('productos')->select('codproducto31')->where('id', '=', $producto_id)->pluck('codproducto31');
+                    $codproducto31 =  DB::table('productos')->select('codproducto31')->where('id', '=', $producto_id)->pluck('codproducto31');
+                    $preciosugerido =  DB::table('productos')->select('precioventa')->where('id', '=', $producto_id)->pluck('precioventa');
+
 	                $deslocal = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')->select('deslocal')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('deslocal');
 	                $desusuario = DB::table('users')->join('mercaderias', 'users.id', '=', 'mercaderias.usuario_id')->select('desusuario')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('desusuario');
 
@@ -39,8 +41,19 @@ class VentasController extends BaseController {
 			        $vendido->producto_id = $producto_id;
 			        $vendido->codproducto31 = $codproducto31;
                     $vendido->estado = $estado;
-			        $vendido->deslocal = $deslocal;
-			        $vendido->precioventa = Input::get('precioventa');			        
+                    $vendido->deslocal = $deslocal;
+                    
+                    if($estado == 'VEN')
+                    {
+                        $vendido->preciosugerido = $preciosugerido*(-1);
+    			        $vendido->precioventa = Input::get('precioventa')*(-1);	
+                    }
+                    else    		        
+                    {
+                        $vendido->preciosugerido = $preciosugerido;
+                        $vendido->precioventa = Input::get('precioventa'); 
+                    }
+                      
 			        $vendido->usuario_id = Auth::user()->id; //usuario logueado 
 			        $vendido->save();
 
@@ -285,34 +298,41 @@ class VentasController extends BaseController {
                 $sheet->row(8, array('Generado por :   '. Auth::user()->desusuario ));
                     $sheet->cell('A8', function($cell) { $cell->setFontWeight('bold'); });                 
 
-                $sheet->row(10, array('MERCADERIA', 'PRODUCTO', 'DESCRIPCION', 'ESTADO', 'P. VENTA' ));
-                    $sheet->cells('A10:E10', function($cells) { $cells->setBackground('#81F781'); });
+                $sheet->row(10, array('MERCADERIA', 'PRODUCTO', 'DESCRIPCION', 'ESTADO', 'P. SUGERIDO', 'P. VENTA' ));
+                    $sheet->cells('A10:F10', function($cells) { $cells->setBackground('#81F781'); });
 
                 $fila = 11;
                 $numitems = 0;
                 $devueltos = 0;
                 $preciototal = 0;
+                $preciototalsugerido = 0;
                 for($i=0; $i<=$cont; )
                     {
                         if ($vendidos[$i]->estado<>'VEN' )
                         {    
-                            $sheet->row($fila, array($vendidos[$i]->mercaderia_id, $vendidos[$i]->producto_id, $vendidos[$i]->codproducto31, $vendidos[$i]->estado, $vendidos[$i]->precioventa ));
+                            $sheet->row($fila, array($vendidos[$i]->mercaderia_id, $vendidos[$i]->producto_id, $vendidos[$i]->codproducto31, $vendidos[$i]->estado, $vendidos[$i]->preciosugerido, $vendidos[$i]->precioventa ));
                             $numitems =$numitems + 1;
                             $preciototal = $preciototal + $vendidos[$i]->precioventa;
+                            $preciototalsugerido = $preciototalsugerido +  $vendidos[$i]->preciosugerido;
                         }
                         else
                         {
-                            $sheet->row($fila, array($vendidos[$i]->mercaderia_id, $vendidos[$i]->producto_id, $vendidos[$i]->codproducto31, $vendidos[$i]->estado, $vendidos[$i]->precioventa*(-1) ));
+                            $sheet->row($fila, array($vendidos[$i]->mercaderia_id, $vendidos[$i]->producto_id, $vendidos[$i]->codproducto31, $vendidos[$i]->estado, $vendidos[$i]->preciosugerido, $vendidos[$i]->precioventa ));
                                 $sheet->cell('E'.$fila, function($cell) { $cell->setFontColor('#FF0000'); $cell->setFontWeight('bold'); });
                             $devueltos =$devueltos + 1;
-                            $preciototal = $preciototal - $vendidos[$i]->precioventa;
+                            $preciototal = $preciototal + $vendidos[$i]->precioventa;
+                            $preciototalsugerido = $preciototalsugerido +  $vendidos[$i]->preciosugerido;
                         }    
                         $fila=$fila+1;
                         $i=$i+1;
                     }    
                 $fila=$fila+2;
-                $sheet->row($fila, array($numitems, 'ITEMS EN TOTAL', '', 'VENTA :', $preciototal ));
-                    $sheet->cell('E'. $fila, function($cell) { $cell->setBackground('#81F781'); });
+                $sheet->row($fila, array($numitems, 'ITEMS EN TOTAL', '','TOTALES :', $preciototalsugerido, $preciototal ));
+                    $sheet->cell('F'. $fila, function($cell) { $cell->setBackground('#81F781'); });
+                if($preciototal < $preciototalsugerido) 
+                    {
+                         $sheet->cell('F'. $fila, function($cell) { $cell->setFontColor('#FF0000'); $cell->setFontWeight('bold'); });
+                    }    
                 $sheet->row($fila+1, array($devueltos, 'DEVUELTOS' ));
 
             });
