@@ -202,7 +202,7 @@ class ProductosController extends BaseController {
 												$input["talla_id"];
 					//usuario logueado
 					$input['usuario_id'] = Auth::user()->id;												
-					
+					dd($input);
 					$this->producto->create($input);
 					return Redirect::route('productos.index');
 
