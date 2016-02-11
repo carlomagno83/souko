@@ -177,6 +177,7 @@ class ProductosController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
+		dd($input,'end');
 		$validation = Validator::make($input, Producto::$rules);
 
 		if ($validation->passes())
