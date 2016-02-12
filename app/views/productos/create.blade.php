@@ -64,7 +64,7 @@
 <div class="row">
     <div class="col-md-12 col-md-offset-0">
         <div class="form-group">
-            {{ Form::label('precioventa', 'Precio Venta:', array('class'=>'col-md-2 control-label')) }}
+            {{ Form::label('precioventa', 'P. Venta Sug.:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-2">
               <input type="text" name="precioventa" id="precioventa" class="form-control">
             </div>

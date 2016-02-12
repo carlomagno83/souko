@@ -174,6 +174,9 @@ class ProductosController extends BaseController {
 	 *
 	 * @return Response
 	 */
+
+
+
 	public function store()
 	{
 		$input = Input::all();

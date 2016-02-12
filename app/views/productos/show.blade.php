@@ -12,7 +12,7 @@
 				<th>Proveedor</th>
 				<th>Codproducto31</th>				
 				<th>Prec. compra</th>
-				<th>Prec. Venta</th>
+				<th>P. Venta Sug.</th>
 		</tr>
 	</thead>
 

@@ -75,7 +75,7 @@
         </div>
 
         <div class="form-group">
-            {{ Form::label('precioventa', 'Precio de Venta:', array('class'=>'col-md-2 control-label')) }}
+            {{ Form::label('precioventa', 'P. Venta Sug.:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-5">
               {{ Form::text('precioventa', Input::old('precioventa'), array('class'=>'form-control', 'placeholder'=>'precioventa')) }}
             </div>

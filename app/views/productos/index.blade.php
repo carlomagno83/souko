@@ -62,25 +62,45 @@
 
 <br>
 <p>{{ link_to_route('productos.create', 'Crear Rango de Productos', null, array('class' => 'btn btn-lg btn-success')) }}</p>
+
+
+<form method="POST" action="{{url('edita-bloque')}}">
 @if (count($productos)>0)
+
+<input type="text" name="provider_id" id="provider_id" Input::old('provider_id') class="form-control" readonly tabindex="-1">
+<input type="text" name="marca_id" id="marca_id" Input::get('marca_id') class="form-control" readonly tabindex="-1">
+<input type="text" name="tipo_id" id="tipo_id" Input::get('tipo_id') class="form-control" readonly tabindex="-1">
+<input type="text" name="modelo_id" id="modelo_id" Input::get('modelo_id') class="form-control" readonly tabindex="-1">
+<input type="text" name="material_id" id="material_id" Input::get('material_id') class="form-control" readonly tabindex="-1">
+<input type="text" name="color_id" id="color_id" Input::get('color_id') class="form-control" readonly tabindex="-1">
+<input type="text" name="rango_id" id="rango_id" Input::get('rango_id') class="form-control" readonly tabindex="-1">
+
+
 @if ($productos->count())
 	<table class="table table-striped">
 		<thead>
 			<tr> 
-                <th>Proveedor</th>
-                <th>Etiqueta</th>
-                <th>P. Compra</th>
-                <th>P. Venta</th>
-				<th>&nbsp;</th>
+                <th width="5%">Bloq</th>
+                <th width="5%">Proveedor</th>
+                <th width="20%">Etiqueta</th>
+                <th width="5%"></th>
+                <th width="8%">P. Compra</th>
+                <th width="8%">P. Venta Sug.</th>
+				<th width="20%">&nbsp;</th>
 			</tr>
 		</thead>
 
 		<tbody>
-        
+            <?php $i=0 ?> 
+
 			@foreach ($productos as $producto)
 				<tr>
+                    <td width="5%"><input type="checkbox" name="checkbox[{{$i}}]" class="form-control"/></td>
+
                     <td>{{{ $producto->codprovider3 }}}</td>
                     <td>{{{ $producto->codproducto31 }}}</td>
+                    <td><input style="visibility:hidden;" type="text" name="producto_id[]" id="producto_id[]" value="{{$producto->id}}" class="form-control" readonly tabindex="-1"></td>
+
                     <td>{{{ $producto->preciocompra }}}</td>
                     <td>{{{ $producto->precioventa }}}</td>
 
@@ -91,6 +111,7 @@
                         {{ link_to_route('productos.edit', 'Editar', array($producto->id), array('class' => 'btn btn-info')) }}
 
                     </td>
+                    <?php $i=$i+1 ?>
 				</tr>
 			@endforeach
            
@@ -100,4 +121,5 @@
 	No hay productos para mostrar
 @endif
 @endif 
+</form>
 @stop
