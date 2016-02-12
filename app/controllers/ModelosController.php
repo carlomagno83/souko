@@ -58,6 +58,7 @@ class ModelosController extends BaseController {
 		{
 			//usuario logueado
 			$input['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server
 			$this->modelo->create($input);
 
 			return Redirect::route('modelos.index');
@@ -115,7 +116,8 @@ class ModelosController extends BaseController {
 		{
 			$modelo = $this->modelo->find($id);
 			//usuario logueado
-			$input['usuario_id'] = Auth::user()->id;			
+			$input['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server		
 			$modelo->update($input);
 
 			return Redirect::route('modelos.show', $id);

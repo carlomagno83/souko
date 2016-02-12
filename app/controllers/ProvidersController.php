@@ -57,7 +57,8 @@ class ProvidersController extends BaseController {
 		if ($validation->passes())
 		{
 			//usuario logueado
-			$input['usuario_id'] = Auth::user()->id;			
+			$input['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server			
 			$this->provider->create($input);
 
 			return Redirect::route('providers.index');
@@ -115,7 +116,8 @@ class ProvidersController extends BaseController {
 		{
 			$provider = $this->provider->find($id);
 			//usuario logueado
-			$input['usuario_id'] = Auth::user()->id;			
+			$input['usuario_id'] = Auth::user()->id;	
+			$input = array_except($input, ['q']); //error cambio al server		
 			$provider->update($input);
 
 			return Redirect::route('providers.show', $id);

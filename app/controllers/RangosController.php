@@ -57,7 +57,8 @@ class RangosController extends BaseController {
 		if ($validation->passes())
 		{
 			//usuario logueado
-			$input['usuario_id'] = Auth::user()->id;			
+			$input['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server			
 			$this->rango->create($input);
 
 			return Redirect::route('rangos.index');
@@ -115,7 +116,8 @@ class RangosController extends BaseController {
 		{
 			$rango = $this->rango->find($id);
 			//usuario logueado
-			$input['usuario_id'] = Auth::user()->id;			
+			$input['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server			
 			$rango->update($input);
 
 			return Redirect::route('rangos.show', $id);

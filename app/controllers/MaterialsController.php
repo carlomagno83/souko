@@ -57,7 +57,8 @@ class MaterialsController extends BaseController {
 		if ($validation->passes())
 		{
 			//usuario logueado
-			$input['usuario_id'] = Auth::user()->id;			
+			$input['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server			
 			$this->material->create($input);
 
 			return Redirect::route('materials.index');
@@ -115,7 +116,8 @@ class MaterialsController extends BaseController {
 		{
 			$material = $this->material->find($id);
 			//usuario logueado
-			$input['usuario_id'] = Auth::user()->id;			
+			$input['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server			
 			$material->update($input);
 
 			return Redirect::route('materials.show', $id);

@@ -298,6 +298,7 @@ class ProductosController extends BaseController {
 			$producto = $this->producto->find($id);
 			//usuario logueado
 			$input['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server
 			$producto->update($input);
 
 			return Redirect::route('productos.show', $id);

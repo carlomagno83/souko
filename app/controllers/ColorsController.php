@@ -62,7 +62,8 @@ class ColorsController extends BaseController {
 		if ($validation->passes())
 		{
 			//usuario logueado
-			$input['usuario_id'] = Auth::user()->id;			
+			$input['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server			
 			$this->color->create($input);
 
 			return Redirect::route('colors.index');
@@ -125,7 +126,8 @@ class ColorsController extends BaseController {
 		{
 			$color = $this->color->find($id);
 			//usuario logueado
-			$input['usuario_id'] = Auth::user()->id;			
+			$input['usuario_id'] = Auth::user()->id;	
+			$input = array_except($input, ['q']); //error cambio al server		
 			$color->update($input);
 
           	return Redirect::route('colors.show', $id);

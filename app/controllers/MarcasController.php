@@ -61,6 +61,7 @@ class MarcasController extends BaseController {
 		{
 			//usuario logueado
 			$input['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server
 			$this->marca->create($input);
 
 			return Redirect::route('marcas.index');
@@ -119,6 +120,7 @@ class MarcasController extends BaseController {
 			//usuario logueado
 			$marca = $this->marca->find($id);
 			$marca['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server
 			$marca->update($input);
 
 			return Redirect::route('marcas.show', $id);

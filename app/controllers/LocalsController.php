@@ -57,7 +57,8 @@ class LocalsController extends BaseController {
 		if ($validation->passes())
 		{
 			//usuario logueado
-			$input['usuario_id'] = Auth::user()->id;			
+			$input['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server			
 			$this->local->create($input);
 
 			return Redirect::route('locals.index');
@@ -115,7 +116,8 @@ class LocalsController extends BaseController {
 		{
 			$local = $this->local->find($id);
 			//usuario logueado
-			$input['usuario_id'] = Auth::user()->id;			
+			$input['usuario_id'] = Auth::user()->id;
+			$input = array_except($input, ['q']); //error cambio al server			
 			$local->update($input);
 
 			return Redirect::route('locals.show', $id);
