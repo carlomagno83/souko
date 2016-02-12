@@ -180,6 +180,7 @@ class ProductosController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
+
 		$validation = Validator::make($input, Producto::$rules);
 
 		if ($validation->passes())
@@ -204,8 +205,8 @@ class ProductosController extends BaseController {
 												"$rangos"."-".
 												$input["talla_id"];
 					//usuario logueado
-					$input['usuario_id'] = Auth::user()->id;												
-					
+					$input['usuario_id'] = Auth::user()->id;
+					$input = array_except($input, ['q']);
 					$this->producto->create($input);
 					return Redirect::route('productos.index');
 
@@ -227,7 +228,8 @@ class ProductosController extends BaseController {
 											"$tallas";
 				$input["talla_id"] = "$tallas";							
 				//usuario logueado
-				$input['usuario_id'] = Auth::user()->id;	
+				$input['usuario_id'] = Auth::user()->id;
+				$input = array_except($input, ['q']);
 				$this->producto->create($input);						
 			}
 
