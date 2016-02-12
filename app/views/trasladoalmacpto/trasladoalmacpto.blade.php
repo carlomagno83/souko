@@ -112,6 +112,13 @@ $(document).ready(function(){
             {{Form::select('local_id',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'), Input::get('local_id'), array('class'=>'form-control', 'required'=>'required'))}}
        </div>
     </div><!-- /.col-lg-6 -->
+
+    <div class="col-lg-4">
+        <div class="input-group">
+            <span class="input-group-addon" id="numdocfisico">Número de Documento Físico</span>
+            <input type="text" name="numdocfisico" class="form-control" placeholder="" aria-describedby="basic-addon1">
+        </div>
+    </div>    
 </div>  
  <br>
  <br>

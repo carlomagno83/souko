@@ -90,7 +90,7 @@ class TrasladoalmacptoController extends BaseController {
         $data = Input::all();
         //dd($data['mercaderia_id'][2]);
         // hay que agregar un control de txn
-        $documento_id = $this->saveDocumento(Input::get('local_id'));
+        $documento_id = $this->saveDocumento(Input::get('local_id'), Input::get('numdocfisico'));
         
         foreach($data['mercaderia_id'] as $key=>$value)
         {
@@ -114,13 +114,14 @@ class TrasladoalmacptoController extends BaseController {
 
     }
 
-    private function saveDocumento($local_id)
+    private function saveDocumento($local_id, $numdocfisico)
     {
 
         $documento = new Documento(); //Agrega nuevo documento
         $documento->fechadocumento = date('Y-m-d');
         $documento->tipomovimiento_id = 2; //tipo de movimiento salida a pto de vta
         $documento->usuario_id = Auth::user()->id; // usuario logueado
+        $documento->numdocfisico = $numdocfisico;
         $documento->flagestado = 'ACT';
         $documento->localini_id = 1;
         $documento->localfin_id = $local_id;
