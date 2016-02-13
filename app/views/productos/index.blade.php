@@ -2,6 +2,19 @@
 
 @section('main')
 
+<script src="../lib/jquery.js"></script>
+<script src="../dist/jquery.validate.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#editarbotton").click(function(){
+    $("#muestramsg").show();
+    return true;});
+ });
+</script>
+
+
 <h3>Tabla maestra de Productos</h3>
 <form method="POST" action="{{url('productos-filtrar')}}">
 <div class="row">
@@ -64,16 +77,8 @@
 <p>{{ link_to_route('productos.create', 'Crear Rango de Productos', null, array('class' => 'btn btn-lg btn-success')) }}</p>
 
 
-<form method="POST" action="{{url('edita-bloque')}}">
+<form method="POST" action="{{url('editabloque')}}">
 @if (count($productos)>0)
-
-<input type="text" name="provider_id" id="provider_id" Input::old('provider_id') class="form-control" readonly tabindex="-1">
-<input type="text" name="marca_id" id="marca_id" Input::get('marca_id') class="form-control" readonly tabindex="-1">
-<input type="text" name="tipo_id" id="tipo_id" Input::get('tipo_id') class="form-control" readonly tabindex="-1">
-<input type="text" name="modelo_id" id="modelo_id" Input::get('modelo_id') class="form-control" readonly tabindex="-1">
-<input type="text" name="material_id" id="material_id" Input::get('material_id') class="form-control" readonly tabindex="-1">
-<input type="text" name="color_id" id="color_id" Input::get('color_id') class="form-control" readonly tabindex="-1">
-<input type="text" name="rango_id" id="rango_id" Input::get('rango_id') class="form-control" readonly tabindex="-1">
 
 
 @if ($productos->count())
@@ -83,7 +88,7 @@
                 <th width="5%">Bloq</th>
                 <th width="5%">Proveedor</th>
                 <th width="20%">Etiqueta</th>
-                <th width="5%"></th>
+                <th width="1%"></th>
                 <th width="8%">P. Compra</th>
                 <th width="8%">P. Venta Sug.</th>
 				<th width="20%">&nbsp;</th>
@@ -117,6 +122,20 @@
            
 		</tbody>
 	</table>
+<div class="row">
+    <div class="col-lg-1">
+        <img src='img/flechacurva.png' border='0'>
+    </div>  
+    <div class="col-lg-4">
+        <div class="input-group">
+            <span class="input-group-addon" id="precioventa">Editar P. Sugerido en bloque</span>
+            <input type="text" name="precioventa" class="form-control" placeholder="Precio unitario" aria-describedby="basic-addon1", required="required">
+        </div>
+    </div>      
+    <div class="col-lg-2">
+                <button type="submit" id="editarbotton" class="btn btn-info">Editar Precio Sugerido</button>
+    </div><!-- /.col-lg-6 -->     
+</div>
 @else
 	No hay productos para mostrar
 @endif

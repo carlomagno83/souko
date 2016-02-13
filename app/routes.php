@@ -60,6 +60,7 @@ Route::group(['before' => 'auth'], function()
 		Route::resource('productos', 'ProductosController');
 		Route::get('productos-index', 'ProductosController@index');//filtros para busqueda de producto
 		Route::any('productos-filtrar', 'ProductosController@filtrar');
+		Route::any('editabloque', 'ProductosController@editabloque');
 		Route::resource('users', 'UsersController');
 		Route::resource('providers', 'ProvidersController');
 	}
