@@ -2,9 +2,9 @@
 
 @section('main')
 
-<div align="right">
-    <a id="home" href=" {{ URL::to('/') }} "><img src='../img/home.ico' border='0'></a>
-</div>
+{{--<div align="right">--}}
+    {{--<a id="home" href=" {{ URL::to('/') }} "><img src='../img/home.ico' border='0'></a>--}}
+{{--</div>--}}
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
         <h3>Crear Usuario</h3>

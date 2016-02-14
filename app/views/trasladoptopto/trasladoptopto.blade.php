@@ -26,9 +26,9 @@ $(document).ready(function(){
  });
 </script>
 
-<div align="right">
-    <a id="home" href=" {{ URL::to('/') }} "><img src='img/home.ico' border='0'></a>
-</div>
+{{--<div align="right">--}}
+    {{--<a id="home" href=" {{ URL::to('/') }} "><img src='img/home.ico' border='0'></a>--}}
+{{--</div>--}}
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
         <h3>Traslado de mercadería de un Punto de Venta a otro Punto de Venta</h3>

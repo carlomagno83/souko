@@ -22,15 +22,15 @@
   <![endif]-->
 
   <!-- Fav and touch icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
-  <link rel="shortcut icon" href="img/favicon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('img/apple-touch-icon-144-precomposed.png')}}">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('img/apple-touch-icon-114-precomposed.png')}}">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('img/apple-touch-icon-72-precomposed.png')}}">
+  <link rel="apple-touch-icon-precomposed" href="{{asset('img/apple-touch-icon-57-precomposed.png')}}">
+  <link rel="shortcut icon" href="{{asset('img/favicon.png')}}">
   
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/scripts.js"></script>
+	<script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/scripts.js')}}"></script>
 
 
 	@yield('styles')
@@ -45,45 +45,50 @@
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
+
 						<li class="dropdown">
-							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maestros<strong class="caret"></strong></a>
+							<a style="padding-top: 8px;" href="{{URL::to('/')}}"><img width="30px" src="{{asset('img/home2.png')}}"></a>
+						</li>
+
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Maestros<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 							@if( Auth::user()->rolusuario=='SUPER' )
 								<li>
-									<a href="marcas">Marcas</a>
+									<a href="{{URL::to('/marcas')}}">Marcas</a>
 								</li>
 								<li>
-									<a href="tipos">Tipos</a>
+									<a href="{{URL::to('/tipos')}}">Tipos</a>
 								</li>
 								<li>
-									<a href="modelos">Modelos</a>
+									<a href="{{URL::to('/modelos')}}">Modelos</a>
 								</li>
 								<li>
-									<a href="rangos">Rangos</a>
+									<a href="{{URL::to('/rangos')}}">Rangos</a>
 								</li>
 								<li>
-									<a href="colors">Colores</a>
+									<a href="{{URL::to('/colors')}}">Colores</a>
 								</li>								
 								<li>
-									<a href="materials">Materiales</a>
+									<a href="{{URL::to('/materials')}}">Materiales</a>
 								</li>
 								<li role="presentation" class="divider"></li>
 								<li>
-									<a href="users">Usuarios</a>
+									<a href="{{URL::to('/users')}}">Usuarios</a>
 								</li>								
 								<li>
-									<a href="locals">Locales</a>
+									<a href="{{URL::to('/locals')}}">Locales</a>
 								</li>
 								<li>
-									<a href="providers">Proveedores</a>
+									<a href="{{URL::to('/providers')}}">Proveedores</a>
 								</li>
 								<li role="presentation" class="divider"></li>
 								<li>
-									<a href="productos">Productos</a>
+									<a href="{{URL::to('/productos')}}">Productos</a>
 								</li>	
 							@endif							
 								<li>
-									<a href="mercaderias">Mercaderias</a>
+									<a href="{{URL::to('/mercaderias')}}">Mercaderias</a>
 								</li>																
 							</ul>
 						</li>
@@ -91,14 +96,14 @@
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresos<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="ingresos-proveedor-create">Nuevo ingreso Proveedor</a>
+									<a href="{{URL::to('/ingresos-proveedor-create')}}">Nuevo ingreso Proveedor</a>
 								</li>
  								<li>
-									<a href="eliminacionguia">Eliminar Guía de Ingreso</a>
+									<a href="{{URL::to('/eliminacionguia')}}">Eliminar Guía de Ingreso</a>
 								</li>
 								<li role="presentation" class="divider"></li>								
  								<li>
-									<a href="reimprimeguiaentrada">Re-imprimir etiquetas</a>
+									<a href="{{URL::to('/reimprimeguiaentrada')}}">Re-imprimir etiquetas</a>
 								</li>
 							</ul>
 						</li>						
@@ -107,13 +112,13 @@
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Operaciones con Pto de Vta<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="trasladoalmacpto">Traslados de Almacén a Pto de Venta</a>
+									<a href="{{URL::to('/trasladoalmacpto')}}">Traslados de Almacén a Pto de Venta</a>
 								</li>
 								<li>
-									<a href="trasladoptopto">Traslados de Pto a Pto</a>
+									<a href="{{URL::to('/trasladoptopto')}}">Traslados de Pto a Pto</a>
 								</li>
 								<li>
-									<a href="ventas">Ventas</a>
+									<a href="{{URL::to('/ventas')}}">Ventas</a>
 								</li>
 							</ul>
 						</li>	
@@ -124,13 +129,13 @@
 									<a href="devolucionproveedor">Devoluciones a Proveedor</a>
 								</li>-->
 								<li>
-									<a href="generaguiadev">Genera guía de devolución</a>
+									<a href="{{URL::to('/generaguiadev')}}">Genera guía de devolución</a>
 								</li>
 								<li>
-									<a href="liquidacionguiadev">Liquidación de Guía de Devolución</a>
+									<a href="{{URL::to('/liquidacionguiadev')}}">Liquidación de Guía de Devolución</a>
 								</li>								
 								<li>
-									<a href="devolucionptoventa">Devoluciones de Pto de Venta</a>
+									<a href="{{URL::to('/devolucionptoventa')}}">Devoluciones de Pto de Venta</a>
 								</li>
 							</ul>
 						</li>	
@@ -138,13 +143,13 @@
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="reporte-muestra">Reporte de ingresos</a>
+									<a href="{{URL::to('/reporte-muestra')}}">Reporte de ingresos</a>
 								</li>
 								<li>
-									<a href="reporteventa">Reporte de Ventas</a>
+									<a href="{{URL::to('/reporteventa')}}">Reporte de Ventas</a>
 								</li>
 								<li>
-									<a href="reportestock">Reporte de stock</a>
+									<a href="{{URL::to('/reportestock')}}">Reporte de stock</a>
 								</li>
 							</ul>
 						</li>
@@ -164,7 +169,6 @@
 						</li>
 					</ul>
 				</div>
-				
 			</nav>
 			<div class="jumbotron">
 			    <div class="row">
