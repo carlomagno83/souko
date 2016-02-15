@@ -190,7 +190,9 @@ class IngresoproveedorController extends BaseController
         $numdocfisico = $data['numdocfisico'];
         //dd($numdocfisico);
         //$documento_id = $this->saveDocumento($proveedor_id); cambio por agregar campo de doc fisico
+
         $documento_id = $this->saveDocumento($proveedor_id, $numdocfisico);
+
         foreach($data as $key=>$value)
         {
             if($key=='producto_id')
@@ -220,8 +222,11 @@ class IngresoproveedorController extends BaseController
 
     private function saveDocumento($proveedor_id, $numdocfisico)
     {
+        //add por tipo movimiento
+        $numdoc = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '1')->orderBy('id', 'desc')->pluck('id') + 1; 
 
         $documento = new Documento();
+        $documento->id = $numdoc; //add por tipo movimiento 
         $documento->tipomovimiento_id = 1;// tipo de movimiento es ingreso 1
         $documento->fechadocumento = date('Y-m-d');
         $documento->numdocfisico = $numdocfisico; //agrega numdocfisico
@@ -230,8 +235,10 @@ class IngresoproveedorController extends BaseController
         $documento->flagestado = 'ACT';
         $documento->localini_id = $proveedor_id;  //Para tipo de mov 1 ingresamos cod proveedor
         $documento->localfin_id = 1;
+
         $documento->save();
-        return $documento->id;
+
+        return $numdoc; // cambio por tipo movimiento
     }
 
     private function saveMercaderia($producto_id, $preciocompra)
@@ -256,7 +263,7 @@ class IngresoproveedorController extends BaseController
         $movimiento = new Movimiento();
         $movimiento->mercaderia_id = $mercaderia_id;
         $movimiento->documento_id = $documento_id;
-        //$movimiento->tipodocumento_id = 1; // liberar al cambiar BD
+        $movimiento->tipomovimiento_id = 1; // tipo movimiento
         $movimiento->flagoferta = 0;
         $movimiento->save();
 
@@ -369,21 +376,21 @@ class IngresoproveedorController extends BaseController
               $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '1')->orderBy('id', 'desc')->pluck('id');  
               $numdocfisico =  DB::table('documentos')->select('numdocfisico')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '1')->pluck('numdocfisico'); //agrega numdocfisico
 
+    //prueba
               $mercaderias = DB::table('mercaderias')->join('movimientos','mercaderias.id','=','movimientos.mercaderia_id')
                                         ->join('productos','mercaderias.producto_id','=','productos.id')
-                                        ->join('documentos', 'movimientos.documento_id','=','documentos.id')
+                                        ->join('documentos', function($join)
+                                                    {
+                                                $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                    })
                   ->select('mercaderias.id',
-                           'movimientos.documento_id',
-                           'mercaderias.producto_id',
-                           'mercaderias.estado',
-                           'mercaderias.preciocompra',
                            'productos.codproducto31')
-                  ->where('documentos.tipomovimiento_id','=','1')
+                  ->where('movimientos.documento_id','=', $documento_id)                  
+                  ->where('movimientos.tipomovimiento_id','=','1')  //cambio por tipo movimiento
                   ->orderBy('productos.codproducto31', 'asc')
-                  ->orderBy('mercaderias.id', 'asc')
-                  ->where('movimientos.documento_id','=', $documento_id)
                   ->get(); 
-               
+
               //dd($mercaderias[0]->id);   $mercaderias[$i]->codproducto31 
               //$sheet->row(2, array($mercaderias[0]->codproducto31, $mercaderias[1]->codproducto31,$mercaderias[2]->codproducto31 ));
               $cont = Count($mercaderias) ;

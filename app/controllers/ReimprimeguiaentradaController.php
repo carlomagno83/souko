@@ -33,7 +33,11 @@ class ReimprimeguiaentradaController extends BaseController
                 //dd($documentos);
                 $mercaderias = $this->mercaderia->join('movimientos','mercaderias.id','=','movimientos.mercaderia_id')
                                                 ->join('productos','mercaderias.producto_id','=','productos.id')
-                                                ->join('documentos', 'movimientos.documento_id','=','documentos.id')
+                                                ->join('documentos', function($join)
+                                                            {
+                                                        $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                        $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                            })
                           ->select('mercaderias.id',
                                    'movimientos.documento_id',
                                    'mercaderias.producto_id',
@@ -66,7 +70,11 @@ class ReimprimeguiaentradaController extends BaseController
                 
                 $mercaderias = $this->mercaderia->join('movimientos','mercaderias.id','=','movimientos.mercaderia_id')
                                                 ->join('productos','mercaderias.producto_id','=','productos.id')
-                                                ->join('documentos', 'movimientos.documento_id','=','documentos.id')
+                                                ->join('documentos', function($join)
+                                                            {
+                                                        $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                        $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                            })
                           ->select('mercaderias.id',
                                    'movimientos.documento_id',
                                    'mercaderias.producto_id',
@@ -113,7 +121,11 @@ class ReimprimeguiaentradaController extends BaseController
 
               $mercaderias = DB::table('mercaderias')->join('movimientos','mercaderias.id','=','movimientos.mercaderia_id')
                                         ->join('productos','mercaderias.producto_id','=','productos.id')
-                                        ->join('documentos', 'movimientos.documento_id','=','documentos.id')
+                                        ->join('documentos', function($join)
+                                                    {
+                                                $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                    })
                   ->select('mercaderias.id',
                            'movimientos.documento_id',
                            'mercaderias.producto_id',

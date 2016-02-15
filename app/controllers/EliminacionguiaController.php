@@ -31,9 +31,13 @@ class EliminacionguiaController extends BaseController
                 $documentos = DB::table('documentos')->find(Input::get('documento_id'));
                 //dd($documentos);
                 $mercaderias = $this->mercaderia->join('movimientos','mercaderias.id','=','movimientos.mercaderia_id')
-                                              ->join('productos','mercaderias.producto_id','=','productos.id')
-                                              ->join('documentos', 'movimientos.documento_id','=','documentos.id')
-                                              ->join('locals', 'mercaderias.local_id','=','locals.id')
+                                                ->join('productos','mercaderias.producto_id','=','productos.id')
+                                                ->join('documentos', function($join)
+                                                              {
+                                                        $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                        $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                              })
+                                                ->join('locals', 'mercaderias.local_id','=','locals.id')
                             ->select('mercaderias.id',
                                     'movimientos.documento_id',
                                     'mercaderias.producto_id',
@@ -75,9 +79,13 @@ class EliminacionguiaController extends BaseController
                 //$documentos = DB::table('documentos')->find(Input::get('numdocfisico'));
                 
                 $mercaderias = $this->mercaderia->join('movimientos','mercaderias.id','=','movimientos.mercaderia_id')
-                                              ->join('productos','mercaderias.producto_id','=','productos.id')
-                                              ->join('documentos', 'movimientos.documento_id','=','documentos.id')
-                                              ->join('locals', 'mercaderias.local_id','=','locals.id')
+                                                ->join('productos','mercaderias.producto_id','=','productos.id')
+                                                ->join('documentos', function($join)
+                                                              {
+                                                        $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                        $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                              })
+                                                ->join('locals', 'mercaderias.local_id','=','locals.id')
                             ->select('mercaderias.id',
                                     'movimientos.documento_id',
                                     'mercaderias.producto_id',
@@ -104,14 +112,18 @@ class EliminacionguiaController extends BaseController
     {
         $data = Input::all();
         // hay que agregar un control de txn
-        DB::table('movimientos')->where('documento_id', '=', Input::get('documento_id'))->delete();
+        DB::table('movimientos')->where('documento_id', '=', Input::get('documento_id'))
+                                ->where('tipomovimiento_id', '=', '1')
+                                ->delete();
         
         foreach($data['id'] as $key=>$value)
         {
             //echo $data['id'][$key];
             DB::table('mercaderias')->where('id', '=', $data['id'][$key])->delete();
         }
-        DB::table('documentos')->where('id', '=', Input::get('documento_id'))->delete();
+        DB::table('documentos')->where('id', '=', Input::get('documento_id'))
+                                ->where('tipomovimiento_id', '=', '1')
+                                ->delete();
 
         $mercaderias = Mercaderia::find(0);
         return View::make('eliminacionguia.eliminacionguia')->with('mercaderias',$mercaderias)->withErrors(['Guía de Entrada Eliminada, por favor destruya el documento Físico: '. Input::get('documento_id')]);
