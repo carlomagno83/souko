@@ -97,14 +97,19 @@ class VentasController extends BaseController {
             $movimiento = new Movimiento();
             $movimiento->mercaderia_id = $data['mercaderia_id'][$key];
             $movimiento->documento_id = $documento_id;
-            //$movimiento->tipodocumento_id = 3;
+            $movimiento->tipomovimiento_id = 3; //cambio tipo movimiento
             $movimiento->flagoferta = 0;
             $movimiento->save();
 
             if ($data['estado'][$key]=='VEN')
-                { DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => $data['local_id'], 'precioventa' => 0, 'estado' => 'ACT', 'usuario_id' => $data['usuario_id'])); }
+                { 
+                    DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => $data['local_id'], 'precioventa' => 0, 'estado' => 'ACT', 'usuario_id' => $data['usuario_id'])); 
+                    DB::table('movimientos')->where('mercaderia_id', '=', $data['mercaderia_id'][$key])->where('tipomovimiento_id', '=', '3')->delete();
+                }
             else
-                { DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => $data['local_id'], 'precioventa' => $data['precioventa'][$key], 'estado' => 'VEN', 'usuario_id' => $data['usuario_id'])); }
+                { 
+                    DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => $data['local_id'], 'precioventa' => $data['precioventa'][$key], 'estado' => 'VEN', 'usuario_id' => $data['usuario_id'])); 
+                }
 
         }	    
 	    //usuario logueado
@@ -124,8 +129,10 @@ class VentasController extends BaseController {
 
     private function saveDocumento($local_id)
     {
+        $numdoc = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '3')->orderBy('id', 'desc')->pluck('id') + 1; 
 
-        $documento = new Documento(); //Agrega nuevo documento
+        $documento = new Documento();
+        $documento->id = $numdoc; //add por tipo movimiento 
         $documento->fechadocumento = date('Y-m-d');
         $documento->tipomovimiento_id = 3; //tipo de movimiento venta
         $documento->usuario_id =  Auth::user()->id ; // usuario logueado
@@ -133,7 +140,7 @@ class VentasController extends BaseController {
         $documento->localini_id = $local_id;        
         $documento->localfin_id = $local_id;
         $documento->save();
-        return $documento->id;
+        return $numdoc; // cambio por tipo movimiento
         
     }
 
@@ -180,15 +187,25 @@ class VentasController extends BaseController {
 
                     $local = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')
                                                 ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
-                                                ->join('documentos', 'movimientos.documento_id', '=', 'documentos.id')
+                                                ->join('documentos', function($join)
+                                                            {
+                                                        $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                        $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                            })
                                                 ->select('deslocal')
                                                 ->where('documentos.id', '=', $documento_id)
+                                                ->where('documentos.tipomovimiento_id', '=', '3')
                                                 ->pluck('deslocal');
                     $usuario = DB::table('users')->join('mercaderias', 'users.id', '=', 'mercaderias.usuario_id')
                                                 ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
-                                                ->join('documentos', 'movimientos.documento_id', '=', 'documentos.id')
+                                                ->join('documentos', function($join)
+                                                            {
+                                                        $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                        $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                            })
                                                 ->select('desusuario')
-                                                 ->where('documentos.id', '=', $documento_id)
+                                                ->where('documentos.id', '=', $documento_id)
+                                                ->where('documentos.tipomovimiento_id', '=', '3')
                                                 ->pluck('desusuario');                            
                     $mercaderias = DB::table('mercaderias')->join('vendidos','mercaderias.id','=','vendidos.mercaderia_id')
                                         ->join('productos','mercaderias.producto_id','=','productos.id')
@@ -266,18 +283,28 @@ class VentasController extends BaseController {
                 $sheet->setStyle(array( 'font' => array('name' => 'Arial','size' => 11,'bold' => false )));
                 $sheet->setColumnFormat(array( 'E' => '0.00' ));
                 //Buscamos datos
-                $documento_id = DB::table('documentos')->select('id')->orderBy('id', 'desc')->pluck('id');  
+                $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '3')->orderBy('id', 'desc')->pluck('id');  
                 $local = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')
                                             ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
-                                            ->join('documentos', 'movimientos.documento_id', '=', 'documentos.id')
+                                            ->join('documentos', function($join)
+                                                        {
+                                                    $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                    $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                        })
                                             ->select('deslocal')
                                             ->where('documentos.id', '=', $documento_id)
+                                            ->where('documentos.tipomovimiento_id', '=', '3')
                                             ->pluck('deslocal');
                 $usuario = DB::table('users')->join('mercaderias', 'users.id', '=', 'mercaderias.usuario_id')
                                             ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
-                                            ->join('documentos', 'movimientos.documento_id', '=', 'documentos.id')
+                                            ->join('documentos', function($join)
+                                                        {
+                                                    $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                    $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                        })
                                             ->select('desusuario')
                                             ->where('documentos.id', '=', $documento_id)
+                                            ->where('documentos.tipomovimiento_id', '=', '3')
                                             ->pluck('desusuario');
     //usuario logueado
                 $vendidos = DB::table('vendidos')->where('usuario_id','=', Auth::user()->id )->get(); 

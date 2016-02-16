@@ -150,7 +150,7 @@ class GeneraguiadevController extends BaseController {
                 $movimiento = new Movimiento();
                 $movimiento->mercaderia_id = $data['mercaderia_id'][$key2];
                 $movimiento->documento_id = $documento_id;
-                //$movimiento->tipodocumento_id = 7; // liberar al cambiar BD
+                $movimiento->tipomovimiento_id = 7; // cambio por tipo movimiento
                 $movimiento->flagoferta = 0;
                 $movimiento->save();          
                       
@@ -167,8 +167,10 @@ class GeneraguiadevController extends BaseController {
 
     private function saveDocumento($codprovider_id, $numdocfisico)
     {
+        $numdoc = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '7')->orderBy('id', 'desc')->pluck('id') + 1; 
 
         $documento = new Documento(); //Agrega nuevo documento
+        $documento->id = $numdoc; //add por tipo movimiento          
         $documento->fechadocumento = date('Y-m-d');
         $documento->tipomovimiento_id = 7; //tipo de movimiento devolucion a proveedor
 //usuario logueado
@@ -178,7 +180,7 @@ class GeneraguiadevController extends BaseController {
         $documento->localini_id = 1;        
         $documento->localfin_id = $codprovider_id; //solo para el tipomov 7 ingresamos id de proveedor
         $documento->save();
-        return $documento->id;
+        return $numdoc; // cambio por tipo movimiento
         
     }
 

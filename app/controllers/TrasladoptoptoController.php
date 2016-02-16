@@ -87,7 +87,7 @@ class TrasladoptoptoController extends BaseController {
             $movimiento = new Movimiento();
             $movimiento->mercaderia_id = $data['mercaderia_id'][$key];
             $movimiento->documento_id = $documento_id;
-            //$movimiento->tipodocumento_id = 4; // liberar al cambiar BD
+            $movimiento->tipomovimiento_id = 4; // cambio por tipo movimiento
             $movimiento->flagoferta = 0;
             $movimiento->save();
 
@@ -103,8 +103,10 @@ class TrasladoptoptoController extends BaseController {
     //private function saveDocumento($localini, $localfin)  //cambio para doc fisico
     private function saveDocumento($localini, $localfin, $numdocfisico)
     {
+        $numdoc = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '4')->orderBy('id', 'desc')->pluck('id') + 1; 
 
         $documento = new Documento(); //Agrega nuevo documento
+        $documento->id = $numdoc; //add por tipo movimiento         
         $documento->fechadocumento = date('Y-m-d');
         $documento->tipomovimiento_id = 4; //tipo de movimiento pto a pto
         $documento->numdocfisico = $numdocfisico;
@@ -113,7 +115,7 @@ class TrasladoptoptoController extends BaseController {
         $documento->localini_id = $localini;
         $documento->localfin_id = $localfin;
         $documento->save();
-        return $documento->id;
+        return $numdoc; // cambio por tipo movimiento
         
     }
 
@@ -144,16 +146,23 @@ class TrasladoptoptoController extends BaseController {
                 $localini = DB::table('locals')->join('documentos', 'locals.id', '=', 'documentos.localini_id')
 												->select('deslocal')
 												->where('documentos.id', '=', $documento_id)
+                                                ->where('documentos.tipomovimiento_id', '=', '4')
 												->pluck('deslocal');
 				$localfin = DB::table('locals')->join('documentos', 'locals.id', '=', 'documentos.localfin_id')
 												->select('deslocal')
 												->where('documentos.id', '=', $documento_id)
+                                                ->where('documentos.tipomovimiento_id', '=', '4')
 												->pluck('deslocal');
                 $usuario = DB::table('users')->join('mercaderias', 'users.id', '=', 'mercaderias.usuario_id')
                                             ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
-                                            ->join('documentos', 'movimientos.documento_id', '=', 'documentos.id')
+                                            ->join('documentos', function($join)
+                                                        {
+                                                    $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                    $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                        })
                                             ->select('desusuario')
                                             ->where('documentos.id', '=', $documento_id)
+                                            ->where('documentos.tipomovimiento_id', '=', '4')
                                             ->pluck('desusuario');
     //usuario logueado
                 $traslados = DB::table('traslados')->where('usuario_id','=', Auth::user()->id )->get(); 

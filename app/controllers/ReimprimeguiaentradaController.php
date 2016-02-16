@@ -27,9 +27,10 @@ class ReimprimeguiaentradaController extends BaseController
     {
         if(Input::get('documento_id')!=null) 
         {    
-            if(DB::table('documentos')->find(Input::get('documento_id')))
+            $documentos = Documento::where('numdocfisico', Input::get('numdocfisico'))->where('tipomovimiento_id','1')->firstOrFail();
+
+            if($documentos)
             {
-                $documentos = DB::table('documentos')->find(Input::get('documento_id'));
                 //dd($documentos);
                 $mercaderias = $this->mercaderia->join('movimientos','mercaderias.id','=','movimientos.mercaderia_id')
                                                 ->join('productos','mercaderias.producto_id','=','productos.id')

@@ -1,6 +1,20 @@
 @extends('layouts.scaffold')
 
 @section('main')
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script>
+$(function() {
+$( "#datepicker1" ).datepicker();
+});  
+$(function() {
+$( "#datepicker2" ).datepicker();
+});
+</script>
+
+
 <script src="../lib/jquery.js"></script>
 <script src="../dist/jquery.validate.js"></script>
 <script>
@@ -50,7 +64,7 @@ $(document).ready(function(){
     <div class="col-lg-4">
         <div class="input-group">
             <span class="input-group-addon" id="mercaderia_id">Mercadería</span>
-            <input type="text" name="mercaderia_id" class="form-control" placeholder="Uso de pistola" aria-describedby="basic-addon1" required>
+            <input type="text" name="mercaderia_id" class="form-control" placeholder="Uso de pistola" aria-describedby="basic-addon1" required autofocus>
        </div>
     </div><!-- /.col-lg-6 -->  
     <div class="col-lg-4">
@@ -152,19 +166,25 @@ $(document).ready(function(){
 <br>
 
 <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-4">
             <div class="input-group">
                 <span class="input-group-addon" id="usuario_id">Usuario Vendedor</span>
                 {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
             </div>
         </div><!-- /.col-lg-6 -->
 
-        <div class="col-lg-5">
+        <div class="col-lg-4">
             <div class="input-group">
-                <span class="input-group-addon" id="local_id">Local o Pto de Venta</span>
+                <span class="input-group-addon" id="local_id">Pto de Venta</span>
                 {{Form::select('local_id',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'), $deslocal,array('class'=>'form-control', 'required'=>'required'))}}
            </div>
-        </div><!-- /.col-lg-6 -->    
+        </div><!-- /.col-lg-6 -->   
+        <div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="fechadocumento">Fecha</span>
+                <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1">
+            </div>
+        </div><!-- /.col-lg-6 -->         
 </div><!-- /.row -->
 <br>
 <div class="row">

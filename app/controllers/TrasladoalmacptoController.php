@@ -99,7 +99,7 @@ class TrasladoalmacptoController extends BaseController {
             //cambio para agregar timestamp
             $movimiento = new Movimiento();
             $movimiento->mercaderia_id =  $data['mercaderia_id'][$key];
-            //$movimiento->tipodocumento_id = 2; // liberar al cambiar BD
+            $movimiento->tipomovimiento_id = 2; // cambio por tipo movimiento
             $movimiento->documento_id = $documento_id;
             $movimiento->flagoferta = 0;
             $movimiento->save();
@@ -116,17 +116,19 @@ class TrasladoalmacptoController extends BaseController {
 
     private function saveDocumento($local_id, $numdocfisico)
     {
+        $numdoc = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '2')->orderBy('id', 'desc')->pluck('id') + 1; 
 
         $documento = new Documento(); //Agrega nuevo documento
+        $documento->id = $numdoc; //add por tipo movimiento 
         $documento->fechadocumento = date('Y-m-d');
         $documento->tipomovimiento_id = 2; //tipo de movimiento salida a pto de vta
         $documento->usuario_id = Auth::user()->id; // usuario logueado
         $documento->numdocfisico = $numdocfisico;
         $documento->flagestado = 'ACT';
-        $documento->localini_id = 1;
+        $documento->localini_id = 1; //almacen
         $documento->localfin_id = $local_id;
         $documento->save();
-        return $documento->id;
+        return $numdoc; // cambio por tipo movimiento
         
     }
 
@@ -157,15 +159,25 @@ class TrasladoalmacptoController extends BaseController {
 
                 $local = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')
                                             ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
-                                            ->join('documentos', 'movimientos.documento_id', '=', 'documentos.id')
+                                            ->join('documentos', function($join)
+                                                        {
+                                                    $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                    $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                        })
                                             ->select('deslocal')
                                             ->where('documentos.id', '=', $documento_id)
+                                            ->where('documentos.tipomovimiento_id', '=', '2')
                                             ->pluck('deslocal');
                 $usuario = DB::table('users')->join('mercaderias', 'users.id', '=', 'mercaderias.usuario_id')
                                             ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
-                                            ->join('documentos', 'movimientos.documento_id', '=', 'documentos.id')
+                                            ->join('documentos', function($join)
+                                                        {
+                                                    $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                    $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                        })
                                             ->select('desusuario')
                                             ->where('documentos.id', '=', $documento_id)
+                                            ->where('documentos.tipomovimiento_id', '=', '2')
                                             ->pluck('desusuario');
     //usuario logueado
                 $tempos = DB::table('tempos')->where('usuario_id','=',Auth::user()->id )->get(); 

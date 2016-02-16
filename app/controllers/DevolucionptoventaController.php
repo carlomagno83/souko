@@ -94,7 +94,7 @@ class DevolucionptoventaController extends BaseController {
             $movimiento = new Movimiento();
             $movimiento->mercaderia_id = $data['mercaderia_id'][$key];
             $movimiento->documento_id = $documento_id;
-            //$movimiento->tipodocumento_id = 6; // liberar al cambiar BD
+            $movimiento->tipomovimiento_id = 6; // cambio por tipo movimiento
             $movimiento->flagoferta = 0;
             $movimiento->save();
 
@@ -113,8 +113,10 @@ class DevolucionptoventaController extends BaseController {
 
     private function saveDocumento($local_id, $numdocfisico)
     {
+        $numdoc = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '6')->orderBy('id', 'desc')->pluck('id') + 1; 
 
         $documento = new Documento(); //Agrega nuevo documento
+        $documento->id = $numdoc; //add por tipo movimiento         
         $documento->fechadocumento = date('Y-m-d');
         $documento->tipomovimiento_id = 6; //tipo de movimiento devolucion de pto vta
         $documento->numdocfisico = $numdocfisico;
@@ -124,7 +126,7 @@ class DevolucionptoventaController extends BaseController {
         $documento->localini_id = $local_id;
         $documento->localfin_id = 1;
         $documento->save();
-        return $documento->id;
+        return $numdoc; // cambio por tipo movimiento
         
     }
 
@@ -160,9 +162,14 @@ class DevolucionptoventaController extends BaseController {
 												->pluck('deslocal');
                 $usuario = DB::table('users')->join('mercaderias', 'users.id', '=', 'mercaderias.usuario_id')
                                             ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
-                                            ->join('documentos', 'movimientos.documento_id', '=', 'documentos.id')
+                                            ->join('documentos', function($join)
+                                                        {
+                                                    $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                                    $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                                        })
                                             ->select('desusuario')
                                             ->where('documentos.id', '=', $documento_id)
+                                            ->where('documentos.tipomovimiento_id', '=', '6')
                                             ->pluck('desusuario');
     //usuario logueado
                 $devuelves = DB::table('devuelves')->where('usuario_id','=', Auth::user()->id )->get(); 
