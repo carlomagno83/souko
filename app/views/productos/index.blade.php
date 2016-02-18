@@ -129,7 +129,7 @@ $(document).ready(function(){
     <div class="col-lg-4">
         <div class="input-group">
             <span class="input-group-addon" id="precioventa">Editar P. Sugerido en bloque</span>
-            <input type="text" name="precioventa" class="form-control" placeholder="Precio unitario" aria-describedby="basic-addon1", required="required">
+            <input type="text" name="precioventa" class="form-control" placeholder="Precio unitario" aria-describedby="basic-addon1">
         </div>
     </div>      
     <div class="col-lg-2">

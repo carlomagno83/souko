@@ -87,7 +87,7 @@ class VentasController extends BaseController {
         $data = Input::all();
         //dd($data['mercaderia_id'][2]);
         // hay que agregar un control de txn
-        $documento_id = $this->saveDocumento(Input::get('local_id'));
+        $documento_id = $this->saveDocumento(Input::get('local_id'), Input::get('fechadocumento'));
         
         foreach($data['mercaderia_id'] as $key=>$value)
         {
@@ -119,7 +119,7 @@ class VentasController extends BaseController {
         $usuario = DB::table('users')->select('desusuario')->where('id', '=', $data['usuario_id'])->pluck('desusuario');
         //$total =  count($mercaderias); NO sirve si hay devolucion
 
-        $this -> imprimeventa();
+        $this -> imprimeventa(Input::get('fechadocumento'));
 
 	    //no va a llegar hasta este punto
         $vendidos = DB::table('vendidos')->where('usuario_id','=', Auth::user()->id )->get();//usuario logueado
@@ -127,13 +127,13 @@ class VentasController extends BaseController {
 
     }
 
-    private function saveDocumento($local_id)
+    private function saveDocumento($local_id, $fechadocumento)
     {
         $numdoc = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '3')->orderBy('id', 'desc')->pluck('id') + 1; 
 
         $documento = new Documento();
         $documento->id = $numdoc; //add por tipo movimiento 
-        $documento->fechadocumento = date('Y-m-d');
+        $documento->fechadocumento = $fechadocumento;    //date('Y-m-d');
         $documento->tipomovimiento_id = 3; //tipo de movimiento venta
         $documento->usuario_id =  Auth::user()->id ; // usuario logueado
         $documento->flagestado = 'ACT';
@@ -154,10 +154,10 @@ class VentasController extends BaseController {
   
     }
 
-      public function imprimeventa()
+      public function imprimeventa($fechadocumento)
     {
 
-        Excel::create(date('Y-m-d').'guiaventas', function($excel)
+        Excel::create($fechadocumento.'guiaventas', function($excel)
         {
                 // Set the title
             $excel->setTitle('Registro de movimiento por local a final de dia');
@@ -284,6 +284,7 @@ class VentasController extends BaseController {
                 $sheet->setColumnFormat(array( 'E' => '0.00' ));
                 //Buscamos datos
                 $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '3')->orderBy('id', 'desc')->pluck('id');  
+                $fechadocumento = DB::table('documentos')->select('fechadocumento')->where('tipomovimiento_id', '=', '3')->orderBy('id', 'desc')->pluck('fechadocumento');  
                 $local = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')
                                             ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
                                             ->join('documentos', function($join)
@@ -317,7 +318,7 @@ class VentasController extends BaseController {
                     $sheet->cell('A3', function($cell) { $cell->setFontSize(20); $cell->setFontWeight('bold'); });
                 $sheet->row(5, array('Número de documento interno:   '. $documento_id, ''));
                     $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); });
-                $sheet->row(6, array('Local:   '. $local, '', '', 'Fecha:   '.date('Y-m-d')));
+                $sheet->row(6, array('Local:   '. $local, '', '', 'Fecha:   '.$fechadocumento));
                     $sheet->cell('A6', function($cell) { $cell->setFontWeight('bold'); });                 
                     $sheet->cell('D6', function($cell) { $cell->setFontWeight('bold'); }); 
                 $sheet->row(7, array('Vendedor:   '. $usuario, ''));

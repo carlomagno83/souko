@@ -58,15 +58,17 @@ class GeneraguiadevController extends BaseController {
             { 
                 foreach($value as $key2=>$indice)
                 {
-//usuario logueado
-                    //dd($key2); //el key2 muestra el indice                       
-                    DB::table('devueltos')->insert(array('codprovider3' => $data['codprovider3'][$key2],
-                                                         'mercaderia_id' => $data['mercaderia_id'][$key2],
-                                                         'codproducto31' => $data['codproducto31'][$key2],
-                                                         'estado' => $data['estado'][$key2],
-                                                         'preciocompra' => $data['preciocompra'][$key2],
-                                                         'deslocal' => $data['deslocal'][$key2],
-                                                         'usuario_id' =>  Auth::user()->id  ));
+                    $existe = DB::table('devueltos')->select('mercaderia_id')->where('mercaderia_id', '=',  $data['mercaderia_id'][$key2] )->pluck('mercaderia_id');
+                    if(!$existe)     //condicional por que al hacer F5 está aumentando registros por el checkbox ON
+                    {       
+                        DB::table('devueltos')->insert(array('codprovider3' => $data['codprovider3'][$key2],
+                                                             'mercaderia_id' => $data['mercaderia_id'][$key2],
+                                                             'codproducto31' => $data['codproducto31'][$key2],
+                                                             'estado' => $data['estado'][$key2],
+                                                             'preciocompra' => $data['preciocompra'][$key2],
+                                                             'deslocal' => $data['deslocal'][$key2],
+                                                             'usuario_id' =>  Auth::user()->id  ));
+                    }    
                 }
             }
         }
@@ -141,7 +143,7 @@ class GeneraguiadevController extends BaseController {
             $codprovider3 = DB::table('devueltos')->select('codprovider3')->where('usuario_id','=', Auth::user()->id )->pluck('codprovider3');  
             $codprovider_id = DB::table('providers')->select('id')->where('codprovider3', '=', $codprovider3)->pluck('id');
             
-            $documento_id = $this->saveDocumento($codprovider_id, Input::get('numdocfisico'));
+            $documento_id = $this->saveDocumento($codprovider_id, Input::get('numdocfisico'), Input::get('fechadocumento'));
             foreach($value as $key2=>$indice)
             {
                 //dd($key2); //el key2 muestra el indice                       
@@ -157,7 +159,7 @@ class GeneraguiadevController extends BaseController {
 //hay que cambiar por usuario logueado
                 DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key2])->update(array('estado' => 'DEV', 'usuario_id' =>1 )); 
             }
-            $this->imprimeguia();
+            $this->imprimeguia(Input::get('fechadocumento'));
         }        
 
         //$devueltos = DB::table('devueltos')->where('usuario_id','=', Auth::user()->id  )->get();//usuario logueado
@@ -165,13 +167,13 @@ class GeneraguiadevController extends BaseController {
         $this->index();
     }
 
-    private function saveDocumento($codprovider_id, $numdocfisico)
+    private function saveDocumento($codprovider_id, $numdocfisico, $fechadocumento)
     {
         $numdoc = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '7')->orderBy('id', 'desc')->pluck('id') + 1; 
 
         $documento = new Documento(); //Agrega nuevo documento
         $documento->id = $numdoc; //add por tipo movimiento          
-        $documento->fechadocumento = date('Y-m-d');
+        $documento->fechadocumento = $fechadocumento;   //date('Y-m-d');
         $documento->tipomovimiento_id = 7; //tipo de movimiento devolucion a proveedor
 //usuario logueado
         $documento->usuario_id =  Auth::user()->id ; 
@@ -184,10 +186,10 @@ class GeneraguiadevController extends BaseController {
         
     }
 
-    public function imprimeguia()
+    public function imprimeguia($fechadocumento)
     {
 
-        Excel::create(date('Y-m-d').'DevolucionProveedor', function($excel)
+        Excel::create($fechadocumento.'DevolucionProveedor', function($excel)
         {
                 // Set the title
             $excel->setTitle('Guia de Devolucion al Proveedor');
@@ -206,6 +208,7 @@ class GeneraguiadevController extends BaseController {
                 //Buscamos datos
                 $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '7')->orderBy('id', 'desc')->pluck('id');
                 $numdocfisico =  DB::table('documentos')->select('numdocfisico')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '7')->pluck('numdocfisico'); //agrega numdocfisico
+                $fechadocumento =  DB::table('documentos')->select('fechadocumento')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '7')->pluck('fechadocumento'); //agrega numdocfisico
 
 //usuario logueado
                 $codprovider3 = DB::table('devueltos')->select('codprovider3')->where('usuario_id','=', Auth::user()->id )->pluck('codprovider3');  
@@ -225,7 +228,7 @@ class GeneraguiadevController extends BaseController {
                 $sheet->row(5, array('Número de documento interno:   '. $documento_id, '', '', 'Doc. Físico:   '.$numdocfisico));
                     $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); });
                     $sheet->cell('D5', function($cell) { $cell->setFontWeight('bold'); });
-                $sheet->row(6, array('Proveedor :   '. $desprovider, '', '', 'Fecha:   '.date('Y-m-d')));
+                $sheet->row(6, array('Proveedor :   '. $desprovider, '', '', 'Fecha:   '.$fechadocumento));
                     $sheet->cell('A6', function($cell) { $cell->setFontWeight('bold'); });                 
                     $sheet->cell('D6', function($cell) { $cell->setFontWeight('bold'); }); 
                 $sheet->row(7, array('Usuario :   '. $desusuario, ''));

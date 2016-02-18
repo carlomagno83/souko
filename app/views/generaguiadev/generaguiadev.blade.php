@@ -26,6 +26,18 @@ $(document).ready(function(){
  });
 </script>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script>
+$(function() {
+$( "#datepicker1" ).datepicker();
+$( "#datepicker1" ).datepicker("setDate","0" );
+$( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
+});  
+</script>
+
 {{--<div align="right">--}}
     {{--<a id="home" href=" {{ URL::to('/') }} "><img src='img/home.ico' border='0'></a>--}}
 {{--</div>--}}
@@ -143,17 +155,27 @@ $(document).ready(function(){
     @endif
 </table>
 <br>
-<div class="row">
-        <div class="col-lg-7">
-        </div><!-- /.col-lg-6 -->
-        <div class="col-lg-4">
-            <div class="input-group">
-                <span class="input-group-addon" id="numdocfisico">Número de Documento Físico</span>
-                <input type="text" name="numdocfisico" class="form-control" placeholder="" aria-describedby="basic-addon1">
-            </div>
-        </div>    
-</div><!-- /.row -->
-
+<div class="alert alert-success" >
+    <div class="row">
+            <div class="col-lg-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="fechadocumento">Fecha</span>
+                    <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1">
+                </div>
+            </div><!-- /.col-lg-6 -->
+            <div class="col-lg-2">
+                <div class="input-group">
+                    Fec Sug = Fec Actual
+                </div>
+            </div>   
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <span class="input-group-addon" id="numdocfisico">Número de Documento Físico</span>
+                    <input type="text" name="numdocfisico" class="form-control" placeholder="" aria-describedby="basic-addon1">
+                </div>
+            </div>    
+    </div><!-- /.row -->
+</div>
 <div class="row">
     <div class="col-lg-4">
         <input id="storebutton" type="submit" value="Generar Guía con los productos seleccionados" class="btn btn-lg btn-primary">      

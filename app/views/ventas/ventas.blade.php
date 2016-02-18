@@ -9,9 +9,7 @@
 $(function() {
 $( "#datepicker1" ).datepicker();
 });  
-$(function() {
-$( "#datepicker2" ).datepicker();
-});
+
 </script>
 
 
@@ -98,7 +96,7 @@ $(document).ready(function(){
 <?php $deslocal=DB::table('vendidos')->select('deslocal')->pluck('deslocal'); ?>
         @foreach ($vendidos as $vendido)
         <tr>
-            <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$vendido->mercaderia_id}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="12%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$vendido->mercaderia_id}}" readonly class="form-control" tabindex="-1"></td>
             <td width="10%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{$vendido->producto_id}}" readonly class="form-control" tabindex="-1"></td>
             <td width="30%"><input type="text"  value="{{$vendido->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             @if ($vendido->deslocal=='ALMACEN')
@@ -134,9 +132,9 @@ $(document).ready(function(){
 
 
         <tr>
+            <td width="12%"></td>
             <td width="10%"></td>
-            <td width="10%"></td>
-            <td></td>
+            <td><input type="text"  value="Cantidad Items: {{count($vendidos)}}" readonly class="form-control" tabindex="-1"></td>
             <td width="20%"></td>
             <td width="7%">Totales</td>
             <?php   
@@ -164,29 +162,29 @@ $(document).ready(function(){
     
 </table>
 <br>
+<div class="alert alert-success" >
+    <div class="row">
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <span class="input-group-addon" id="usuario_id">Usuario Vendedor</span>
+                    {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
+                </div>
+            </div><!-- /.col-lg-6 -->
 
-<div class="row">
-        <div class="col-lg-4">
-            <div class="input-group">
-                <span class="input-group-addon" id="usuario_id">Usuario Vendedor</span>
-                {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
-            </div>
-        </div><!-- /.col-lg-6 -->
-
-        <div class="col-lg-4">
-            <div class="input-group">
-                <span class="input-group-addon" id="local_id">Pto de Venta</span>
-                {{Form::select('local_id',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'), $deslocal,array('class'=>'form-control', 'required'=>'required'))}}
-           </div>
-        </div><!-- /.col-lg-6 -->   
-        <div class="col-lg-3">
-            <div class="input-group">
-                <span class="input-group-addon" id="fechadocumento">Fecha</span>
-                <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1">
-            </div>
-        </div><!-- /.col-lg-6 -->         
-</div><!-- /.row -->
-<br>
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <span class="input-group-addon" id="local_id">Pto de Venta</span>
+                    {{Form::select('local_id',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'), $deslocal,array('class'=>'form-control', 'required'=>'required'))}}
+               </div>
+            </div><!-- /.col-lg-6 -->   
+            <div class="col-lg-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="fechadocumento">Fecha</span>
+                    <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1">
+                </div>
+            </div><!-- /.col-lg-6 -->         
+    </div><!-- /.row -->
+</div>
 <div class="row">
     <div class="col-lg-4">
         <input id="storebutton" type="submit" value="Finalizar" class="btn btn-lg btn-primary">

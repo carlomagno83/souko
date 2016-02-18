@@ -182,16 +182,16 @@ class IngresoproveedorController extends BaseController
       if($cont>0)
       {  
         $data = Input::all();
-        //dd($data);
         $producto_id = DB::table('entradas')->select('producto_id')->where('usuario_id','=', Auth::user()->id )->pluck('producto_id');
         $proveedor_id = DB::table('productos')->select('provider_id')->where('id', '=', $producto_id)->pluck('provider_id');
     
         //$documento_id = $this->saveDocumento($proveedor_id); cambio por agregar campo de doc fisico
         $numdocfisico = $data['numdocfisico'];
+        $fechadocumento = $data['fechadocumento'];
         //dd($numdocfisico);
         //$documento_id = $this->saveDocumento($proveedor_id); cambio por agregar campo de doc fisico
 
-        $documento_id = $this->saveDocumento($proveedor_id, $numdocfisico);
+        $documento_id = $this->saveDocumento($proveedor_id, $numdocfisico, $fechadocumento);
 
         foreach($data as $key=>$value)
         {
@@ -212,7 +212,7 @@ class IngresoproveedorController extends BaseController
                 }
             }
         }
-        $this->imprimeguia();
+        $this->imprimeguia($fechadocumento);
   
         //no llega hasta esta funcion se queda en la descarga de excel    
         return Redirect::to('ingresos-proveedor');
@@ -220,7 +220,7 @@ class IngresoproveedorController extends BaseController
       return Redirect::to('ingresos-proveedor');
     }
 
-    private function saveDocumento($proveedor_id, $numdocfisico)
+    private function saveDocumento($proveedor_id, $numdocfisico, $fechadocumento)
     {
         //add por tipo movimiento
         $numdoc = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '1')->orderBy('id', 'desc')->pluck('id') + 1; 
@@ -228,7 +228,7 @@ class IngresoproveedorController extends BaseController
         $documento = new Documento();
         $documento->id = $numdoc; //add por tipo movimiento 
         $documento->tipomovimiento_id = 1;// tipo de movimiento es ingreso 1
-        $documento->fechadocumento = date('Y-m-d');
+        $documento->fechadocumento = $fechadocumento; //date('Y-m-d');
         $documento->numdocfisico = $numdocfisico; //agrega numdocfisico
 //usuario logueado        
         $documento->usuario_id = Auth::user()->id;
@@ -279,10 +279,10 @@ class IngresoproveedorController extends BaseController
 
     }
 
-    public function imprimeguia()
+    public function imprimeguia($fechadocumento)
     {
 
-          Excel::create(date('Y-m-d').'guiaentrada', function($excel)
+          Excel::create($fechadocumento.'guiaentrada', function($excel)
           {
 
                 // Set the title
@@ -304,6 +304,7 @@ class IngresoproveedorController extends BaseController
               // cambio por agregar tipo de doc
               $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '1')->orderBy('id', 'desc')->pluck('id'); 
               $numdocfisico =  DB::table('documentos')->select('numdocfisico')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '1')->pluck('numdocfisico'); //agrega numdocfisico
+              $fechadocumento =  DB::table('documentos')->select('fechadocumento')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '1')->pluck('fechadocumento'); //agrega numdocfisico
 //usuario logueado
               $entradas = DB::table('entradas')->where('usuario_id','=',Auth::user()->id)->get(); 
 //usuario logueado  
@@ -325,7 +326,7 @@ class IngresoproveedorController extends BaseController
 
                   $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); }); 
                   $sheet->cell('D5', function($cell) { $cell->setFontWeight('bold'); }); //agrega numdocfisico              
-              $sheet->row(6, array('Proveedor:   '. $desprovider, '', '', '', 'Fecha :   '.date('Y-m-d')));
+              $sheet->row(6, array('Proveedor:   '. $desprovider, '', '', '', 'Fecha :   '.$fechadocumento));
                   $sheet->cell('A6', function($cell) { $cell->setFontWeight('bold'); });
               $sheet->row(7, array('Generado por :   '. Auth::user()->desusuario));
                   $sheet->cell('A7', function($cell) { $cell->setFontWeight('bold'); });                 
@@ -375,7 +376,6 @@ class IngresoproveedorController extends BaseController
               //obtener datos
               $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '1')->orderBy('id', 'desc')->pluck('id');  
               $numdocfisico =  DB::table('documentos')->select('numdocfisico')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '1')->pluck('numdocfisico'); //agrega numdocfisico
-
     //prueba
               $mercaderias = DB::table('mercaderias')->join('movimientos','mercaderias.id','=','movimientos.mercaderia_id')
                                         ->join('productos','mercaderias.producto_id','=','productos.id')

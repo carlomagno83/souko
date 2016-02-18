@@ -77,7 +77,7 @@ class TrasladoptoptoController extends BaseController {
         //dd($data['mercaderia_id'][2]);
         // hay que agregar un control de txn
         //$documento_id = $this->saveDocumento(Input::get('localini'), Input::get('localfin'));  //cambio para doc fisico
-        $documento_id = $this->saveDocumento(Input::get('localini'), Input::get('localfin'), Input::get('numdocfisico'));
+        $documento_id = $this->saveDocumento(Input::get('localini'), Input::get('localfin'), Input::get('numdocfisico'), Input::get('fechadocumento'));
         
         foreach($data['mercaderia_id'] as $key=>$value)
         {
@@ -93,7 +93,7 @@ class TrasladoptoptoController extends BaseController {
 
             DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => $data['localfin'], 'usuario_id' => $data['usuario_id']));
         }
-		$this->imprime();
+		$this->imprime(Input::get('fechadocumento'));
 
 	    $traslados = DB::table('traslados')->where('usuario_id','=', Auth::user()->id )->get();//usuario logueado
 		return View::make('trasladoptopto.trasladoptopto')->withInput('usuario_id', 'local_id')->with('traslados', $traslados);
@@ -101,13 +101,13 @@ class TrasladoptoptoController extends BaseController {
     }
 
     //private function saveDocumento($localini, $localfin)  //cambio para doc fisico
-    private function saveDocumento($localini, $localfin, $numdocfisico)
+    private function saveDocumento($localini, $localfin, $numdocfisico, $fechadocumento)
     {
         $numdoc = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '4')->orderBy('id', 'desc')->pluck('id') + 1; 
 
         $documento = new Documento(); //Agrega nuevo documento
         $documento->id = $numdoc; //add por tipo movimiento         
-        $documento->fechadocumento = date('Y-m-d');
+        $documento->fechadocumento = $fechadocumento;   //date('Y-m-d');
         $documento->tipomovimiento_id = 4; //tipo de movimiento pto a pto
         $documento->numdocfisico = $numdocfisico;
         $documento->usuario_id =  Auth::user()->id ; // usuario logueado
@@ -119,10 +119,10 @@ class TrasladoptoptoController extends BaseController {
         
     }
 
-     public function imprime()
+     public function imprime($fechadocumento)
     {
 
-        Excel::create(date('Y-m-d').'guiaTraslado', function($excel)
+        Excel::create($fechadocumento.'guiaTraslado', function($excel)
         {
                 // Set the title
             $excel->setTitle('Registro de traslados hacia local');
@@ -142,7 +142,9 @@ class TrasladoptoptoController extends BaseController {
                 $sheet->setColumnFormat(array( 'E' => '0.00' ));
                 //Buscamos datos
                 $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '4')->orderBy('id', 'desc')->pluck('id');  //busca por tipomov
-                $numdocfisico = DB::table('documentos')->select('numdocfisico')->where('tipomovimiento_id', '=', '4')->orderBy('id', 'desc')->pluck('id');  //numdocfisico
+                $numdocfisico = DB::table('documentos')->select('numdocfisico')->where('tipomovimiento_id', '=', '4')->orderBy('id', 'desc')->pluck('numdocfisico');  //numdocfisico
+                $fechadocumento = DB::table('documentos')->select('fechadocumento')->where('tipomovimiento_id', '=', '4')->orderBy('id', 'desc')->pluck('fechadocumento');  //numdocfisico
+
                 $localini = DB::table('locals')->join('documentos', 'locals.id', '=', 'documentos.localini_id')
 												->select('deslocal')
 												->where('documentos.id', '=', $documento_id)
@@ -175,7 +177,7 @@ class TrasladoptoptoController extends BaseController {
                     $sheet->cell('A3', function($cell) { $cell->setFontSize(20); $cell->setFontWeight('bold'); });
                 $sheet->row(5, array('Número de documento interno:   '. $documento_id, ''));
                     $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); });
-                $sheet->row(6, array('Local Inicial:   '. $localini. '                 Fecha:   '.date('Y-m-d')));
+                $sheet->row(6, array('Local Inicial:   '. $localini. '                 Fecha:   '.$fechadocumento));
                     $sheet->cell('A6', function($cell) { $cell->setFontWeight('bold'); });                 
                     $sheet->cell('D6', function($cell) { $cell->setFontWeight('bold'); }); 
                 $sheet->row(7, array('Local Solicitante:  '. $localfin .'         Solicitante:  '. $usuario, ''));

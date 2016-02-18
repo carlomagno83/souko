@@ -84,7 +84,7 @@ class DevolucionptoventaController extends BaseController {
         //dd($data['mercaderia_id'][2]);
         // hay que agregar un control de txn
         //$documento_id = $this->saveDocumento(Input::get('localini')); // cambio por numdocfisico
-        $documento_id = $this->saveDocumento(Input::get('localini'), Input::get('numdocfisico'));
+        $documento_id = $this->saveDocumento(Input::get('localini'), Input::get('numdocfisico'), Input::get('fechadocumento'));
         
         foreach($data['mercaderia_id'] as $key=>$value)
         {
@@ -101,7 +101,7 @@ class DevolucionptoventaController extends BaseController {
             DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => 1, 'estado' => $data['nuevoestado'][$key], 'usuario_id' => $data['usuario_id']));
         }
         
-         $this -> imprimedevolucion();       
+         $this -> imprimedevolucion(Input::get('fechadocumento'));       
 //usuario logueado
         DB::table('devuelves')->where('usuario_id', '=',  Auth::user()->id )->delete(); 
 //usuario logueado, aunque no llega hasta aqui
@@ -111,13 +111,13 @@ class DevolucionptoventaController extends BaseController {
     }
 
 
-    private function saveDocumento($local_id, $numdocfisico)
+    private function saveDocumento($local_id, $numdocfisico, $fechadocumento)
     {
         $numdoc = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '6')->orderBy('id', 'desc')->pluck('id') + 1; 
 
         $documento = new Documento(); //Agrega nuevo documento
         $documento->id = $numdoc; //add por tipo movimiento         
-        $documento->fechadocumento = date('Y-m-d');
+        $documento->fechadocumento = $fechadocumento;  //date('Y-m-d');
         $documento->tipomovimiento_id = 6; //tipo de movimiento devolucion de pto vta
         $documento->numdocfisico = $numdocfisico;
 //usuario logueado
@@ -130,10 +130,10 @@ class DevolucionptoventaController extends BaseController {
         
     }
 
-     public function imprimedevolucion()
+     public function imprimedevolucion($fechadocumento)
     {
 
-        Excel::create(date('Y-m-d').'devoluciondePtoVenta', function($excel)
+        Excel::create($fechadocumento.'devoluciondePtoVenta', function($excel)
         {
                 // Set the title
             $excel->setTitle('Registro de devoluciones al Almacen');
@@ -155,6 +155,7 @@ class DevolucionptoventaController extends BaseController {
                 //$documento_id = DB::table('documentos')->select('id')->orderBy('id', 'desc')->pluck('id');  //tipodoc
                 $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '6')->orderBy('id', 'desc')->pluck('id');
                 $numdocfisico =  DB::table('documentos')->select('numdocfisico')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '6')->pluck('numdocfisico'); //agrega numdocfisico
+                $fechadocumento =  DB::table('documentos')->select('fechadocumento')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '6')->pluck('fechadocumento'); //agrega numdocfisico
 
                 $localini = DB::table('locals')->join('documentos', 'locals.id', '=', 'documentos.localini_id')
 												->select('deslocal')
@@ -182,7 +183,8 @@ class DevolucionptoventaController extends BaseController {
                     $sheet->cell('A3', function($cell) { $cell->setFontSize(20); $cell->setFontWeight('bold'); });
                 $sheet->row(5, array('Número de documento interno:   '. $documento_id, '', '', 'Doc Físico:   '.$numdocfisico));
                     $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); });
-                $sheet->row(6, array('Local que Devuelve :   '. $localini, '', '', 'Fecha:   '.date('Y-m-d')));
+                    $sheet->cell('D5', function($cell) { $cell->setFontWeight('bold'); });
+                $sheet->row(6, array('Local que Devuelve :   '. $localini, '', '', 'Fecha:   '.$fechadocumento));
                     $sheet->cell('A6', function($cell) { $cell->setFontWeight('bold'); });                 
                     $sheet->cell('D6', function($cell) { $cell->setFontWeight('bold'); }); 
                 $sheet->row(7, array('Vendedor :  '. $usuario, ''));

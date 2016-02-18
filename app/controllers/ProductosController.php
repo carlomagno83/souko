@@ -250,7 +250,7 @@ class ProductosController extends BaseController {
 	public function editabloque()
 	{
         $data = Input::all();
-        //dd($data);
+		dd('ingresaeditabloq');
         foreach($data as $key=>$value)
         {
             if($key=='checkbox')
@@ -345,6 +345,7 @@ class ProductosController extends BaseController {
 	 */
 	public function destroy($id)
 	{
+		dd('ingresa');
 		$this->producto->find($id)->delete();
 
 		return Redirect::route('productos.index');

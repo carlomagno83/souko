@@ -90,7 +90,7 @@ class TrasladoalmacptoController extends BaseController {
         $data = Input::all();
         //dd($data['mercaderia_id'][2]);
         // hay que agregar un control de txn
-        $documento_id = $this->saveDocumento(Input::get('local_id'), Input::get('numdocfisico'));
+        $documento_id = $this->saveDocumento(Input::get('local_id'), Input::get('numdocfisico'), Input::get('fechadocumento'));
         
         foreach($data['mercaderia_id'] as $key=>$value)
         {
@@ -106,7 +106,7 @@ class TrasladoalmacptoController extends BaseController {
             DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => $data['local_id'], 'usuario_id' => $data['usuario_id']));
         }
 
-        $this->imprimesalida();
+        $this->imprimesalida(Input::get('fechadocumento'));
 
         //Ya no realiza por la func de impresion
 	   	$tempos = DB::table('tempos')->where('usuario_id','=', Auth::user()->id )->get();//usuario logueado
@@ -114,13 +114,13 @@ class TrasladoalmacptoController extends BaseController {
 
     }
 
-    private function saveDocumento($local_id, $numdocfisico)
+    private function saveDocumento($local_id, $numdocfisico, $fechadocumento)
     {
         $numdoc = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '2')->orderBy('id', 'desc')->pluck('id') + 1; 
 
         $documento = new Documento(); //Agrega nuevo documento
         $documento->id = $numdoc; //add por tipo movimiento 
-        $documento->fechadocumento = date('Y-m-d');
+        $documento->fechadocumento = $fechadocumento; // date('Y-m-d');
         $documento->tipomovimiento_id = 2; //tipo de movimiento salida a pto de vta
         $documento->usuario_id = Auth::user()->id; // usuario logueado
         $documento->numdocfisico = $numdocfisico;
@@ -132,10 +132,10 @@ class TrasladoalmacptoController extends BaseController {
         
     }
 
-      public function imprimesalida()
+      public function imprimesalida($fechadocumento)
     {
 
-        Excel::create(date('Y-m-d').'guiaSalida', function($excel)
+        Excel::create($fechadocumento.'guiaSalida', function($excel)
         {
                 // Set the title
             $excel->setTitle('Registro de traslados hacia local');
@@ -156,6 +156,7 @@ class TrasladoalmacptoController extends BaseController {
                 //Buscamos datos
                 $documento_id = DB::table('documentos')->select('id')->where('tipomovimiento_id', '=', '2')->orderBy('id', 'desc')->pluck('id'); //buscar tipo 
                 $numdocfisico =  DB::table('documentos')->select('numdocfisico')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '2')->pluck('numdocfisico'); //agrega numdocfisico
+                $fechadocumento =  DB::table('documentos')->select('fechadocumento')->where('id', '=', $documento_id)->where('tipomovimiento_id', '=', '2')->pluck('fechadocumento'); //agrega numdocfisico
 
                 $local = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')
                                             ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
@@ -190,7 +191,7 @@ class TrasladoalmacptoController extends BaseController {
                     $sheet->cell('A3', function($cell) { $cell->setFontSize(20); $cell->setFontWeight('bold'); });
                 $sheet->row(5, array('Número de documento interno:   '. $documento_id. '                         Doc Físico:   '.$numdocfisico));
                     $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); });
-                $sheet->row(6, array('Local:   '. $local. '                         Fecha:   '.date('Y-m-d')));
+                $sheet->row(6, array('Local:   '. $local. '                         Fecha:   '.$fechadocumento));
                     $sheet->cell('A6', function($cell) { $cell->setFontWeight('bold'); });                 
                     $sheet->cell('D6', function($cell) { $cell->setFontWeight('bold'); }); 
                 $sheet->row(7, array('Vendedor:   '. $usuario, ''));
