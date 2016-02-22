@@ -3,9 +3,6 @@
 @section('main')
 
 
-{{--<div align="right">--}}
-    {{--<a id="home" href=" {{ URL::to('/') }} "><img src='../img/home.ico' border='0'></a>--}}
-{{--</div>--}}
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
         <h3>Nuevo Color</h3>
@@ -48,3 +45,31 @@
 @stop
 
 
+
+@section('scripts')
+
+    <script>
+
+        $().ready(function() {
+
+            $("form").validate({
+                rules: {
+                    codcolor6: {
+                        required:true,
+                        minlength: 2,
+                        alphanumeric:true
+                    },
+                    descolor: {
+                        required: true
+                    }
+                },
+                messages: {
+
+                }
+            });
+
+        });
+
+    </script>
+
+@stop

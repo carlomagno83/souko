@@ -27,11 +27,22 @@
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('img/apple-touch-icon-72-precomposed.png')}}">
   <link rel="apple-touch-icon-precomposed" href="{{asset('img/apple-touch-icon-57-precomposed.png')}}">
   <link rel="shortcut icon" href="{{asset('img/favicon.png')}}">
-  
+
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
+
+
 	<script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('js/scripts.js')}}"></script>
 
+    <!-- Validate Forms -->
+    <script type="text/javascript" src="{{asset('js/jquery.validate.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/additional-methods.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/messages_es.js')}}"></script>
 
 	@yield('styles')
 
@@ -53,7 +64,6 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Maestros<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
-							@if( Auth::user()->rolusuario=='SUPER' )
 								<li>
 									<a href="{{URL::to('/marcas')}}">Marcas</a>
 								</li>
@@ -82,15 +92,18 @@
 								<li>
 									<a href="{{URL::to('/providers')}}">Proveedores</a>
 								</li>
-								<li role="presentation" class="divider"></li>
-								<li>
-									<a href="{{URL::to('/productos')}}">Productos</a>
-								</li>	
-							@endif							
-								<li>
-									<a href="{{URL::to('/mercaderias')}}">Mercaderias</a>
-								</li>																
-							</ul>
+
+                                @if( Auth::user()->rolusuario=='SUPER' )
+                                    <li role="presentation" class="divider"></li>
+                                    <li>
+                                        <a href="{{URL::to('/productos')}}">Productos</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{URL::to('/mercaderias')}}">Mercaderias</a>
+                                    </li>
+                                @endif
+
+                            </ul>
 						</li>
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresos<strong class="caret"></strong></a>

@@ -2,9 +2,6 @@
 
 @section('main')
 
-{{--<div align="right">--}}
-    {{--<a id="home" href=" {{ URL::to('/') }} "><img src='../img/home.ico' border='0'></a>--}}
-{{--</div>--}}
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
         <h3>Agregar Nuevo Modelo</h3>
@@ -46,4 +43,31 @@
 
 @stop
 
+@section('scripts')
+
+    <script>
+
+        $().ready(function() {
+
+            $("form").validate({
+                rules: {
+                    codmodelo6: {
+                        required:true,
+                        minlength: 2,
+                        alphanumeric:true
+                    },
+                    desmodelo: {
+                        required: true
+                    }
+                },
+                messages: {
+
+                }
+            });
+
+        });
+
+    </script>
+
+@stop
 
