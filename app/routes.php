@@ -121,6 +121,18 @@ Route::group(['before' => 'auth'], function()
 	Route::resource('reporteingreso', 'ReporteingresoController');
 	Route::resource('reporteventa', 'ReporteventaController');
 	Route::resource('reportestock', 'ReportestockController');
+
+	//correcciones
+	Route::get('registroagregar', 'RegistroagregarController@index');
+	Route::post('agregaregistro-buscar', 'RegistroagregarController@buscar');
+
+	Route::post('registroagregarventa', 'RegistroagregarController@registroagregarventa');
+	Route::post('registroagregartrasladoalm', 'RegistroagregarController@registroagregartrasladoalm');
+	Route::post('registroagregartrasladopto', 'RegistroagregarController@registroagregartrasladopto');
+
+
+	Route::get('consultamercaderia/{cod}', 'RegistroagregarController@consultamercaderia');
+
 	}
 
 });

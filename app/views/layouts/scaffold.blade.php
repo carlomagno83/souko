@@ -64,44 +64,45 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Maestros<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
-								<li>
-									<a href="{{URL::to('/marcas')}}">Marcas</a>
-								</li>
-								<li>
-									<a href="{{URL::to('/tipos')}}">Tipos</a>
-								</li>
-								<li>
-									<a href="{{URL::to('/modelos')}}">Modelos</a>
-								</li>
-								<li>
-									<a href="{{URL::to('/rangos')}}">Rangos</a>
-								</li>
-								<li>
-									<a href="{{URL::to('/colors')}}">Colores</a>
-								</li>								
-								<li>
-									<a href="{{URL::to('/materials')}}">Materiales</a>
-								</li>
-								<li role="presentation" class="divider"></li>
-								<li>
-									<a href="{{URL::to('/users')}}">Usuarios</a>
-								</li>								
-								<li>
-									<a href="{{URL::to('/locals')}}">Locales</a>
-								</li>
-								<li>
-									<a href="{{URL::to('/providers')}}">Proveedores</a>
-								</li>
-
-                                @if( Auth::user()->rolusuario=='SUPER' )
-                                    <li role="presentation" class="divider"></li>
-                                    <li>
-                                        <a href="{{URL::to('/productos')}}">Productos</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{URL::to('/mercaderias')}}">Mercaderias</a>
-                                    </li>
+                                @if( Auth::user()->rolusuario=='SUPER' )							
+									<li>
+										<a href="{{URL::to('/marcas')}}">Marcas</a>
+									</li>
+									<li>
+										<a href="{{URL::to('/tipos')}}">Tipos</a>
+									</li>
+									<li>
+										<a href="{{URL::to('/modelos')}}">Modelos</a>
+									</li>
+									<li>
+										<a href="{{URL::to('/rangos')}}">Rangos</a>
+									</li>
+									<li>
+										<a href="{{URL::to('/colors')}}">Colores</a>
+									</li>								
+									<li>
+										<a href="{{URL::to('/materials')}}">Materiales</a>
+									</li>
+									<li role="presentation" class="divider"></li>
+									<li>
+										<a href="{{URL::to('/users')}}">Usuarios</a>
+									</li>								
+									<li>
+										<a href="{{URL::to('/locals')}}">Locales</a>
+									</li>
+									<li>
+										<a href="{{URL::to('/providers')}}">Proveedores</a>
+									</li>
                                 @endif
+
+                                <li role="presentation" class="divider"></li>
+                                <li>
+                                    <a href="{{URL::to('/productos')}}">Productos</a>
+                                </li>
+                                <li>
+                                    <a href="{{URL::to('/mercaderias')}}">Mercaderias</a>
+                                </li>
+
 
                             </ul>
 						</li>
@@ -166,6 +167,26 @@
 								</li>
 							</ul>
 						</li>
+                        @if( Auth::user()->rolusuario=='SUPER' )							
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Correcciones<strong class="caret"></strong></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="documentoeditar">Editar documento</a>
+									</li>
+									<li role="presentation" class="divider"></li>
+									<li>
+										<a href="registroagregar">Agregar registro</a>
+									</li>
+									<li>
+										<a href="registroeliminar">Eliminar registro</a>
+									</li>
+									<li>
+										<a href="registroeditar">Editar registro</a>
+									</li>
+								</ul>
+							</li>
+						@endif							
 					</ul>					
 
 					<!--<form class="navbar-form navbar-left" role="search">

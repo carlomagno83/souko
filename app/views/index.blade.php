@@ -133,7 +133,7 @@
 							</ul>
 						</li>	
 						<li class="dropdown">
-							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<strong class="caret"></strong></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
 									<a href="reporte-muestra">Reporte de ingresos</a>
@@ -143,6 +143,24 @@
 								</li>
 								<li>
 									<a href="reportestock">Reporte de stock</a>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Correcciones<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="documentoeditar">Editar documento</a>
+								</li>
+								<li role="presentation" class="divider"></li>
+								<li>
+									<a href="registroagregar">Agregar registro</a>
+								</li>
+								<li>
+									<a href="registroeliminar">Eliminar registro</a>
+								</li>
+								<li>
+									<a href="registroeditar">Editar registro</a>
 								</li>
 							</ul>
 						</li>

@@ -21,6 +21,13 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 <script type="text/javascript">
 $(document).ready(function(){
   $("#storebutton").click(function(){
+
+    if( $( "#datepicker1" ).val() =="" )    //valida campo 
+    {
+        alert("falta datos")
+        return false
+    }
+
     $(this).hide();
     $("#muestramsg").show();
     return true;});

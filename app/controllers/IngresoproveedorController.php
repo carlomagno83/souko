@@ -188,7 +188,7 @@ class IngresoproveedorController extends BaseController
         //$documento_id = $this->saveDocumento($proveedor_id); cambio por agregar campo de doc fisico
         $numdocfisico = $data['numdocfisico'];
         $fechadocumento = $data['fechadocumento'];
-        //dd($numdocfisico);
+        //dd($fechadocumento);
         //$documento_id = $this->saveDocumento($proveedor_id); cambio por agregar campo de doc fisico
 
         $documento_id = $this->saveDocumento($proveedor_id, $numdocfisico, $fechadocumento);
