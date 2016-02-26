@@ -1,6 +1,6 @@
 <?php
 
-class RegistroagregarController extends BaseController {
+class RegistroeliminarController extends BaseController {
 
     /**
      * devuelve Repository
@@ -10,6 +10,7 @@ class RegistroagregarController extends BaseController {
     protected $devuelve;
     protected $mercaderia;
     protected $documento;
+
     public function __construct(Devuelve $devuelve, Mercaderia $mercaderia, Documento $documento)
     {
         $this->devuelve = $devuelve;
@@ -18,11 +19,13 @@ class RegistroagregarController extends BaseController {
     }
 
 
+//en el caso de eliminar, solo es posible cuando el doc corresponde al ultimo movimiento realizado para la mrecaderia a eliminar, 
+
 	public function index()
 	{
 //hay que cambiar por usuario logueado		
 		//$devuelves = DB::table('devuelves')->find(0);
-		return View::make('registroagregar.registroagregar'); //->with('devuelves', $devuelves);
+		return View::make('registroeliminar.registroeliminar'); //->with('devuelves', $devuelves);
 	}
 
     public function buscar()
@@ -51,45 +54,52 @@ class RegistroagregarController extends BaseController {
                             ->join('locals', 'locals.id', '=', 'documentos.localfin_id')
                             ->join('users', 'documentos.usuario_id', '=', 'users.id')
                             ->where('documentos.id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
-                            ->select('documentos.id', 'fechadocumento', 'localfin_id', 'deslocal','flagestado', 'documentos.usuario_id', 'desusuario')
+                            ->select('documentos.id', 'fechadocumento', 'documentos.tipomovimiento_id', 'localfin_id', 'deslocal','flagestado', 'documentos.usuario_id', 'desusuario')
                             ->get();
 
-                $mercaderias = DB::table('mercaderias')
-                                ->join('productos', 'mercaderias.producto_id', '=', 'productos.id')
-                                ->join('locals', 'locals.id', '=', 'mercaderias.local_id')
-                                ->join('users', 'mercaderias.usuario_id', '=', 'users.id')
-                                ->where('mercaderias.id', '=', Input::get('mercaderia_id'))
-                                ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.deslocal', 'mercaderias.estado','productos.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
-                                ->get();
+                $mercaderias = DB::table('documentos')
+                            ->join('movimientos', function($join)
+                                        {
+                                    $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                    $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                        })
+                            ->join('mercaderias', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
+                            ->where('movimientos.documento_id', '=', Input::get('documento_id'))
+                            ->where('movimientos.tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
+                            ->where('movimientos.mercaderia_id', '=', Input::get('mercaderia_id'))
+                            ->select('mercaderias.id', 'mercaderias.local_id', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id')
+                            ->get();
+
 
                 if($mercaderias != null)
                 {  
-                    if( $tipomovimiento_id == "3") 
-                    {
-                        return View::make('registroagregar.registroagregarventa')
-                                ->withInput('documento_id', 'tipomovimiento_id')
-                                ->with('devuelves', $devuelves)
-                                ->with('documentos', $documentos)
-                                ->with('mercaderias', $mercaderias);
-                    }
-                    elseif ($tipomovimiento_id == "4") 
-                    {
-                        return View::make('registroagregar.registroagregartrasladopto')->with('devuelves', $devuelves)->with('documentos', $documentos)->with('mercaderias', $mercaderias);
-                    }
-                    //por ultimo si el tipo movimiento es 2
-                    return View::make('registroagregar.registroagregartrasladoalm')->with('devuelves', $devuelves)->with('documentos', $documentos)->with('mercaderias', $mercaderias);
+                    $cod = Input::get('mercaderia_id');
+                    $ultimos = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, tipomovimientos.destipomovimiento, locals.deslocal, documentos.fechadocumento 
+                            from movimientos
+                            INNER JOIN tipomovimientos ON tipomovimientos.id = movimientos.tipomovimiento_id
+                            INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
+                            INNER JOIN locals ON locals.id = documentos.localfin_id
+                            WHERE movimientos.mercaderia_id = '$cod'
+                            ORDER BY documentos.created_at DESC LIMIT 1");
+                    return View::make('registroeliminar.registroeliminarregistro')
+                            ->withInput('documento_id', 'tipomovimiento_id')
+                            ->with('devuelves', $devuelves)
+                            ->with('documentos', $documentos)
+                            ->with('mercaderias', $mercaderias)
+                            ->with('ultimos', $ultimos);
                 }
-                return View::make('registroagregar.registroagregar')->withErrors(['Número de mercadería no encontrado']);
+
+                return View::make('registroeliminar.registroeliminar')->withErrors(['Número de mercadería no encontrado en documento solicitado']);
             }
-            return View::make('registroagregar.registroagregar')->withErrors(['Número de documento o Tipo de movimiento incorrecto']);
+            return View::make('registroeliminar.registroeliminar')->withErrors(['Número de documento o Tipo de movimiento incorrecto']);
         }
-        return View::make('registroagregar.registroagregar');
+        return View::make('registroeliminar.registroeliminar');
 
     }
 
 
 
-    public function consultamercaderia($cod)
+/*    public function consultamercaderia($cod)
     {
         //$mercaderia = Mercaderia::find($cod);
         $mercaderias = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, tipomovimientos.destipomovimiento, locals.deslocal, documentos.fechadocumento 
@@ -103,8 +113,46 @@ class RegistroagregarController extends BaseController {
         return View::make('registroagregar.consultamercaderia')->with('mercaderias', $mercaderias);
 
     }
+*/
+
+    public function registroeliminarregistro()
+    {
+        $data = Input::all();
+        //busquemos movimiento anterior
+        $num_mercaderia = Input::get('mercaderia_id');
+        $ultimosmov = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, tipomovimientos.destipomovimiento, locals.deslocal, documentos.fechadocumento, documentos.localfin_id 
+                        from movimientos
+                        INNER JOIN tipomovimientos ON tipomovimientos.id = movimientos.tipomovimiento_id
+                        INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
+                        INNER JOIN locals ON locals.id = documentos.localfin_id
+                        WHERE movimientos.mercaderia_id = '$num_mercaderia'
+                        ORDER BY documentos.created_at desc LIMIT 2");  
+        //d($ultimosmov);                  
+        $localpenultimomov = $ultimosmov[1]->localfin_id; 
+
+//dd( $localpenultimomov );
+        DB::table('movimientos')->where('mercaderia_id', '=', Input::get('mercaderia_id'))
+                                ->where('documento_id', '=', Input::get('documento_id'))
+                                ->where('tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
+                                ->delete();
+        $tipomovimiento_id = Input::get('tipomovimiento_id');
+        if ($tipomovimiento_id == '3')
+        {   
+            DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
+                                    ->update(array('estado' => 'ACT', 'local_id' => $localpenultimomov, 'precioventa' => 0));
+        }
+        else
+        {
+            DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
+                                ->update(array('local_id' => $localpenultimomov));
+        }
+
+        return View::make('registroeliminar.registroeliminar')->withErrors(['Registro eliminado ....']);
+    }
 
 
+
+/*
     public function registroagregarventa()
     {
         $data = Input::all();
@@ -118,7 +166,7 @@ class RegistroagregarController extends BaseController {
         $movimiento->tipomovimiento_id = 3; //cambio tipo movimiento
         $movimiento->flagoferta = 0;
         $movimiento->save();   
-        return View::make('registroagregar.registroagregar')->withErrors(['Registro agregado ....']);
+        return View::make('registroagregar.registroagregar');
     }
 
 
@@ -136,13 +184,12 @@ class RegistroagregarController extends BaseController {
         $movimiento->tipomovimiento_id = 2; //cambio tipo movimiento
         $movimiento->flagoferta = 0;
         $movimiento->save();   
-        return View::make('registroagregar.registroagregar')->withErrors(['Registro agregado ....']);
+        return View::make('registroagregar.registroagregar');
     }
 
 
     public function registroagregartrasladopto()
     {
-
         $data = Input::all();
 
         DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
@@ -154,9 +201,9 @@ class RegistroagregarController extends BaseController {
         $movimiento->tipomovimiento_id = 4; //cambio tipo movimiento
         $movimiento->flagoferta = 0;
         $movimiento->save();   
-        return View::make('registroagregar.registroagregar')->withErrors(['Registro agregado ....']);
+        return View::make('registroagregar.registroagregar');
     }
-
+*/
 
 }
 ?>

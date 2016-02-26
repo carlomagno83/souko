@@ -176,10 +176,10 @@
 									</li>
 									<li role="presentation" class="divider"></li>
 									<li>
-										<a href="registroagregar">Agregar registro</a>
+										<a href="{{URL::to('/registroagregar')}}">Agregar registro</a>
 									</li>
 									<li>
-										<a href="registroeliminar">Eliminar registro</a>
+										<a href="{{URL::to('/registroeliminar')}}">Eliminar registro</a>
 									</li>
 									<li>
 										<a href="registroeditar">Editar registro</a>

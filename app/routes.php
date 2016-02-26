@@ -130,6 +130,11 @@ Route::group(['before' => 'auth'], function()
 	Route::post('registroagregartrasladoalm', 'RegistroagregarController@registroagregartrasladoalm');
 	Route::post('registroagregartrasladopto', 'RegistroagregarController@registroagregartrasladopto');
 
+	Route::get('registroeliminar', 'RegistroeliminarController@index');
+	Route::post('eliminaregistro-buscar', 'RegistroeliminarController@buscar');	
+
+	Route::post('registroeliminarregistro', 'RegistroeliminarController@registroeliminarregistro');
+
 
 	Route::get('consultamercaderia/{cod}', 'RegistroagregarController@consultamercaderia');
 
