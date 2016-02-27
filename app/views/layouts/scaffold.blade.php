@@ -182,7 +182,7 @@
 										<a href="{{URL::to('/registroeliminar')}}">Eliminar registro</a>
 									</li>
 									<li>
-										<a href="registroeditar">Editar registro</a>
+										<a href="{{URL::to('/registroeditar')}}">Editar registro (P. venta)</a>
 									</li>
 								</ul>
 							</li>

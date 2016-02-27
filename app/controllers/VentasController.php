@@ -85,7 +85,7 @@ class VentasController extends BaseController {
             return View::make('ventas.ventas')->with('vendidos', $vendidos);
         }
         $data = Input::all();
-        //dd($data['mercaderia_id'][2]);
+        //dd($data);
         // hay que agregar un control de txn
         $documento_id = $this->saveDocumento(Input::get('local_id'), Input::get('fechadocumento'));
         

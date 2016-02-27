@@ -123,6 +123,10 @@ Route::group(['before' => 'auth'], function()
 	Route::resource('reportestock', 'ReportestockController');
 
 	//correcciones
+	Route::get('documentoeditar', 'DocumentoeditarController@index');
+	Route::post('documentoeditar-buscar', 'DocumentoeditarController@buscar');
+	Route::post('documentoeditardocumento', 'DocumentoeditarController@documentoeditardocumento');
+
 	Route::get('registroagregar', 'RegistroagregarController@index');
 	Route::post('agregaregistro-buscar', 'RegistroagregarController@buscar');
 
@@ -135,6 +139,9 @@ Route::group(['before' => 'auth'], function()
 
 	Route::post('registroeliminarregistro', 'RegistroeliminarController@registroeliminarregistro');
 
+	Route::get('registroeditar', 'RegistroeditarController@index');
+	Route::post('editaregistro-buscar', 'RegistroeditarController@buscar');
+	Route::post('registroeditarventa', 'RegistroeditarController@registroeditarventa');
 
 	Route::get('consultamercaderia/{cod}', 'RegistroagregarController@consultamercaderia');
 

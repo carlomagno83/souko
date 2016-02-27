@@ -32,7 +32,7 @@ $(document).ready(function(){
 
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
-        <h3>Correcciones - Agregar registro Traslado desde Almacén</h3>
+        <h3>Correcciones - Editar registro Venta (Precio Venta)</h3>
 
         @if ($errors->any())
         	<div class="alert alert-danger">
@@ -43,7 +43,7 @@ $(document).ready(function(){
         @endif
     </div>
 </div>
-<form method="POST" id="validadorjs" action="{{url('registroagregartrasladoalm')}}">
+
 <br>
 @foreach ($documentos as $documento)
 
@@ -98,69 +98,27 @@ $(document).ready(function(){
         </tr>    
     </thead>
 
+<form method="POST" id="validadorjs" action="{{url('registroeditarventa')}}">
 @if (count($devuelves)>0)
 
         @foreach ($devuelves as $devuelve)
         <tr>
             <td width="15%"><input type="text" name="id[]" id="id[]" value="{{$devuelve->id}}" class="form-control" readonly tabindex="-1"></td>
-            <td width="30%"><input type="text"  name="codproducto31[]" value="{{$devuelve->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="30%"><input type="text"  value="{{$devuelve->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             <td width="10%"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
             <td width="10%"><input type="text"  value="{{$devuelve->preciocompra}}" readonly class="form-control" tabindex="-1"></td>
-            <td width="10%"><input type="text"  value="{{$devuelve->precioventa}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="10%"><input type="text" name="precioventa[]" value="{{$devuelve->precioventa}}" class="form-control"></td>
             <td width="20%"><input type="text"  value="{{$devuelve->desusuario}}" readonly class="form-control" tabindex="-1"></td>
-            <td><input style="visibility:hidden;" type="text" name="mercaderialocal_id" id="mercaderialocal_id" value="{{$devuelve->local_id}}" class="form-control" readonly tabindex="-1"></td>
-            <td><input style="visibility:hidden;" type="text" name="mercaderiausuario_id" id="mercaderiausuario_id" value="{{$devuelve->usuario_id}}" class="form-control" readonly tabindex="-1"></td>
+
         </tr>
         @endforeach
 </table>
-@foreach ($mercaderias as $mercaderia)
-<?php  
-$localmercaderia = $mercaderia->deslocal;
-$estadomercaderia = $mercaderia->estado;  
-$foul = 0;
-?>
-<div class="alert alert-success" >
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Mercadería id</th>
-            <th>Codproducto31</th>
-            <th>Estado</th>             
-            <th>Precio Sug</th>
-            <th>Ult Usuario</th>
-            <th>Local actual</th> 
 
-        </tr>    
-    </thead>
-        <tr>
-            <td width="12%"><input type="text" name="mercaderia_id" id="mercaderia_id" value="{{$mercaderia->id}}" class="form-control" readonly tabindex="-1"></td>
-            <td width="25%"><input type="text" name="mercaderiacodproducto31" value="{{$mercaderia->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
-            @if ($estadomercaderia == 'ACT' || $estadomercaderia == 'INA')
-            <td width="10%"><input type="text" name="estado" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
-            @else
-            <td width="10%" class="danger"><input type="text" name="estado" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
-            <?php $foul = $foul + 1 ?>
-            @endif
-            <td width="10%"><input type="text" name="precioventa"  value="{{$mercaderia->precioventa}}" readonly class="form-control" tabindex="-1"></td>
-            <td width="20%"><input type="text"  value="{{$mercaderia->desusuario}}" readonly class="form-control" tabindex="-1"></td>
-            @if ($localmercaderia <> "ALMACEN")
-            <td width="20%" class="danger"><input type="text" value="{{$mercaderia->deslocal}}" readonly class="form-control" tabindex="-1"></td>
-            <?php $foul = $foul + 1 ?>
-            @else
-            <td width="20%"><input type="text" value="{{$mercaderia->deslocal}}" readonly class="form-control" tabindex="-1"></td>
-            @endif
-            <td><input style="visibility:hidden; type="text" name="mercaderialocal_id" id="mercaderialocal_id" value="{{$mercaderia->local_id}}" class="form-control" readonly tabindex="-1"></td>
-            <td><input style="visibility:hidden; type="text" name="mercaderiausuario_id" id="mercaderiausuario_id" value="{{$mercaderia->usuario_id}}" class="form-control" readonly tabindex="-1"></td>
-        </tr>
-</table>
-
-@endforeach
-
-@if ($foul == 0)
+@if (0 == 0)
 <div class="row">
     <div class="col-lg-4">
-        <input id="storebutton" type="submit" value="Agregar registro" class="btn btn-danger">
+        <input id="storebutton" type="submit" value="Editar precios" class="btn btn-danger">
     </div>
 </div>    
 <div class="row">
@@ -176,14 +134,7 @@ $foul = 0;
 
 @endif
 
-@foreach ($mercaderias as $mercaderia)
-<div class="row">
-    <div class="col-lg-4">
-        <input type="text"  style="visibility:hidden;" name="mercaderia_id" id="mercaderia_id" value="{{$mercaderia->id}}" class="form-control" readonly tabindex="-1">
-        <a href="consultamercaderia/{{$mercaderia->id}}"  target="_blank">Presiona para consulta de historial de la mercaderia</a>
-    </div>    
-</div> 
-@endforeach
+
 
 
 @stop

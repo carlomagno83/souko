@@ -8,6 +8,7 @@
 <script>
 $(function() {
 $( "#datepicker1" ).datepicker();
+$( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 });  
 
 </script>

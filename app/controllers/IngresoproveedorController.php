@@ -325,7 +325,7 @@ class IngresoproveedorController extends BaseController
               $sheet->row(5, array('Número de documento interno:   '. $documento_id, '', '', '', 'Documento Físico:  '. $numdocfisico));    
 
                   $sheet->cell('A5', function($cell) { $cell->setFontWeight('bold'); }); 
-                  $sheet->cell('D5', function($cell) { $cell->setFontWeight('bold'); }); //agrega numdocfisico              
+                  $sheet->cell('E5', function($cell) { $cell->setFontWeight('bold'); }); //agrega numdocfisico              
               $sheet->row(6, array('Proveedor:   '. $desprovider, '', '', '', 'Fecha :   '.$fechadocumento));
                   $sheet->cell('A6', function($cell) { $cell->setFontWeight('bold'); });
               $sheet->row(7, array('Generado por :   '. Auth::user()->desusuario));

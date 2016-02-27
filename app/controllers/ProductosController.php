@@ -250,22 +250,18 @@ class ProductosController extends BaseController {
 	public function editabloque()
 	{
         $data = Input::all();
-		dd('ingresaeditabloq');
-        foreach($data as $key=>$value)
-        {
-            if($key=='checkbox')
-            { 
-                foreach($value as $key2=>$indice)
-                {
-//usuario logueado
-                    //dd($key2); //el key2 muestra el indice                       
 
-                    DB::table('productos')->where('id', '=', $data['producto_id'][$key2])
-										->update(array('precioventa' => $data['precioventa'],
-														'usuario_id' =>  Auth::user()->id
-														));
-                }
-            }
+        foreach($data['producto_id'] as $key=>$value)
+        {
+
+//usuario logueado
+                //dd($key2); //el key2 muestra el indice                       
+
+                DB::table('productos')->where('id', '=', $data['producto_id'][$key])
+									->update(array('precioventa' => $data['precioventa'][$key],
+													'usuario_id' =>  Auth::user()->id
+													));
+
         }
         return Redirect::route('productos.index');
 	}
@@ -344,8 +340,7 @@ class ProductosController extends BaseController {
 	 * @return Response
 	 */
 	public function destroy($id)
-	{
-		dd('ingresa');
+	{ 
 		$this->producto->find($id)->delete();
 
 		return Redirect::route('productos.index');

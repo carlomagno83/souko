@@ -85,12 +85,11 @@ $(document).ready(function(){
 	<table class="table table-striped">
 		<thead>
 			<tr> 
-                <th width="5%">Bloq</th>
                 <th width="5%">Proveedor</th>
                 <th width="20%">Etiqueta</th>
                 <th width="1%"></th>
-                <th width="8%">P. Compra</th>
                 <th width="8%">P. Venta Sug.</th>
+                <th width="8%">P. Compra</th>
 				<th width="20%">&nbsp;</th>
 			</tr>
 		</thead>
@@ -100,20 +99,18 @@ $(document).ready(function(){
 
 			@foreach ($productos as $producto)
 				<tr>
-                    <td width="5%"><input type="checkbox" name="checkbox[{{$i}}]" class="form-control"/></td>
-
                     <td>{{{ $producto->codprovider3 }}}</td>
                     <td>{{{ $producto->codproducto31 }}}</td>
                     <td><input style="visibility:hidden;" type="text" name="producto_id[]" id="producto_id[]" value="{{$producto->id}}" class="form-control" readonly tabindex="-1"></td>
-
+                    <td><input type="text" name="precioventa[]" value="{{$producto->precioventa}}" class="form-control"></td>
                     <td>{{{ $producto->preciocompra }}}</td>
-                    <td>{{{ $producto->precioventa }}}</td>
+
 
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('productos.destroy', $producto->id))) }}
-                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger',  'tabindex'=>'-1')) }}
                         {{ Form::close() }}
-                        {{ link_to_route('productos.edit', 'Editar', array($producto->id), array('class' => 'btn btn-info')) }}
+
 
                     </td>
                     <?php $i=$i+1 ?>
@@ -123,14 +120,9 @@ $(document).ready(function(){
 		</tbody>
 	</table>
 <div class="row">
-    <div class="col-lg-1">
-        <img src='img/flechacurva.png' border='0'>
-    </div>  
-    <div class="col-lg-4">
-        <div class="input-group">
-            <span class="input-group-addon" id="precioventa">Editar P. Sugerido en bloque</span>
-            <input type="text" name="precioventa" class="form-control" placeholder="Precio unitario" aria-describedby="basic-addon1">
-        </div>
+
+    <div class="col-lg-5">
+
     </div>      
     <div class="col-lg-2">
                 <button type="submit" id="editarbotton" class="btn btn-info">Editar Precio Sugerido</button>

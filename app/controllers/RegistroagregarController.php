@@ -92,7 +92,7 @@ class RegistroagregarController extends BaseController {
     public function consultamercaderia($cod)
     {
         //$mercaderia = Mercaderia::find($cod);
-        $mercaderias = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, tipomovimientos.destipomovimiento, locals.deslocal, documentos.fechadocumento 
+        $mercaderias = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, tipomovimientos.destipomovimiento, locals.deslocal, documentos.fechadocumento , documentos.created_at
                         from movimientos
                         INNER JOIN tipomovimientos ON tipomovimientos.id = movimientos.tipomovimiento_id
                         INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id

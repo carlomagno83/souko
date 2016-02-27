@@ -130,9 +130,10 @@ $(document).ready(function(){
         <thead>
             <tr> 
                 <th width="10%">Proveedor</th>
-                <th width="15%">Producto</th>
+                <th width="10%">Producto</th>
                 <th>Etiqueta</th>
-                <th width="15%">Ultimo Precio</th>
+                <th width="10%">P. Sug Venta</th>
+                <th width="10%">Ultimo Precio</th>
                 <th width="8%">Cantidad</th>
                 <th width="15%">P. Compra</th>
 
@@ -147,6 +148,7 @@ $(document).ready(function(){
                     <td width="10%">{{{ $producto->codprovider3 }}}</td>
                     <td width="15%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{ $producto->id }}" readonly class="form-control" tabindex="-1"></td>
                     <td><input type="text" name="codproducto31[]" id="codproducto31[]" value="{{ $producto->codproducto31 }}" readonly class="form-control" tabindex="-1"></td>
+                    <td><input type="text"id="preciosug[]" value="{{ $producto->precioventa }}" readonly class="form-control" tabindex="-1"></td>
                     <td><input type="text" name="ultimoprecio[]" id="ultimoprecio[]" value="{{ $producto->preciocompra }}" readonly class="form-control" tabindex="-1"></td>
                     <td width="8%"><input type="text" name="cantidad[]" id="cantidad[]" class="form-control"></td>
                     <td width="15%"><input type="text" name="preciocompra[]" id="preciocompra[]" class="form-control"></td>
