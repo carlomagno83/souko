@@ -72,7 +72,8 @@ $(document).ready(function(){
 </form>
 
 <form method="POST" action="{{url('eliminacionguia-store')}}">
-@if (count($mercaderias)>0)
+@if (count($documentos)>0)
+@foreach ($documentos as $documento)
 <h4>
     <div class="row">
         <div class="col-lg-2">
@@ -82,7 +83,7 @@ $(document).ready(function(){
         </div>
         <div class="col-lg-2">
             <div class="input-group">
-                 <input type="text" name="documento_id" id="documento_id" value="{{$documentos->id}}" class="form-control" readonly tabindex="-1">
+                 <input type="text" name="documento_id" id="documento_id" value="{{$documento->id}}" class="form-control" readonly tabindex="-1">
             </div>
         </div>
         <div class="col-lg-1">
@@ -92,7 +93,7 @@ $(document).ready(function(){
         </div>
         <div class="col-lg-2">
             <div class="input-group">
-                <input type="text" value="{{$documentos->fechadocumento }}" class="form-control" readonly tabindex="-1">
+                <input type="text" value="{{$documento->fechadocumento }}" class="form-control" readonly tabindex="-1">
             </div>
         </div>
         <div class="col-lg-2">
@@ -102,12 +103,13 @@ $(document).ready(function(){
         </div>
         <div class="col-lg-2">
             <div class="input-group">
-                <input type="text" value="{{$documentos->numdocfisico }}" class="form-control" readonly tabindex="-1">
+                <input type="text" value="{{$documento->numdocfisico }}" class="form-control" readonly tabindex="-1">
             </div>
         </div>
 
     </div>         
 </h4>
+@endforeach
 @endif
 
 <table class="table table-striped">

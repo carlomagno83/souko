@@ -64,7 +64,8 @@
 </form>
 
 <form method="POST" action="{{url('reimprimeguiaentrada-reimprime')}}">
-@if (count($mercaderias)>0)
+@if (count($documentos)>0)
+@foreach ($documentos as $documento)
 <h4>
     <div class="row">
         <div class="col-lg-2">
@@ -74,7 +75,7 @@
         </div>
         <div class="col-lg-2">
             <div class="input-group">
-                 <input type="text" name="documento_id" id="documento_id" value="{{$documentos->id}}" class="form-control" readonly tabindex="-1">
+                 <input type="text" name="documento_id" value="{{$documento->id}}" class="form-control" readonly tabindex="-1">
             </div>
         </div>
         <div class="col-lg-1">
@@ -88,7 +89,7 @@
         </div>
         <div class="col-lg-2">
             <div class="input-group">
-                <input type="text" value="{{$documentos->fechadocumento }}" class="form-control" readonly tabindex="-1">
+                <input type="text" value="{{$documento->fechadocumento }}" class="form-control" readonly tabindex="-1">
             </div>
         </div>
         <div class="col-lg-2">
@@ -98,13 +99,14 @@
         </div>
         <div class="col-lg-2">
             <div class="input-group">
-                <input type="text" name="numdocfisico" id="numdocfisico" value="{{$documentos->numdocfisico }}" class="form-control" readonly tabindex="-1">
+                <input type="text" name="numdocfisico" id="numdocfisico" value="{{$documento->numdocfisico }}" class="form-control" readonly tabindex="-1">
             </div>
         </div>
-    
+
 
     </div> 
-    <?php $desproveedor = DB::table('providers')->select('desprovider')->where('id', '=', $documentos->localini_id )->pluck('desprovider'); ?></h4>
+    <?php $desproveedor = DB::table('providers')->select('desprovider')->where('id', '=', $documento->localini_id )->pluck('desprovider'); ?></h4>
+    @endforeach    
     <div class="row">
         <div class="col-lg-2">
             <div class="input-group">

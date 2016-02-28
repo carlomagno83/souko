@@ -32,11 +32,28 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 <script type="text/javascript">
 $(document).ready(function(){
   $("#storebutton").click(function(){
+   if( $( "#usuario_id" ).val() == '' )    //valida campo 
+    {
+        alert(Escoja el usuario);
+        return false;
+    }
+    if( $( "#local_id" ).val() == "" )    //valida campo 
+    {
+        alert("Escoja el local");
+        return false;
+    }
+    if( $( "#datepicker1" ).val() == "" )    //valida campo 
+    {
+        alert("Ingrese fecha")
+        return false
+    }    
     $(this).hide();
     $("#muestramsg").show();
     return true;});
  });
 </script>
+
+
 
 {{--<div align="right">--}}
     {{--<a id="home" href=" {{ URL::to('/') }} "><img src='img/home.ico' border='0'></a>--}}
@@ -181,7 +198,7 @@ $(document).ready(function(){
             <div class="col-lg-3">
                 <div class="input-group">
                     <span class="input-group-addon" id="fechadocumento">Fecha</span>
-                    <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1">
+                    <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1" required>
                 </div>
             </div><!-- /.col-lg-6 -->         
     </div><!-- /.row -->

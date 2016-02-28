@@ -59,22 +59,10 @@ class IngresoproveedorController extends BaseController
                               ->select('productos.id',
                                        'productos.provider_id',
                                        'providers.codprovider3',
-                                       'productos.marca_id',
-                                       'marcas.codmarca3',
-                                       'productos.tipo_id',
-                                       'tipos.codtipo8',                                       
-                                       'productos.modelo_id',
-                                       'modelos.codmodelo6',
-                                       'productos.material_id',
-                                       'materials.codmaterial3',
-                                       'productos.color_id',
-                                       'colors.codcolor6',
-                                       'productos.rango_id',
-                                       'rangos.codrango3',
-                                       'productos.talla_id',
-                                       'productos.codproducto31',
+                                         'productos.codproducto31',
                                        'productos.preciocompra',
                                        'productos.precioventa')
+                                ->orderBy('providers.codprovider3') 
                                 ->orderBy('productos.codproducto31')
                                 ->get();
             return View::make('ingresoproveedor.create')->with('productos',$productos)->with('entradas', $entradas); 
@@ -116,19 +104,6 @@ class IngresoproveedorController extends BaseController
                               ->select('productos.id',
                                        'productos.provider_id',
                                        'providers.codprovider3',
-                                       'productos.marca_id',
-                                       'marcas.codmarca3',
-                                       'productos.tipo_id',
-                                       'tipos.codtipo8',                                       
-                                       'productos.modelo_id',
-                                       'modelos.codmodelo6',
-                                       'productos.material_id',
-                                       'materials.codmaterial3',
-                                       'productos.color_id',
-                                       'colors.codcolor6',
-                                       'productos.rango_id',
-                                       'rangos.codrango3',
-                                       'productos.talla_id',
                                        'productos.codproducto31',
                                        'productos.preciocompra',
                                        'productos.precioventa')
@@ -137,6 +112,8 @@ class IngresoproveedorController extends BaseController
                                                   $query->select('producto_id')
                                                         ->from('entradas');
                                               })*/
+                                ->orderBy('providers.codprovider3') 
+                                ->orderBy('productos.codproducto31')             
                                 ->get();
 //hay que cambiar por usuario logueado
         //$entradas = DB::table('entradas')->where('usuario_id','=',1)->get();
@@ -177,6 +154,7 @@ class IngresoproveedorController extends BaseController
 //guarda los datos correspondientes, imprime, y borra temporal
     public function store() 
     {
+      //dd("ingresa");
 //$entradas = DB::table('entradas')->where('usuario_id','=','1')->get(); 
       $cont = count($entradas = DB::table('entradas')->where('usuario_id','=', Auth::user()->id )->get());
       if($cont>0)

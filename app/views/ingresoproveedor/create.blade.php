@@ -24,7 +24,7 @@ $(document).ready(function(){
 
     if( $( "#datepicker1" ).val() =="" )    //valida campo 
     {
-        alert("falta datos")
+        alert("Ingrese fecha")
         return false
     }
 
@@ -83,6 +83,13 @@ $(document).ready(function(){
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">
             <div class="input-group">
+                <span class="input-group-addon" id="rango_id">Rango</span>
+                {{Form::select('rango_id',[0=>''] + DB::table('rangos')->orderby('desrango')->lists('desrango','id'), Input::get('rango_id'),array('class'=>'form-control'))}}
+            </div>
+        </div><!-- /.col-lg-6 -->
+                
+        <div class="col-lg-3">
+            <div class="input-group">
                 <span class="input-group-addon" id="modelo_id">Modelo</span>
                 {{Form::select('modelo_id',[0=>''] + DB::table('modelos')->orderby('desmodelo')->lists('desmodelo','id'), Input::get('modelo_id'),array('class'=>'form-control'))}}
            </div>
@@ -98,12 +105,6 @@ $(document).ready(function(){
             <div class="input-group">
                 <span class="input-group-addon" id="color_id">Color</span>
                 {{Form::select('color_id',[0=>''] + DB::table('colors')->orderby('descolor')->lists('descolor','id'), Input::get('color_id'),array('class'=>'form-control'))}}
-           </div>
-        </div><!-- /.col-lg-6 -->
-        <div class="col-lg-3">
-            <div class="input-group">
-                <span class="input-group-addon" id="rango_id">Rango</span>
-                {{Form::select('rango_id',[0=>''] + DB::table('rangos')->orderby('desrango')->lists('desrango','id'), Input::get('rango_id'),array('class'=>'form-control'))}}
            </div>
         </div><!-- /.col-lg-6 -->
         <br>
@@ -148,7 +149,7 @@ $(document).ready(function(){
                     <td width="10%">{{{ $producto->codprovider3 }}}</td>
                     <td width="15%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{ $producto->id }}" readonly class="form-control" tabindex="-1"></td>
                     <td><input type="text" name="codproducto31[]" id="codproducto31[]" value="{{ $producto->codproducto31 }}" readonly class="form-control" tabindex="-1"></td>
-                    <td><input type="text"id="preciosug[]" value="{{ $producto->precioventa }}" readonly class="form-control" tabindex="-1"></td>
+                    <td><input type="text" id="preciosug[]" value="{{ $producto->precioventa }}" readonly class="form-control" tabindex="-1"></td>
                     <td><input type="text" name="ultimoprecio[]" id="ultimoprecio[]" value="{{ $producto->preciocompra }}" readonly class="form-control" tabindex="-1"></td>
                     <td width="8%"><input type="text" name="cantidad[]" id="cantidad[]" class="form-control"></td>
                     <td width="15%"><input type="text" name="preciocompra[]" id="preciocompra[]" class="form-control"></td>
@@ -246,7 +247,7 @@ $(document).ready(function(){
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="fechadocumento">Fecha</span>
-                <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1">
+                <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1" required>
             </div>
         </div><!-- /.col-lg-6 --> 
         <div class="col-lg-3">

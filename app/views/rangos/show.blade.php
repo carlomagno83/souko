@@ -9,23 +9,21 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>Código 3 (etqta)</th>
-				<th>Código 6</th>
-				<th>Descripción</th>
+			<th>Código 6 (etqta)</th>
+			<th>Descripción</th>
 		</tr>
 	</thead>
 
 	<tbody>
 		<tr>
-			<td>{{{ $rango->codrango3 }}}</td>
-					<td>{{{ $rango->codrango6 }}}</td>
-					<td>{{{ $rango->desrango }}}</td>
-                    <td>
-                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('rangos.destroy', $rango->id))) }}
-                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
-                        {{ link_to_route('rangos.edit', 'Editar', array($rango->id), array('class' => 'btn btn-info')) }}
-                    </td>
+			<td>{{{ $rango->codrango6 }}}</td>
+			<td>{{{ $rango->desrango }}}</td>
+            <td>
+                {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('rangos.destroy', $rango->id))) }}
+                    {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
+                {{ Form::close() }}
+                {{ link_to_route('rangos.edit', 'Editar', array($rango->id), array('class' => 'btn btn-info')) }}
+            </td>
 		</tr>
 	</tbody>
 </table>

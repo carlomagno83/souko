@@ -20,6 +20,22 @@
 <script type="text/javascript">
 $(document).ready(function(){
   $("#storebutton").click(function(){
+    if( $( "#localfin" ).val() == "" )    //valida campo 
+    {
+        alert("Escoja el local");
+        return false;
+    }
+   if( $( "#usuario_id" ).val() == '' )    //valida campo 
+    {
+        alert(Escoja el usuario);
+        return false;
+    }
+    if( $( "#datepicker1" ).val() == "" )    //valida campo 
+    {
+        alert("Ingrese fecha")
+        return false
+    }
+
     $(this).hide();
     $("#muestramsg").show();
     return true;});
@@ -61,7 +77,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
     <div class="col-lg-5">
         <div class="input-group">
             <span class="input-group-addon" id="mercaderia_id">Mercadería</span>
-            <input type="text" name='mercaderia_id' class="form-control" placeholder="Necesario #de merca en guia de traslado" aria-describedby="basic-addon1">
+            <input type="text" name='mercaderia_id' class="form-control" placeholder="Necesario #de merca en guia de traslado" aria-describedby="basic-addon1" autofocus>
        </div>
     </div><!-- /.col-lg-6 -->  
     <!-- Botón para agregar filas -->
@@ -155,7 +171,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             </div><!-- /.col-lg-6 -->
             <div class="col-lg-4">
                 <div class="input-group">
-                    <span class="input-group-addon" id="marca_id">Solicitante</span>
+                    <span class="input-group-addon" id="usuario_id">Solicitante</span>
                     {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
                 </div>
             </div><!-- /.col-lg-6 -->
@@ -178,7 +194,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             <div class="col-lg-3">
                 <div class="input-group">
                     <span class="input-group-addon" id="fechadocumento">Fecha</span>
-                    <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1">
+                    <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1" required>
                 </div>
             </div>
             <div class="col-lg-2">

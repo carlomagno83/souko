@@ -8,26 +8,30 @@ class EliminacionguiaController extends BaseController
      * @var Color
      */
     protected $mercaderia;
+    protected $documento;
 
-    public function __construct(Mercaderia $mercaderia)
+    public function __construct(Mercaderia $mercaderia, Documento $documento)
     {
         $this->mercaderia = $mercaderia;
+        $this->documento = $documento;
     }
 
   	public function index()
   	{
-    		$mercaderias = Mercaderia::find(0); //JAM
-        //$mercaderias = new Mercaderia();
-        //dd(count($mercaderias)); 
-    		return View::make('eliminacionguia.eliminacionguia')->with('mercaderias',$mercaderias);
+            $mercaderias = Mercaderia::find(0); //JAM
+            $documentos = Documento::find(0); //JAM
+
+    		return View::make('eliminacionguia.eliminacionguia')->with('mercaderias',$mercaderias)->with('documentos',$documentos);
   	}
 
     public function create()
     {
         if(Input::get('documento_id')!=null) 
         {    
-            $documentos = Documento::where('numdocfisico', Input::get('numdocfisico'))->where('tipomovimiento_id','1')->firstOrFail();
-            if($documentos)
+            //$documentos = Documento::where('numdocfisico', Input::get('numdocfisico'))->where('tipomovimiento_id','1')->firstOrFail();
+            $documentos = $this->documento->where('id', Input::get('documento_id'))->where('tipomovimiento_id','1')->get();
+
+            if(count($documentos) > 0)
             {
                 $mercaderias = $this->mercaderia->join('movimientos','mercaderias.id','=','movimientos.mercaderia_id')
                                                 ->join('productos','mercaderias.producto_id','=','productos.id')
@@ -55,7 +59,8 @@ class EliminacionguiaController extends BaseController
             }
         } 
         $mercaderias = Mercaderia::find(0);
-        return View::make('eliminacionguia.eliminacionguia')->withInput('documento_id')->with('mercaderias',$mercaderias)->with('message','No se encuentra el documento');
+        $documentos = Documento::find(0);
+        return View::make('eliminacionguia.eliminacionguia')->withInput('documento_id')->with('mercaderias',$mercaderias)->with('documentos',$documentos)->withErrors(['Número de documento incorrecto']);
     }
 
 
@@ -70,10 +75,11 @@ class EliminacionguiaController extends BaseController
                 //                                    ->get();
                 
 
-                $documentos = Documento::where('numdocfisico', Input::get('numdocfisico'))->where('tipomovimiento_id','1')->firstOrFail();
+            //$documentos = Documento::where('numdocfisico', Input::get('numdocfisico'))->where('tipomovimiento_id','1')->firstOrFail();
+            $documentos = $this->documento->where('numdocfisico', Input::get('numdocfisico'))->where('tipomovimiento_id','1')->get();
 
                 //dd($documentos);
-            if($documentos)
+            if(count($documentos) > 0)
             {
                 //$documentos = DB::table('documentos')->find(Input::get('numdocfisico'));
                 
@@ -100,11 +106,12 @@ class EliminacionguiaController extends BaseController
                             ->get();
 
                 //return View::make('eliminacionguia.eliminacionguia', compact('mercaderias'))->withInput('numdocfisico')->with('documentos',$documentos);
-                return View::make('eliminacionguia.eliminacionguia', compact('mercaderias'))->withInput('numdocfisico')->with('documentos',$documentos);
+                return View::make('eliminacionguia.eliminacionguia', compact('mercaderias'))->withInput('numdocfisico')->with('documentos', $documentos);
             }
         } 
         $mercaderias = Mercaderia::find(0);
-        return View::make('eliminacionguia.eliminacionguia')->withInput('numdocfisico')->with('mercaderias',$mercaderias)->with('message','No se encuentra el documento');
+        $documentos = Documento::find(0);
+        return View::make('eliminacionguia.eliminacionguia')->withInput('numdocfisico')->with('mercaderias',$mercaderias)->with('documentos',$documentos)->withErrors(['Número de documento incorrecto']);
     }
 
     public function store()
@@ -125,7 +132,7 @@ class EliminacionguiaController extends BaseController
                                 ->delete();
 
         $mercaderias = Mercaderia::find(0);
-        return View::make('eliminacionguia.eliminacionguia')->with('mercaderias',$mercaderias)->withErrors(['Guía de Entrada Eliminada, por favor destruya el documento Físico: '. Input::get('documento_id')]);
+        return View::make('eliminacionguia.eliminacionguia')->with('mercaderias',$mercaderias)->with('documentos',$documentos)->withErrors(['Guía de Entrada Eliminada, por favor destruya el documento Físico: '. Input::get('documento_id')]);
 
     }
 

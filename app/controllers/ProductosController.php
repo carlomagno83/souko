@@ -65,21 +65,10 @@ class ProductosController extends BaseController {
                                        'productos.provider_id',
                                        'providers.codprovider3',
                                        'productos.marca_id',
-                                       'marcas.codmarca3',
-                                       'productos.tipo_id',
-                                       'tipos.codtipo8',                                       
-                                       'productos.modelo_id',
-                                       'modelos.codmodelo6',
-                                       'productos.material_id',
-                                       'materials.codmaterial3',
-                                       'productos.color_id',
-                                       'colors.codcolor6',
-                                       'productos.rango_id',
-                                       'rangos.codrango3',
-                                       'productos.talla_id',
                                        'productos.codproducto31',
                                        'productos.preciocompra',
                                        'productos.precioventa')
+                              	->orderBy('providers.codprovider3')
 								->orderBy('productos.codproducto31')
 								->get();
 			return View::make('productos.index')->with('productos',$productos);	
@@ -118,25 +107,14 @@ class ProductosController extends BaseController {
 									->join('materials','productos.material_id','=','materials.id')
 									->join('colors','productos.color_id','=','colors.id')
 									->join('rangos','productos.rango_id','=','rangos.id')
-                              ->select('productos.id',
+                              	->select('productos.id',
                                        'productos.provider_id',
                                        'providers.codprovider3',
-                                       'productos.marca_id',
-                                       'marcas.codmarca3',
-                                       'productos.tipo_id',
-                                       'tipos.codtipo8',                                       
-                                       'productos.modelo_id',
-                                       'modelos.codmodelo6',
-                                       'productos.material_id',
-                                       'materials.codmaterial3',
-                                       'productos.color_id',
-                                       'colors.codcolor6',
-                                       'productos.rango_id',
-                                       'rangos.codrango3',
-                                       'productos.talla_id',
                                        'productos.codproducto31',
                                        'productos.preciocompra',
                                        'productos.precioventa')
+                                ->orderBy('providers.codprovider3')
+                                ->orderBy('productos.codproducto31')
 								->get();
 
         return View::make('productos.index')->withInput('provider_id', 'marca_id', 'tipo_id', 'modelo_id', 'material_id', 'color_id' , 'rango_id')->with('productos',$productos);		
@@ -192,23 +170,24 @@ class ProductosController extends BaseController {
 			$modelos = DB::table('modelos')->select('codmodelo6')->where('id', '=', $input["modelo_id"])->pluck('codmodelo6');
 			$materials = DB::table('materials')->select('codmaterial3')->where('id', '=', $input["material_id"])->pluck('codmaterial3');
 			$colors = DB::table('colors')->select('codcolor6')->where('id', '=', $input["color_id"])->pluck('codcolor6');
-			$rangos = DB::table('rangos')->select('codrango3')->where('id', '=', $input["rango_id"])->pluck('codrango3');
+			$rangos = DB::table('rangos')->select('codrango6')->where('id', '=', $input["rango_id"])->pluck('codrango6');
 
 			//solo para una talla
 			if ($input["talla_id"] != "")
 				{
 					$input["codproducto31"] = "$marcas"."-".
 												"$tipos"."-".
+												"$rangos"."-".												
 												"$modelos"."-".
 												"$materials"."-".
 												"$colors"."-".
-												"$rangos"."-".
 												$input["talla_id"];
 					//usuario logueado
 					$input['usuario_id'] = Auth::user()->id;
 					$input = array_except($input, ['q']);
 					$this->producto->create($input);
-					return Redirect::route('productos.index');
+					//return Redirect::route('productos.index');
+					return Redirect::route('productos.create')->withErrors(['Nuevo producto creado']);
 
 				}
 			// ok hasta aqui estamos bien hay que hacer un for 
@@ -221,10 +200,10 @@ class ProductosController extends BaseController {
 			{
 				$input["codproducto31"] = "$marcas"."-".
 											"$tipos"."-".
+											"$rangos"."-".
 											"$modelos"."-".
 											"$materials"."-".
 											"$colors"."-".
-											"$rangos"."-".
 											"$tallas";
 				$input["talla_id"] = "$tallas";							
 				//usuario logueado
@@ -237,7 +216,8 @@ class ProductosController extends BaseController {
 			//$this->producto->create($input); //aqui solo registraba un solo dato hay q aumentar 
 			//codproducto31 y un registro por cada talla
 
-			return Redirect::route('productos.index');
+			//return Redirect::route('productos.index');
+			return Redirect::route('productos.create')->withErrors(['Nuevo rango de productos creado']);
 		}
 
 		return Redirect::route('productos.create')
@@ -263,7 +243,7 @@ class ProductosController extends BaseController {
 													));
 
         }
-        return Redirect::route('productos.index');
+        return Redirect::route('productos.index')->withErrors(['Producto(s) editados']);
 	}
 
 
@@ -341,9 +321,18 @@ class ProductosController extends BaseController {
 	 */
 	public function destroy($id)
 	{ 
-		$this->producto->find($id)->delete();
 
-		return Redirect::route('productos.index');
+        $data = DB::table('mercaderias')->where("producto_id", "=", $id)->get();
+        if ($data)
+        {
+        	//$this->filtrar();
+			return Redirect::route('productos.index')->withErrors(['No se puede eliminar. Mercaderías existentes con este número de producto']);
+        }
+        else
+        {	
+			$this->producto->find($id)->delete();
+			return Redirect::route('productos.index')->withErrors(['Producto eliminado']);
+		}	
 	}
 
 	public function bajaexcel($id)

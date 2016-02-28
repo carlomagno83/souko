@@ -34,29 +34,36 @@
             </div>
 
             {{ Form::label('tipo_id', 'Tipo:', array('class'=>'col-md-1 control-label')) }}
-            <div class="col-sm-2">
+            <div class="col-sm-3">
               {{ Form::select('tipo_id',[""=>''] + $tipos, Input::old('tipo_id'), array('class'=>'form-control')) }}
             </div>
-
-            {{ Form::label('modelo_id', 'Modelo:', array('class'=>'col-md-1 control-label')) }}
-            <div class="col-sm-2">
-              {{ Form::select('modelo_id',[""=>''] + $modelos, Input::old('modelo_id'), array('class'=>'form-control')) }}
-            </div>
-
-            {{ Form::label('material_id', 'Material:', array('class'=>'col-md-1 control-label')) }}
-            <div class="col-sm-2">
-              {{ Form::select('material_id',[""=>''] + $materials, Input::old('material_id'), array('class'=>'form-control')) }}
-            </div>
-
-            {{ Form::label('color_id', 'Color:', array('class'=>'col-md-1 control-label')) }}
-            <div class="col-sm-2">
-              {{ Form::select('color_id',[""=>''] + $colors, Input::old('color_id'), array('class'=>'form-control')) }}
-            </div>
-
+        </div>
+    </div>
+</div>            
+<div class="row">
+    <div class="col-md-12 col-md-offset-0">
+        <div class="form-group">
             {{ Form::label('rango_id', 'Rango:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
               {{ Form::select('rango_id',[""=>''] + $rangos, Input::old('rango_id'), array('class'=>'form-control')) }}
             </div>
+
+            {{ Form::label('modelo_id', 'Modelo:', array('class'=>'col-md-1 control-label')) }}
+            <div class="col-sm-2">
+              {{ Form::select('modelo_id',["153"=>'XXXXXX'] + $modelos, Input::old('modelo_id'), array('class'=>'form-control')) }}
+            </div>
+
+            {{ Form::label('material_id', 'Material:', array('class'=>'col-md-1 control-label')) }}
+            <div class="col-sm-2">
+              {{ Form::select('material_id',["7"=>'XXX'] + $materials, Input::old('material_id'), array('class'=>'form-control')) }}
+            </div>
+
+            {{ Form::label('color_id', 'Color:', array('class'=>'col-md-1 control-label')) }}
+            <div class="col-sm-2">
+              {{ Form::select('color_id',["37"=>'XXX'] + $colors, Input::old('color_id'), array('class'=>'form-control')) }}
+            </div>
+
+
 
         </div>
     </div>
@@ -64,7 +71,7 @@
 <div class="row">
     <div class="col-md-12 col-md-offset-0">
         <div class="form-group">
-            {{ Form::label('precioventa', 'P. Venta Sug.:', array('class'=>'col-md-2 control-label')) }}
+            {{ Form::label('precioventa', 'P. Venta Sug.:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
               <input type="text" name="precioventa" id="precioventa" class="form-control">
             </div>
@@ -73,17 +80,19 @@
 </div>
 
 
-<div class="form-group">
-    <label class="col-sm-0 control-label">&nbsp;</label>
-    <div class="col-sm-10">
-      {{ Form::submit('Crear Nuevo Rango de Productos', array('class' => 'btn btn-lg btn-primary')) }}
-    </div>
-</div>
+
 <br>
             {{ Form::label('talla_id', 'Talla:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
                 <select name="talla_id" class="form-control">
+                  <option value="00">00</option>                
                   <option value="">Escoja uno</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
                   <option value="27">27</option>
                   <option value="28">28</option>
                   <option value="29">29</option>
@@ -109,6 +118,14 @@
             <div>Ingrese el número de Talla si desea ingresar un solo producto, 
             de lo contrario se generará el rango establecido.</div>
             <div>A continuación pulse el botón Crear ... </div>
+<br>
+<div class="form-group">
+    <label class="col-sm-0 control-label">&nbsp;</label>
+    <div class="col-sm-10">
+      {{ Form::submit('Crear Nuevo Rango de Productos', array('class' => 'btn btn-lg btn-primary')) }}
+    </div>
+</div>
+
 
 {{ Form::close() }}
 

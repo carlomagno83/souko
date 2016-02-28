@@ -10,8 +10,7 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>Código 3 (etqta)</th>
-				<th>Código 6</th>
+				<th>Código 6 (etqta)</th>
 				<th>Descripción</th>
 				<th>Usuario</th>
 				<th>&nbsp;</th>
@@ -21,7 +20,6 @@
 		<tbody>
 			@foreach ($rangos as $rango)
 				<tr>
-					<td>{{{ $rango->codrango3 }}}</td>
 					<td>{{{ $rango->codrango6 }}}</td>
 					<td>{{{ $rango->desrango }}}</td>
 					<td>{{{ $rango->desusuario }}}</td>

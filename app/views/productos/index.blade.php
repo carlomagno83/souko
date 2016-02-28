@@ -16,6 +16,15 @@ $(document).ready(function(){
 
 
 <h3>Tabla maestra de Productos</h3>
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+        </ul>
+    </div>
+@endif
+
 <form method="POST" action="{{url('productos-filtrar')}}">
 <div class="row">
         <div class="col-lg-3">
@@ -38,9 +47,16 @@ $(document).ready(function(){
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">
             <div class="input-group">
+                <span class="input-group-addon" id="rango_id">Rango</span>
+                {{Form::select('rango_id',[0=>''] + DB::table('rangos')->orderby('desrango')->lists('desrango','id'), Input::get('rango_id'),array('class'=>'form-control'))}}
+           </div>
+        </div><!-- /.col-lg-6 -->
+
+        <div class="col-lg-3">
+            <div class="input-group">
                 <span class="input-group-addon" id="modelo_id">Modelo</span>
                 {{Form::select('modelo_id',[0=>''] + DB::table('modelos')->orderby('desmodelo')->lists('desmodelo','id'), Input::get('modelo_id'),array('class'=>'form-control'))}}
-           </div>
+            </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">
             <div class="input-group">
@@ -55,12 +71,7 @@ $(document).ready(function(){
                 {{Form::select('color_id',[0=>''] + DB::table('colors')->orderby('descolor')->lists('descolor','id'), Input::get('color_id'),array('class'=>'form-control'))}}
            </div>
         </div><!-- /.col-lg-6 -->
-        <div class="col-lg-3">
-            <div class="input-group">
-                <span class="input-group-addon" id="rango_id">Rango</span>
-                {{Form::select('rango_id',[0=>''] + DB::table('rangos')->orderby('desrango')->lists('desrango','id'), Input::get('rango_id'),array('class'=>'form-control'))}}
-           </div>
-        </div><!-- /.col-lg-6 -->
+
         <br>
 </div>  
 <br>
