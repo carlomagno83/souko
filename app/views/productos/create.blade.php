@@ -25,7 +25,7 @@
         <div class="form-group">
             {{ Form::label('provider_id', 'Proveedor:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-              {{ Form::select('provider_id',[""=>''] + $providers, Input::old('provider_id'), array('class'=>'form-control')) }}
+              {{ Form::select('provider_id',[""=>''] + $providers, Input::old('provider_id'), array('class'=>'form-control', 'autofocus' =>'autofocus')) }}
             </div>            
 
             {{ Form::label('marca_id', 'Marca:', array('class'=>'col-md-1 control-label')) }}
@@ -50,17 +50,17 @@
 
             {{ Form::label('modelo_id', 'Modelo:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-              {{ Form::select('modelo_id',["153"=>'XXXXXX'] + $modelos, Input::old('modelo_id'), array('class'=>'form-control')) }}
+              {{ Form::select('modelo_id',["153"=>'XXXXXX'] + $modelos, Input::old('modelo_id'), array('class'=>'form-control', 'tabindex'=>'-1')) }}
             </div>
 
-            {{ Form::label('material_id', 'Material:', array('class'=>'col-md-1 control-label')) }}
+            {{ Form::label('material_id', 'Material:', array('class'=>'col-md-1 control-label', 'tabindex'=>'-1')) }}
             <div class="col-sm-2">
-              {{ Form::select('material_id',["7"=>'XXX'] + $materials, Input::old('material_id'), array('class'=>'form-control')) }}
+              {{ Form::select('material_id',["7"=>'XXX'] + $materials, Input::old('material_id'), array('class'=>'form-control', 'tabindex'=>'-1')) }}
             </div>
 
             {{ Form::label('color_id', 'Color:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-              {{ Form::select('color_id',["37"=>'XXX'] + $colors, Input::old('color_id'), array('class'=>'form-control')) }}
+              {{ Form::select('color_id',["37"=>'XXX'] + $colors, Input::old('color_id'), array('class'=>'form-control', 'tabindex'=>'-1')) }}
             </div>
 
 
@@ -84,7 +84,7 @@
 <br>
             {{ Form::label('talla_id', 'Talla:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-                <select name="talla_id" class="form-control">
+                <select name="talla_id" class="form-control"  tabindex='-1'>
                   <option value="00">00</option>                
                   <option value="">Escoja uno</option>
                   <option value="21">21</option>

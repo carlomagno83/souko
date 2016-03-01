@@ -34,7 +34,7 @@ $(document).ready(function(){
   $("#storebutton").click(function(){
    if( $( "#usuario_id" ).val() == '' )    //valida campo 
     {
-        alert(Escoja el usuario);
+        alert("Escoja el usuario");
         return false;
     }
     if( $( "#local_id" ).val() == "" )    //valida campo 
