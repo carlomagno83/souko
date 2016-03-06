@@ -119,8 +119,17 @@ Route::group(['before' => 'auth'], function()
 
 	//Reportes
 	Route::resource('reporteingreso', 'ReporteingresoController');
-	Route::resource('reporteventa', 'ReporteventaController');
+	
+	Route::resource('consultaventa', 'ConsultaventaController');
+	Route::post('consultaventabuscar', 'ConsultaventaController@buscar');
+
+	Route::resource('consultastockadm', 'ConsultastockController');
+
+	Route::resource('consultastockdet', 'ConsultastockdetController');
+	Route::any('consulta-productos-filtrar', 'ConsultastockdetController@filtrar');
+
 	Route::resource('reportestock', 'ReportestockController');
+	Route::get('descargaexcel', 'ReportestockController@descargaexcel');
 
 	//correcciones
 	Route::get('documentoeditar', 'DocumentoeditarController@index');

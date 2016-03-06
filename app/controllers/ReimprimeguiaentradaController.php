@@ -204,8 +204,5 @@ class ReimprimeguiaentradaController extends BaseController
 
     }
 
-
-
-
 }
 ?>

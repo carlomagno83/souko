@@ -1,9 +1,7 @@
 @extends('layouts.scaffold')
-
 @section('main')
 
-
-<h3>Tabla maestra de Productos</h3>
+<h3>Consulta de stocks detallado</h3>
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -13,7 +11,7 @@
     </div>
 @endif
 
-<form method="POST" action="{{url('productos-filtrar')}}">
+<form method="POST" action="{{url('consulta-productos-filtrar')}}">
 <div class="row">
         <div class="col-lg-3">
             <div class="input-group">
@@ -73,87 +71,50 @@
 </form>
 
 <br>
-<p>{{ link_to_route('productos.create', 'Crear Rango de Productos', null, array('class' => 'btn btn-lg btn-success')) }}</p>
 
 
-<form method="POST" id="formulario" action="{{url('editabloque')}}">
-@if (count($productos)>0)
 
+@if (count($mercaderias) > 0)
+<div class="jumbotron">
 
-@if ($productos->count())
-	<table class="table table-striped">
-		<thead>
-			<tr> 
-                <th width="5%">Proveedor</th>
-                <th width="20%">Etiqueta</th>
-                <th width="1%"></th>
-                <th width="8%">P. Venta Sug.</th>
-                <th width="8%">P. Compra</th>
-				<th width="20%">&nbsp;</th>
-			</tr>
-		</thead>
+<?php 
+    $cantidad_locales = DB::table('locals')->count('id');
+    $locals = DB::table('locals')->select('codlocal3')->get();
+    //$locals = DB::select("SELECT codlocal3 FROM locals");
+    //$expresion = "<td> ";
+    //dd($locals[0]->codlocal3);
+    for ($i = 1; $i <= $cantidad_locales; $i++) 
+    {
 
-		<tbody>
-            <?php $i=0 ?> 
+        //$expresion[$i-1] = '<td>$value->'.  $locals[$i-1]->codlocal3 .'</td>';
+        //$expresion[$i-1] = '$value->'.  $locals[$i-1]->codlocal3 ;
+        $expresion[$i-1] = $locals[$i-1]->codlocal3 ;
+    }   
+    //dd($expresion[1]); 
+?>
 
-			@foreach ($productos as $producto)
-				<tr>
-                    <td>{{{ $producto->codprovider3 }}}</td>
-                    <td>{{{ $producto->codproducto31 }}}</td>
-                    <td><input style="visibility:hidden;" type="text" name="producto_id[]" id="producto_id[]" value="{{$producto->id}}" class="form-control" readonly tabindex="-1"></td>
-                    <td><input type="text" name="precioventa[]" id="precioventa[]"value="{{$producto->precioventa}}" class="form-control"></td>
-                    <td>{{{ $producto->preciocompra }}}</td>
+<table class="table table-hover table-striped">
+<thead> <th>CODIGO</th>
+        @foreach ($locals as $local)
+            <th>{{$local->codlocal3}}</th>
+        @endforeach
+        <th>TOTAL</th>
+</thead> 
+<tbody>
+@foreach( $mercaderias as $key=>$value)
+    <tr> 
+        <td> {{$value->codproducto31}} </td> 
+        @for ($i = 1; $i <= $cantidad_locales; $i++) 
+                <td>{{$value->$expresion[$i-1]}}</td>
 
-
-                    <td>
-                        {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('productos.destroy', $producto->id))) }}
-                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger',  'tabindex'=>'-1')) }}
-                        {{ Form::close() }}
-
-
-                    </td>
-                    <?php $i=$i+1 ?>
-				</tr>
-			@endforeach
-           
-		</tbody>
-	</table>
-<div class="row">
-
-    <div class="col-lg-5">
-
-    </div>      
-    <div class="col-lg-2">
-                <button type="submit" id="editarbotton" class="btn btn-info">Editar Precio Sugerido</button>
-    </div><!-- /.col-lg-6 -->     
-</div>
-@else
-	No hay productos para mostrar
-@endif
+        @endfor
+        <td><b> {{$value->total}} </b></td>
+    </tr>
+@endforeach
+</tbody>
+</table>
 @endif 
-</form>
-@stop
+</div>
+</div>
 
-@section('scripts')
-
-<script>
-alert("ingresa1")
-    $("form").ready(function() {
-alert("ingresa")
-        $("#formulario").validate({
-            rules: {
-                precioventa[]: {
-
-                    required:true,
-                    max: 500,
-                    numeric:true
-                    
-                }
-
-            },
-            messages: {
-            }
-        });
-    });
-</script>
 @stop

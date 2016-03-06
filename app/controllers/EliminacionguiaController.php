@@ -132,6 +132,7 @@ class EliminacionguiaController extends BaseController
                                 ->delete();
 
         $mercaderias = Mercaderia::find(0);
+        $documentos = Documento::find(0); //JAM        
         return View::make('eliminacionguia.eliminacionguia')->with('mercaderias',$mercaderias)->with('documentos',$documentos)->withErrors(['Guía de Entrada Eliminada, por favor destruya el documento Físico: '. Input::get('documento_id')]);
 
     }

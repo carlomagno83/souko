@@ -156,12 +156,14 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
                 <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1">
             </div>
         </div><!-- /.col-lg-6 -->
-        <div class="col-lg-2">
+    </div><!-- /.row -->
+    <div class="row">
+        <div class="col-lg-3">
             <div class="input-group">
-                Fec Sug = Fec Actual
+                Fecha Sugerida = Fecha Actual
             </div>
         </div>           
-    </div><!-- /.row -->
+    </div><!-- /.row -->    
 </div>    
 
 <div class="row">

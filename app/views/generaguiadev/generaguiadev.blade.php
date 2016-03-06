@@ -157,24 +157,28 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 <br>
 <div class="alert alert-success" >
     <div class="row">
-            <div class="col-lg-3">
-                <div class="input-group">
-                    <span class="input-group-addon" id="fechadocumento">Fecha</span>
-                    <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1">
-                </div>
-            </div><!-- /.col-lg-6 -->
-            <div class="col-lg-2">
-                <div class="input-group">
-                    Fec Sug = Fec Actual
-                </div>
-            </div>   
-            <div class="col-lg-4">
-                <div class="input-group">
-                    <span class="input-group-addon" id="numdocfisico">Número de Documento Físico</span>
-                    <input type="text" name="numdocfisico" class="form-control" placeholder="" aria-describedby="basic-addon1">
-                </div>
-            </div>    
+        <div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="fechadocumento">Fecha</span>
+                <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1">
+            </div>
+        </div><!-- /.col-lg-6 -->
+        <div class="col-lg-2">
+        </div>   
+        <div class="col-lg-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="numdocfisico">Número de Documento Físico</span>
+                <input type="text" name="numdocfisico" class="form-control" placeholder="" aria-describedby="basic-addon1">
+            </div>
+        </div>    
     </div><!-- /.row -->
+    <div class="row">    
+        <div class="col-lg-3">
+            <div class="input-group">
+                Fecha Sugerida = Fecha Actual
+            </div>    
+        </div>
+    </div>        
 </div>
 <div class="row">
     <div class="col-lg-4">

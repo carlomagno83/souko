@@ -1,58 +1,64 @@
 @extends('layouts.scaffold')
 
 @section('main')
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
+
+
+
 <script>
 $(function() {
 $( "#datepicker1" ).datepicker();
+$( "#datepicker1" ).datepicker("setDate","-1" );
 $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 });  
 
 </script>
 
 
-<script src="../lib/jquery.js"></script>
-<script src="../dist/jquery.validate.js"></script>
-<script>
-  // only for demo purposes
-  $.validator.setDefaults({
-    submitHandler: function() {
-      alert("submitted!");
-    }
-  });
-
-  $(document).ready(function() {
-    $("#validadorjs").validate();
-  });
-</script>
-
 <script type="text/javascript">
 $(document).ready(function(){
   $("#storebutton").click(function(){
-   if( $( "#usuario_id" ).val() == '' )    //valida campo 
+
+
+
+    if( $( "#usuario_id" ).val() == "" )    //valida campo 
     {
-        alert("Escoja el usuario");
-        return false;
+        alert("Ingrese Usuario")
+        return false
     }
+
     if( $( "#local_id" ).val() == "" )    //valida campo 
     {
-        alert("Escoja el local");
-        return false;
-    }
+        alert("Ingrese local")
+        return false
+    }    
     if( $( "#datepicker1" ).val() == "" )    //valida campo 
     {
         alert("Ingrese fecha")
         return false
-    }    
+    }
+
     $(this).hide();
     $("#muestramsg").show();
     return true;});
+
  });
 </script>
 
+<script>
+$().ready(function() {
+    $("#validadorjs").validate({
+        rules: {
+            precioventa: {
+                required:true,
+                max: 500,
+                numeric:true
+            }
+        },
+        messages: {
+        }
+    });
+});
+</script>
 
 
 {{--<div align="right">--}}
@@ -85,8 +91,8 @@ $(document).ready(function(){
     </div><!-- /.col-lg-6 -->  
     <div class="col-lg-4">
         <div class="input-group">
-            <span class="input-group-addon" id="precioventa">Precio de venta</span>
-            <input type="text" name="precioventa" class="form-control" placeholder="" aria-describedby="basic-addon1" required>
+            <span class="input-group-addon" >Precio de venta</span>
+            <input type="text" name="precioventa" id="precioventa" class="form-control" placeholder="" aria-describedby="basic-addon1" required>
        </div>
     </div><!-- /.col-lg-6 -->    
     <div class="col-lg-4">
@@ -103,7 +109,7 @@ $(document).ready(function(){
             <th width="10%">Mercadería id</th>
             <th width="10%">Producto id</th>
             <th width="30%">Descripción cod31</th>
-            <th width="10%">Local actual</th>
+            <th width="5%">Local actual</th>
             <th width="5%">Estado</th>
             <th width="8%">P. Sugerido</th>
             <th width="8%">Precio Venta</th>
@@ -122,12 +128,12 @@ $(document).ready(function(){
             @else
                 @if (count($vendidos)>1)
                     @if($vendido->deslocal==$deslocal)
-                        <td width="10%"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                        <td width="5%"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                     @else
-                        <td width="10%" class="danger"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                        <td width="5%" class="danger"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                     @endif
                 @else
-                    <td width="10%"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                    <td width="5%"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                 @endif
             @endif
             @if ($vendido->estado<>'ACT')
@@ -153,8 +159,8 @@ $(document).ready(function(){
             <td width="12%"></td>
             <td width="10%"></td>
             <td><input type="text"  value="Cantidad Items: {{count($vendidos)}}" readonly class="form-control" tabindex="-1"></td>
-            <td width="20%"></td>
-            <td width="7%">Totales</td>
+            <td width="10%"></td>
+            <td width="10%">Totales</td>
             <?php   
                 $totalsugerido = DB::table('vendidos')->sum('preciosugerido');
                 $totalventa = DB::table('vendidos')->sum('precioventa');
@@ -184,15 +190,15 @@ $(document).ready(function(){
     <div class="row">
             <div class="col-lg-4">
                 <div class="input-group">
-                    <span class="input-group-addon" id="usuario_id">Usuario Vendedor</span>
-                    {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
+                    <span class="input-group-addon">Usuario Vendedor</span>
+                    {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('id'=>'usuario_id', 'class'=>'form-control', 'required'=>'required'))}}
                 </div>
             </div><!-- /.col-lg-6 -->
 
             <div class="col-lg-4">
                 <div class="input-group">
-                    <span class="input-group-addon" id="local_id">Pto de Venta</span>
-                    {{Form::select('local_id',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'), $deslocal,array('class'=>'form-control', 'required'=>'required'))}}
+                    <span class="input-group-addon">Pto de Venta</span>
+                    {{Form::select('local_id',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'), $deslocal,array('id'=>'local_id', 'class'=>'form-control', 'required'=>'required'))}}
                </div>
             </div><!-- /.col-lg-6 -->   
             <div class="col-lg-3">
@@ -202,6 +208,13 @@ $(document).ready(function(){
                 </div>
             </div><!-- /.col-lg-6 -->         
     </div><!-- /.row -->
+    <div class="row">
+            <div class="col-lg-8">
+            </div><!-- /.col-lg-6 -->   
+            <div class="col-lg-3">
+                <strong><mark>Fecha sugerida = Fecha de ayer</mark></strong>
+            </div><!-- /.col-lg-6 -->         
+    </div><!-- /.row -->    
 </div>
 <div class="row">
     <div class="col-lg-4">
@@ -226,5 +239,4 @@ $(document).ready(function(){
 
 
 @stop
-
 

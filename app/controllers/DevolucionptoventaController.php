@@ -81,7 +81,7 @@ class DevolucionptoventaController extends BaseController {
             return View::make('devolucionptoventa.devolucionptoventa')->with('devuelves', $devuelves);
         }
         $data = Input::all();
-        //dd($data['mercaderia_id'][2]);
+        //dd($data['mercaderia_id'][0]);
         // hay que agregar un control de txn
         //$documento_id = $this->saveDocumento(Input::get('localini')); // cambio por numdocfisico
         $documento_id = $this->saveDocumento(Input::get('localini'), Input::get('numdocfisico'), Input::get('fechadocumento'));

@@ -49,7 +49,8 @@ class IngresoproveedorController extends BaseController
         if( $tmptot == 0 ){
 
                 $productos = Producto::where('provider_id','>',0);
-                $productos = $productos->join('providers','productos.provider_id','=','providers.id')
+                //cambio solo por corte inicial
+                /*$productos = $productos->join('providers','productos.provider_id','=','providers.id')
                                     ->join('marcas','productos.marca_id','=','marcas.id')
                                     ->join('tipos','productos.tipo_id','=','tipos.id')
                                     ->join('modelos','productos.modelo_id','=','modelos.id')
@@ -65,6 +66,26 @@ class IngresoproveedorController extends BaseController
                                 ->orderBy('providers.codprovider3') 
                                 ->orderBy('productos.codproducto31')
                                 ->get();
+                                */
+                $productos = $productos->join('providers','productos.provider_id','=','providers.id')
+                                    ->join('marcas','productos.marca_id','=','marcas.id')
+                                    ->join('tipos','productos.tipo_id','=','tipos.id')
+                                    ->join('modelos','productos.modelo_id','=','modelos.id')
+                                    ->join('materials','productos.material_id','=','materials.id')
+                                    ->join('colors','productos.color_id','=','colors.id')
+                                    ->join('rangos','productos.rango_id','=','rangos.id')
+                              ->select('productos.id',
+                                       'productos.provider_id',
+                                       'providers.codprovider3',
+                                         'productos.codproducto31',
+                                       'productos.preciocompra',
+                                       'productos.precioventa')
+                                ->orderBy('desprovider') 
+                                ->orderBy('desmarca')
+                                ->orderBy('destipo')
+                                ->orderBy('desrango')
+                                ->get(); 
+                                                               
             return View::make('ingresoproveedor.create')->with('productos',$productos)->with('entradas', $entradas); 
 
 

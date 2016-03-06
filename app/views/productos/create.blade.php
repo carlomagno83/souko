@@ -2,6 +2,49 @@
 
 @section('main')
 
+<script>
+    $("form").ready(function() {
+
+        $("form").validate({
+            rules: {
+                provider_id: {
+                    required:true
+                },
+                marca_id: {
+                    required:true
+                },
+                tipo_id: {
+                    required:true
+                },
+                rango_id: {
+                    required:true
+                },
+                modelo_id: {
+                    required:true
+                },
+                material_id: {
+                    required:true
+                },
+                color_id: {
+                    required:true,
+                },
+                precioventa: {
+
+                    required:true,
+                    max: 500,
+                    numeric:true
+                    
+                }
+
+            },
+            messages: {
+            }
+        });
+    });
+</script>
+
+
+
 {{--<div align="right">--}}
     {{--<a id="home" href=" {{ URL::to('/') }} "><img src='../img/home.ico' border='0'></a>--}}
 {{--</div>--}}
@@ -19,23 +62,23 @@
     </div>
 </div>
 
-{{ Form::open(array('route' => 'productos.store', 'class' => 'form-horizontal')) }}
+{{ Form::open(array('route' => 'productos.store', 'class' => 'form-horizontal', 'id'=>'formulario')) }}
 <div class="row">
     <div class="col-md-12 col-md-offset-0">
         <div class="form-group">
             {{ Form::label('provider_id', 'Proveedor:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-              {{ Form::select('provider_id',[""=>''] + $providers, Input::old('provider_id'), array('class'=>'form-control', 'autofocus' =>'autofocus')) }}
+              {{ Form::select('provider_id',[""=>''] + $providers, Input::old('provider_id'), array('id'=>'provider_id', 'class'=>'form-control', 'autofocus' =>'autofocus')) }}
             </div>            
 
             {{ Form::label('marca_id', 'Marca:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-              {{ Form::select('marca_id',[""=>''] + $marcas, Input::old('marca_id'), array('class'=>'form-control')) }}
+              {{ Form::select('marca_id',[""=>''] + $marcas, Input::old('marca_id'), array('id'=>'marca_id', 'class'=>'form-control')) }}
             </div>
 
             {{ Form::label('tipo_id', 'Tipo:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-3">
-              {{ Form::select('tipo_id',[""=>''] + $tipos, Input::old('tipo_id'), array('class'=>'form-control')) }}
+              {{ Form::select('tipo_id',[""=>''] + $tipos, Input::old('tipo_id'), array('id'=>'tipo_id', 'class'=>'form-control')) }}
             </div>
         </div>
     </div>
@@ -45,22 +88,22 @@
         <div class="form-group">
             {{ Form::label('rango_id', 'Rango:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-              {{ Form::select('rango_id',[""=>''] + $rangos, Input::old('rango_id'), array('class'=>'form-control')) }}
+              {{ Form::select('rango_id',[""=>''] + $rangos, Input::old('rango_id'), array('id'=>'rango_id', 'class'=>'form-control')) }}
             </div>
 
             {{ Form::label('modelo_id', 'Modelo:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-              {{ Form::select('modelo_id',["153"=>'XXXXXX'] + $modelos, Input::old('modelo_id'), array('class'=>'form-control', 'tabindex'=>'-1')) }}
+              {{ Form::select('modelo_id',["153"=>'XXXXXX'] + $modelos, Input::old('modelo_id'), array('id'=>'modelo_id', 'class'=>'form-control', 'tabindex'=>'-1')) }}
             </div>
 
             {{ Form::label('material_id', 'Material:', array('class'=>'col-md-1 control-label', 'tabindex'=>'-1')) }}
             <div class="col-sm-2">
-              {{ Form::select('material_id',["7"=>'XXX'] + $materials, Input::old('material_id'), array('class'=>'form-control', 'tabindex'=>'-1')) }}
+              {{ Form::select('material_id',["7"=>'XXX'] + $materials, Input::old('material_id'), array('id'=>'material_id', 'class'=>'form-control', 'tabindex'=>'-1')) }}
             </div>
 
             {{ Form::label('color_id', 'Color:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-              {{ Form::select('color_id',["37"=>'XXX'] + $colors, Input::old('color_id'), array('class'=>'form-control', 'tabindex'=>'-1')) }}
+              {{ Form::select('color_id',["37"=>'XXX'] + $colors, Input::old('color_id'), array('id'=>'color_id', 'class'=>'form-control', 'tabindex'=>'-1')) }}
             </div>
 
 
@@ -71,7 +114,7 @@
 <div class="row">
     <div class="col-md-12 col-md-offset-0">
         <div class="form-group">
-            {{ Form::label('precioventa', 'P. Venta Sug.:', array('class'=>'col-md-1 control-label')) }}
+            {{ Form::label('precioventa', 'P. Venta Sug.:', array('id'=>'precioventa', 'class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
               <input type="text" name="precioventa" id="precioventa" class="form-control">
             </div>

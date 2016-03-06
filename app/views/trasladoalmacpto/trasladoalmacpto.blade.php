@@ -2,28 +2,14 @@
 
 @section('main')
 
-<script src="../lib/jquery.js"></script>
-<script src="../dist/jquery.validate.js"></script>
-<script>
-    $.validator.setDefaults({
-      submitHandler: function() {
-        alert("submitted!");
-      }
-    });
-
-    $(document).ready(function() {
-      $("#validadorjs").validate();
-    });
-</script>
-
 
 <script type="text/javascript">
 $(document).ready(function(){
   $("#storebutton").click(function(){
 
-    if( $( "#usuario_id" ).val() == '' )    //valida campo 
+    if( $( "#usuario_id" ).val() == "" )    //valida campo 
     {
-        alert(Escoja el usuario);
+        alert("Escoja el usuario");
         return false;
     }
     if( $( "#local_id" ).val() == "" )    //valida campo 
@@ -31,7 +17,7 @@ $(document).ready(function(){
         alert("Escoja el local");
         return false;
     }
-    if( $( "#fechadocumento" ).val() == "" )    //valida campo 
+    if( $( "#datepicker1" ).val() == "" )    //valida campo 
     {
         alert("Ingrese fecha")
         return false
@@ -43,10 +29,7 @@ $(document).ready(function(){
  });
 </script>
 
- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
+
 <script>
 $(function() {
 $( "#datepicker1" ).datepicker();
@@ -131,15 +114,15 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 <div class="row">
     <div class="col-lg-4">
         <div class="input-group">
-            <span class="input-group-addon" id="usuario_id">Vendedor</span>
-            {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'), Input::get('usuario_id'), array('class'=>'form-control', 'required'=>'required'))}}
+            <span class="input-group-addon" >Vendedor</span>
+            {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'), Input::get('usuario_id'), array('id'=>'usuario_id', 'class'=>'form-control', 'required'=>'required'))}}
         </div>
     </div>
 
     <div class="col-lg-4">
         <div class="input-group">
-            <span class="input-group-addon" id="local_id">Local</span>
-            {{Form::select('local_id',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'), Input::get('local_id'), array('class'=>'form-control', 'required'=>'required'))}}
+            <span class="input-group-addon">Local</span>
+            {{Form::select('local_id',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'), Input::get('local_id'), array('id'=>'local_id', 'class'=>'form-control', 'required'=>'required'))}}
        </div>
     </div>
     <div class="col-lg-4">
@@ -150,24 +133,29 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
     </div>    
 </div>  
 <br>
- <div class="row">
-    <div class="col-lg-3">
-        <div class="input-group">
-            <span class="input-group-addon" id="cantidaditem">Cantidad Items</span>
-            <input type="text"  value="{{count($tempos)}}" readonly class="form-control" tabindex="-1">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="cantidaditem">Cantidad Items</span>
+                <input type="text"  value="{{count($tempos)}}" readonly class="form-control" tabindex="-1">
+            </div>
         </div>
-    </div>
-    <div class="col-lg-4">
+        <div class="col-lg-5">
+        </div>    
+        <div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="fechadocumento">Fecha</span>
+                <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1" required>
+            </div>
+        </div>
     </div>    
-    <div class="col-lg-3">
-        <div class="input-group">
-            <span class="input-group-addon" id="fechadocumento">Fecha</span>
-            <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1" required>
+    <div class="row">  
+        <div class="col-lg-8">
+        </div>        
+        <div class="col-lg-3">
+            Fecha Sugerida = Fecha Actual
         </div>
-    </div>
-    <div class="col-lg-2">
-        Fec Sug = Fec Actual
-    </div>       
+    </div>    
 </div> 
 </div> 
 <div class="row">

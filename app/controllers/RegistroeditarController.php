@@ -44,7 +44,7 @@ class RegistroeditarController extends BaseController {
                             ->join('users', 'mercaderias.usuario_id', '=', 'users.id')
                             ->where('movimientos.documento_id', '=', Input::get('documento_id'))
                             ->where('movimientos.tipomovimiento_id', '=', '3')
-                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.deslocal', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
+                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.deslocal', 'mercaderias.estado','mercaderias.preciocompra', 'productos.precioventa AS preciosugerido','mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
                             ->get();
                 $documentos = DB::table('documentos')
                             ->join('locals', 'locals.id', '=', 'documentos.localfin_id')
@@ -71,15 +71,11 @@ class RegistroeditarController extends BaseController {
     public function registroeditarventa()
     {
         $data = Input::all();
-
         foreach($data['id'] as $key=>$value)
         {
-
             DB::table('mercaderias')->where('id', '=', $data['id'][$key])
                                     ->update(array('precioventa' => $data['precioventa'][$key]));
         }
-
- 
         return View::make('registroeditar.registroeditar')->withErrors(['Registro(s) actualizado(s)....']);
     }
 

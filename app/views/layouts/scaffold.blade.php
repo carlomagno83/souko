@@ -14,6 +14,7 @@
 
 	<link href="{{url('css/neon.bootstrap.css')}}" rel="stylesheet">
 	<link href="{{url('css/style.css')}}" rel="stylesheet">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -44,6 +45,9 @@
     <script type="text/javascript" src="{{asset('js/additional-methods.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/messages_es.js')}}"></script>
 
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
 	@yield('styles')
 
 </head>
@@ -61,6 +65,7 @@
 							<a style="padding-top: 8px;" href="{{URL::to('/')}}"><img width="30px" src="{{asset('img/home2.png')}}"></a>
 						</li>
 
+						@if( Auth::user()->rolusuario!='VENDE' )	
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Maestros<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
@@ -106,6 +111,7 @@
 
                             </ul>
 						</li>
+ 					
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ingresos<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
@@ -121,7 +127,7 @@
 								</li>
 							</ul>
 						</li>						
-					
+
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Operaciones con Pto de Vta<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
@@ -136,10 +142,11 @@
 								</li>
 							</ul>
 						</li>	
+
 						<li class="dropdown">
-							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Devoluciones<strong class="caret"></strong></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Devoluciones<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
-<!--								<li>
+								<!--<li>
 									<a href="devolucionproveedor">Devoluciones a Proveedor</a>
 								</li>-->
 								<li>
@@ -153,20 +160,35 @@
 								</li>
 							</ul>
 						</li>	
+						@endif					
+
 						<li class="dropdown">
-							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<strong class="caret"></strong></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
+
+								@if( Auth::user()->rolusuario!='VENDE' )		
 								<li>
-									<a href="{{URL::to('/reporte-muestra')}}">Reporte de ingresos</a>
+									<a href="{{URL::to('/consultastockadm')}}">Consulta stock (Administ)</a>
 								</li>
 								<li>
-									<a href="{{URL::to('/reporteventa')}}">Reporte de Ventas</a>
+									<a href="{{URL::to('/consultastockdet')}}">Consulta stock (Detallado)</a>
 								</li>
+
 								<li>
-									<a href="{{URL::to('/reportestock')}}">Reporte de stock</a>
+									<a href="{{URL::to('/consultaventa')}}">Consulta de Ventas por vendedor</a>
 								</li>
+								@endif
+
+								<li>
+									<a href="{{URL::to('/reportestock')}}">Reporte de stock (descarga Excel)</a>
+								</li>
+
+
 							</ul>
 						</li>
+
+
+
                         @if( Auth::user()->rolusuario=='SUPER' )							
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Correcciones<strong class="caret"></strong></a>
@@ -186,7 +208,8 @@
 									</li>
 								</ul>
 							</li>
-						@endif							
+						@endif			
+
 					</ul>					
 
 					<!--<form class="navbar-form navbar-left" role="search">

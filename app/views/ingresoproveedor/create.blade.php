@@ -2,12 +2,7 @@
 
 @section('main')
 
-<script src= "Scripts/jquery-1.5.2.js" type="text/javascript"></script>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
 <script>
 $(function() {
 $( "#datepicker1" ).datepicker();
@@ -34,13 +29,6 @@ $(document).ready(function(){
  });
 </script>
 
-<script type="text/javascript">
-$(document).ready(function(){
-  $("#provider_id").click(function(){
-    $(this).attr('disabled',true); 
-    return true;});
- });
-</script>
 
 {{--<div align="right">--}}
     {{--<a id="home" href=" {{ URL::to('/') }} "><img src='img/home.ico' border='0'></a>--}}
@@ -250,10 +238,13 @@ $(document).ready(function(){
                 <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1" required>
             </div>
         </div><!-- /.col-lg-6 --> 
+    </div>  
+    <div class="row">      
         <div class="col-lg-3">
                 Fecha Sugerida = Fecha actual
         </div>
     </div>    
+
 </div>    
 
 <br>

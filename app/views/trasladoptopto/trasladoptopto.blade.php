@@ -2,30 +2,31 @@
 
 @section('main')
 
-<script src="../lib/jquery.js"></script>
-<script src="../dist/jquery.validate.js"></script>
-<script>
-  // only for demo purposes
-  $.validator.setDefaults({
-    submitHandler: function() {
-      alert("submitted!");
-    }
-  });
 
-  $(document).ready(function() {
-    $("#validadorjs").validate();
-  });
+
+
+<script>
+//alert("ingresadatepicker")
+$(function() {
+$( "#datepicker1" ).datepicker();
+$( "#datepicker1" ).datepicker("setDate","0" );
+$( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
+});  
 </script>
 
-<script type="text/javascript">
-$(document).ready(function(){
+
+<script>
+//alert("ingresa")
+//$(document).ready(function(){
+$(function(){    
   $("#storebutton").click(function(){
+    
     if( $( "#localfin" ).val() == "" )    //valida campo 
     {
         alert("Escoja el local");
         return false;
     }
-   if( $( "#usuario_id" ).val() == '' )    //valida campo 
+   if( $( "#usuario_id" ).val() == "" )    //valida campo 
     {
         alert(Escoja el usuario);
         return false;
@@ -42,17 +43,6 @@ $(document).ready(function(){
  });
 </script>
 
- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script>
-$(function() {
-$( "#datepicker1" ).datepicker();
-$( "#datepicker1" ).datepicker("setDate","0" );
-$( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
-});  
-</script>
 
 {{--<div align="right">--}}
     {{--<a id="home" href=" {{ URL::to('/') }} "><img src='img/home.ico' border='0'></a>--}}
@@ -86,7 +76,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 </div><!-- /.row -->
 </form>
 <br>
-<form method="POST" id="validadorjs" action="{{url('trasladoptopto-store')}}">
+<form method="POST" id="validadorjs2" action="{{url('trasladoptopto-store')}}">
 <table class="table table-striped">
     <thead>
         <tr>
@@ -139,7 +129,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             <div class="col-lg-4">
                 <div class="input-group">
                     <span class="input-group-addon" id="localini">Local Inicial</span>
-                    <input type="text" name="deslocalini" value={{ DB::table('traslados')->select('deslocal')->pluck('deslocal') }} readonly class="form-control" tabindex="-1">
+                    <input type="text" name="deslocalini" value="{{ DB::table('traslados')->select('deslocal')->pluck('deslocal') }}" readonly class="form-control" tabindex="-1">
                </div>
             </div><!-- /.col-lg-6 -->
             <div class="col-lg-1">
@@ -157,8 +147,8 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             </div><!-- /.col-lg-6 -->
             <div class="col-lg-4">
                 <div class="input-group">
-                    <span class="input-group-addon" id="localfin">Local Final</span>
-                    {{Form::select('localfin',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->where('id', '<>', $localini_id)->orderby('deslocal')->lists('deslocal','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
+                    <span class="input-group-addon" >Local Final</span>
+                    {{Form::select('localfin',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->where('id', '<>', $localini_id)->orderby('deslocal')->lists('deslocal','id'),null,array('id'=>'localfin', 'class'=>'form-control', 'required'=>'required'))}}
                </div>
             </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
@@ -171,8 +161,8 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             </div><!-- /.col-lg-6 -->
             <div class="col-lg-4">
                 <div class="input-group">
-                    <span class="input-group-addon" id="usuario_id">Solicitante</span>
-                    {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
+                    <span class="input-group-addon">Solicitante</span>
+                    {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('id'=>'usuario_id', 'class'=>'form-control', 'required'=>'required'))}}
                 </div>
             </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
@@ -197,10 +187,15 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
                     <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1" required>
                 </div>
             </div>
-            <div class="col-lg-2">
-                Fec Sug = Fec Actual
-            </div>        
+     
     </div><!-- /.row -->
+    <div class="row">
+            <div class="col-lg-7">
+            </div><!-- /.col-lg-6 -->
+            <div class="col-lg-3">
+                Fecha Sugerida = Fecha Actual
+            </div>   
+    </div><!-- /.row -->    
 </div>
 <div class="row">
     <div class="col-lg-4">
@@ -222,5 +217,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 @endif
 
 @stop
+
+
 
 
