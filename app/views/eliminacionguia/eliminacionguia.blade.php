@@ -72,6 +72,7 @@ $(document).ready(function(){
 </form>
 
 <form method="POST" action="{{url('eliminacionguia-store')}}">
+<?php $ok = 0 ?>
 @if (count($documentos)>0)
 @foreach ($documentos as $documento)
 <h4>
@@ -133,6 +134,7 @@ $(document).ready(function(){
             @if ($mercaderia->deslocal=='ALMACEN')
                 <td width="15%"><input type="text"  value="{{$mercaderia->deslocal}}" readonly class="form-control" tabindex="-1"></td>
             @else
+                <?php $ok = $ok + 1; ?>
                 <td class="danger" width="15%"><input value="{{ $mercaderia->deslocal }}" readonly class="form-control" tabindex="-1"></td>
             @endif  
 
@@ -140,10 +142,11 @@ $(document).ready(function(){
         @endforeach
     
 </table>
-
+@if($ok == 0)
     <div class="col-lg-4">
     <input id="storebutton" type="submit" value="Borrar documento en caso de diferencia de cantidades" class="btn btn-danger">
     </div>  
+@endif    
 <br>
 <br>
 
