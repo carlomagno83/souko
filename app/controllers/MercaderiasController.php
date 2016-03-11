@@ -133,6 +133,7 @@ class MercaderiasController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
+		$input = array_except($input, ['q']); //error cambio al server
 		$validation = Validator::make($input, Mercaderia::$rules);
 
 		if ($validation->passes())

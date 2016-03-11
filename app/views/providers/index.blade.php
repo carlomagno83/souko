@@ -11,7 +11,6 @@
 		<thead>
 			<tr>
 				<th>Código 3</th>
-				<th>Código 6</th>
 				<th>Descripción</th>
 				<th>Usuario</th>
 				<th>&nbsp;</th>
@@ -22,7 +21,6 @@
 			@foreach ($providers as $provider)
 				<tr>
 					<td>{{{ $provider->codprovider3 }}}</td>
-					<td>{{{ $provider->codprovider6 }}}</td>
 					<td>{{{ $provider->desprovider }}}</td>
 					<td>{{{ $provider->desusuario }}}</td>
                     <td>

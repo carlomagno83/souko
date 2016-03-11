@@ -29,13 +29,6 @@
         </div>
 
         <div class="form-group">
-            {{ Form::label('codprovider6', 'Código 6:', array('class'=>'col-md-2 control-label')) }}
-            <div class="col-sm-5">
-              {{ Form::text('codprovider6', Input::old('codprovider6'), array('class'=>'form-control', 'maxlength'=>'6')) }}
-            </div>
-        </div>
-
-        <div class="form-group">
             {{ Form::label('desprovider', 'Descripción:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-5">
               {{ Form::text('desprovider', Input::old('desprovider'), array('class'=>'form-control')) }}

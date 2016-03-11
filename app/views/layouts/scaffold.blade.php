@@ -219,7 +219,7 @@
 					</form>-->
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<a >Hola, {{ Auth::user()->username }}</a>
+							<a >Hola, {{ Auth::user()->desusuario }}</a>
 						</li>						
 						<li>
 							<a href="{{ url('logout') }}">Salir</a>

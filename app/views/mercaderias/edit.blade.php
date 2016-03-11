@@ -19,6 +19,13 @@
 {{ Form::model($mercaderia, array('class' => 'form-horizontal', 'method' => 'PATCH', 'route' => array('mercaderias.update', $mercaderia->id))) }}
 
         <div class="form-group">
+            {{ Form::label('id', 'Id:', array('class'=>'col-md-2 control-label')) }}
+            <div class="col-sm-5">
+              {{ Form::text('id', Input::old('id'), array('class'=>'form-control', 'maxlength'=>'6', 'disabled')) }}
+            </div>
+        </div>
+
+        <div class="form-group">
             {{ Form::label('producto_id', 'Producto:', array('class'=>'col-md-2 control-label')) }}
             <div class="col-sm-5">
               {{ Form::select('producto_id', $productos, Input::old('producto_id'), array( 'class'=>'form-control', 'disabled')) }}

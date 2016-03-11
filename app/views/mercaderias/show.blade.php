@@ -12,26 +12,28 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
+			<th>Id</th>
 			<th>Producto</th>
-				<th>Local</th>
-				<th>Estado</th>
-				<th>Usuario</th>
+			<th>Local</th>
+			<th>Estado</th>
+			<th>Usuario</th>
 		</tr>
 	</thead>
 
 	<tbody>
 		<tr>
+			<td>{{{ $mercaderia->id }}}</td>
 			<td>{{{ $productos }}}</td>
-					<td>{{{ $locals }}}</td>
-					@if ($mercaderia->estado=='ACT')
-					    <td><input type="text" value="{{ $mercaderia->estado }}" readonly class="form-control"></td>
-					@else
-					    <td class="danger"><input value="{{ $mercaderia->estado }}" readonly class="form-control"></td>
-					@endif              
-					<td>{{{ $users }}}</td>
-                    <td>
-                        {{ link_to_route('mercaderias.edit', 'Editar', array($mercaderia->id), array('class' => 'btn btn-info')) }}
-                    </td>
+			<td>{{{ $locals }}}</td>
+			@if ($mercaderia->estado=='ACT')
+			    <td><input type="text" value="{{ $mercaderia->estado }}" readonly class="form-control"></td>
+			@else
+			    <td class="danger"><input value="{{ $mercaderia->estado }}" readonly class="form-control"></td>
+			@endif              
+			<td>{{{ $users }}}</td>
+            <td>
+                {{ link_to_route('mercaderias.edit', 'Editar', array($mercaderia->id), array('class' => 'btn btn-info')) }}
+            </td>
 		</tr>
 	</tbody>
 </table>
