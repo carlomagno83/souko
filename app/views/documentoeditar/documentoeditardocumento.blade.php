@@ -4,18 +4,6 @@
 
 <script src="../lib/jquery.js"></script>
 <script src="../dist/jquery.validate.js"></script>
-<script>
-  // only for demo purposes
-  $.validator.setDefaults({
-    submitHandler: function() {
-      alert("submitted!");
-    }
-  });
-
-  $(document).ready(function() {
-    $("#validadorjs").validate();
-  });
-</script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -25,10 +13,6 @@ $(document).ready(function(){
     return true;});
  });
 </script>
-
-
-
-
 
 <div class="row">
     <div class="col-md-0 col-md-offset-0">

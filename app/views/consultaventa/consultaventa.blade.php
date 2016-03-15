@@ -56,7 +56,7 @@ $().ready(function() {
       </div>
       <div class="col-lg-3">
           <div class="input-group">
-              <span class="input-group-addon">Fecha Fin</span>
+              <span class="input-group-addon">Año</span>
               <input type="text" id="anho" name="anho" value={{date("Y")}} Input::get('anho') class="form-control" aria-describedby="basic-addon1">
           </div>
       </div><!-- /.col-lg-6 -->

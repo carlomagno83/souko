@@ -135,6 +135,8 @@
 @stop
 
 @section('scripts')
+<script src="../lib/jquery.js"></script>
+<script src="../dist/jquery.validate.js"></script>
 
 <script>
 alert("ingresa1")

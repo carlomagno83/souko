@@ -2,21 +2,6 @@
 
 @section('main')
 
-<script src="../lib/jquery.js"></script>
-<script src="../dist/jquery.validate.js"></script>
-<script>
-  // only for demo purposes
-  $.validator.setDefaults({
-    submitHandler: function() {
-      alert("submitted!");
-    }
-  });
-
-  $(document).ready(function() {
-    $("#validadorjs").validate();
-  });
-</script>
-
 <script type="text/javascript">
 $(document).ready(function(){
   $("#storebutton").click(function(){
@@ -26,10 +11,6 @@ $(document).ready(function(){
  });
 </script>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
 <script>
 $(function() {
 $( "#datepicker1" ).datepicker();

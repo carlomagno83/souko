@@ -2,11 +2,7 @@
 
 @section('main')
 
-
-
-
 <script>
-//alert("ingresadatepicker")
 $(function() {
 $( "#datepicker1" ).datepicker();
 $( "#datepicker1" ).datepicker("setDate","0" );
@@ -14,13 +10,10 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 });  
 </script>
 
-
-<script>
-//alert("ingresa")
-//$(document).ready(function(){
-$(function(){    
+<script type="text/javascript">
+$(document).ready(function(){
   $("#storebutton").click(function(){
-    
+
     if( $( "#localfin" ).val() == "" )    //valida campo 
     {
         alert("Escoja el local");
@@ -42,7 +35,6 @@ $(function(){
     return true;});
  });
 </script>
-
 
 {{--<div align="right">--}}
     {{--<a id="home" href=" {{ URL::to('/') }} "><img src='img/home.ico' border='0'></a>--}}
@@ -217,7 +209,4 @@ $(function(){
 @endif
 
 @stop
-
-
-
 

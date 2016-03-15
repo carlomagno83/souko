@@ -129,13 +129,15 @@ class RegistroagregarController extends BaseController {
         DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
         //                        ->update(array('estado' => 'VEN', 'precioventa' => Input::get('precioventaregistro')));
                                 ->update(array('local_id' => Input::get('localfin_id'), 'usuario_id' => Input::get('usuario_id')));
-        //DB::table('movimientos')->insert(array('tipomovimiento_id' => '3', 'mercaderia_id' => Input::get('mercaderia_id'), 'documento_id' => Input::get('documento_id'))); 
+        //DB::table('movimientos')->insert(array('tipomovimiento_id' => '3', 'mercaderia_id' => Input::get('mercaderia_id'), 'documento_id' => Input::get('documento_id')));
+
         $movimiento = new Movimiento();
         $movimiento->mercaderia_id = Input::get('mercaderia_id');
         $movimiento->documento_id = Input::get('documento_id');
         $movimiento->tipomovimiento_id = 2; //cambio tipo movimiento
         $movimiento->flagoferta = 0;
-        $movimiento->save();   
+        $movimiento->save();  
+        //dd("agrega reg"); 
         return View::make('registroagregar.registroagregar')->withErrors(['Registro agregado ....']);
     }
 

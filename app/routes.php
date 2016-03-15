@@ -9,7 +9,7 @@ Route::get('layout-old', function()
 {
     return View::make('index');
 });  */
-
+//dd(Auth::user()->exists);
 
 /*Auth*/
 Route::get('login', 'AuthController@showLogin'); // Mostrar login
@@ -147,6 +147,9 @@ if (Auth::check())
 				Route::post('registroeditarventa', 'RegistroeditarController@registroeditarventa');
 			}
 			Route::get('consultamercaderia/{cod}', 'RegistroagregarController@consultamercaderia');
+
+			//mantenimiento
+			Route::resource('mantenimientobd', 'mantenimientobdController@mantenimientobd');
 
 		}
 	});

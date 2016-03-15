@@ -224,6 +224,7 @@ class DevolucionptoventaController extends BaseController {
 			//limpia temporal devuelves
 //usuario logueado
 			DB::table('devuelves')->where('usuario_id', '=',  Auth::user()->id )->delete(); 
+
         })->download('xlsx'); 
     }  
 
