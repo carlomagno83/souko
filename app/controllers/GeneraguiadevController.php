@@ -58,7 +58,7 @@ class GeneraguiadevController extends BaseController {
             { 
                 foreach($value as $key2=>$indice)
                 {
-                    $existe = DB::table('devueltos')->select('mercaderia_id')->where('mercaderia_id', '=',  $data['mercaderia_id'][$key2] )->pluck('mercaderia_id');
+                    $existe = DB::table('devueltos')->select('mercaderia_id')->where('mercaderia_id', '=',  $data['mercaderia_id'][$key2] )->where('usuario_id','=', Auth::user()->id )->pluck('mercaderia_id');
                     if(!$existe)     //condicional por que al hacer F5 está aumentando registros por el checkbox ON
                     {       
                         DB::table('devueltos')->insert(array('codprovider3' => $data['codprovider3'][$key2],

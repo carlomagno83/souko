@@ -10,7 +10,9 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 });  
 </script>
 
+
 <script type="text/javascript">
+//alert("ingresa")
 $(document).ready(function(){
   $("#storebutton").click(function(){
 
@@ -82,7 +84,7 @@ $(document).ready(function(){
     </thead>
 
 @if (count($traslados)>0)
-<?php $deslocalini = DB::table('traslados')->select('deslocal')->pluck('deslocal');
+<?php $deslocalini = DB::table('traslados')->select('deslocal')->where('usuario_id', '=', Auth::user()->id)->pluck('deslocal');
     $localini_id = DB::table('locals')->select('id')->where('deslocal', '=', $deslocalini)->pluck('id');
  ?>
         @foreach ($traslados as $traslado)
@@ -121,7 +123,7 @@ $(document).ready(function(){
             <div class="col-lg-4">
                 <div class="input-group">
                     <span class="input-group-addon" id="localini">Local Inicial</span>
-                    <input type="text" name="deslocalini" value="{{ DB::table('traslados')->select('deslocal')->pluck('deslocal') }}" readonly class="form-control" tabindex="-1">
+                    <input type="text" name="deslocalini" value="{{ DB::table('traslados')->select('deslocal')->where('usuario_id', '=', Auth::user()->id)->pluck('deslocal') }}" readonly class="form-control" tabindex="-1">
                </div>
             </div><!-- /.col-lg-6 -->
             <div class="col-lg-1">

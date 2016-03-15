@@ -3,14 +3,13 @@
 @section('main')
 
 <script>
-//alert("ingresa")
 $().ready(function() {
-    $("#validadorjs").validate({
+    $("form").validate({
         rules: {
-            dia: {
+            #mes: {
                 required:true,
             }
-            anho: {
+            #anho: {
                 required:true,
                 min: 2015,
                 max: 2050,

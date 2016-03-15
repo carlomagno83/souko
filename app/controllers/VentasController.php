@@ -22,7 +22,7 @@ class VentasController extends BaseController {
 
         if(Input::get('mercaderia_id')!=null) 
         {
-	        $existedata = DB::table('vendidos')->select('codproducto31')->where('mercaderia_id', '=', Input::get('mercaderia_id'))->pluck('codproducto31');
+	        $existedata = DB::table('vendidos')->select('codproducto31')->where('mercaderia_id', '=', Input::get('mercaderia_id'))->where('usuario_id','=', Auth::user()->id )->pluck('codproducto31');
 			if(is_null($existedata))
 	        {	
 	            if(DB::table('mercaderias')->find(Input::get('mercaderia_id')))
@@ -57,7 +57,7 @@ class VentasController extends BaseController {
 			        $vendido->usuario_id = Auth::user()->id; //usuario logueado 
 			        $vendido->save();
 
-		        	$vendidos = DB::table('vendidos')->get();
+		        	$vendidos = DB::table('vendidos')->where('usuario_id','=', Auth::user()->id )->get();
 
 					return View::make('ventas.ventas')->with('vendidos', $vendidos);
 	            }

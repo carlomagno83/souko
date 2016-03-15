@@ -24,7 +24,7 @@ class TrasladoptoptoController extends BaseController {
 		$data = Input::all();
         if(Input::get('mercaderia_id')!=null) 
         {
-	        $existedata = DB::table('traslados')->select('codproducto31')->where('mercaderia_id', '=', Input::get('mercaderia_id'))->pluck('codproducto31');
+	        $existedata = DB::table('traslados')->select('codproducto31')->where('mercaderia_id', '=', Input::get('mercaderia_id'))->where('usuario_id','=', Auth::user()->id )->pluck('codproducto31');
 			if(is_null($existedata))
 	        {	
 	            if(DB::table('mercaderias')->find(Input::get('mercaderia_id')))
@@ -46,7 +46,7 @@ class TrasladoptoptoController extends BaseController {
 			        $traslado->usuario_id = Auth::user()->id; //usuario logueado
 			        $traslado->save();
 
-		        	$traslados = DB::table('traslados')->get();
+		        	$traslados = DB::table('traslados')->where('usuario_id','=', Auth::user()->id )->get();
 
 					return View::make('trasladoptopto.trasladoptopto')->with('traslados', $traslados);
 	            }

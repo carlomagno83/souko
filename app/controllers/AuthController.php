@@ -42,6 +42,13 @@ class AuthController extends BaseController {
  
     public function logOut()
     {
+            //borramos datos de temporales
+            DB::table('entradas')->where('usuario_id', '=', Auth::user()->id )->delete();
+            DB::table('devueltos')->where('usuario_id', '=', Auth::user()->id )->delete();
+            DB::table('devuelves')->where('usuario_id', '=', Auth::user()->id )->delete();
+            DB::table('tempos')->where('usuario_id', '=', Auth::user()->id )->delete();
+            DB::table('traslados')->where('usuario_id', '=', Auth::user()->id )->delete();
+            DB::table('vendidos')->where('usuario_id', '=', Auth::user()->id )->delete();
         // Cerramos la sesión
         Auth::logout();
         // Volvemos al login y mostramos un mensaje indicando que se cerró la sesión

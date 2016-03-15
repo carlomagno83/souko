@@ -35,7 +35,7 @@ class TrasladoalmacptoController extends BaseController {
 	    if(Input::get('mercaderia_id')!=null) 
         {
         	//verifica data ingresada
-	        $existedata = DB::table('tempos')->select('codproducto31')->where('mercaderia_id', '=', Input::get('mercaderia_id'))->pluck('codproducto31');
+	        $existedata = DB::table('tempos')->select('codproducto31')->where('mercaderia_id', '=', Input::get('mercaderia_id'))->where('usuario_id','=',Auth::user()->id )->pluck('codproducto31');
 			if(is_null($existedata))
 	        {	
 	        	$encuentra = DB::table('mercaderias')->select('estado')->where('id', '=', Input::get('mercaderia_id'))->pluck('estado');
@@ -57,7 +57,7 @@ class TrasladoalmacptoController extends BaseController {
 				        $tempo->usuario_id = Auth::user()->id; //usuario logueado 
 				        $tempo->save();
 
-			        	$tempos = DB::table('tempos')->get();
+			        	$tempos = DB::table('tempos')->where('usuario_id','=',Auth::user()->id )->get();
 
 						return View::make('trasladoalmacpto.trasladoalmacpto')->withInput('usuario_id', 'local_id')->with('tempos', $tempos);
 					}	

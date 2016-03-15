@@ -29,7 +29,7 @@ class DevolucionptoventaController extends BaseController {
 	    if(Input::get('mercaderia_id')!=null) 
         {
         	//verifica data ingresada
-	        $existedata = DB::table('devuelves')->select('codproducto31')->where('mercaderia_id', '=', Input::get('mercaderia_id'))->pluck('codproducto31');
+	        $existedata = DB::table('devuelves')->select('codproducto31')->where('mercaderia_id', '=', Input::get('mercaderia_id'))->where('usuario_id','=', Auth::user()->id )->pluck('codproducto31');
 			if(is_null($existedata))
 	        {	
 	        	$encuentra = DB::table('mercaderias')->select('estado')->where('id', '=', Input::get('mercaderia_id'))->pluck('estado');
@@ -53,7 +53,7 @@ class DevolucionptoventaController extends BaseController {
 				        $devuelve->usuario_id =  Auth::user()->id ;
 				        $devuelve->save();
 
-			        	$devuelves = DB::table('devuelves')->get();
+			        	$devuelves = DB::table('devuelves')->where('usuario_id','=', Auth::user()->id )->get();
 
 						return View::make('devolucionptoventa.devolucionptoventa')->withInput('usuario_id', 'local_id')->with('devuelves', $devuelves);
 					}	

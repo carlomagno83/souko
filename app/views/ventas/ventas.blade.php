@@ -117,7 +117,7 @@ $().ready(function() {
     </thead>
 
 @if (count($vendidos)>0)
-<?php $deslocal=DB::table('vendidos')->select('deslocal')->pluck('deslocal'); ?>
+<?php $deslocal=DB::table('vendidos')->select('deslocal')->where('usuario_id','=', Auth::user()->id )->pluck('deslocal'); ?>
         @foreach ($vendidos as $vendido)
         <tr>
             <td width="12%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$vendido->mercaderia_id}}" readonly class="form-control" tabindex="-1"></td>
