@@ -48,32 +48,24 @@ class ReportestockController extends BaseController {
 	{
 
 
-		Excel::create(date('Y-m-d').'stock_actual', function($excel)
-		{
-			$excel->sheet('Hoja1', function($sheet) 
-			{
+		Excel::create(date('Y-m-d').'stock_actual', function($excel) {
 
+		    $excel->sheet('Hoja1', function($sheet) {
 
 			    $cantidad_locales = DB::table('locals')->count('id');
 			    $locals = DB::table('locals')->select('codlocal3')->orderBy('id')->lists('codlocal3');
-			    $locals_id = DB::table('locals')->select('id')->orderBy('id')->lists('id');
-			    //dd($locals[0]);
+			    //dd($locals);
 			    $expresion = '';
-			    $titulo = '';
+			    $oracion = '';
 
 				for ($i = 1; $i <= $cantidad_locales; $i++) 
 		        {
 		        	$expresion .= 'COUNT(IF (local_id='.$i.' ,1,NULL)) AS '. $locals[$i-1].',';
-		        	//$expresion .= 'COUNT(IF (local_id='.$i.' ,1,NULL)) AS '. $locals_id[$i-1].',';
-		        	$titulo .= '"'.$locals[$i-1] .'",';
+		        	//$oracion .= '<td>$value->'.  $locals[$i-1] .'</td>';
 		        }	
 		        $expresion = trim($expresion, ',');
-		        $titulo = trim($titulo, ',');
-		        //$titulo = 'array("Código mercadería",'.$titulo .')';
-				//$titulo = '"Código mercadería",'.$titulo ;
-		    	$titulo = 'row(1, array("Código mercadería",'.$titulo.'))' ;
 		    	//dd($expresion);
-		    	//dd($titulo);
+		    	//dd($oracion);
 				$sql = "SELECT codproducto31,
 											" .$expresion. "
 											from mercaderias 
@@ -88,27 +80,19 @@ class ReportestockController extends BaseController {
 				//dd($sql);							
 		        $mercaderias = DB::select($sql);
 
-		        //dd($mercaderias);
-				//$sheet->loadView('reportestock.reportestock', ['mercaderias' => $mercaderias->toArray()]);
-			
-		        //$sheet->row(1, array($titulo));
-				//$sheet->row(1, array("Código mercadería"));
-				$sheet->$titulo  ;
+		        $sql2 = "SELECT " .$expresion. "
+											from mercaderias 
+											INNER JOIN productos ON mercaderias.producto_id=productos.id
+											WHERE mercaderias.estado='ACT'
+											ORDER BY codproducto31";
+				$totales = DB::select($sql2);
+				$sheet->freezeFirstRow();		
+		        $sheet->loadView('reportestock.reportestockxc')->with('mercaderias', $mercaderias)->with('totales', $totales);;
 
+		    })->download('xls');  
 
+		});
 
-
-	        	//$sheet->row(1, array("Código mercadería",$locals[$i-1],$locals[$i],$locals[$i+1],$locals[$i+2]));
-		        
-		        //$sheet->row(1, array("Código mercadería",$locals[0],$locals[1],$locals[2],$locals[3]));
-		        
-		
-
-
-	        });
-
-			
-		})->download('xls');
 	}
 }	
 ?>

@@ -123,6 +123,11 @@ if (Auth::check())
 			Route::resource('reportestock', 'ReportestockController');
 			Route::get('descargaexcel', 'ReportestockController@descargaexcel');
 
+			Route::resource('consultastockhist', 'ConsultastockhistController');
+			Route::post('consulta-stock-historico', 'ConsultastockhistController@consulta');
+
+
+
 			//correcciones
 			if( Auth::user()->rolusuario=='SUPER')
 			{

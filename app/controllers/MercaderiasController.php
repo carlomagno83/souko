@@ -43,6 +43,8 @@ class MercaderiasController extends BaseController {
                                        'mercaderias.usuario_id',
                                        'users.desusuario')
                               ->orderBy('mercaderias.id', 'asc')
+                              ->where('mercaderias.estado', '=', 'ACT')
+                              ->orwhere('mercaderias.estado', '=', 'ACT')
                               ->get();
 
 		return View::make('mercaderias.index', compact('mercaderias'))->with('productos',$productos)

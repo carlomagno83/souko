@@ -3,17 +3,17 @@
 @section('main')
 
 <script>
-$().ready(function() {
-    $("form").validate({
+$("form").ready(function() {
+    $("#validadorjs").validate({
         rules: {
-            #mes: {
-                required:true,
-            }
-            #anho: {
-                required:true,
+            mes: {
+                required: true,
+            },
+            anho: {
+                required: true,
                 min: 2015,
                 max: 2050,
-                numeric:true
+                number: true
             }           
         },
         messages: {

@@ -12,21 +12,21 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 
 
 <script type="text/javascript">
-//alert("ingresa")
+
 $(document).ready(function(){
   $("#storebutton").click(function(){
-
-    if( $( "#localfin" ).val() == "" )    //valida campo 
+   
+    if( $("#localfin").val() == "" )    //valida campo 
     {
-        alert("Escoja el local");
-        return false;
+        alert("Escoja el local")
+        return false
     }
-   if( $( "#usuario_id" ).val() == "" )    //valida campo 
+   if( $("#usuario_id").val() == "" )    //valida campo 
     {
-        alert(Escoja el usuario);
-        return false;
+        alert("Escoja el usuario")
+        return false
     }
-    if( $( "#datepicker1" ).val() == "" )    //valida campo 
+    if( $("#datepicker1").val() == "" )    //valida campo 
     {
         alert("Ingrese fecha")
         return false

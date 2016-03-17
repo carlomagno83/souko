@@ -17,6 +17,7 @@
 	<link href="{{url('css/neon.bootstrap.css')}}" rel="stylesheet">
 	<link href="{{url('css/style.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<link href="{{url('jquery-ui-1.11.4.custom/jquery-ui.css')}}" rel="stylesheet">
 
 
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -184,6 +185,14 @@
 								<li>
 									<a href="{{URL::to('/reportestock')}}">Reporte de stock (descarga Excel)</a>
 								</li>
+								
+								@if( Auth::user()->rolusuario!='VENDE' )	
+								<li role="presentation" class="divider"></li>	
+								<li>
+									<a href="{{URL::to('/consultastockhist')}}">Consulta stock (Hist)</a>
+								</li>
+
+								@endif
 
 
 							</ul>

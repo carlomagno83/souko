@@ -62,7 +62,7 @@ class RegistroeditarController extends BaseController {
             }
             return View::make('registroeditar.registroeditar')->withErrors(['Número de documento incorrecto']);
         }
-        return View::make('registroagregar.registroagregar');
+        return View::make('registroeditar.registroeditar');
 
     }
 

@@ -32,7 +32,7 @@
 
                     required:true,
                     max: 500,
-                    numeric:true
+                    number:true
                     
                 }
 

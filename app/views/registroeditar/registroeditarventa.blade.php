@@ -2,23 +2,28 @@
 
 @section('main')
 
-<script type="text/javascript">
-//alert("entra")
-$().ready(function() {
-    $("#validadorjs").validate({
-        rules: {
-            alert("pruena")
-            precioventa[]: {
-                required:true,
-                max: 500,
-                numeric:true
+<script>
+    $("form").ready(function() 
+    {
+        $("#validadorjs").validate(
+        {
+            rules: 
+            {
+                "precioventa[]" : {
+                                    required: true,
+                                    max: 500,
+                                    number: true
+                                  }
+            },
+            messages: 
+            {
             }
-        },
-        messages: {
         }
-    });
-});
+        );
+    }
+    );
 </script>
+
 
 <script type="text/javascript">
 //alert("entraaboton")
@@ -104,7 +109,7 @@ $(document).ready(function(){
             <td width="30%"><input type="text"  value="{{$devuelve->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             <td width="10%"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
             <td width="10%"><input type="text"  value="{{$devuelve->preciosugerido}}" readonly class="form-control" tabindex="-1"></td>
-            <td width="10%"><input type="text" name="precioventa[]" id="precioventa[]" value="{{$devuelve->precioventa}}" class="form-control"></td>
+            <td width="10%"><input type="number" name="precioventa[]" id="precioventa[]" value="{{$devuelve->precioventa}}" min=1 max=500 class="form-control" required></td>
             <td width="20%"><input type="text"  value="{{$devuelve->desusuario}}" readonly class="form-control" tabindex="-1"></td>
         </tr>
     @endforeach
