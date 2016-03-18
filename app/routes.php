@@ -154,19 +154,17 @@ if (Auth::check())
 			//Batch Pull
 
 			function execPrint($command) {
-				echo $command;
-				/*
 			    $result = array();
 			    exec($command, $result);
 			    foreach ($result as $line) {
 			        print($line . "\n");
-			    }*/
+			    }
 			}
 
 
 			Route::get('batch', function(){
 
-				print("<pre>" . execPrint("git pull https://carlomagno83:locojiju1@github.com/carlomagno83/souko.git master") . "</pre>");
+				print("<pre>" . execPrint("sudo git pull https://carlomagno83:locojiju1@github.com/carlomagno83/souko.git master") . "</pre>");
 
 			});
 
