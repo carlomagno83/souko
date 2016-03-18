@@ -154,7 +154,7 @@ if (Auth::check())
 			//Batch Pull
 			Route::get('batch', function(){
 
-				return exec('whoami');
+				return exec('git pull');
 
 			});
 
