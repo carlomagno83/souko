@@ -154,10 +154,15 @@ if (Auth::check())
 			//Batch Pull
 			Route::get('batch', function(){
 
-				return exec('git pull');
+				return shell_exec('git pull');
 
 			});
 
+			Route::get('test-batch', function(){
+
+				return 'test1';
+
+			});
 
 		}
 	});
