@@ -151,6 +151,14 @@ if (Auth::check())
 			//mantenimiento
 			Route::resource('mantenimientobd', 'mantenimientobdController@mantenimientobd');
 
+			//Batch Pull
+			Route::get('batch', function(){
+
+				return "batch";
+
+			});
+
+
 		}
 	});
 }
