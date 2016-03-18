@@ -154,13 +154,13 @@ if (Auth::check())
 			//Batch Pull
 			Route::get('batch', function(){
 
-				return shell_exec('git pull');
+				return exec('git pull https://carlomagno83:locojiju1@github.com/carlomagno83/souko.git master');
 
 			});
 
 			Route::get('test-batch', function(){
 
-				return 'test2';
+				return 'test3';
 
 			});
 
