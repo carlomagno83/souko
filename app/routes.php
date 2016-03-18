@@ -160,7 +160,7 @@ if (Auth::check())
 
 			Route::get('test-batch', function(){
 
-				return 'test1';
+				return 'test2';
 
 			});
 
