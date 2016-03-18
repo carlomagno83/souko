@@ -152,9 +152,19 @@ if (Auth::check())
 			Route::resource('mantenimientobd', 'mantenimientobdController@mantenimientobd');
 
 			//Batch Pull
+
+			function execPrint($command) {
+			    $result = array();
+			    exec($command, $result);
+			    foreach ($result as $line) {
+			        print($line . "\n");
+			    }
+			}
+
+
 			Route::get('batch', function(){
 
-				return exec('git pull https://carlomagno83:locojiju1@github.com/carlomagno83/souko.git master');
+				print("<pre>" . execPrint("git pull https://carlomagno83:locojiju1@github.com/carlomagno83/souko.git master") . "</pre>");
 
 			});
 
