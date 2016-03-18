@@ -154,11 +154,13 @@ if (Auth::check())
 			//Batch Pull
 
 			function execPrint($command) {
+				echo $command;
+				/*
 			    $result = array();
 			    exec($command, $result);
 			    foreach ($result as $line) {
 			        print($line . "\n");
-			    }
+			    }*/
 			}
 
 
