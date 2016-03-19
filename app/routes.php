@@ -156,6 +156,24 @@ if (Auth::check())
 			//mantenimiento
 			Route::resource('mantenimientobd', 'mantenimientobdController@mantenimientobd');
 
+			//Batch Pull
+			Route::get('batch', function(){
+
+				//exec("git pull https://carlomagno83:locojiju1@github.com/carlomagno83/souko.git master 2>&1",$output, $return_var);
+				//exec('ls 2>&1',$output, $return_var);
+				//exec("git pull https://carlomagno83:locojiju1@github.com/carlomagno83/souko.git master 2>&1",$output, $return_var);				
+				exec('git pull 2>&1',$output, $return_var);
+				var_dump($output);
+				var_dump($return_var);				
+				
+			});
+
+			Route::get('test-batch', function(){
+
+				return 'test10';
+
+			});
+
 		}
 	});
 }

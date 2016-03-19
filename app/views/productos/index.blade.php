@@ -135,15 +135,15 @@
 @stop
 
 @section('scripts')
-<script src="../lib/jquery.js"></script>
-<script src="../dist/jquery.validate.js"></script>
 
 <script>
-    $("form").ready(function() {
+
+
+    $(document).ready(function() {
+
         $("#formulario").validate({
             rules: {
-                "precioventa[]": {
-
+                'precioventa[]': {
                     required:true,
                     max: 500,
                     number:true
