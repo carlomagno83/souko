@@ -139,19 +139,15 @@
 <script src="../dist/jquery.validate.js"></script>
 
 <script>
-alert("ingresa1")
     $("form").ready(function() {
-alert("ingresa")
         $("#formulario").validate({
             rules: {
-                precioventa[]: {
+                "precioventa[]": {
 
                     required:true,
                     max: 500,
-                    numeric:true
-                    
+                    number:true
                 }
-
             },
             messages: {
             }
