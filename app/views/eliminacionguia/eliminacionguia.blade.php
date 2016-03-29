@@ -107,7 +107,11 @@ $(document).ready(function(){
                 <input type="text" value="{{$documento->numdocfisico }}" class="form-control" readonly tabindex="-1">
             </div>
         </div>
-
+        <div class="col-lg-4">
+            <div class="input-group">
+                   <h4> Total Items : {{count($mercaderias)}}</h4>
+            </div>
+        </div>   
     </div>         
 </h4>
 @endforeach

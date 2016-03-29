@@ -110,7 +110,7 @@
     <div class="row">
         <div class="col-lg-2">
             <div class="input-group">
-                <h4>Proveedor:   
+                <h4>Proveedor:   </h4>
             </div>
         </div>
         <div class="col-lg-2">
@@ -118,8 +118,13 @@
                 <input type="text" value={{$desproveedor}} class="form-control" readonly tabindex="-1">
             </div>
         </div> 
-        <div class="col-lg-5">
+        <div class="col-lg-1">
             <div class="input-group">
+            </div>
+        </div> 
+        <div class="col-lg-4">
+            <div class="input-group">
+                   <h4> Total Items : {{count($mercaderias)}}</h4>
             </div>
         </div>     
         <div class="col-lg-3">
