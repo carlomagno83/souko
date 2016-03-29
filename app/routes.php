@@ -59,6 +59,8 @@ if (Auth::check())
 			Route::any('editabloque', 'ProductosController@editabloque');
 
 			Route::resource('mercaderias', 'MercaderiasController');
+			Route::resource('mercaderias-filtrar', 'MercaderiasController@filtrar');
+
 			Route::resource('movimientos', 'MovimientosController');
 
 

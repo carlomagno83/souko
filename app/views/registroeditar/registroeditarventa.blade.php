@@ -9,7 +9,7 @@
         {
             rules: 
             {
-                "precioventa[]" : {
+                'precioventa[]' : {
                                     required: true,
                                     max: 500,
                                     number: true

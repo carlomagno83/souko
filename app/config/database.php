@@ -57,7 +57,7 @@ return array(
 			'host'      => '127.0.0.1',
 			'database'  => 'souko',
 			'username'  => 'souko',
-			'password'  => 'root',
+			'password'  => 'yaita89T',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
