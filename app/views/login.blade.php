@@ -20,10 +20,10 @@
             <h2 class="form-signin-heading" align="center">Ingreso al Sistema</h2>
 
             {{ Form::label('username', 'Username', ['class' => 'sr-only']) }}
-            {{ Form::text('username', null, ['class' => 'form-control', 'placeholder' => 'Username', 'autofocus' => '']) }}
+            {{ Form::text('username', null, ['class' => 'form-control', 'placeholder' => 'usuario', 'autofocus' => '']) }}
 
             {{ Form::label('password', 'Password', ['class' => 'sr-only']) }}
-            {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
+            {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'contraseña']) }}
             <br>
 
             {{ Form::submit('Ingresar', ['class' => 'btn btn-primary btn-block']) }}
