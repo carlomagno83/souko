@@ -58,7 +58,7 @@
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="material_id">Local</span>
-                {{Form::select('local_id', [0=>''] + DB::table('locals')->orderby('deslocal')->lists('deslocal','id'), Input::get('local_id'),array('class'=>'form-control'))}}
+                {{Form::select('local_id', [0=>''] + DB::table('locals')->orderby('codlocal3')->lists('codlocal3','id'), Input::get('local_id'),array('class'=>'form-control'))}}
             </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">

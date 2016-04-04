@@ -33,7 +33,7 @@ class VentasController extends BaseController {
                     $codproducto31 =  DB::table('productos')->select('codproducto31')->where('id', '=', $producto_id)->pluck('codproducto31');
                     $preciosugerido =  DB::table('productos')->select('precioventa')->where('id', '=', $producto_id)->pluck('precioventa');
 
-	                $deslocal = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')->select('deslocal')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('deslocal');
+	                $deslocal = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')->select('codlocal3')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('codlocal3');
 	                $desusuario = DB::table('users')->join('mercaderias', 'users.id', '=', 'mercaderias.usuario_id')->select('desusuario')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('desusuario');
 
 			        $vendido = new Vendido();
@@ -115,7 +115,7 @@ class VentasController extends BaseController {
 	    //usuario logueado
         $mercaderias = DB::table('vendidos')->where('usuario_id','=', Auth::user()->id )->get();
 
-        $local = DB::table('locals')->select('deslocal')->where('id', '=', $data['local_id'])->pluck('deslocal');
+        $local = DB::table('locals')->select('codlocal3')->where('id', '=', $data['local_id'])->pluck('codlocal3');
         $usuario = DB::table('users')->select('desusuario')->where('id', '=', $data['usuario_id'])->pluck('desusuario');
         //$total =  count($mercaderias); NO sirve si hay devolucion
 
@@ -192,10 +192,10 @@ class VentasController extends BaseController {
                                                         $join->on('documentos.id', '=',  'movimientos.documento_id');
                                                         $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
                                                             })
-                                                ->select('deslocal')
+                                                ->select('codlocal3')
                                                 ->where('documentos.id', '=', $documento_id)
                                                 ->where('documentos.tipomovimiento_id', '=', '3')
-                                                ->pluck('deslocal');
+                                                ->pluck('codlocal3');
                     $usuario = DB::table('users')->join('mercaderias', 'users.id', '=', 'mercaderias.usuario_id')
                                                 ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
                                                 ->join('documentos', function($join)
@@ -214,7 +214,7 @@ class VentasController extends BaseController {
                                                'mercaderias.producto_id',
                                                'mercaderias.estado',
                                                'mercaderias.preciocompra',
-                                               'locals.deslocal',
+                                               'locals.codlocal3',
                                                'productos.codproducto31')
                                         ->where('vendidos.estado','=','VEN')
 
@@ -292,10 +292,10 @@ class VentasController extends BaseController {
                                                     $join->on('documentos.id', '=',  'movimientos.documento_id');
                                                     $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
                                                         })
-                                            ->select('deslocal')
+                                            ->select('codlocal3')
                                             ->where('documentos.id', '=', $documento_id)
                                             ->where('documentos.tipomovimiento_id', '=', '3')
-                                            ->pluck('deslocal');
+                                            ->pluck('codlocal3');
                 $usuario = DB::table('users')->join('mercaderias', 'users.id', '=', 'mercaderias.usuario_id')
                                             ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
                                             ->join('documentos', function($join)

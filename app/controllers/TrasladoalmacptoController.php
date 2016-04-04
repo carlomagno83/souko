@@ -45,7 +45,8 @@ class TrasladoalmacptoController extends BaseController {
 	                {
 		                $producto_id = DB::table('mercaderias')->select('producto_id')->where('id', '=', Input::get('mercaderia_id'))->pluck('producto_id');
 		                $codproducto31 =  DB::table('productos')->select('codproducto31')->where('id', '=', $producto_id)->pluck('codproducto31');
-		         		$deslocal = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')->select('deslocal')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('deslocal');
+		         		//$deslocal = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')->select('deslocal')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('deslocal');
+                        $deslocal = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')->select('codlocal3')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('codlocal3');
 		         		$estado = DB::table('mercaderias')->select('estado')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('estado');
 		                
 				        $tempo = new Tempo();
@@ -165,10 +166,10 @@ class TrasladoalmacptoController extends BaseController {
                                                     $join->on('documentos.id', '=',  'movimientos.documento_id');
                                                     $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
                                                         })
-                                            ->select('deslocal')
+                                            ->select('codlocal3')
                                             ->where('documentos.id', '=', $documento_id)
                                             ->where('documentos.tipomovimiento_id', '=', '2')
-                                            ->pluck('deslocal');
+                                            ->pluck('codlocal3');
                 $usuario = DB::table('users')->join('mercaderias', 'users.id', '=', 'mercaderias.usuario_id')
                                             ->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
                                             ->join('documentos', function($join)

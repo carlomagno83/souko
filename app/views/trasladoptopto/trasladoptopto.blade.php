@@ -85,14 +85,14 @@ $(document).ready(function(){
 
 @if (count($traslados)>0)
 <?php $deslocalini = DB::table('traslados')->select('deslocal')->where('usuario_id', '=', Auth::user()->id)->pluck('deslocal');
-    $localini_id = DB::table('locals')->select('id')->where('deslocal', '=', $deslocalini)->pluck('id');
+    $localini_id = DB::table('locals')->select('id')->where('codlocal3', '=', $deslocalini)->pluck('id');
  ?>
         @foreach ($traslados as $traslado)
         <tr>
             <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$traslado->mercaderia_id}}" class="form-control" readonly tabindex="-1"></td>
             <td width="8%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{$traslado->producto_id}}" readonly class="form-control" tabindex="-1"></td>
             <td><input type="text"  value="{{$traslado->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
-            @if ($traslado->deslocal=='ALMACEN')
+            @if ($traslado->deslocal=='ALM')
                 <td width="20%" class="danger"><input type="text"  value="{{$traslado->deslocal}}" readonly class="form-control" tabindex="-1"></td>
             @else
                 @if(count($traslados)>1)
@@ -142,7 +142,7 @@ $(document).ready(function(){
             <div class="col-lg-4">
                 <div class="input-group">
                     <span class="input-group-addon" >Local Final</span>
-                    {{Form::select('localfin',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->where('id', '<>', $localini_id)->orderby('deslocal')->lists('deslocal','id'),null,array('id'=>'localfin', 'class'=>'form-control', 'required'=>'required'))}}
+                    {{Form::select('localfin',[''=>''] + DB::table('locals')->where('codlocal3','<>','ALM')->where('id', '<>', $localini_id)->orderby('codlocal3')->lists('codlocal3','id'),null,array('id'=>'localfin', 'class'=>'form-control', 'required'=>'required'))}}
                </div>
             </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->

@@ -35,7 +35,7 @@ $(document).ready(function(){
             <td width="15%"><input type="text" name="id[]" id="id[]" value="{{$mercaderia->Numdoc}}" class="form-control" readonly tabindex="-1"></td>
             <td><input style="visibility:hidden;" type="text"  name="codproducto31[]" value="{{$mercaderia->tipomovimiento_id}}" readonly class="form-control" tabindex="-1"></td>
             <td width="25%"><input type="text"  value="{{$mercaderia->destipomovimiento}}" readonly class="form-control" tabindex="-1"></td>
-            <td width="25%"><input type="text"  value="{{$mercaderia->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="10%"><input type="text"  value="{{$mercaderia->codlocal3}}" readonly class="form-control" tabindex="-1"></td>
             <td width="15%"><input type="text"  value="{{$mercaderia->fechadocumento}}" readonly class="form-control" tabindex="-1"></td>
             <td width="20%"><input type="text"  value="{{$mercaderia->created_at}}" readonly class="form-control" tabindex="-1"></td>
         </tr>

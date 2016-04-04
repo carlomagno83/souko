@@ -123,7 +123,7 @@ $().ready(function() {
             <td width="12%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$vendido->mercaderia_id}}" readonly class="form-control" tabindex="-1"></td>
             <td width="10%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{$vendido->producto_id}}" readonly class="form-control" tabindex="-1"></td>
             <td width="30%"><input type="text"  value="{{$vendido->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
-            @if ($vendido->deslocal=='ALMACEN')
+            @if ($vendido->deslocal=='ALM')
                 <td width="10%" class="danger"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
             @else
                 @if (count($vendidos)>1)
@@ -198,7 +198,7 @@ $().ready(function() {
             <div class="col-lg-4">
                 <div class="input-group">
                     <span class="input-group-addon">Pto de Venta</span>
-                    {{Form::select('local_id',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'), $deslocal,array('id'=>'local_id', 'class'=>'form-control', 'required'=>'required'))}}
+                    {{Form::select('local_id',[''=>''] + DB::table('locals')->where('codlocal3','<>','ALM')->orderby('codlocal3')->lists('codlocal3','id'), $deslocal, array('id'=>'local_id', 'class'=>'form-control', 'required'=>'required'))}}
                </div>
             </div><!-- /.col-lg-6 -->   
             <div class="col-lg-3">

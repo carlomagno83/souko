@@ -84,7 +84,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$devuelve->mercaderia_id}}" class="form-control" readonly tabindex="-1"></td>
             <td width="10%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{$devuelve->producto_id}}" readonly class="form-control" tabindex="-1"></td>
             <td><input type="text"  value="{{$devuelve->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
-            @if($devuelve->deslocal<>'ALMACEN' )
+            @if($devuelve->deslocal<>'ALM' )
                 @if (count($devuelves)>1)
                     @if($devuelve->deslocal == $deslocal)
                         <td width="20%"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control" tabindex="-1"></td>
@@ -126,7 +126,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
         <div class="col-lg-4">
             <div class="input-group">
                 <span class="input-group-addon" id="localini">Local Inicial</span>
-                {{Form::select('localini',[''=>''] + DB::table('locals')->where('deslocal','<>','ALMACEN')->orderby('deslocal')->lists('deslocal','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
+                {{Form::select('localini',[''=>''] + DB::table('locals')->where('codlocal3','<>','ALM')->orderby('codlocal3')->lists('codlocal3','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
            </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-4">
