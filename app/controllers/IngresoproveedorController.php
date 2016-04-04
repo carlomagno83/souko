@@ -80,10 +80,10 @@ class IngresoproveedorController extends BaseController
                                          'productos.codproducto31',
                                        'productos.preciocompra',
                                        'productos.precioventa')
-                                ->orderBy('desprovider') 
-                                ->orderBy('desmarca')
-                                ->orderBy('destipo')
-                                ->orderBy('desrango')
+                                ->orderBy('codprovider3') 
+                                ->orderBy('codmarca3')
+                                ->orderBy('codtipo8')
+                                ->orderBy('codrango6')
                                 ->get(); 
                                                                
             return View::make('ingresoproveedor.create')->with('productos',$productos)->with('entradas', $entradas); 
