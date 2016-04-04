@@ -69,7 +69,7 @@ class ConsultastockdetController extends BaseController {
 
 			for ($i = 1; $i <= $cantidad_locales; $i++) 
 	        {
-	        	$expresion .= 'COUNT(IF (local_id='.$i.' ,1,NULL)) AS '. $locals[$i-1].',';
+	        	$expresion .= 'COUNT(IF (local_id='.$i.' ,1,NULL)) AS "'. $locals[$i-1].'",';
 	        	//$oracion .= '<td>$value->'.  $locals[$i-1] .'</td>';
 	        }	
 	        $expresion = trim($expresion, ',');
