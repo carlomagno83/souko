@@ -60,6 +60,12 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
     </div><!-- /.col-lg-6 --> 
     <!-- Botón para agregar filas -->
     <input type="submit" value="Agrega Mercaderia" class=" btn btn-success"> 
+
+    <div class="col-lg-2"> 
+        @if (count($cambios)>0)
+        Total items: {{count($cambios)}} 
+        @endif   
+    </div>   
     
 </div><!-- /.row -->
 
@@ -98,6 +104,8 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
     
 </table>
 <div class="alert alert-success" >
+
+
 <div class="row">
     <div class="col-lg-4">
         <div class="input-group">
