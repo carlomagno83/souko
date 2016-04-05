@@ -93,17 +93,17 @@
 
             {{ Form::label('modelo_id', 'Modelo:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-              {{ Form::select('modelo_id',["153"=>'XXXXXX'] + $modelos, Input::old('modelo_id'), array('id'=>'modelo_id', 'class'=>'form-control', 'tabindex'=>'-1')) }}
+              {{ Form::select('modelo_id',[""=>''] + $modelos, Input::old('modelo_id'), array('id'=>'modelo_id', 'class'=>'form-control', 'tabindex'=>'-1')) }}
             </div>
 
             {{ Form::label('material_id', 'Material:', array('class'=>'col-md-1 control-label', 'tabindex'=>'-1')) }}
             <div class="col-sm-2">
-              {{ Form::select('material_id',["7"=>'XXX'] + $materials, Input::old('material_id'), array('id'=>'material_id', 'class'=>'form-control', 'tabindex'=>'-1')) }}
+              {{ Form::select('material_id',[""=>''] + $materials, Input::old('material_id'), array('id'=>'material_id', 'class'=>'form-control', 'tabindex'=>'-1')) }}
             </div>
 
             {{ Form::label('color_id', 'Color:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-              {{ Form::select('color_id',["37"=>'XXX'] + $colors, Input::old('color_id'), array('id'=>'color_id', 'class'=>'form-control', 'tabindex'=>'-1')) }}
+              {{ Form::select('color_id',[""=>''] + $colors, Input::old('color_id'), array('id'=>'color_id', 'class'=>'form-control', 'tabindex'=>'-1')) }}
             </div>
 
 
@@ -128,7 +128,6 @@
             {{ Form::label('talla_id', 'Talla:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
                 <select name="talla_id" class="form-control"  tabindex='-1'>
-                  <option value="00">00</option>                
                   <option value="">Escoja uno</option>
                   <option value="21">21</option>
                   <option value="22">22</option>
