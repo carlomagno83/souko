@@ -111,6 +111,11 @@ if (Auth::check())
 			Route::get('liquidacionguiadev', 'LiquidacionguiadevController@index');
 			Route::post('liquidacionguiadev-store', 'LiquidacionguiadevController@store');
 
+			Route::resource('cambioestado', 'CambioestadoController');
+			Route::post('cambioestado-store', 'CambioestadoController@store');
+			Route::get('cambioestado/delete/{mercaderia_id}','CambioestadoController@getDelete');
+			Route::any('cambioestado-agregareg', 'CambioestadoController@agregareg');			
+
 			//Reportes
 			Route::resource('reporteingreso', 'ReporteingresoController');
 			

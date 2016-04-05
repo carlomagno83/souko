@@ -157,10 +157,14 @@
 								</li>
 								<li>
 									<a href="{{URL::to('/liquidacionguiadev')}}">Liquidación de Guía de Devolución</a>
-								</li>								
+								</li>	
+								<li role="presentation" class="divider"></li>								
 								<li>
 									<a href="{{URL::to('/devolucionptoventa')}}">Devoluciones de Pto de Venta</a>
 								</li>
+								<li>
+									<a href="{{URL::to('/cambioestado')}}">Cambio de Estado de Mercaderías</a>
+								</li>								
 							</ul>
 						</li>	
 						@endif					
