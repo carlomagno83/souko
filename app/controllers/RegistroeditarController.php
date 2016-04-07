@@ -44,13 +44,13 @@ class RegistroeditarController extends BaseController {
                             ->join('users', 'mercaderias.usuario_id', '=', 'users.id')
                             ->where('movimientos.documento_id', '=', Input::get('documento_id'))
                             ->where('movimientos.tipomovimiento_id', '=', '3')
-                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.deslocal', 'mercaderias.estado','mercaderias.preciocompra', 'productos.precioventa AS preciosugerido','mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
+                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.codlocal3', 'mercaderias.estado','mercaderias.preciocompra', 'productos.precioventa AS preciosugerido','mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
                             ->get();
                 $documentos = DB::table('documentos')
                             ->join('locals', 'locals.id', '=', 'documentos.localfin_id')
                             ->join('users', 'documentos.usuario_id', '=', 'users.id')
                             ->where('documentos.id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', '3')
-                            ->select('documentos.id', 'fechadocumento', 'localfin_id', 'deslocal','flagestado', 'documentos.usuario_id', 'desusuario')
+                            ->select('documentos.id', 'fechadocumento', 'localfin_id', 'codlocal3','flagestado', 'documentos.usuario_id', 'desusuario')
                             ->get();
 
 

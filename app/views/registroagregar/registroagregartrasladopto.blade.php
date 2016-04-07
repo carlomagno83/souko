@@ -54,7 +54,7 @@ $(document).ready(function(){
     <div class="col-lg-4">
         <div class="input-group">
             <span class="input-group-addon" id="local">Local</span>
-            <input type="text" name="local" class="form-control" value="{{$documento->deslocal}}" aria-describedby="basic-addon1" readonly="" tabindex="-1">
+            <input type="text" name="local" class="form-control" value="{{$documento->codlocal3}}" aria-describedby="basic-addon1" readonly="" tabindex="-1">
        </div>
     </div><!-- /.col-lg-6 -->  
     <div class="col-lg-4">
@@ -69,7 +69,7 @@ $(document).ready(function(){
 </div><!-- /.row -->
 <br>
 
-<?php $localdocumento = $documento->deslocal ?>
+<?php $localdocumento = $documento->codlocal3 ?>
 
 @endforeach
 
@@ -103,7 +103,7 @@ $(document).ready(function(){
 </table>
 @foreach ($mercaderias as $mercaderia)
 <?php  
-$localmercaderia = $mercaderia->deslocal;
+$localmercaderia = $mercaderia->codlocal3;
 $estadomercaderia = $mercaderia->estado;  
 $foul = 0;
 ?>
@@ -133,10 +133,10 @@ $foul = 0;
             <td width="10%"><input type="text" name="precioventa"  value="{{$mercaderia->precioventa}}" readonly class="form-control" tabindex="-1"></td>
             <td width="20%"><input type="text"  value="{{$mercaderia->desusuario}}" readonly class="form-control" tabindex="-1"></td>
             @if ($localmercaderia == "ALMACEN" || $localmercaderia == $localdocumento)
-            <td width="20%" class="danger"><input type="text" value="{{$mercaderia->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="20%" class="danger"><input type="text" value="{{$mercaderia->codlocal3}}" readonly class="form-control" tabindex="-1"></td>
             <?php $foul = $foul + 1 ?>
             @else
-            <td width="20%"><input type="text" value="{{$mercaderia->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="20%"><input type="text" value="{{$mercaderia->codlocal3}}" readonly class="form-control" tabindex="-1"></td>
             @endif
             <td><input style="visibility:hidden; type="text" name="mercaderialocal_id" id="mercaderialocal_id" value="{{$mercaderia->local_id}}" class="form-control" readonly tabindex="-1"></td>
             <td><input style="visibility:hidden; type="text" name="mercaderiausuario_id" id="mercaderiausuario_id" value="{{$mercaderia->usuario_id}}" class="form-control" readonly tabindex="-1"></td>

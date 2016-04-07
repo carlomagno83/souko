@@ -47,14 +47,14 @@ class RegistroeliminarController extends BaseController {
                             ->join('users', 'mercaderias.usuario_id', '=', 'users.id')
                             ->where('movimientos.documento_id', '=', Input::get('documento_id'))
                             ->where('movimientos.tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
-                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.deslocal', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
+                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.codlocal3', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
                             ->get();
                 $tipomovimiento_id = Input::get('tipomovimiento_id');
                 $documentos = DB::table('documentos')
                             ->join('locals', 'locals.id', '=', 'documentos.localfin_id')
                             ->join('users', 'documentos.usuario_id', '=', 'users.id')
                             ->where('documentos.id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
-                            ->select('documentos.id', 'fechadocumento', 'documentos.tipomovimiento_id', 'localfin_id', 'deslocal','flagestado', 'documentos.usuario_id', 'desusuario')
+                            ->select('documentos.id', 'fechadocumento', 'documentos.tipomovimiento_id', 'localfin_id', 'codlocal3','flagestado', 'documentos.usuario_id', 'desusuario')
                             ->get();
 
                 $mercaderias = DB::table('documentos')
@@ -74,7 +74,7 @@ class RegistroeliminarController extends BaseController {
                 if($mercaderias != null)
                 {  
                     $cod = Input::get('mercaderia_id');
-                    $ultimos = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, tipomovimientos.destipomovimiento, locals.deslocal, documentos.fechadocumento 
+                    $ultimos = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, tipomovimientos.destipomovimiento, locals.codlocal3, documentos.fechadocumento 
                             from movimientos
                             INNER JOIN tipomovimientos ON tipomovimientos.id = movimientos.tipomovimiento_id
                             INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
@@ -120,7 +120,7 @@ class RegistroeliminarController extends BaseController {
         $data = Input::all();
         //busquemos movimiento anterior
         $num_mercaderia = Input::get('mercaderia_id');
-        $ultimosmov = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, tipomovimientos.destipomovimiento, locals.deslocal, documentos.fechadocumento, documentos.localfin_id 
+        $ultimosmov = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, tipomovimientos.destipomovimiento, locals.codlocal3, documentos.fechadocumento, documentos.localfin_id 
                         from movimientos
                         INNER JOIN tipomovimientos ON tipomovimientos.id = movimientos.tipomovimiento_id
                         INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id

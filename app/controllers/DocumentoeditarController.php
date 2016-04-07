@@ -45,7 +45,7 @@ class DocumentoeditarController extends BaseController {
                             ->join('users', 'mercaderias.usuario_id', '=', 'users.id')
                             ->where('movimientos.documento_id', '=', Input::get('documento_id'))
                             ->where('movimientos.tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
-                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.deslocal', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
+                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.codlocal3', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
                             ->get();
                 $tipomovimiento_id = Input::get('tipomovimiento_id');
                 $documentos = DB::table('documentos')
@@ -53,7 +53,7 @@ class DocumentoeditarController extends BaseController {
                             ->join('users', 'documentos.usuario_id', '=', 'users.id')
                             ->join('tipomovimientos', 'documentos.tipomovimiento_id', '=', 'tipomovimientos.id')
                             ->where('documentos.id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
-                            ->select('documentos.id', 'fechadocumento', 'localfin_id', 'deslocal','flagestado', 'documentos.usuario_id', 'desusuario', 'documentos.created_at', 'destipomovimiento', 'tipomovimiento_id')
+                            ->select('documentos.id', 'fechadocumento', 'localfin_id', 'codlocal3','flagestado', 'documentos.usuario_id', 'desusuario', 'documentos.created_at', 'destipomovimiento', 'tipomovimiento_id')
                             ->get();
 
 

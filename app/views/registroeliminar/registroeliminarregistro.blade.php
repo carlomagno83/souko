@@ -53,7 +53,7 @@ $(document).ready(function(){
     <div class="col-lg-4">
         <div class="input-group">
             <span class="input-group-addon" id="local">Local</span>
-            <input type="text" class="form-control" value="{{$documento->deslocal}}" aria-describedby="basic-addon1" readonly="" tabindex="-1">
+            <input type="text" class="form-control" value="{{$documento->codlocal3}}" aria-describedby="basic-addon1" readonly="" tabindex="-1">
        </div>
     </div><!-- /.col-lg-6 -->  
     <div class="col-lg-4">
@@ -70,7 +70,7 @@ $(document).ready(function(){
 <br>
 
     <?php 
-        $localdocumento = $documento->deslocal; 
+        $localdocumento = $documento->codlocal3; 
         $eliminardocumento_id = $documento->id; 
         $eliminardocumento_tipomovimiento = $documento->tipomovimiento_id; 
     ?>

@@ -44,14 +44,14 @@ class RegistroagregarController extends BaseController {
                             ->join('users', 'mercaderias.usuario_id', '=', 'users.id')
                             ->where('movimientos.documento_id', '=', Input::get('documento_id'))
                             ->where('movimientos.tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
-                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.deslocal', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
+                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.codlocal3', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
                             ->get();
                 $tipomovimiento_id = Input::get('tipomovimiento_id');
                 $documentos = DB::table('documentos')
                             ->join('locals', 'locals.id', '=', 'documentos.localfin_id')
                             ->join('users', 'documentos.usuario_id', '=', 'users.id')
                             ->where('documentos.id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
-                            ->select('documentos.id', 'fechadocumento', 'localfin_id', 'deslocal','flagestado', 'documentos.usuario_id', 'desusuario')
+                            ->select('documentos.id', 'fechadocumento', 'localfin_id', 'codlocal3','flagestado', 'documentos.usuario_id', 'desusuario')
                             ->get();
 
                 $mercaderias = DB::table('mercaderias')
@@ -59,7 +59,7 @@ class RegistroagregarController extends BaseController {
                                 ->join('locals', 'locals.id', '=', 'mercaderias.local_id')
                                 ->join('users', 'mercaderias.usuario_id', '=', 'users.id')
                                 ->where('mercaderias.id', '=', Input::get('mercaderia_id'))
-                                ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.deslocal', 'mercaderias.estado','productos.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
+                                ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.codlocal3', 'mercaderias.estado','productos.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
                                 ->get();
 
                 if($mercaderias != null)
