@@ -14,6 +14,50 @@ $(document).ready(function(){
  });
 </script>
 
+@foreach ($detalles as $detalle)
+<div class="alert alert-info" >
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="cantidaditem"># mercadería</span>
+                <input type="text"  value="{{$detalle->id}}" readonly class="form-control" tabindex="-1">
+            </div>
+        </div>       
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-addon" id="cantidaditem">Cod Producto 31</span>
+                <input type="text"  value="{{$detalle->codproducto31}}" readonly class="form-control" tabindex="-1">
+            </div>
+        </div>       
+        <div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="cantidaditem">Estado</span>
+                <input type="text"  value="{{$detalle->estado}}" readonly class="form-control" tabindex="-1">
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>       
+        <div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="cantidaditem">Precio Compra</span>
+                <input type="text"  value="{{$detalle->preciocompra}}" readonly class="form-control" tabindex="-1">
+            </div>
+        </div>       
+        <div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon" id="cantidaditem">Precio Venta</span>
+                <input type="text"  value="{{$detalle->precioventa}}" readonly class="form-control" tabindex="-1">
+            </div>
+        </div>       
+
+
+    </div>
+</div>
+@endforeach
+
+
+
 
 <table class="table table-striped">
     <thead>

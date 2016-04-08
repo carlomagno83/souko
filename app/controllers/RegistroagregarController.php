@@ -99,8 +99,12 @@ class RegistroagregarController extends BaseController {
                         INNER JOIN locals ON locals.id = documentos.localfin_id
                         WHERE movimientos.mercaderia_id = '$cod'
                         ORDER BY documentos.created_at");
+        $detalles = DB::select("SELECT mercaderias.id, productos.codproducto31, mercaderias.estado, mercaderias.preciocompra, mercaderias.precioventa
+                        from mercaderias
+                        INNER JOIN productos ON productos.id = mercaderias.producto_id
+                        WHERE mercaderias.id = '$cod'");
 
-        return View::make('registroagregar.consultamercaderia')->with('mercaderias', $mercaderias);
+        return View::make('registroagregar.consultamercaderia')->with('mercaderias', $mercaderias)->with('detalles', $detalles);
 
     }
 

@@ -101,7 +101,8 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 </section> 
 @endif 
 </form>
-
+<br>
+<br>
 <form method="POST" action="{{url('generaguiadev-store')}}">
 @if (count($devueltos)>0)
 <table class="table table-striped">
@@ -133,6 +134,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 
         </tr>
         @endforeach
+
     @endif
 </table>
 <br>
@@ -159,7 +161,11 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
                 Fecha Sugerida = Fecha Actual
             </div>    
         </div>
-    </div>        
+    </div>  
+    <br>
+    @if (count($devueltos)>0)
+        Total de items : {{count($devueltos)}} 
+    @endif         
 </div>
 <div class="row">
     <div class="col-lg-4">
