@@ -65,6 +65,7 @@
             <th width="15%"># Mercadería</th>
             <th width="25%">CodProducto31</th>             
             <th width="20%">Precio Venta</th>
+            <th width="25%">Vendedor</th>
         </tr>    
     </thead>
 
@@ -74,6 +75,7 @@
             <td width="15%"><input type="text" name="id[]" id="id[]" value="{{$detalle->id}}" class="form-control" readonly tabindex="-1"></td>
             <td width="25%"><input type="text"  value="{{$detalle->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             <td width="20%"><input type="text"  value="{{$detalle->precioventa}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="25%"><input type="text"  value="{{$detalle->desusuario}}" readonly class="form-control" tabindex="-1"></td>
 
         </tr>
         @endforeach

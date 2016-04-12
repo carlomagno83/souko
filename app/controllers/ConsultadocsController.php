@@ -142,7 +142,7 @@ class ConsultadocsController extends BaseController {
 
         $documentos = DB::select($sql);
 
-        $detalles = DB::table('movimientos')->select('mercaderias.id', 'codproducto31', 'mercaderias.preciocompra', 'mercaderias.precioventa')->join('mercaderias', 'mercaderias.id', '=', 'movimientos.mercaderia_id')->join('productos', 'productos.id', '=', 'mercaderias.producto_id')->where('documento_id','=', $id )->where('tipomovimiento_id','=', 3 )->orderby('mercaderias.id')->get();
+        $detalles = DB::table('movimientos')->select('mercaderias.id', 'codproducto31', 'mercaderias.preciocompra', 'mercaderias.precioventa', 'desusuario')->join('mercaderias', 'mercaderias.id', '=', 'movimientos.mercaderia_id')->join('productos', 'productos.id', '=', 'mercaderias.producto_id')->join('users', 'users.id', '=', 'mercaderias.usuario_id')->where('documento_id','=', $id )->where('tipomovimiento_id','=', 3 )->orderby('mercaderias.id')->get();
 
         return View::make('consultadocs.consultadocsdetalle3')->with('documentos',$documentos)->with('detalles',$detalles);  
 
