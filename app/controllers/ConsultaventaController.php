@@ -22,7 +22,7 @@ class ConsultaventaController extends BaseController {
 						INNER JOIN movimientos on mercaderias.id=movimientos.mercaderia_id
 						INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
 
-						WHERE  documentos.tipomovimiento_id=3 AND MONTH(fechadocumento)= ".$mes." AND YEAR(fechadocumento)=".$anho."
+						WHERE  documentos.tipomovimiento_id=3 AND MONTH(fechadocumento)= ".$mes." AND YEAR(fechadocumento)=".$anho." AND rolusuario='VENDE'
 
 						GROUP BY desusuario";
 		//dd($sql);							

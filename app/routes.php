@@ -133,6 +133,14 @@ if (Auth::check())
 			Route::resource('consultastockhist', 'ConsultastockhistController');
 			Route::post('consulta-stock-historico', 'ConsultastockhistController@consulta');
 
+			Route::resource('consultadocs', 'ConsultadocsController');			
+			Route::post('consulta-docs', 'ConsultadocsController@consulta');
+			Route::get('consultadocs/detalle1/{doc_id}', 'ConsultadocsController@detalle1');
+			Route::get('consultadocs/detalle2/{doc_id}', 'ConsultadocsController@detalle2');
+			Route::get('consultadocs/detalle3/{doc_id}', 'ConsultadocsController@detalle3');
+			Route::get('consultadocs/detalle4/{doc_id}', 'ConsultadocsController@detalle4');
+			Route::get('consultadocs/detalle6/{doc_id}', 'ConsultadocsController@detalle6');
+			Route::get('consultadocs/detalle7/{doc_id}', 'ConsultadocsController@detalle7');
 
 
 			//correcciones
