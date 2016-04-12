@@ -6,7 +6,7 @@
 
 <p>{{ link_to_route('mercaderias.index', 'Regresar a la Tabla de mercaderias', null, array('class'=>'btn btn-lg btn-primary')) }}</p>
 <?php $productos = DB::table('productos')->select('codproducto31')->where('id', '=', $mercaderia["producto_id"])->pluck('codproducto31') ?>
-<?php $locals = DB::table('locals')->select('deslocal')->where('id', '=', $mercaderia["local_id"])->pluck('deslocal') ?>
+<?php $locals = DB::table('locals')->select('codlocal3')->where('id', '=', $mercaderia["local_id"])->pluck('codlocal3') ?>
 <?php $users = DB::table('users')->select('desusuario')->where('id', '=', $mercaderia["usuario_id"])->pluck('desusuario') ?>
 
 <table class="table table-striped">

@@ -57,7 +57,7 @@ class MercaderiasController extends BaseController {
 		                                       'productos.codproducto31',
 		                                       'mercaderias.mercaderiacambio_id',
 		                                       'mercaderias.local_id',
-		                                       'locals.deslocal', 
+		                                       'locals.codlocal3', 
 		                                       'mercaderias.estado',
 		                                       'mercaderias.preciocompra',                                      
 		                                       'mercaderias.precioventa',
@@ -105,7 +105,7 @@ class MercaderiasController extends BaseController {
 //dd($condicion);
 
         		$sql = "SELECT mercaderias.id, mercaderias.producto_id, providers.codprovider3, productos.codproducto31, 
-						mercaderias.local_id, locals.deslocal, mercaderias.estado, mercaderias.preciocompra, mercaderias.precioventa,
+						mercaderias.local_id, locals.codlocal3, mercaderias.estado, mercaderias.preciocompra, mercaderias.precioventa,
 						mercaderias.usuario_id, users.desusuario
 						from mercaderias
 						INNER JOIN productos ON mercaderias.producto_id=productos.id
@@ -232,7 +232,7 @@ dd($mercaderias);
 	{
 		$mercaderia = $this->mercaderia->find($id);
 		$productos = DB::table('productos')->lists('codproducto31','id');
-		$locals = DB::table('locals')->lists('deslocal','id');
+		$locals = DB::table('locals')->lists('codlocal3','id');
 		$users = DB::table('users')->lists('desusuario','id');
 
 		if (is_null($mercaderia))

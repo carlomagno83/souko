@@ -79,8 +79,8 @@
 <form method="POST" id="formulario" action="{{url('editabloque')}}">
 @if (count($productos)>0)
 
+<div>Mostrando {{count($productos)}} producto(s)</div>
 
-@if ($productos->count())
 	<table class="table table-striped">
 		<thead>
 			<tr> 
@@ -130,7 +130,7 @@
 @else
 	No hay productos para mostrar
 @endif
-@endif 
+
 </form>
 @stop
 

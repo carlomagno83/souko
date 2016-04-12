@@ -99,7 +99,7 @@
 					<td>{{{ $mercaderia->codprovider3 }}}</td>
 					<td>{{{ $mercaderia->id }}}</td>
 					<td>{{{ $mercaderia->codproducto31 }}}</td>
-					<td>{{{ $mercaderia->deslocal }}}</td>
+					<td>{{{ $mercaderia->codlocal3 }}}</td>
 					@if ($mercaderia->estado=='ACT')
 					    <td><input type="text" value="{{ $mercaderia->estado }}" readonly class="form-control"></td>
 					@else
