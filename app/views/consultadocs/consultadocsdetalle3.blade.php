@@ -48,7 +48,7 @@
         </div>    
         <div class="col-lg-3">
             <div class="input-group">
-                <span class="input-group-addon" id="cantidaditem">Total Sugerido</span>
+                <span class="input-group-addon" id="cantidaditem">Total Sugerido (Act)</span>
                 <input type="text"  value="{{$documento->totalsugerido}}" readonly class="form-control" tabindex="-1">
             </div>
         </div>  
