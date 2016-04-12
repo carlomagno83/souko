@@ -98,8 +98,10 @@ class MercaderiasController extends BaseController {
             $condicion .= "AND mercaderias.local_id=".Input::get('local_id')." ";
 
         if(Input::get('estado_id')>0)
+        {
         	$estado = DB::table('estados')->select('codestado3')->where('id', '=', Input::get('estado_id'))->pluck('codestado3');
             $condicion .= "AND mercaderias.estado='".$estado."' ";
+        }    
 //dd($condicion);
 
         		$sql = "SELECT mercaderias.id, mercaderias.producto_id, providers.codprovider3, productos.codproducto31, 
