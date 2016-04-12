@@ -64,7 +64,7 @@
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="color_id">Estado</span>
-                {{Form::select('estado_id',[''=>''] + DB::table('estados')->orderby('codestado3')->lists('codestado3','codestado3'), Input::get('estado_id'),array('class'=>'form-control'))}}
+                {{Form::select('estado_id',[0=>''] + DB::table('estados')->orderby('codestado3')->lists('codestado3','id'), Input::get('estado_id'),array('class'=>'form-control'))}}
            </div>
         </div><!-- /.col-lg-6 -->        
 </div>  

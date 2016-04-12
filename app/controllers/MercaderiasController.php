@@ -30,7 +30,7 @@ class MercaderiasController extends BaseController {
 	public function filtrar()
 	{
 		//Si no hay filtro
-		//dd(Input::get('provider_id'));
+		//dd(Input::get('estado_id'));
 
 		$tmptot = 0;
 		$tmp1 = Input::get('provider_id');
@@ -97,8 +97,9 @@ class MercaderiasController extends BaseController {
         if(Input::get('local_id')>0)
             $condicion .= "AND mercaderias.local_id=".Input::get('local_id')." ";
 
-        if(Input::get('estado_id')<>"")
-            $condicion .= "AND mercaderias.estado='".Input::get('estado_id')."' ";
+        if(Input::get('estado_id')>0)
+        	$estado = DB::table('estados')->select('codestado3')->where('id', '=', Input::get('estado_id'))->pluck('codestado3');
+            $condicion .= "AND mercaderias.estado='".$estado."' ";
 //dd($condicion);
 
         		$sql = "SELECT mercaderias.id, mercaderias.producto_id, providers.codprovider3, productos.codproducto31, 
