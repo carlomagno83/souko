@@ -44,6 +44,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
         <h3>Traslado de mercadería a Pto de Venta desde Almacén</h3>
+        Último registro: {{DB::table('documentos')->select('id')->where('tipomovimiento_id','2')->orderBy('id', 'desc')->pluck('id')}}, doc físico : {{DB::table('documentos')->select('numdocfisico')->where('tipomovimiento_id','2')->orderBy('id', 'desc')->pluck('numdocfisico')}}
 
         @if ($errors->any())
         	<div class="alert alert-danger">

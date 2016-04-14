@@ -113,8 +113,10 @@ class RegistroagregarController extends BaseController {
     {
         $data = Input::all();
 
+        $vende_id = DB::table('movimientos')->join('mercaderias', 'mercaderias.id', '=', 'movimientos.mercaderia_id')->select('mercaderias.usuario_id')->where('documento_id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', 3)->pluck('mercaderias.usuario_id');
+        //dd($vende_id);
         DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
-                                ->update(array('estado' => 'VEN', 'precioventa' => Input::get('precioventaregistro')));
+                                ->update(array('estado' => 'VEN', 'precioventa' => Input::get('precioventaregistro'), 'usuario_id' => $vende_id));
         //DB::table('movimientos')->insert(array('tipomovimiento_id' => '3', 'mercaderia_id' => Input::get('mercaderia_id'), 'documento_id' => Input::get('documento_id'))); 
         $movimiento = new Movimiento();
         $movimiento->mercaderia_id = Input::get('mercaderia_id');

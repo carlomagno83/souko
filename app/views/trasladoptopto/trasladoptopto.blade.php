@@ -44,6 +44,7 @@ $(document).ready(function(){
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
         <h3>Traslado de mercadería de un Punto de Venta a otro Punto de Venta</h3>
+        Último registro: {{DB::table('documentos')->select('id')->where('tipomovimiento_id','4')->orderBy('id', 'desc')->pluck('id')}}, doc físico : {{DB::table('documentos')->select('numdocfisico')->where('tipomovimiento_id','4')->orderBy('id', 'desc')->pluck('numdocfisico')}}
 
         @if ($errors->any())
         	<div class="alert alert-danger">
