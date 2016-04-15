@@ -75,10 +75,10 @@ $(document).ready(function(){
 <table class="table table-striped">
     <thead>
         <tr>
-            <th width="10%">Mercadería id</th>
+            <th width="15%">Mercadería id</th>
             <th width="8%">Producto id</th>
             <th>Descripción cod31</th>
-            <th width="20%">Local actual</th>
+            <th width="10%">Local actual</th>
             <th width="15%">Ultimo Usuario</th>
             <th width="7%">Estado</th>
         </tr>    
@@ -121,7 +121,9 @@ $(document).ready(function(){
                 <?php $foul = $foul + 1 ?>
             @endif
 
-            <td><a id="link_delete" href=" {{ URL::to('trasladoptopto/delete/'.$traslado->mercaderia_id) }} ">Eliminar</a>  </td>
+            <td width="5%"><a id="link_delete" href=" {{ URL::to('trasladoptopto/delete/'.$traslado->mercaderia_id) }} "><img width="30px" src="{{asset('img/eliminar.png')}}"></a></td>
+
+            <td width="5%"><a href="{{URL::to('consultamercaderia/'.$traslado->mercaderia_id)}}" target="_blank"><img width="30px" src="{{asset('img/lupa.png')}}"></a></td>
         </tr>
         @endforeach
     

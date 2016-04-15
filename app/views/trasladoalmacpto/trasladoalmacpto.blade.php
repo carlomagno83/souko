@@ -80,10 +80,10 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 <table class="table table-striped">
     <thead>
         <tr>
-            <th width="10%">Mercadería id</th>
+            <th width="15%">Mercadería id</th>
             <th width="10%">Producto id</th>
             <th>Descripción cod31</th>
-            <th>Local Actual</th>
+            <th width="15%">Local Actual</th>
             <th width="10%">Estado</th>
         </tr>    
     </thead>
@@ -104,9 +104,9 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
                 
             @if ($tempo->estado=='ACT' or $tempo->estado=='INA')
                 @if ($tempo->estado=='INA')
-                    <td width="10%" class="danger"><input type="text"  value="{{$tempo->estado}}" readonly class="form-control" tabindex="-1"></td>
+                    <td width="15%" class="danger"><input type="text"  value="{{$tempo->estado}}" readonly class="form-control" tabindex="-1"></td>
                 @else    
-                    <td width="10%"><input type="text"  value="{{$tempo->estado}}" readonly class="form-control" tabindex="-1"></td>
+                    <td width="15%"><input type="text"  value="{{$tempo->estado}}" readonly class="form-control" tabindex="-1"></td>
                 
 
                 @endif
@@ -114,8 +114,11 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
                 <td width="10%" class="danger"><input type="text"  value="{{$tempo->estado}}" readonly class="form-control" tabindex="-1"></td>
                 <?php $foul = $foul + 1 ?>
             @endif
-            
-            <td><a id="link_delete" href=" {{ URL::to('trasladoalmacpto/delete/'.$tempo->mercaderia_id) }} ">Eliminar</a>  </td>
+            <!--<td><a id="link_delete" href=" {{ URL::to('trasladoalmacpto/delete/'.$tempo->mercaderia_id) }} ">Eliminar</a></td> -->
+            <td width="5%"><a id="link_delete" href=" {{ URL::to('trasladoalmacpto/delete/'.$tempo->mercaderia_id) }} "><img width="30px" src="{{asset('img/eliminar.png')}}"></a></td>
+            <td width="5%"><a href="{{URL::to('consultamercaderia/'.$tempo->mercaderia_id)}}" target="_blank"><img width="30px" src="{{asset('img/lupa.png')}}"></a></td>
+
+
         </tr>
         @endforeach
     

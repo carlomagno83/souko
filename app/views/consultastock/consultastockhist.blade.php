@@ -51,7 +51,8 @@ $(document).ready(function(){
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="local_id">Local</span>
-                {{Form::select('local_id',[0=>''] + DB::table('locals')->orderby('id')->where('id', '<>', 1)->lists('codlocal3','id'), Input::get('local_id'),array('class'=>'form-control', 'required'=>'required'))}}
+<!--                {{Form::select('local_id',[0=>''] + DB::table('locals')->orderby('id')->where('id', '<>', 1)->lists('codlocal3','id'), Input::get('local_id'),array('class'=>'form-control', 'required'=>'required'))}} -->
+                    {{Form::select('local_id',[0=>''] + DB::table('locals')->orderby('id')->lists('codlocal3','id'), Input::get('local_id'),array('class'=>'form-control', 'required'=>'required'))}}
            </div>
         </div><!-- /.col-lg-6 -->
 
@@ -85,38 +86,71 @@ $(document).ready(function(){
     //dd($total);
 
 ?>
+@if(Input::get('local_id')==1)
+    <table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th width="20%">Fecha</th>
+            <th>Ingreso a Almacén</th>
+            <th>Devoluciones de Pto</th>
+            <th>Traslado a pto</th>
+            <th>Salida por devolución</th>
+            <th>TOTAL</th>
+        </tr>
+    </thead> 
+    <tbody>
+    @foreach( $mercaderias as $mercaderia)
+        <tr> 
+            <td> {{$mercaderia->fechadocumento}} </td> 
+            <td> {{$mercaderia->cta_alm_ing}} </td> 
+            <td> {{$mercaderia->cta_pto_ing}} </td>  
+            <td><font color="red"> {{$mercaderia->cta_pto_sal}} </font></td> 
+            <td><font color="red"> {{$mercaderia->cta_dev_sal}} </font></td> 
 
-<table class="table table-hover table-striped">
-<thead>
-    <tr>
-        <th width="20%">Fecha</th>
-        <th>Ingreso de Almacén</th>
-        <th>Ingreso por traslado</th>
-        <th>Salida por venta</th>
-        <th>Salida por traslado</th>
-        <th>Salida por devolución</th>
-        <th>TOTAL</th>
-    </tr>
-</thead> 
-<tbody>
-@foreach( $mercaderias as $mercaderia)
-    <tr> 
-        <td> {{$mercaderia->fechadocumento}} </td> 
-        <td> {{$mercaderia->cta_alm_ing}} </td> 
-        <td> {{$mercaderia->cta_pto_ing}} </td> 
-        <td><font color="red"> {{$mercaderia->cta_vta_sal}} </font></td> 
-        <td><font color="red"> {{$mercaderia->cta_pto_sal}} </font></td> 
-        <td><font color="red"> {{$mercaderia->cta_dev_sal}} </font></td> 
+            <td><b> {{$total}} </b></td>
+            <?php 
+                $total = $total - $mercaderia->cta_alm_ing - $mercaderia->cta_pto_ing + $mercaderia->cta_pto_sal + $mercaderia->cta_dev_sal
 
-        <td><b> {{$total}} </b></td>
-        <?php 
-            $total = $total - $mercaderia->cta_alm_ing - $mercaderia->cta_pto_ing + $mercaderia->cta_vta_sal + $mercaderia->cta_pto_sal + $mercaderia->cta_dev_sal
+            ?>
+        </tr>
+    @endforeach
+    </tbody>
+    </table>
 
-        ?>
-    </tr>
-@endforeach
-</tbody>
-</table>
+
+@else
+    <table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th width="20%">Fecha</th>
+            <th>Ingreso de Almacén</th>
+            <th>Ingreso por traslado</th>
+            <th>Salida por venta</th>
+            <th>Salida por traslado</th>
+            <th>Salida por devolución</th>
+            <th>TOTAL</th>
+        </tr>
+    </thead> 
+    <tbody>
+    @foreach( $mercaderias as $mercaderia)
+        <tr> 
+            <td> {{$mercaderia->fechadocumento}} </td> 
+            <td> {{$mercaderia->cta_alm_ing}} </td> 
+            <td> {{$mercaderia->cta_pto_ing}} </td> 
+            <td><font color="red"> {{$mercaderia->cta_vta_sal}} </font></td> 
+            <td><font color="red"> {{$mercaderia->cta_pto_sal}} </font></td> 
+            <td><font color="red"> {{$mercaderia->cta_dev_sal}} </font></td> 
+
+            <td><b> {{$total}} </b></td>
+            <?php 
+                $total = $total - $mercaderia->cta_alm_ing - $mercaderia->cta_pto_ing + $mercaderia->cta_vta_sal + $mercaderia->cta_pto_sal + $mercaderia->cta_dev_sal
+
+            ?>
+        </tr>
+    @endforeach
+    </tbody>
+    </table>
+@endif    
 @endif 
 </div>
 </div>

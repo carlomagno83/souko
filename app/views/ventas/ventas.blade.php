@@ -160,7 +160,9 @@ $foul = 0;  ?>
                 <td width="10%"><input type="text" name="precioventa[]" id="precioventa[]" value="{{$vendido->precioventa}}" readonly class="form-control" tabindex="-1"></td>
             @endif   
 
-            <td><a id="link_delete" href=" {{ URL::to('ventas/delete/'.$vendido->mercaderia_id) }} ">Eliminar</a>  </td>
+            <td width="5%"><a id="link_delete" href=" {{ URL::to('ventas/delete/'.$vendido->mercaderia_id) }} "><img width="30px" src="{{asset('img/eliminar.png')}}"></a></td>
+            <!--<td><a id="link_delete" href=" {{ URL::to('ventas/delete/'.$vendido->mercaderia_id) }} ">Eliminar</a>  </td>-->
+            <td width="5%"><a href="{{URL::to('consultamercaderia/'.$vendido->mercaderia_id)}}" target="_blank"><img width="30px" src="{{asset('img/lupa.png')}}"></a></td>
         </tr>
         @endforeach
 
@@ -182,12 +184,12 @@ $foul = 0;  ?>
                 
 
             @if ($saldotot > 0)
-                <td width="10%" class="info"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control"></td>
+                <td width="8%" class="info"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control"></td>
             @else
                 @if ($saldotot < 0)
-                    <td width="10%" class="danger"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control"></td>
+                    <td width="8%" class="danger"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control"></td>
                 @else    
-                    <td width="10%"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control"></td>
+                    <td width="8%"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control"></td>
                 @endif    
             @endif   
 

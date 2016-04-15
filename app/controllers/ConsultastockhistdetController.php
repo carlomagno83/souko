@@ -1,6 +1,6 @@
 <?php
 
-class ConsultastockhistController extends BaseController {
+class ConsultastockhistdetController extends BaseController {
 
     public function index()
     {
@@ -8,7 +8,7 @@ class ConsultastockhistController extends BaseController {
         //dd($request->get('marca_id'));
         $mercaderias = Producto::find(0);
     //    $productos = $this->producto->all(); //cambio para mostrar datos
-        return View::make('consultastock.consultastockhist', compact('mercaderias'));
+        return View::make('consultastock.consultastockhistdet', compact('mercaderias'));
     }
 
 
@@ -21,25 +21,7 @@ class ConsultastockhistController extends BaseController {
         $expresion = '';
         //$oracion = '';
 
-        //dd($loc_id);
-        if($loc_id==1)
-        {
-            $sql = "SELECT fechadocumento, 
-                            COUNT(if(movimientos.tipomovimiento_id=1,1,NULL)) AS cta_alm_ing, 
-                            
-                            COUNT(if(movimientos.tipomovimiento_id=6,1,NULL)) AS cta_pto_ing, 
-                            COUNT(if(movimientos.tipomovimiento_id=2,2,NULL)) AS cta_pto_sal, 
-                            COUNT(if(movimientos.tipomovimiento_id=7,1,NULL)) AS cta_dev_sal
 
-                    from movimientos
-                    INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
-                    WHERE fechadocumento >= '$fec'
-                    GROUP BY fechadocumento
-                    ORDER BY fechadocumento DESC";        
-    //dd($sql);
-            $mercaderias = DB::select($sql);
-            //dd($mercaderias);
-                return View::make('consultastock.consultastockhist')->withInput('local_id', 'fechadocumento')->with('mercaderias',$mercaderias);            }    
 
         //dd($sql);        
         $sql = "SELECT fechadocumento, 
