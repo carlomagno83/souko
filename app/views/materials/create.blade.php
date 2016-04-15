@@ -55,7 +55,6 @@
                     codmaterial3: {
                         required:true,
                         minlength: 2,
-                        max:200,
                         alphanumeric:true
                     },
                     desmaterial: {

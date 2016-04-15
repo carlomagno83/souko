@@ -87,6 +87,7 @@ $(document).ready(function(){
 @if (count($traslados)>0)
 <?php $deslocalini = DB::table('traslados')->select('deslocal')->where('usuario_id', '=', Auth::user()->id)->pluck('deslocal');
     $localini_id = DB::table('locals')->select('id')->where('codlocal3', '=', $deslocalini)->pluck('id');
+    $foul = 0; 
  ?>
         @foreach ($traslados as $traslado)
         <tr>
@@ -95,22 +96,29 @@ $(document).ready(function(){
             <td><input type="text"  value="{{$traslado->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             @if ($traslado->deslocal=='ALM')
                 <td width="20%" class="danger"><input type="text"  value="{{$traslado->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                <?php $foul = $foul + 1 ?>
             @else
                 @if(count($traslados)>1)
                     @if($traslado->deslocal == $deslocalini)
                         <td width="15%"><input type="text"  value="{{$traslado->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                     @else
                         <td width="15%" class="danger"><input type="text"  value="{{$traslado->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                        <?php $foul = $foul + 1 ?>
                     @endif
                 @else
                     <td width="15%"><input type="text"  value="{{$traslado->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                 @endif    
             @endif            
             <td width="15%"><input type="text"  value="{{$traslado->desusuario}}" readonly class="form-control" tabindex="-1"></td>
-            @if ($traslado->estado<>'ACT')
-                <td width="7%" class="danger"><input type="text"  value="{{$traslado->estado}}" readonly class="form-control" tabindex="-1"></td>
+            @if($traslado->estado=='ACT' or $traslado->estado=='INA')
+                @if($traslado->estado=='INA')
+                    <td width="7%" class="danger"><input type="text"  value="{{$traslado->estado}}" readonly class="form-control" tabindex="-1"></td>
+                @else
+                    <td width="7%"><input type="text"  value="{{$traslado->estado}}" readonly class="form-control" tabindex="-1"></td>
+                @endif
             @else
-                <td width="7%"><input type="text"  value="{{$traslado->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="7%" class="danger"><input type="text"  value="{{$traslado->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <?php $foul = $foul + 1 ?>
             @endif
 
             <td><a id="link_delete" href=" {{ URL::to('trasladoptopto/delete/'.$traslado->mercaderia_id) }} ">Eliminar</a>  </td>
@@ -147,7 +155,7 @@ $(document).ready(function(){
                </div>
             </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
-
+    <br>
     <div class="row">
             <div class="col-lg-7">
                 <div class="input-group">
@@ -192,6 +200,7 @@ $(document).ready(function(){
             </div>   
     </div><!-- /.row -->    
 </div>
+@if ($foul == 0)
 <div class="row">
     <div class="col-lg-4">
         <input id="storebutton" type="submit" value="Finalizar" class="btn btn-lg btn-primary">
@@ -203,7 +212,8 @@ $(document).ready(function(){
     </div>
     <div class="col-lg-8">
     </div>
-</div>   
+</div>  
+@endif 
 </form>  
 <br>
 <br>

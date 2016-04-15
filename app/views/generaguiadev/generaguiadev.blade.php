@@ -19,13 +19,11 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 });  
 </script>
 
-{{--<div align="right">--}}
-    {{--<a id="home" href=" {{ URL::to('/') }} "><img src='img/home.ico' border='0'></a>--}}
-{{--</div>--}}
+
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
         <h3>Generación de Guía de devolución para el Proveedor</h3>
-
+        Último registro: {{DB::table('documentos')->select('id')->where('tipomovimiento_id','7')->orderBy('id', 'desc')->pluck('id')}}, doc físico : {{DB::table('documentos')->select('numdocfisico')->where('tipomovimiento_id','7')->orderBy('id', 'desc')->pluck('numdocfisico')}}
         @if ($errors->any())
         	<div class="alert alert-danger">
         	    <ul>
@@ -35,7 +33,9 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
         @endif
     </div>
 </div>
+
 <form method="POST" action="{{url('generaguiadev-filtrar')}}"><div class="row">
+<br>
     <div class="col-lg-3">
         <div class="input-group">
             <span class="input-group-addon" id="desprovider">Proveedor</span>

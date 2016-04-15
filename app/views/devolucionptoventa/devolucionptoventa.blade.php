@@ -26,13 +26,11 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 });  
 </script>
 
-{{--<div align="right">--}}
-    {{--<a id="home" href=" {{ URL::to('/') }} "><img src='img/home.ico' border='0'></a>--}}
-{{--</div>--}}
+
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
         <h3>Devolución de mercadería de un Punto de Venta a Almacén</h3>
-
+        Último registro: {{DB::table('documentos')->select('id')->where('tipomovimiento_id','6')->orderBy('id', 'desc')->pluck('id')}}, doc físico : {{DB::table('documentos')->select('numdocfisico')->where('tipomovimiento_id','6')->orderBy('id', 'desc')->pluck('numdocfisico')}}
         @if ($errors->any())
         	<div class="alert alert-danger">
         	    <ul>
@@ -78,7 +76,8 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
     </thead>
 
 @if (count($devuelves)>0)
-<?php $deslocal=DB::table('devuelves')->select('deslocal')->pluck('deslocal'); ?>
+<?php $deslocal=DB::table('devuelves')->select('deslocal')->pluck('deslocal');
+$foul = 0; ?>
         @foreach ($devuelves as $devuelve)
         <tr>
             <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$devuelve->mercaderia_id}}" class="form-control" readonly tabindex="-1"></td>
@@ -90,12 +89,14 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
                         <td width="20%"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                     @else
                         <td width="20%" class="danger"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                        <?php $foul = $foul + 1 ?>
                     @endif
                 @else
                     <td width="20%"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                 @endif
             @else
                 <td width="20%" class="danger"><input type="text"  value="{{$devuelve->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                <?php $foul = $foul + 1 ?>
             @endif    
             @if ($devuelve->estado=='ACT')
                 <td width="10%"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
@@ -153,7 +154,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
         </div>           
     </div><!-- /.row -->    
 </div>    
-
+@if ($foul == 0)
 <div class="row">
     <div class="col-lg-4">
         <input id="storebutton" type="submit" value="Finalizar" class="btn btn-lg btn-primary">
@@ -165,7 +166,8 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
     </div>
     <div class="col-lg-8">
     </div>
-</div>     
+</div> 
+@endif    
 <br>
 <br>
 <br>

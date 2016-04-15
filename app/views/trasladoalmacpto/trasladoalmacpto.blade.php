@@ -89,6 +89,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
     </thead>
 
 @if (count($tempos)>0)
+<?php $foul = 0; ?>
         @foreach ($tempos as $tempo)
         <tr>
             <td width="10%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$tempo->mercaderia_id}}" class="form-control" readonly tabindex="-1"></td>
@@ -96,14 +97,22 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             <td><input type="text"  value="{{$tempo->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             @if ($tempo->deslocal<>'ALM')
                 <td class="danger"><input type="text"  value="{{$tempo->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                <?php $foul = $foul + 1 ?>
             @else
                 <td><input type="text"  value="{{$tempo->deslocal}}" readonly class="form-control" tabindex="-1"></td>
             @endif
                 
-            @if ($tempo->estado<>'ACT')
-                <td width="10%" class="danger"><input type="text"  value="{{$tempo->estado}}" readonly class="form-control" tabindex="-1"></td>
+            @if ($tempo->estado=='ACT' or $tempo->estado=='INA')
+                @if ($tempo->estado=='INA')
+                    <td width="10%" class="danger"><input type="text"  value="{{$tempo->estado}}" readonly class="form-control" tabindex="-1"></td>
+                @else    
+                    <td width="10%"><input type="text"  value="{{$tempo->estado}}" readonly class="form-control" tabindex="-1"></td>
+                
+
+                @endif
             @else
-                <td width="10%"><input type="text"  value="{{$tempo->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="10%" class="danger"><input type="text"  value="{{$tempo->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <?php $foul = $foul + 1 ?>
             @endif
             
             <td><a id="link_delete" href=" {{ URL::to('trasladoalmacpto/delete/'.$tempo->mercaderia_id) }} ">Eliminar</a>  </td>
@@ -157,8 +166,8 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             Fecha Sugerida = Fecha Actual
         </div>
     </div>    
-</div> 
-</div> 
+</div>
+@if ($foul == 0)
 <div class="row">
     <div class="col-lg-4">
         <input id="storebutton" type="submit" value="Finalizar" class="btn btn-lg btn-primary">
@@ -168,7 +177,12 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
     <div>
         <input id="muestramsg" style="display:none;" type="submit" value="Finalizado, espere la descarga del Archivo Excel ..." class="btn btn-lg btn-success" disabled>
     </div>
-</div>    
+</div>  
+@endif 
+
+</div> 
+
+ 
 @endif 
 </form>
 

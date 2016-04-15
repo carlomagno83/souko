@@ -117,7 +117,8 @@ $().ready(function() {
     </thead>
 
 @if (count($vendidos)>0)
-<?php $deslocal=DB::table('vendidos')->select('deslocal')->where('usuario_id','=', Auth::user()->id )->pluck('deslocal'); ?>
+<?php $deslocal=DB::table('vendidos')->select('deslocal')->where('usuario_id','=', Auth::user()->id )->pluck('deslocal');
+$foul = 0;  ?>
         @foreach ($vendidos as $vendido)
         <tr>
             <td width="12%"><input type="text" name="mercaderia_id[]" id="mercaderia_id[]" value="{{$vendido->mercaderia_id}}" readonly class="form-control" tabindex="-1"></td>
@@ -125,21 +126,30 @@ $().ready(function() {
             <td width="30%"><input type="text"  value="{{$vendido->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             @if ($vendido->deslocal=='ALM')
                 <td width="10%" class="danger"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                <?php $foul = $foul + 1 ?>
             @else
                 @if (count($vendidos)>1)
                     @if($vendido->deslocal==$deslocal)
                         <td width="5%"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                     @else
                         <td width="5%" class="danger"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                        <?php $foul = $foul + 1 ?>
                     @endif
                 @else
                     <td width="5%"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                 @endif
             @endif
-            @if ($vendido->estado<>'ACT')
-                <td width="5%" class="danger"><input type="text" name="estado[]" value="{{$vendido->estado}}" readonly class="form-control" tabindex="-1"></td>
+            @if ($vendido->estado=='ACT' or $vendido->estado=='INA'or $vendido->estado=='VEN')
+                @if ($vendido->estado=='INA' or $vendido->estado=='VEN')
+                    <td width="5%" class="danger"><input type="text" name="estado[]" value="{{$vendido->estado}}" readonly class="form-control" tabindex="-1"></td>
+                @else    
+                    <td width="5%"><input type="text" name="estado[]" value="{{$vendido->estado}}" readonly class="form-control" tabindex="-1"></td>
+                @endif                 
+
             @else
-                <td width="5%"><input type="text" name="estado[]" value="{{$vendido->estado}}" readonly class="form-control" tabindex="-1"></td>
+
+                <td width="5%" class="danger"><input type="text" name="estado[]" value="{{$vendido->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <?php $foul = $foul + 1 ?>   
             @endif
 
             <td width="10%"><input type="text" name="preciosugerido[]" id="preciosugerido[]" value="{{$vendido->preciosugerido}}" readonly class="form-control" tabindex="-1"></td>
@@ -216,6 +226,7 @@ $().ready(function() {
             </div><!-- /.col-lg-6 -->         
     </div><!-- /.row -->    
 </div>
+@if ($foul == 0)
 <div class="row">
     <div class="col-lg-4">
         <input id="storebutton" type="submit" value="Finalizar" class="btn btn-lg btn-primary">
@@ -229,7 +240,8 @@ $().ready(function() {
     </div>
     <div class="col-lg-8">
     </div>
-</div>   
+</div> 
+@endif   
 </form> 
 <br>
 <br>
