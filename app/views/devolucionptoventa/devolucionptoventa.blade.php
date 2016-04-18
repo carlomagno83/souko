@@ -109,7 +109,9 @@ $foul = 0; ?>
             @else
                 <td width="8%" class="danger"><input type="text" name="nuevoestado[]" value="{{$devuelve->nuevoestado}}" readonly class="form-control" tabindex="-1"></td>
             @endif              
-            <td><a id="link_delete" href=" {{ URL::to('devolucionptoventa/delete/'.$devuelve->mercaderia_id) }} ">Eliminar</a>  </td>
+
+            <td width="5%"><a id="link_delete" href=" {{ URL::to('devolucionptoventa/delete/'.$devuelve->mercaderia_id) }} "><img width="30px" src="{{asset('img/eliminar.png')}}"></a></td>
+            <td width="5%"><a href="{{URL::to('consultamercaderia/'.$devuelve->mercaderia_id)}}" target="_blank"><img width="30px" src="{{asset('img/lupa.png')}}"></a></td>
         </tr>
         @endforeach
     

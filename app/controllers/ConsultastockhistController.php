@@ -39,9 +39,10 @@ class ConsultastockhistController extends BaseController {
     //dd($sql);
             $mercaderias = DB::select($sql);
             //dd($mercaderias);
-                return View::make('consultastock.consultastockhist')->withInput('local_id', 'fechadocumento')->with('mercaderias',$mercaderias);            }    
+                return View::make('consultastock.consultastockhist')->withInput('local_id', 'fechadocumento')->with('mercaderias',$mercaderias);            
+        }    
 
-        //dd($sql);        
+                
         $sql = "SELECT fechadocumento, 
                         COUNT(if(movimientos.tipomovimiento_id=2 AND localfin_id=" .$loc_id. " ,1,NULL)) AS cta_alm_ing, 
                         COUNT(if(movimientos.tipomovimiento_id=3 AND localfin_id=" .$loc_id. " ,1,NULL)) AS cta_vta_sal, 

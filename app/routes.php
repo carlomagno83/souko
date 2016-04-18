@@ -133,6 +133,10 @@ if (Auth::check())
 			Route::resource('consultastockhist', 'ConsultastockhistController');
 			Route::post('consulta-stock-historico', 'ConsultastockhistController@consulta');
 
+			Route::resource('consultastockhistdet', 'ConsultastockhistdetController');
+			Route::post('consulta-stock-historico-det', 'ConsultastockhistdetController@consulta');
+
+
 			Route::resource('consultadocs', 'ConsultadocsController');			
 			Route::post('consulta-docs', 'ConsultadocsController@consulta');
 			Route::get('consultadocs/detalle1/{doc_id}', 'ConsultadocsController@detalle1');

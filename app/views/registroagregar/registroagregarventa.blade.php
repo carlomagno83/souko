@@ -131,18 +131,18 @@ $foul = 0;
             <td width="12%"><input type="text" name="mercaderia_id" id="mercaderia_id" value="{{$mercaderia->id}}" class="form-control" readonly tabindex="-1"></td>
             <td width="30%"><input type="text" name="mercaderiacodproducto31" value="{{$mercaderia->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             @if ($estadomercaderia == 'ACT' || $estadomercaderia == 'INA')
-            <td width="10%"><input type="text" name="estado" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="10%"><input type="text" name="estado" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
             @else
-            <td width="10%" class="danger"><input type="text" name="estado" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
-            <?php $foul = $foul + 1 ?>
+                <td width="10%" class="danger"><input type="text" name="estado" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <?php $foul = $foul + 1 ?>
             @endif
             <td width="10%"><input type="text" name="precioventa"  value="{{$mercaderia->precioventa}}" readonly class="form-control" tabindex="-1"></td>
             <td width="20%"><input type="text"  value="{{$mercaderia->desusuario}}" readonly class="form-control" tabindex="-1"></td>
             @if ($localmercaderia <> $localdocumento)
-            <td width="10%" class="danger"><input type="text" value="{{$mercaderia->codlocal3}}" readonly class="form-control" tabindex="-1"></td>
-            <?php $foul = $foul + 1 ?>
+                <td width="10%" class="danger"><input type="text" value="{{$mercaderia->codlocal3}}" readonly class="form-control" tabindex="-1"></td>
+                <?php $foul = $foul + 1 ?>
             @else
-            <td width="10%"><input type="text" value="{{$mercaderia->codlocal3}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="10%"><input type="text" value="{{$mercaderia->codlocal3}}" readonly class="form-control" tabindex="-1"></td>
             @endif
             <td><input style="visibility:hidden; type="text" name="mercaderialocal_id" id="mercaderialocal_id" value="{{$mercaderia->local_id}}" class="form-control" readonly tabindex="-1"></td>
             <td><input style="visibility:hidden; type="text" name="mercaderiausuario_id" id="mercaderiausuario_id" value="{{$mercaderia->usuario_id}}" class="form-control" readonly tabindex="-1"></td>

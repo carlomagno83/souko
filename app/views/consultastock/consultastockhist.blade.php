@@ -29,7 +29,9 @@ $(document).ready(function(){
 
 
 <h3>Consulta de stock histórico</h3>
-
+(Incluye mercaderías en estado Inactivo)
+<br>
+<br>
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>

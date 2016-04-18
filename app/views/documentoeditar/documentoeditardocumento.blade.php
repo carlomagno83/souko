@@ -118,7 +118,7 @@ $(document).ready(function(){
         @endforeach
 </table>
 
-
+@endif
 
 <div class="row">
     <div class="col-lg-4">
@@ -136,7 +136,7 @@ $(document).ready(function(){
 </form>
 <br>
 
-@endif
+
 
 
 

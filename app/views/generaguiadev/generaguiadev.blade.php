@@ -112,7 +112,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             <th width="10%">Mercadería id</th>
             <th>Descripción cod31</th>
             <th width="8%">Estado</th>
-            <th width="15%">Local</th>
+            <th width="10%">Local</th>
             <th width="8%">P. Compra</th>
         </tr>    
     </thead>
@@ -128,10 +128,11 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
                 <td width="8%" class="danger"><input type="text" name="estado[]" value="{{$devuelto->estado}}" readonly class="form-control" tabindex="-1"</td>
             @endif              
 
-            <td width="15%"><input type="text" name="deslocal[]" value="{{$devuelto->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="10%"><input type="text" name="deslocal[]" value="{{$devuelto->deslocal}}" readonly class="form-control" tabindex="-1"></td>
             <td width="8%"><input type="text" name="preciocompra[]" value="{{$devuelto->preciocompra}}" readonly class="form-control" tabindex="-1"></td>
-            <td><a id="link_delete" href=" {{ URL::to('generaguiadev/delete/'.$devuelto->mercaderia_id) }} ">Eliminar</a>  </td>
 
+            <td width="5%"><a id="link_delete" href=" {{ URL::to('generaguiadev/delete/'.$devuelto->mercaderia_id) }} "><img width="30px" src="{{asset('img/eliminar.png')}}"></a></td>
+            <td width="5%"><a href="{{URL::to('consultamercaderia/'.$devuelto->mercaderia_id)}}" target="_blank"><img width="30px" src="{{asset('img/lupa.png')}}"></a></td>
         </tr>
         @endforeach
 

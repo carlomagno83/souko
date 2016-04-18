@@ -196,6 +196,9 @@
 									<a href="{{URL::to('/consultastockhist')}}">Consulta stock (Hist)</a>
 								</li>
 								<li>
+									<a href="{{URL::to('/consultastockhistdet')}}">Consulta stock (Hist Det)</a>
+								</li>
+								<li>
 									<a href="{{URL::to('/consultadocs')}}">Consulta Documentos</a>
 								</li>
 								@endif
