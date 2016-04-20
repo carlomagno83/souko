@@ -3,7 +3,9 @@
 
 <h3>
 <table  style="width:100%">
-<td width="70%"> Consulta de Stock actual (Administrativo)</td>                           
+<td width="70%"> Consulta de Stock actual (Administrativo)</td>    
+<td width="30%" align="right"> <a style="padding-top: 8px;" href="{{URL::to('descargaexcelstockadm')}}"><img width="60px" src="{{asset('img/downloadXL.gif')}}"></a></td>
+                       
 </table>
 </h3>
 

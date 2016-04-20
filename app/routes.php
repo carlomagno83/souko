@@ -123,6 +123,7 @@ if (Auth::check())
 			Route::post('consultaventabuscar', 'ConsultaventaController@buscar');
 
 			Route::resource('consultastockadm', 'ConsultastockController');
+			Route::get('descargaexcelstockadm', 'ConsultastockController@descargaexcel');			
 
 			Route::resource('consultastockdet', 'ConsultastockdetController');
 			Route::any('consulta-productos-filtrar', 'ConsultastockdetController@filtrar');
@@ -145,6 +146,7 @@ if (Auth::check())
 			Route::get('consultadocs/detalle4/{doc_id}', 'ConsultadocsController@detalle4');
 			Route::get('consultadocs/detalle6/{doc_id}', 'ConsultadocsController@detalle6');
 			Route::get('consultadocs/detalle7/{doc_id}', 'ConsultadocsController@detalle7');
+			Route::post('eliminaguiaventa', 'ConsultadocsController@eliminaguiaventa');			
 
 
 			//correcciones

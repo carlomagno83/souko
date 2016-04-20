@@ -212,7 +212,31 @@ class ConsultadocsController extends BaseController {
 
     }
 
+    public function eliminaguiaventa()
+    {
+        $data = Input::all();
+        //dd($data['id'][1]);
+        //dd(Input::get('documento_id'));
+        // hay que agregar un control de txn
+        DB::table('movimientos')->where('documento_id', '=', Input::get('documento_id'))
+                                ->where('tipomovimiento_id', '=', '3')
+                                ->delete();
+        
+        foreach($data['id'] as $key=>$value)
+        {
+            //echo $data['id'][$key];
+            DB::table('mercaderias')->where('id', '=', $data['id'][$key])->update(array('estado' => 'ACT', 'precioventa' => 0));
+        }
+        DB::table('documentos')->where('id', '=', Input::get('documento_id'))
+                                ->where('tipomovimiento_id', '=', '3')
+                                ->delete();
 
+        $documentos = Documento::find(0);
+        return View::make('consultadocs.consultadocs', compact('documentos'))->withErrors(['Documento Eliminado ...']);;
+
+
+
+    }
 
 }    
 ?>

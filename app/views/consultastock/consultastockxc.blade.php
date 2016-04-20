@@ -1,7 +1,5 @@
 <html>
-
 <head>
-
 <body>
 <?php 
     $cantidad_locales = DB::table('locals')->count('id');
@@ -16,37 +14,31 @@
 ?>
 
 <table>
-<thead>
-    <tr>
-    <th>CODIGO</th>
-    @foreach ($locals as $local)
-        <th>{{$local->codlocal3}}</th>
-    @endforeach
-    </tr>
+<thead> 
+        <tr>
+        <th>GENERICO</th>
+        @foreach ($locals as $local)
+            <th>{{$local->codlocal3}}</th>
+        @endforeach
+        <th>TOTAL</th>
+        </tr>
 </thead> 
 <tbody>
 @foreach( $mercaderias as $key=>$value)
     <tr> 
-        <td> {{$value->codproducto31}} </td> 
+        <td> {{$value->codmarca3}}-{{$value->codtipo8}}-{{$value->codrango6}} </td> 
         @for ($i = 1; $i <= $cantidad_locales; $i++) 
                 <td>{{$value->$expresion[$i-1]}}</td>
 
         @endfor
+        <td> {{$value->total}}</td> 
+
+          
     </tr>
 @endforeach
 </tbody>
-<tfoot>
-@foreach( $totales as $key=>$value)
-    <tr> 
-        <td><big><b>TOTAL ITEMS </b></big></td> 
-        @for ($i = 1; $i <= $cantidad_locales; $i++) 
-                <td><big><b>{{$value->$expresion[$i-1]}}</b></big></td>
-        @endfor
-    </tr>
-</tfoot>
-@endforeach
 </table>
+</div>
 
 </body>
 </html>
-

@@ -192,9 +192,9 @@
 								
 								@if( Auth::user()->rolusuario!='VENDE' )	
 								<li role="presentation" class="divider"></li>	
-								<li>
+								<!--<li>
 									<a href="{{URL::to('/consultastockhist')}}">Consulta stock (Hist)</a>
-								</li>
+								</li>-->
 								<li>
 									<a href="{{URL::to('/consultastockhistdet')}}">Consulta stock (Hist Det)</a>
 								</li>

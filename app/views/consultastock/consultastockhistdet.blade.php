@@ -161,10 +161,10 @@ $(document).ready(function(){
     <thead>
         <tr>
             <th width="20%">Fecha</th>
-            <th>Ingreso a Almacén</th>
-            <th>Devoluciones de Pto</th>
-            <th>Traslado a pto</th>
-            <th>Salida por devolución</th>
+            <th>ING PROVEED A ALMACEN</th>
+            <th>DEV PTO A ALMACEN</th>
+            <th>TRASLADO ALMACEN A PTO</th>
+            <th>Salida por DEVOLC A PROVEED</th>
             <th>TOTAL</th>
         </tr>
     </thead> 
@@ -193,11 +193,11 @@ $(document).ready(function(){
     <thead>
         <tr>
             <th width="20%">Fecha</th>
-            <th>Ingreso de Almacén</th>
-            <th>Ingreso por traslado</th>
-            <th>Salida por venta</th>
-            <th>Salida por traslado</th>
-            <th>Salida por devolución</th>
+            <th>TRASLADO ALMACEN A PTO</th>
+            <th>Ingreso por TRASLADO PTO-PTO</th>
+            <th>Salida por VENTA</th>
+            <th>Salida por TRASLADO PTO-PTO</th>
+            <th>Salida por DEV PTO A ALMACEN</th>
             <th>TOTAL</th>
         </tr>
     </thead> 

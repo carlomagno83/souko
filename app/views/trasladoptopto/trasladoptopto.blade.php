@@ -143,7 +143,7 @@ $(document).ready(function(){
             </div><!-- /.col-lg-6 -->
             <div class="col-lg-1">
                 <div class="input-group">
-                    <a href="" tabindex="-1"><img src="img/arrow.png"></a> 
+                    <img src="img/arrow.png">
                </div>
             </div><!-- /.col-lg-6 -->
             <div class="col-lg-1">

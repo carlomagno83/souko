@@ -71,7 +71,7 @@
             <td width="25%"><input type="text"  value="{{$detalle->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             <td width="20%"><input type="text"  value="{{$detalle->preciocompra}}" readonly class="form-control" tabindex="-1"></td>
             <td width="20%"><input type="text"  value="{{$detalle->precioventa}}" readonly class="form-control" tabindex="-1"></td>
-
+            <td width="5%"><a href="{{URL::to('consultamercaderia/'.$detalle->id)}}" target="_blank"><img width="30px" src="{{asset('img/lupa.png')}}"></a></td>
         </tr>
         @endforeach
 </table>
