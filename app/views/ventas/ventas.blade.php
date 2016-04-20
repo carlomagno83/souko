@@ -179,17 +179,17 @@ $foul = 0;  ?>
                 $saldotot = $totalventa - $totalsugerido
             ?>
 
-            <td width="10%"><input type="text" name="totalsugerido" id="totalsugerido" value="{{$totalsugerido}}" readonly class="form-control"></td>
-            <td width="10%"><input type="text" name="totalventa" id="totalventa" value="{{$totalventa}}" readonly class="form-control"></td>
+            <td width="10%"><input type="text" name="totalsugerido" id="totalsugerido" value="{{$totalsugerido}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="10%"><input type="text" name="totalventa" id="totalventa" value="{{$totalventa}}" readonly class="form-control" tabindex="-1"></td>
                 
 
             @if ($saldotot > 0)
-                <td width="8%" class="info"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control"></td>
+                <td width="8%" class="info"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control" tabindex="-1"></td>
             @else
                 @if ($saldotot < 0)
-                    <td width="8%" class="danger"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control"></td>
+                    <td width="8%" class="danger"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control" tabindex="-1"></td>
                 @else    
-                    <td width="8%"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control"></td>
+                    <td width="8%"><input type="text" name="saldotot" id="saldotot" value="{{$saldotot}}" readonly class="form-control" tabindex="-1"></td>
                 @endif    
             @endif   
 
