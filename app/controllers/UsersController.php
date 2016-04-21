@@ -54,7 +54,8 @@ class UsersController extends BaseController {
 			$user->desusuario = Input::get('desusuario');		
 			$user->rolusuario = Input::get('rolusuario');		
 			$user->password = Hash::make(Input::get('password'));		
-			$user->usuario_id = Input::get('usuario_id');
+			//$user->usuario_id = Input::get('usuario_id');
+			$user->usuario_id = 1;
 			$user->save();
 
 			//$this->user->create($input); obviar el modo automatico
@@ -117,6 +118,7 @@ class UsersController extends BaseController {
 			$user->rolusuario = Input::get('rolusuario');		
 			$user->password = Hash::make(Input::get('password'));		
 			//$user->usuario_id = Input::get('usuario_id');
+			$user->usuario_id = 1 ;
 
 			$user->save();
 			//$user->update($input); //evitar el modo automatico
