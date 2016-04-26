@@ -67,6 +67,18 @@ $().ready(function() {
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
         <h3>Registro de Ventas a final de día</h3>
+        <!--
+        <?php 
+            $cantidad_locales = DB::table('locals')->count('id');
+            $locals = DB::table('locals')->select('codlocal3')->get();
+            for ($i = 1; $i <= $cantidad_locales; $i++) 
+            {
+
+                $expresion[$i-1] = $locals[$i-1]->codlocal3 ;
+            }   
+
+        ?>
+        -->
 
         @if ($errors->any())
         	<div class="alert alert-danger">
@@ -203,7 +215,7 @@ $foul = 0;  ?>
             <div class="col-lg-4">
                 <div class="input-group">
                     <span class="input-group-addon">Usuario Vendedor</span>
-                    {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('id'=>'usuario_id', 'class'=>'form-control', 'required'=>'required'))}}
+                    {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->where('estado',"ACT")->orderby('desusuario')->lists('desusuario','id'),null,array('id'=>'usuario_id', 'class'=>'form-control', 'required'=>'required'))}}
                 </div>
             </div><!-- /.col-lg-6 -->
 

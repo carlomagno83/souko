@@ -50,6 +50,8 @@ if (Auth::check())
 				Route::resource('tipomovimientos', 'TipomovimientosController');
 				Route::resource('documentos', 'DocumentosController');
 				Route::resource('users', 'UsersController');
+				Route::resource('usersactivar', 'UsersController@activar');
+				Route::get('cambiarestado/{usuario_id}', 'UsersController@cambiarestado');
 				Route::resource('providers', 'ProvidersController');				
 			}	
 
@@ -123,7 +125,9 @@ if (Auth::check())
 			Route::post('consultaventabuscar', 'ConsultaventaController@buscar');
 
 			Route::resource('consultastockadm', 'ConsultastockController');
-			Route::get('descargaexcelstockadm', 'ConsultastockController@descargaexcel');			
+			Route::get('descargaexcelstockadm', 'ConsultastockController@descargaexcel');
+			Route::get('descargaexcelkardex', 'ConsultastockController@descargaexcelkardex');			
+						
 
 			Route::resource('consultastockdet', 'ConsultastockdetController');
 			Route::any('consulta-productos-filtrar', 'ConsultastockdetController@filtrar');

@@ -128,7 +128,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
     <div class="col-lg-4">
         <div class="input-group">
             <span class="input-group-addon" >Vendedor</span>
-            {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'), Input::get('usuario_id'), array('id'=>'usuario_id', 'class'=>'form-control', 'required'=>'required'))}}
+            {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->where('estado',"ACT")->orderby('desusuario')->lists('desusuario','id'), Input::get('usuario_id'), array('id'=>'usuario_id', 'class'=>'form-control', 'required'=>'required'))}}
         </div>
     </div>
 

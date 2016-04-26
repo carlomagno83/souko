@@ -96,6 +96,9 @@
 										<a href="{{URL::to('/users')}}">Usuarios</a>
 									</li>								
 									<li>
+										<a href="{{URL::to('/usersactivar')}}">Activación de Usuarios</a>
+									</li>								
+									<li>
 										<a href="{{URL::to('/locals')}}">Locales</a>
 									</li>
 									<li>

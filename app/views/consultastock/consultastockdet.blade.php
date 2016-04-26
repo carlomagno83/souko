@@ -1,5 +1,24 @@
 @extends('layouts.scaffold')
 @section('main')
+<style>
+table {
+    width: 100%;
+    display:block;
+}
+thead {
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    font-weight: bolder;
+    font-style: oblique;
+}
+tbody {
+    height: 450px;
+    display: inline-block;
+    width: 100%;
+    overflow: auto;
+}
+</style>
 
 <h3>Consulta de stocks detallado</h3>
 
@@ -75,7 +94,6 @@
 
 
 @if (count($mercaderias) > 0)
-<div class="jumbotron">
 
 <?php 
     $cantidad_locales = DB::table('locals')->count('id');
@@ -94,27 +112,27 @@
 ?>
 
 <table class="table table-hover table-striped">
-<thead> <th>CODIGO</th>
+<thead> <th width="280px">CODIGO</th>
         @foreach ($locals as $local)
-            <th>{{$local->codlocal3}}</th>
+            <th width="55px">{{$local->codlocal3}}</th>
         @endforeach
-        <th>TOTAL</th>
+        <th width="55px">TOTAL</th>
 </thead> 
 <tbody>
 @foreach( $mercaderias as $key=>$value)
     <tr> 
-        <td> {{$value->codproducto31}} </td> 
+        <td width="280px"> {{$value->codproducto31}} </td> 
         @for ($i = 1; $i <= $cantidad_locales; $i++) 
-                <td>{{$value->$expresion[$i-1]}}</td>
+                <td width="55px">{{$value->$expresion[$i-1]}}</td>
 
         @endfor
-        <td><b> {{$value->total}} </b></td>
+        <td width="55px"><b> {{$value->total}} </b></td>
     </tr>
 @endforeach
 </tbody>
 </table>
 @endif 
 </div>
-</div>
+
 
 @stop

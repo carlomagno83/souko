@@ -1,15 +1,38 @@
 @extends('layouts.scaffold')
 @section('main')
 
+<style>
+table {
+    width: 100%;
+    display:block;
+}
+thead {
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    font-weight: bolder;
+    font-style: oblique;
+}
+tbody {
+    height: 450px;
+    display: inline-block;
+    width: 100%;
+    overflow: auto;
+}
+
+</style>
+
+
 <h3>
-<table  style="width:100%">
-<td width="70%"> Consulta de Stock actual (Administrativo)</td>    
-<td width="30%" align="right"> <a style="padding-top: 8px;" href="{{URL::to('descargaexcelstockadm')}}"><img width="60px" src="{{asset('img/downloadXL.gif')}}"></a></td>
-                       
-</table>
+
+<th width="84%"> Consulta de Stock actual (Administrativo)</th>    
+<th width="8%" align="right"> <a style="padding-top: 8px;" href="{{URL::to('descargaexcelstockadm')}}"  title="Descarga Stock administrativo"><img width="60px" src="{{asset('img/downloadXL.gif')}}"></a></th>
+<th width="8%" align="right"> <a style="padding-top: 8px;" href="{{URL::to('descargaexcelkardex')}}" title="Descarga Kardex"><img width="45px" src="{{asset('img/kardex.jpg')}}"></a></th>                       
+
 </h3>
 
-<div class="jumbotron">
+<br>
+
 
 <?php 
     $cantidad_locales = DB::table('locals')->count('id');
@@ -28,18 +51,18 @@
 ?>
 
 <table class="table table-hover table-striped">
-<thead> <th>GENERICO</th>
+<thead> <th width="250px">GENERICO</th>
         @foreach ($locals as $local)
-            <th>{{$local->codlocal3}}</th>
+            <th width="55px">{{$local->codlocal3}}</th>
         @endforeach
         <th>TOTAL</th>
 </thead> 
 <tbody>
 @foreach( $mercaderias as $key=>$value)
     <tr> 
-        <td> {{$value->codmarca3}}-{{$value->codtipo8}}-{{$value->codrango6}} </td> 
+        <td width="250px"> {{$value->codmarca3}}-{{$value->codtipo8}}-{{$value->codrango6}} </td> 
         @for ($i = 1; $i <= $cantidad_locales; $i++) 
-                <td>{{$value->$expresion[$i-1]}}</td>
+                <td width="55px">{{$value->$expresion[$i-1]}}</td>
 
         @endfor
         <td> {{$value->total}}</td> 
@@ -49,6 +72,6 @@
 @endforeach
 </tbody>
 </table>
-</div>
+
 
 @stop

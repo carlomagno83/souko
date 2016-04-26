@@ -123,7 +123,7 @@ $foul = 0; ?>
         <div class="col-lg-4">
             <div class="input-group">
                 <span class="input-group-addon" id="marca_id">Vendedor</span>
-                {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
+                {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->where('estado',"ACT")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
             </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-4">

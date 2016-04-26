@@ -145,4 +145,34 @@ class UsersController extends BaseController {
 		return Redirect::route('users.index');
 	}
 
+
+	public function activar()
+	{
+		$users = $this->user->all(); 
+		return View::make('users.activar', compact('users'));
+	}
+
+
+	public function cambiarestado($id)
+	{
+
+		$user = User::find($id);	
+	
+		$estado = $user->estado;
+		
+		if($estado == 'ACT')
+		{
+			$user->estado = 'INA' ;
+		}
+		else
+		{
+			$user->estado = 'ACT';
+		}
+		$user->save();
+
+
+		$users = $this->user->all(); 
+		return View::make('users.activar', compact('users'));
+	}
+ 
 }
