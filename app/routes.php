@@ -38,12 +38,12 @@ if (Auth::check())
 		//Maestros
 			if( Auth::user()->rolusuario=='SUPER')
 			{
-				Route::resource('colors', 'ColorsController');
+				
 				Route::resource('locals', 'LocalsController');
 				Route::resource('estados', 'EstadosController');
 				Route::resource('marcas', 'MarcasController');
 				Route::resource('tipos', 'TiposController');
-				Route::resource('modelos', 'ModelosController');
+				
 				Route::resource('materials', 'MaterialsController');
 				Route::resource('rangos', 'RangosController');
 				Route::resource('tallas', 'TallasController');
@@ -54,6 +54,8 @@ if (Auth::check())
 				Route::get('cambiarestado/{usuario_id}', 'UsersController@cambiarestado');
 				Route::resource('providers', 'ProvidersController');				
 			}	
+Route::resource('colors', 'ColorsController');
+Route::resource('modelos', 'ModelosController');
 
 			Route::resource('productos', 'ProductosController');
 			Route::get('productos-index', 'ProductosController@index');//filtros para busqueda de producto

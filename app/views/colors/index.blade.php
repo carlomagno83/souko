@@ -34,10 +34,12 @@ background-color:#fff;
 					<td>{{{ $color->descolor }}}</td>
 					<td>{{{ $color->desusuario }}}</td>
                     <td>
+                    @if(Auth::user()->rolusuario == 'SUPER')
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('colors.destroy', $color->id))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger',  'onClick'=>'confirmar()' )) }}
                         {{ Form::close() }}
                         {{ link_to_route('colors.edit', 'Editar', array($color->id), array('class' => 'btn btn-info')) }}
+                    @endif    
                     </td>
 				</tr>
 			@endforeach

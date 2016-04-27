@@ -79,15 +79,19 @@
 									<li>
 										<a href="{{URL::to('/tipos')}}">Tipos</a>
 									</li>
+								@endif	
 									<li>
 										<a href="{{URL::to('/modelos')}}">Modelos</a>
 									</li>
+								@if( Auth::user()->rolusuario=='SUPER' )		
 									<li>
 										<a href="{{URL::to('/rangos')}}">Rangos</a>
 									</li>
+								@endif		
 									<li>
 										<a href="{{URL::to('/colors')}}">Colores</a>
-									</li>								
+									</li>
+								@if( Auth::user()->rolusuario=='SUPER' )									
 									<li>
 										<a href="{{URL::to('/materials')}}">Materiales</a>
 									</li>

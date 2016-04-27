@@ -39,6 +39,8 @@ $(document).ready(function(){
 
     $(this).hide();
     $("#muestramsg").show();
+    $("#agregabutton").hide();
+    $("#nuevo").show();
     return true;});
 
  });
@@ -67,18 +69,33 @@ $().ready(function() {
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
         <h3>Registro de Ventas a final de día</h3>
-        <!--
         <?php 
-            $cantidad_locales = DB::table('locals')->count('id');
-            $locals = DB::table('locals')->select('codlocal3')->get();
-            for ($i = 1; $i <= $cantidad_locales; $i++) 
-            {
+            $sql = "SELECT DISTINCT codlocal3 FROM locals 
+                    WHERE codlocal3 NOT IN (
+                    SELECT codlocal3 
+                    from documentos
+                    INNER JOIN movimientos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
+                    INNER JOIN locals ON locals.id = documentos.localfin_id
+                    WHERE movimientos.tipomovimiento_id = 3
+                                AND fechadocumento=DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+                                AND locals.id>1
+                    ) AND locals.id>1";
 
-                $expresion[$i-1] = $locals[$i-1]->codlocal3 ;
-            }   
-
+            $locales = DB::select($sql);
+            //dd(count($locales));
+            //dd($locales[0]->codlocal3);
+            $cantidad_locales = count($locales);
+            $expresion = "";
+            if(count($locales)>0)
+            { 
+                $expresion="Falta(n) Guia(s) de Venta(s) de  ";
+                for ($i = 1; $i <= $cantidad_locales; $i++) 
+                {
+                    $expresion .= $locales[$i-1]->codlocal3 . "   " ;
+                }   
+            }
         ?>
-        -->
+        
 
         @if ($errors->any())
         	<div class="alert alert-danger">
@@ -108,13 +125,16 @@ $().ready(function() {
        </div>
     </div><!-- /.col-lg-6 -->    
     <div class="col-lg-4">
-    <input type="submit" value="Agrega Mercaderia" class=" btn btn-success"> 
+        <input id="agregabutton" type="submit" value="Agrega Mercaderia" class=" btn btn-success"> 
+    
+   
     </div>
 </div><!-- /.row -->
 <br>
 </form>
 
 <form method="POST" id="validadorjs" action="{{url('ventas-store')}}">
+<strong><mark>{{$expresion}}</mark></strong>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -247,16 +267,20 @@ $foul = 0;  ?>
     </div>
     <div class="col-lg-8">
     </div>
-</div>    
+</div> 
+</form> 
+<form method="GET" id="validadorjs" action="{{url('ventas')}}">
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-5">
     <input id="muestramsg" style="display:none;" type="submit" value="Finalizado, espere la descarga del Archivo Excel ..." class="btn btn-lg btn-success" disabled>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-3">
+        <input id="nuevo" style="display:none;" type="submit" value="Ingrese Nueva Guía de Venta" class="btn btn-lg btn-success" >
     </div>
 </div> 
 @endif   
-</form> 
+ 
+</form>
 <br>
 <br>
 <br>

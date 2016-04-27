@@ -25,6 +25,15 @@ class AuthController extends BaseController {
         // Verificamos los datos
         if (Auth::attempt($data, Input::get('remember'))) // Como segundo parámetro pasámos el checkbox para sabes si queremos recordar la contraseña
         {
+            //dd(Auth::user()->estado);
+            if(Auth::user()->estado=="INA")
+            {
+                //dd("sale");
+                return Redirect::to('logout')->with('error_message', 'Usuario Inactivo');
+ 
+            }
+            else
+            {
             //borramos datos de temporales
             DB::table('entradas')->where('usuario_id', '=', Auth::user()->id )->delete();
             DB::table('devueltos')->where('usuario_id', '=', Auth::user()->id )->delete();
@@ -35,6 +44,8 @@ class AuthController extends BaseController {
 
             // Si nuestros datos son correctos mostramos la página de inicio
             return Redirect::intended('/');
+
+            }
         }
         // Si los datos no son los correctos volvemos al login y mostramos un error
         return Redirect::back()->with('error_message', 'Invalid data')->withInput();

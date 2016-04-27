@@ -6,6 +6,11 @@
 
 <p>{{ link_to_route('modelos.create', 'Agregar Nuevo Modelo', null, array('class' => 'btn btn-lg btn-success')) }}</p>
 
+<?php
+	$rol = Auth::user()->rolusuario;
+	//dd($rol);
+?>
+
 @if ($modelos->count())
 	<table class="table table-striped">
 		<thead>
@@ -24,10 +29,12 @@
 					<td>{{{ $modelo->desmodelo }}}</td>
 					<td>{{{ $modelo->desusuario }}}</td>
                     <td>
+                    @if(Auth::user()->rolusuario == 'SUPER')
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('modelos.destroy', $modelo->id))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                         {{ link_to_route('modelos.edit', 'Editar', array($modelo->id), array('class' => 'btn btn-info')) }}
+                    @endif    
                     </td>
 				</tr>
 			@endforeach

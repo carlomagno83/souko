@@ -13,7 +13,7 @@
 				<th>Username</th>
 				<th>Nombre Completo</th>
 				<th>Rol</th>
-				<th>Password</th>
+				<th>Estado</th>
 				<th>Usuario Creador/Modif</th>
 				<th>&nbsp;</th>
 			</tr>
@@ -25,7 +25,7 @@
 					<td>{{{ $user->username }}}</td>
 					<td>{{{ $user->desusuario }}}</td>
 					<td>{{{ $user->rolusuario }}}</td>
-					<td>{{ "******" }}</td>
+					<td>{{ $user->estado }}</td>
 					<td>{{{ $user->usuario_id }}}</td>
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('users.destroy', $user->id))) }}
