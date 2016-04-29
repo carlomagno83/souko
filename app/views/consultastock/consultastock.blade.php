@@ -30,7 +30,7 @@ tbody {
 <th width="8%" align="right"> <a style="padding-top: 8px;" href="{{URL::to('descargaexcelkardex')}}" title="Descarga Kardex"><img width="45px" src="{{asset('img/kardex.jpg')}}"></a></th>                       
 
 </h3>
-
+(Incluye mercaderías en estado Inactivo) 
 <br>
 
 

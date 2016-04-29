@@ -53,6 +53,7 @@ class UsersController extends BaseController {
 			$user->username = Input::get('username');
 			$user->desusuario = Input::get('desusuario');		
 			$user->rolusuario = Input::get('rolusuario');		
+			$user->estado = 'ACT';		
 			$user->password = Hash::make(Input::get('password'));		
 			//$user->usuario_id = Input::get('usuario_id');
 			$user->usuario_id = 1;
@@ -115,8 +116,11 @@ class UsersController extends BaseController {
 			$user = User::find($id);	
 			$user->username = Input::get('username');
 			$user->desusuario = Input::get('desusuario');		
-			$user->rolusuario = Input::get('rolusuario');		
-			$user->password = Hash::make(Input::get('password'));		
+			$user->rolusuario = Input::get('rolusuario');	
+			if(Input::get('password')<>"")
+			{	
+				$user->password = Hash::make(Input::get('password'));		
+			}
 			//$user->usuario_id = Input::get('usuario_id');
 			$user->usuario_id = 1 ;
 

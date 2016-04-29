@@ -16,7 +16,7 @@
 <table>
 <thead> 
         <tr>
-        <th>GENERICO</th>
+        <th>{{date('Y-m-d')}}</th>
         @foreach ($locals as $local)
             <th>{{$local->codlocal3}}</th>
         @endforeach

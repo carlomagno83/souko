@@ -93,17 +93,17 @@
 
             {{ Form::label('modelo_id', 'Modelo:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-              {{ Form::select('modelo_id',[""=>''] + $modelos, Input::old('modelo_id'), array('id'=>'modelo_id', 'class'=>'form-control', 'tabindex'=>'-1')) }}
+              {{ Form::select('modelo_id',[""=>''] + $modelos, Input::old('modelo_id'), array('id'=>'modelo_id', 'class'=>'form-control')) }}
             </div>
 
             {{ Form::label('material_id', 'Material:', array('class'=>'col-md-1 control-label', 'tabindex'=>'-1')) }}
             <div class="col-sm-2">
-              {{ Form::select('material_id',[""=>''] + $materials, Input::old('material_id'), array('id'=>'material_id', 'class'=>'form-control', 'tabindex'=>'-1')) }}
+              {{ Form::select('material_id',[""=>''] + $materials, Input::old('material_id'), array('id'=>'material_id', 'class'=>'form-control')) }}
             </div>
 
             {{ Form::label('color_id', 'Color:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
-              {{ Form::select('color_id',[""=>''] + $colors, Input::old('color_id'), array('id'=>'color_id', 'class'=>'form-control', 'tabindex'=>'-1')) }}
+              {{ Form::select('color_id',[""=>''] + $colors, Input::old('color_id'), array('id'=>'color_id', 'class'=>'form-control')) }}
             </div>
 
 
