@@ -5,7 +5,7 @@
 <script>
 $(function() {
 $( "#datepicker1" ).datepicker();
-$( "#datepicker1" ).datepicker("setDate","0" );
+$( "#datepicker1" ).datepicker("setDate","-1" );
 $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 });  
 </script>
@@ -198,7 +198,7 @@ $(document).ready(function(){
             <div class="col-lg-7">
             </div><!-- /.col-lg-6 -->
             <div class="col-lg-3">
-                Fecha Sugerida = Fecha Actual
+                <strong><mark>Fecha sugerida = Fecha de ayer</mark></strong>
             </div>   
     </div><!-- /.row -->    
 </div>
