@@ -31,8 +31,8 @@
 <table>
 @for ($a = 1; $a <= $registros; $a++) 
 
-    @if($a==1 or $a==59 or $a==109 or $a==163 or $a==217 or $a==271 or $a==325 or $a==2 or $a==60 or $a==110 or $a==164 or $a==218 or $a==272 or $a==326 ) 
-        @if($a==1 or $a==59 or $a==109 or $a==163 or $a==217 or $a==271 or $a==325 )
+    @if($a==1 or $a==57 or $a==113 or $a==169 or $a==225 or $a==281 or $a==337 or $a==2 or $a==58 or $a==114 or $a==170 or $a==226 or $a==282 or $a==338 ) 
+        @if($a==1 or $a==57 or $a==113 or $a==169 or $a==225 or $a==281 or $a==337 )
             <tr> 
             @foreach ($locals as $local)
                 <td>{{date('Y-m-d')}}</td>

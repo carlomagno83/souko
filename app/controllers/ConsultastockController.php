@@ -96,6 +96,35 @@ class ConsultastockController extends BaseController {
 
 		    $excel->sheet('Hoja1', function($sheet) {
 
+			$sql = "SELECT fechadocumento, desusuario, codlocal3, movimientos.mercaderia_id, codproducto31, 
+						productos.precioventa as sugerido, 
+						 mercaderias.precioventa,
+						(mercaderias.precioventa-productos.precioventa) as diferencia
+						from movimientos
+						INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
+						INNER JOIN mercaderias ON movimientos.mercaderia_id=mercaderias.id
+						INNER JOIN productos ON mercaderias.producto_id=productos.id
+						INNER JOIN users ON mercaderias.usuario_id=users.id
+						INNER JOIN locals ON mercaderias.local_id=locals.id
+						WHERE fechadocumento = date(CURDATE()-1) AND movimientos.tipomovimiento_id=3
+						ORDER BY desusuario, codlocal3";
+
+			//dd($sql);							
+	        $mercaderias = DB::select($sql);
+
+	        $sheet->freezeFirstRow();
+	        $sheet->cells('A1:H1', function($cells) { $cells->setBackground('#81F7F3'); });
+			/*for($i = 1; $i <= count($mercaderias)+5; $i++)
+			{	
+			$sheet->setHeight($i, 5);
+		  	}*/
+		        $sheet->loadView('consultastock.diferenciaxc')->with('mercaderias', $mercaderias);
+
+		    });
+
+//kardex
+		    $excel->sheet('Hoja2', function($sheet) {
+
 		    $cantidad_locales = DB::table('locals')->count('id');
 		    $locals = DB::table('locals')->select('codlocal3')->orderBy('id')->lists('codlocal3');
 		    //dd($locals);
@@ -125,30 +154,18 @@ class ConsultastockController extends BaseController {
 
 			//dd($sql);							
 	        $mercaderias = DB::select($sql);
-	        //dd(count($mercaderias));
-	        if ($cantidad_locales==2) $sheet->cells('A1:J2', function($cells) { $cells->setBackground('#81F7F3'); });
-	        if ($cantidad_locales==3) $sheet->cells('A1:O2', function($cells) { $cells->setBackground('#81F7F3'); });
-	        if ($cantidad_locales==4) $sheet->cells('A1:T2', function($cells) { $cells->setBackground('#81F7F3'); });
-	        if ($cantidad_locales==5) $sheet->cells('A1:Y2', function($cells) { $cells->setBackground('#81F7F3'); });
-	        if ($cantidad_locales==6) $sheet->cells('A1:AD2', function($cells) { $cells->setBackground('#81F7F3'); });
-	        if ($cantidad_locales==7) $sheet->cells('A1:AI2', function($cells) { $cells->setBackground('#81F7F3'); });
-	        if ($cantidad_locales==8) $sheet->cells('A1:AN2', function($cells) { $cells->setBackground('#81F7F3'); });
-	        if ($cantidad_locales==9) $sheet->cells('A1:AS2', function($cells) { $cells->setBackground('#81F7F3'); });
-	        if ($cantidad_locales==10) $sheet->cells('A1:AX2', function($cells) { $cells->setBackground('#81F7F3'); });
-	        if ($cantidad_locales==11) $sheet->cells('A1:BC2', function($cells) { $cells->setBackground('#81F7F3'); });
-	        if ($cantidad_locales==12) $sheet->cells('A1:BH2', function($cells) { $cells->setBackground('#81F7F3'); });
-	        if ($cantidad_locales==13) $sheet->cells('A1:BM2', function($cells) { $cells->setBackground('#81F7F3'); });
-	        if ($cantidad_locales==14) $sheet->cells('A1:BR2', function($cells) { $cells->setBackground('#81F7F3'); });
 
-			for($i = 1; $i <= count($mercaderias); $i++)
+			for($i = 1; $i <= count($mercaderias)+20; $i++)
 			{	
-			$sheet->setHeight($i,12.75);
+			$sheet->setHeight($i, 15);
 		  	}
+		  	$sheet->cells('A1:B1', function($cells) { $cells->setBackground('#FFFFFF'); });
 		        $sheet->loadView('consultastock.kardexxc')->with('mercaderias', $mercaderias);
 
-		    })->download('xls');  
+		    });
 
-		});
+			
+		})->download('xls');;
 
 	}
 
