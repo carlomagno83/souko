@@ -41,6 +41,7 @@ class AuthController extends BaseController {
             DB::table('tempos')->where('usuario_id', '=', Auth::user()->id )->delete();
             DB::table('traslados')->where('usuario_id', '=', Auth::user()->id )->delete();
             DB::table('vendidos')->where('usuario_id', '=', Auth::user()->id )->delete();
+            DB::table('cambios')->where('usuario_id', '=', Auth::user()->id )->delete();
 
             // Si nuestros datos son correctos mostramos la página de inicio
             return Redirect::intended('/');
@@ -60,6 +61,7 @@ class AuthController extends BaseController {
             DB::table('tempos')->where('usuario_id', '=', Auth::user()->id )->delete();
             DB::table('traslados')->where('usuario_id', '=', Auth::user()->id )->delete();
             DB::table('vendidos')->where('usuario_id', '=', Auth::user()->id )->delete();
+            DB::table('cambios')->where('usuario_id', '=', Auth::user()->id )->delete();
         // Cerramos la sesión
         Auth::logout();
         // Volvemos al login y mostramos un mensaje indicando que se cerró la sesión
