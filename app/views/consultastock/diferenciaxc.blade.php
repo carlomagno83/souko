@@ -9,7 +9,7 @@
         <th>Fecha</th>
         <th>Vendedor</th>
         <th>Local</th>
-        <th>Cod mercad</th>
+        <th>Cod.</th>
         <th>Descrip Prod</th>
         <th>P. Suger</th>
         <th>P. Venta</th>

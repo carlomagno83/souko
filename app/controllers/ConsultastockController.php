@@ -106,7 +106,8 @@ class ConsultastockController extends BaseController {
 						INNER JOIN productos ON mercaderias.producto_id=productos.id
 						INNER JOIN users ON mercaderias.usuario_id=users.id
 						INNER JOIN locals ON mercaderias.local_id=locals.id
-						WHERE fechadocumento = date(CURDATE()-1) AND movimientos.tipomovimiento_id=3
+						WHERE fechadocumento = DATE_SUB(CONCAT(CURDATE(), ' 00:00:00'), 
+INTERVAL 1 DAY) AND movimientos.tipomovimiento_id=3
 						ORDER BY desusuario, codlocal3";
 
 			//dd($sql);							
