@@ -87,7 +87,7 @@ class VentasController extends BaseController {
         }
         $data = Input::all();
         $local_merca = DB::table('locals')->select('id')->where('codlocal3','=', Input::get('codlocal3')[0] )->pluck('id');
-        //dd(Input::get('local_id'));
+        
         if (Input::get('local_id') <> $local_merca ) { return View::make('ventas.ventas')->with('vendidos', $vendidos)->withErrors(['Local de mercaderias y local de guia no son iguales']);
         }
         // hay que agregar un control de txn

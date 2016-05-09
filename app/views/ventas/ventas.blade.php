@@ -155,7 +155,7 @@ $foul = 0;  ?>
             <td width="10%"><input type="text" name="producto_id[]" id="producto_id[]" value="{{$vendido->producto_id}}" readonly class="form-control" tabindex="-1"></td>
             <td width="30%"><input type="text"  value="{{$vendido->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             @if ($vendido->deslocal=='ALM')
-                <td width="10%" class="danger"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="10%" class="danger"><input type="text" name="codlocal3[]" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                 <?php $foul = $foul + 1 ?>
             @else
                 @if (count($vendidos)>1)
@@ -166,7 +166,7 @@ $foul = 0;  ?>
                         <?php $foul = $foul + 1 ?>
                     @endif
                 @else
-                    <td width="5%"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                    <td width="5%"><input type="text" name="codlocal3[]" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                 @endif
             @endif
             @if ($vendido->estado=='ACT' or $vendido->estado=='INA'or $vendido->estado=='VEN')
