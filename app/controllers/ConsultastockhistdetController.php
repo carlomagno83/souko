@@ -88,7 +88,8 @@ class ConsultastockhistdetController extends BaseController {
             //dd("ingredsa3");        
             $sql = "SELECT fechadocumento, 
                             COUNT(if(movimientos.tipomovimiento_id=2 AND localfin_id=" .$loc_id. " ,1,NULL)) AS cta_alm_ing, 
-                            COUNT(if(movimientos.tipomovimiento_id=3 AND localfin_id=" .$loc_id. " ,1,NULL)) AS cta_vta_sal, 
+                            COUNT(if(movimientos.tipomovimiento_id=3 AND movimientos.devolucion=0 AND localfin_id=" .$loc_id. " ,1,NULL)) AS cta_vta_sal, 
+                            COUNT(if(movimientos.tipomovimiento_id=3 AND movimientos.devolucion<0 AND localfin_id=" .$loc_id. " ,1,NULL)) AS cta_cambio,
                             COUNT(if(movimientos.tipomovimiento_id=4 AND localfin_id=" .$loc_id. " ,1,NULL)) AS cta_pto_ing, 
                             COUNT(if(movimientos.tipomovimiento_id=4 AND localini_id=" .$loc_id. " ,1,NULL)) AS cta_pto_sal, 
                             COUNT(if(movimientos.tipomovimiento_id=6 AND localini_id=" .$loc_id. " ,1,NULL)) AS cta_dev_sal
@@ -101,7 +102,7 @@ class ConsultastockhistdetController extends BaseController {
             //dd($sql);
             $mercaderias = DB::select($sql);
             //dd($mercaderias);
-                return View::make('consultastock.consultastockhist')->withInput('local_id', 'fechadocumento')->with('mercaderias',$mercaderias);    
+                return View::make('consultastock.consultastockhistdet')->withInput('local_id', 'fechadocumento')->with('mercaderias',$mercaderias);    
         }
         else 
         {
@@ -118,7 +119,8 @@ class ConsultastockhistdetController extends BaseController {
 
             $sql = "SELECT fechadocumento, 
                             COUNT(if(movimientos.tipomovimiento_id=2 AND localfin_id=" .$loc_id. " ,1,NULL)) AS cta_alm_ing, 
-                            COUNT(if(movimientos.tipomovimiento_id=3 AND localfin_id=" .$loc_id. " ,1,NULL)) AS cta_vta_sal, 
+                            COUNT(if(movimientos.tipomovimiento_id=3 AND movimientos.devolucion=0 AND localfin_id=" .$loc_id. " ,1,NULL)) AS cta_vta_sal, 
+                            COUNT(if(movimientos.tipomovimiento_id=3 AND movimientos.devolucion<0 AND localfin_id=" .$loc_id. " ,1,NULL)) AS cta_cambio, 
                             COUNT(if(movimientos.tipomovimiento_id=4 AND localfin_id=" .$loc_id. " ,1,NULL)) AS cta_pto_ing, 
                             COUNT(if(movimientos.tipomovimiento_id=4 AND localini_id=" .$loc_id. " ,1,NULL)) AS cta_pto_sal, 
                             COUNT(if(movimientos.tipomovimiento_id=6 AND localini_id=" .$loc_id. " ,1,NULL)) AS cta_dev_sal

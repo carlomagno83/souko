@@ -9,7 +9,7 @@
     $ind = 0;
     $key = 0;
     
-//dd($locals[0]->id);    
+//dd($mercaderias);    
 //dd($cant_loc_ind);    
 //dd($locals[$key]->codlocal3);
 //dd(count($mercaderias));
@@ -35,7 +35,7 @@
         @if($a==1 or $a==57 or $a==113 or $a==169 or $a==225 or $a==281 or $a==337 )
             <tr> 
             @foreach ($locals as $local)
-                <td>{{date('Y-m-d')}}</td>
+                <td>{{ date('Y-m-d', strtotime( "-1 day")) }}</td>
                 <td></td>
                 <td></td>
                 <td>{{$local->codlocal3}}</td>
@@ -83,7 +83,8 @@ else
 { 
     $sql = "SELECT fechadocumento, 
                         COUNT(if(movimientos.tipomovimiento_id=2 AND localfin_id=".$locals[$k]->id." ,1,NULL)) AS cta_alm_ing, 
-                        COUNT(if(movimientos.tipomovimiento_id=3 AND localfin_id=".$locals[$k]->id." ,1,NULL)) AS cta_vta_sal, 
+        COUNT(if(movimientos.tipomovimiento_id=3 AND devolucion=0 AND localfin_id=".$locals[$k]->id." ,1,NULL)) AS cta_vta_sal, 
+        COUNT(if(movimientos.tipomovimiento_id=3 AND devolucion<0  AND localfin_id=".$locals[$k]->id." ,1,NULL)) AS cta_cambio, 
                         COUNT(if(movimientos.tipomovimiento_id=4 AND localfin_id=".$locals[$k]->id." ,1,NULL)) AS cta_pto_ing, 
                         COUNT(if(movimientos.tipomovimiento_id=4 AND localini_id=".$locals[$k]->id." ,1,NULL)) AS cta_pto_sal, 
                         COUNT(if(movimientos.tipomovimiento_id=6 AND localini_id=".$locals[$k]->id." ,1,NULL)) AS cta_dev_sal
@@ -111,7 +112,7 @@ else
                 <td>{{ $mercaderias[$ind]->$expresion[$k] }}</td>    
                            
                 @else           
-                <td>{{$movs[0]->cta_alm_ing + $movs[0]->cta_pto_ing}}</td>
+                <td>{{$movs[0]->cta_alm_ing + $movs[0]->cta_pto_ing + $movs[0]->cta_cambio}}</td>
                 <td>{{$movs[0]->cta_pto_sal + $movs[0]->cta_dev_sal}}</td>
                 <td>{{$movs[0]->cta_vta_sal}}</td>
                 <td>{{ $mercaderias[$ind]->$expresion[$k] }}</td> 

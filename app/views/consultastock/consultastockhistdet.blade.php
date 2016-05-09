@@ -195,6 +195,7 @@ $(document).ready(function(){
             <th width="20%">Fecha</th>
             <th>TRASLADO ALMACEN A PTO</th>
             <th>Ingreso por TRASLADO PTO-PTO</th>
+            <th>Reingreso por CAMBIO</th>
             <th>Salida por VENTA</th>
             <th>Salida por TRASLADO PTO-PTO</th>
             <th>Salida por DEV PTO A ALMACEN</th>
@@ -207,13 +208,14 @@ $(document).ready(function(){
             <td> {{$mercaderia->fechadocumento}} </td> 
             <td> {{$mercaderia->cta_alm_ing}} </td> 
             <td> {{$mercaderia->cta_pto_ing}} </td> 
+            <td> {{$mercaderia->cta_cambio }} </td> 
             <td><font color="red"> {{$mercaderia->cta_vta_sal}} </font></td> 
             <td><font color="red"> {{$mercaderia->cta_pto_sal}} </font></td> 
             <td><font color="red"> {{$mercaderia->cta_dev_sal}} </font></td> 
 
             <td><b> {{$total}} </b></td>
             <?php 
-                $total = $total - $mercaderia->cta_alm_ing - $mercaderia->cta_pto_ing + $mercaderia->cta_vta_sal + $mercaderia->cta_pto_sal + $mercaderia->cta_dev_sal
+                $total = $total - $mercaderia->cta_alm_ing - $mercaderia->cta_pto_ing - $mercaderia->cta_cambio + $mercaderia->cta_vta_sal + $mercaderia->cta_pto_sal + $mercaderia->cta_dev_sal
 
             ?>
         </tr>

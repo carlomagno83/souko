@@ -112,7 +112,7 @@ INTERVAL 1 DAY) AND movimientos.tipomovimiento_id=3
 
 			//dd($sql);							
 	        $mercaderias = DB::select($sql);
-
+//dd($mercaderias[1]->fechadocumento);
 	        $sheet->freezeFirstRow();
 	        $sheet->cells('A1:H1', function($cells) { $cells->setBackground('#81F7F3'); });
 			/*for($i = 1; $i <= count($mercaderias)+5; $i++)
