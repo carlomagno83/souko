@@ -55,13 +55,13 @@
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon">Total Ventas</span>
-                <input type="text"  value="{{$documento->totalventa}}" readonly class="form-control" tabindex="-1">
+                <input type="text"  value="{{$documento->totalventa + $documento->devolucion}}" readonly class="form-control" tabindex="-1">
             </div>
         </div>    
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon">Total Sugerido (Act)</span>
-                <input type="text"  value="{{$documento->totalsugerido}}" readonly class="form-control" tabindex="-1">
+                <input type="text"  value="{{$documento->totalsugerido + $documento->devolucion*2}}" readonly class="form-control" tabindex="-1">
             </div>
         </div>  
     </div>
@@ -86,7 +86,11 @@
         <tr>
             <td width="15%"><input type="text" name="id[]" id="id[]" value="{{$detalle->id}}" class="form-control" readonly tabindex="-1"></td>
             <td width="25%"><input type="text"  value="{{$detalle->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
-            <td width="20%"><input type="text"  value="{{$detalle->precioventa}}" readonly class="form-control" tabindex="-1"></td>
+            @if ($detalle->devolucion < 0 )
+                <td width="20%" class="danger"><input type="text" name="precioventa[]" value="{{$detalle->devolucion}}" readonly class="form-control" tabindex="-1"></td>
+            @else    
+                <td width="20%"><input type="text" name="precioventa[]" value="{{$detalle->precioventa}}" readonly class="form-control" tabindex="-1"></td>
+            @endif    
             <td width="25%"><input type="text"  value="{{$detalle->desusuario}}" readonly class="form-control" tabindex="-1"></td>
             <td width="5%"><a href="{{URL::to('consultamercaderia/'.$detalle->id)}}" target="_blank"><img width="30px" src="{{asset('img/lupa.png')}}"></a></td>
         </tr>

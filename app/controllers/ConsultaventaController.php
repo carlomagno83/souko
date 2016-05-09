@@ -16,8 +16,9 @@ class ConsultaventaController extends BaseController {
 		$anho = Input::get('anho');
 
 		$sql = "SELECT desusuario, 
-			 			COUNT(if(mercaderias.estado='VEN',1,NULL)) AS total_items
-						from mercaderias
+			 			COUNT(if(mercaderias.estado='VEN' AND movimientos.devolucion=0 ,1,NULL)) AS total_items,
+			 			COUNT(if(movimientos.devolucion<0,1,NULL)) AS total_devuelto
+			 			from mercaderias
 						INNER JOIN users ON mercaderias.usuario_id=users.id
 						INNER JOIN movimientos on mercaderias.id=movimientos.mercaderia_id
 						INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
@@ -27,6 +28,7 @@ class ConsultaventaController extends BaseController {
 						GROUP BY desusuario";
 		//dd($sql);							
         $resultados = DB::select($sql);	
+
         if($resultados)
         {	
 			return View::make('consultaventa.consultaventa')->with('resultados', $resultados)->withInput('mes', 'anho') ;

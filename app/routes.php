@@ -123,6 +123,9 @@ Route::resource('modelos', 'ModelosController');
 			//Reportes
 			Route::resource('reporteingreso', 'ReporteingresoController');
 			
+			Route::resource('inventario', 'InventarioController');
+			Route::post('inventario-crear-archivo', 'InventarioController@inventarioarchivo');
+
 			Route::resource('consultaventa', 'ConsultaventaController');
 			Route::post('consultaventabuscar', 'ConsultaventaController@buscar');
 

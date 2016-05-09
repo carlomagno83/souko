@@ -44,7 +44,7 @@ class RegistroeditarController extends BaseController {
                             ->join('users', 'mercaderias.usuario_id', '=', 'users.id')
                             ->where('movimientos.documento_id', '=', Input::get('documento_id'))
                             ->where('movimientos.tipomovimiento_id', '=', '3')
-                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.codlocal3', 'mercaderias.estado','mercaderias.preciocompra', 'productos.precioventa AS preciosugerido','mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
+                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.codlocal3', 'mercaderias.estado','mercaderias.preciocompra', 'productos.precioventa AS preciosugerido','mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario', 'devolucion')
                             ->get();
                 $documentos = DB::table('documentos')
                             ->join('locals', 'locals.id', '=', 'documentos.localfin_id')
@@ -71,10 +71,20 @@ class RegistroeditarController extends BaseController {
     public function registroeditarventa()
     {
         $data = Input::all();
+
         foreach($data['id'] as $key=>$value)
         {
+            if( $data['precioventa'][$key] >= 0 )
+            {    
             DB::table('mercaderias')->where('id', '=', $data['id'][$key])
                                     ->update(array('precioventa' => $data['precioventa'][$key]));
+            }
+            else
+            {
+                DB::table('mercaderias')->where('id', '=', $data['id'][$key])
+                                    ->update(array('precioventa' => $data['precioventa'][$key]));
+                DB::table('movimientos')->where('mercaderia_id', '=', $data['id'][$key])->where('tipomovimiento_id', '=', 3)->where('devolucion', '<', 0)->update(array('devolucion' => $data['precioventa'][$key]));                 
+            }                        
         }
         return View::make('registroeditar.registroeditar')->withErrors(['Registro(s) actualizado(s)....']);
     }

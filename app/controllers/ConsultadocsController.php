@@ -47,7 +47,7 @@ class ConsultadocsController extends BaseController {
             $sql = "SELECT documentos.id, numdocfisico, fechadocumento, documentos.localini_id, ini.codlocal3 as localini, 
                 documentos.localfin_id, fin.codlocal3 as localfin,
                 COUNT(movimientos.documento_id) AS cantidad, SUM(mercaderias.preciocompra) AS totalcompra,
-                SUM(mercaderias.precioventa) AS totalventa, desusuario
+                SUM(mercaderias.precioventa) AS totalventa, SUM(movimientos.devolucion) AS devolucion, desusuario
                 from movimientos 
                 INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
                 INNER JOIN mercaderias ON movimientos.mercaderia_id=mercaderias.id
@@ -130,7 +130,7 @@ class ConsultadocsController extends BaseController {
     {
       
             $sql = "SELECT documentos.id, numdocfisico, fechadocumento, codlocal3, 
-                        COUNT(movimientos.documento_id) AS cantidad, SUM(mercaderias.precioventa) AS totalventa, SUM(productos.precioventa) AS totalsugerido
+                        COUNT(movimientos.documento_id) AS cantidad, SUM(mercaderias.precioventa) AS totalventa, SUM(productos.precioventa) AS totalsugerido, SUM(movimientos.devolucion) AS devolucion
                 from movimientos 
                 INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
                 INNER JOIN mercaderias ON movimientos.mercaderia_id=mercaderias.id
@@ -142,7 +142,7 @@ class ConsultadocsController extends BaseController {
 
         $documentos = DB::select($sql);
 
-        $detalles = DB::table('movimientos')->select('mercaderias.id', 'codproducto31', 'mercaderias.preciocompra', 'mercaderias.precioventa', 'desusuario')->join('mercaderias', 'mercaderias.id', '=', 'movimientos.mercaderia_id')->join('productos', 'productos.id', '=', 'mercaderias.producto_id')->join('users', 'users.id', '=', 'mercaderias.usuario_id')->where('documento_id','=', $id )->where('tipomovimiento_id','=', 3 )->orderby('mercaderias.id')->get();
+        $detalles = DB::table('movimientos')->select('mercaderias.id', 'codproducto31', 'mercaderias.preciocompra', 'mercaderias.precioventa', 'desusuario', 'devolucion')->join('mercaderias', 'mercaderias.id', '=', 'movimientos.mercaderia_id')->join('productos', 'productos.id', '=', 'mercaderias.producto_id')->join('users', 'users.id', '=', 'mercaderias.usuario_id')->where('documento_id','=', $id )->where('tipomovimiento_id','=', 3 )->orderby('mercaderias.id')->get();
 
         return View::make('consultadocs.consultadocsdetalle3')->with('documentos',$documentos)->with('detalles',$detalles);  
 
@@ -215,7 +215,7 @@ class ConsultadocsController extends BaseController {
     public function eliminaguiaventa()
     {
         $data = Input::all();
-        //dd($data['id'][1]);
+        //dd($data);
         //dd(Input::get('documento_id'));
         // hay que agregar un control de txn
         DB::table('movimientos')->where('documento_id', '=', Input::get('documento_id'))
@@ -224,8 +224,15 @@ class ConsultadocsController extends BaseController {
         
         foreach($data['id'] as $key=>$value)
         {
-            //echo $data['id'][$key];
-            DB::table('mercaderias')->where('id', '=', $data['id'][$key])->update(array('estado' => 'ACT', 'precioventa' => 0));
+            if($data['precioventa'][$key] >= 0 )
+            {    
+                //echo $data['id'][$key];
+                DB::table('mercaderias')->where('id', '=', $data['id'][$key])->update(array('estado' => 'ACT', 'precioventa' => 0));
+            }
+            else
+            {
+                DB::table('mercaderias')->where('id', '=', $data['id'][$key])->update(array('estado' => 'VEN', 'precioventa' => $data['precioventa'][$key]*(-1)));
+            }    
         }
         DB::table('documentos')->where('id', '=', Input::get('documento_id'))
                                 ->where('tipomovimiento_id', '=', '3')

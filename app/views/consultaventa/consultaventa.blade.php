@@ -78,6 +78,7 @@ $("form").ready(function() {
         <tr>
             <th width="25%">Nombre Vendedor</th>
             <th width="20%">Items vendidos {{Input::get('anho')}} / {{Input::get('mes')}}</th>
+            <th width="20%">Cambios cliente {{Input::get('anho')}} / {{Input::get('mes')}}</th>
             <th></th>
 
         </tr>    
@@ -88,6 +89,7 @@ $("form").ready(function() {
         <tr> 
             <td>{{$value->desusuario}} </td> 
             <td>{{$value->total_items}}</td>
+            <td>{{$value->total_devuelto}}</td>
         
         </tr>
     @endforeach

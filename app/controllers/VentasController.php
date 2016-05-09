@@ -45,7 +45,8 @@ class VentasController extends BaseController {
                     
                     if($estado == 'VEN')
                     {
-                        $vendido->preciosugerido = $preciosugerido*(-1);
+                        $preciovendido = DB::table('mercaderias')->select('precioventa')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('precioventa');
+                        $vendido->preciosugerido = $preciovendido*(-1);
     			        $vendido->precioventa = Input::get('precioventa')*(-1);	
                     }
                     else    		        
@@ -85,7 +86,10 @@ class VentasController extends BaseController {
             return View::make('ventas.ventas')->with('vendidos', $vendidos);
         }
         $data = Input::all();
-        //dd($data);
+        $local_merca = DB::table('locals')->select('id')->where('codlocal3','=', Input::get('codlocal3')[0] )->pluck('id');
+        //dd(Input::get('local_id'));
+        if (Input::get('local_id') <> $local_merca ) { return View::make('ventas.ventas')->with('vendidos', $vendidos)->withErrors(['Local de mercaderias y local de guia no son iguales']);
+        }
         // hay que agregar un control de txn
         $documento_id = $this->saveDocumento(Input::get('local_id'), Input::get('fechadocumento'));
         
@@ -93,18 +97,32 @@ class VentasController extends BaseController {
         {
             //echo $data['id'][$key];
             //DB::table('movimientos')->insert(array('mercaderia_id' => $data['mercaderia_id'][$key], 'documento_id' => $documento_id, 'flagoferta' => 0));
-            //cambio para timestamp
-            $movimiento = new Movimiento();
-            $movimiento->mercaderia_id = $data['mercaderia_id'][$key];
-            $movimiento->documento_id = $documento_id;
-            $movimiento->tipomovimiento_id = 3; //cambio tipo movimiento
-            $movimiento->flagoferta = 0;
-            $movimiento->save();
+            if ($data['estado'][$key]=='VEN')
+            { 
+                //dd( $data['precioventa'][$key]);
+                $movimiento = new Movimiento();
+                $movimiento->mercaderia_id = $data['mercaderia_id'][$key];
+                $movimiento->documento_id = $documento_id;
+                $movimiento->tipomovimiento_id = 3; //cambio cliente
+                $movimiento->flagoferta = 0;
+                $movimiento->devolucion = $data['precioventa'][$key];
+                $movimiento->save();
+            }
+            else
+            {    
+                $movimiento = new Movimiento();
+                $movimiento->mercaderia_id = $data['mercaderia_id'][$key];
+                $movimiento->documento_id = $documento_id;
+                $movimiento->tipomovimiento_id = 3; //cambio tipo movimiento
+                $movimiento->flagoferta = 0;
+                $movimiento->save();
+            }
 
             if ($data['estado'][$key]=='VEN')
                 { 
                     DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => $data['local_id'], 'precioventa' => 0, 'estado' => 'ACT', 'usuario_id' => $data['usuario_id'])); 
-                    DB::table('movimientos')->where('mercaderia_id', '=', $data['mercaderia_id'][$key])->where('tipomovimiento_id', '=', '3')->delete();
+                    //DB::table('movimientos')->where('mercaderia_id', '=', $data['mercaderia_id'][$key])->where('tipomovimiento_id', '=', '3')->delete();
+
                 }
             else
                 { 

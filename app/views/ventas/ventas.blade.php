@@ -14,18 +14,15 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 </script>
 
 
+
 <script type="text/javascript">
 $(document).ready(function(){
   $("#storebutton").click(function(){
-
-
-
     if( $( "#usuario_id" ).val() == "" )    //valida campo 
     {
         alert("Ingrese Usuario")
         return false
     }
-
     if( $( "#local_id" ).val() == "" )    //valida campo 
     {
         alert("Ingrese local")
@@ -45,6 +42,7 @@ $(document).ready(function(){
 
  });
 </script>
+
 
 <script>
 $().ready(function() {
@@ -162,9 +160,9 @@ $foul = 0;  ?>
             @else
                 @if (count($vendidos)>1)
                     @if($vendido->deslocal==$deslocal)
-                        <td width="5%"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                        <td width="5%"><input type="text" name="codlocal3[]" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                     @else
-                        <td width="5%" class="danger"><input type="text" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                        <td width="5%" class="danger"><input type="text" name="codlocal3[]" value="{{$vendido->deslocal}}" readonly class="form-control" tabindex="-1"></td>
                         <?php $foul = $foul + 1 ?>
                     @endif
                 @else
@@ -187,7 +185,7 @@ $foul = 0;  ?>
             <td width="10%"><input type="text" name="preciosugerido[]" id="preciosugerido[]" value="{{$vendido->preciosugerido}}" readonly class="form-control" tabindex="-1"></td>
 
             @if ($vendido->estado=='VEN')
-                <td width="10%" class="danger"><input type="text" name="precioventa[]" id="precioventa[]" value="-{{$vendido->precioventa}}" readonly class="form-control"></td>
+                <td width="10%" class="danger"><input type="text" name="precioventa[]" id="precioventa[]" value="{{$vendido->precioventa}}" readonly class="form-control"></td>
             @else
                 <td width="10%"><input type="text" name="precioventa[]" id="precioventa[]" value="{{$vendido->precioventa}}" readonly class="form-control" tabindex="-1"></td>
             @endif   
@@ -242,7 +240,13 @@ $foul = 0;  ?>
             <div class="col-lg-4">
                 <div class="input-group">
                     <span class="input-group-addon">Pto de Venta</span>
-                    {{Form::select('local_id',[''=>''] + DB::table('locals')->where('codlocal3','<>','ALM')->orderby('codlocal3')->lists('codlocal3','id'), $deslocal, array('id'=>'local_id', 'class'=>'form-control', 'required'=>'required'))}}
+                    
+                    <!--
+                    <input type="text" name="local" value={{$deslocal}} class="form-control" aria-describedby="basic-addon1" readonly tabindex="-1" required>
+                    -->
+                    
+                    {{Form::select('local_id',[''=>''] + DB::table('locals')->where('codlocal3','<>','ALM')->orderby('codlocal3')->lists('codlocal3','id'), null, array('id'=>'local_id', 'class'=>'form-control', 'required'=>'required'))}}
+                    
                </div>
             </div><!-- /.col-lg-6 -->   
             <div class="col-lg-3">

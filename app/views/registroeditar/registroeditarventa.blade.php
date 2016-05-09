@@ -107,9 +107,17 @@ $(document).ready(function(){
         <tr>
             <td width="15%"><input type="text" name="id[]" id="id[]" value="{{$devuelve->id}}" class="form-control" readonly tabindex="-1"></td>
             <td width="30%"><input type="text"  value="{{$devuelve->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
-            <td width="10%"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
-            <td width="10%"><input type="text"  value="{{$devuelve->preciosugerido}}" readonly class="form-control" tabindex="-1"></td>
-            <td width="10%"><input type="number" name="precioventa[]" id="precioventa[]" value="{{$devuelve->precioventa}}" min=1 max=500 class="form-control" required></td>
+            @if ($devuelve->devolucion < 0)
+                <td width="10%" class="danger"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="10%"><input type="text"  value="-{{$devuelve->preciosugerido}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="10%"><input type="number" name="precioventa[]" id="precioventa[]" value="{{$devuelve->devolucion}}" min=1 max=500 class="form-control" required></td>
+            @else
+                <td width="10%"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="10%"><input type="text"  value="{{$devuelve->preciosugerido}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="10%"><input type="number" name="precioventa[]" id="precioventa[]" value="{{$devuelve->precioventa}}" min=1 max=500 class="form-control" required></td>
+            @endif    
+            
+            
             <td width="20%"><input type="text"  value="{{$devuelve->desusuario}}" readonly class="form-control" tabindex="-1"></td>
         </tr>
     @endforeach

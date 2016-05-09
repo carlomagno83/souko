@@ -118,6 +118,7 @@ class RegistroeliminarController extends BaseController {
     public function registroeliminarregistro()
     {
         $data = Input::all();
+        //dd($data);
         //busquemos movimiento anterior
         $num_mercaderia = Input::get('mercaderia_id');
         $ultimosmov = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, tipomovimientos.destipomovimiento, locals.codlocal3, documentos.fechadocumento, documentos.localfin_id 
@@ -138,8 +139,17 @@ class RegistroeliminarController extends BaseController {
         $tipomovimiento_id = Input::get('tipomovimiento_id');
         if ($tipomovimiento_id == '3')
         {   
-            DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
+            if(Input::get('estado') == "VEN")
+            {    
+                DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
                                     ->update(array('estado' => 'ACT', 'local_id' => $localpenultimomov, 'precioventa' => 0));
+            }
+            else
+            {
+                DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
+                                    ->update(array('estado' => 'VEN', 'local_id' => $localpenultimomov, 'precioventa' => Input::get('precioventa')*(-1)));
+
+            }                        
         }
         else
         {

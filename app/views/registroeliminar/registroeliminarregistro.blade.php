@@ -104,9 +104,9 @@ $(document).ready(function(){
             @if ($mercaderiaaeliminar == $mercaderiadoc)
                 <td width="15%" class="info"><input type="text"  value="{{$devuelve->id}}" class="form-control" readonly tabindex="-1"></td>
                 <td width="30%" class="info"><input type="text"  value="{{$devuelve->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
-                <td width="10%" class="info"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="10%" class="info"><input type="text" id="estado" name="estado" value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
                 <td width="10%" class="info"><input type="text"  value="{{$devuelve->preciocompra}}" readonly class="form-control" tabindex="-1"></td>
-                <td width="10%" class="info"><input type="text"  value="{{$devuelve->precioventa}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="10%" class="info"><input type="text" name="precioventa" value="{{$devuelve->precioventa}}" readonly class="form-control" tabindex="-1"></td>
                 <td width="20%" class="info"><input type="text"  value="{{$devuelve->desusuario}}" readonly class="form-control" tabindex="-1"></td>
                 <td><input style="visibility:hidden;" type="text" name="mercaderialocal_id" id="mercaderialocal_id" value="{{$devuelve->local_id}}" class="form-control" readonly tabindex="-1"></td>
                 <td><input style="visibility:hidden;" type="text" name="mercaderiausuario_id" id="mercaderiausuario_id" value="{{$devuelve->usuario_id}}" class="form-control" readonly tabindex="-1"></td>
@@ -115,7 +115,7 @@ $(document).ready(function(){
 
                 <td width="15%"><input type="text" id="id[]" value="{{$devuelve->id}}" class="form-control" readonly tabindex="-1"></td>
                 <td width="30%"><input type="text"  value="{{$devuelve->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
-                <td width="10%"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
+                <td width="10%"><input type="text" value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
                 <td width="10%"><input type="text"  value="{{$devuelve->preciocompra}}" readonly class="form-control" tabindex="-1"></td>
                 <td width="10%"><input type="text"  value="{{$devuelve->precioventa}}" readonly class="form-control" tabindex="-1"></td>
                 <td width="20%"><input type="text"  value="{{$devuelve->desusuario}}" readonly class="form-control" tabindex="-1"></td>

@@ -157,7 +157,7 @@ $(document).ready(function(){
         <td> {{$documento->localfin}} </font></td> 
         <td> {{$documento->desusuario}} </font></td> 
         <td> {{$documento->cantidad}} </font></td> 
-        <td><b> {{$documento->totalventa}} </b></td>
+        <td><b> {{$documento->totalventa + $documento->devolucion }} </b></td>
         <td><a id="link_detalle" href=" {{ URL::to('consultadocs/detalle3/'.$documento->id) }} "><font color="0000FF">Ver Detalle</font></a>  </td>
 
     </tr>
