@@ -2,15 +2,32 @@
 
 @section('main')
 
-<script src="../lib/jquery.js"></script>
-<script src="../dist/jquery.validate.js"></script>
-
 <script type="text/javascript">
 $(document).ready(function(){
   $("#storebutton").click(function(){
+
+    if( $( "#usuario_id" ).val() == "" )    //valida campo 
+    {
+        alert("Ingrese Usuario")
+        return false
+    }
+    if( $( "#local_id" ).val() == "" )    //valida campo 
+    {
+        alert("Ingrese local")
+        return false
+    }   
+    if( $( "#datepicker1" ).val() =="" )    //valida campo 
+    {
+        alert("Ingrese fecha")
+        return false
+    }
+
     $(this).hide();
     $("#muestramsg").show();
     return true;});
+
+
+
  });
 </script>
 
@@ -123,13 +140,13 @@ $foul = 0; ?>
         <div class="col-lg-4">
             <div class="input-group">
                 <span class="input-group-addon" id="marca_id">Vendedor</span>
-                {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->where('estado',"ACT")->orderby('desusuario')->lists('desusuario','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
+                {{Form::select('usuario_id', [''=>''] + DB::table('users')->where('rolusuario',"VENDE")->where('estado',"ACT")->orderby('desusuario')->lists('desusuario','id'),null,array('id'=>'usuario_id', 'class'=>'form-control', 'required'=>'required'))}}
             </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-4">
             <div class="input-group">
-                <span class="input-group-addon" id="localini">Local Inicial</span>
-                {{Form::select('localini',[''=>''] + DB::table('locals')->where('codlocal3','<>','ALM')->orderby('codlocal3')->lists('codlocal3','id'),null,array('class'=>'form-control', 'required'=>'required'))}}
+                <span class="input-group-addon" id="localini">Local que devuelve (verif)</span>
+                {{Form::select('localini',[''=>''] + DB::table('locals')->where('codlocal3','<>','ALM')->orderby('codlocal3')->lists('codlocal3','id'),null,array('id'=>'local_id', 'class'=>'form-control', 'required'=>'required'))}}
            </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-4">

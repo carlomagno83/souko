@@ -82,6 +82,16 @@ class DevolucionptoventaController extends BaseController {
         }
         $data = Input::all();
         //dd($data['mercaderia_id'][0]);
+        //dd($devuelves[0]->deslocal);
+        $localdev = $devuelves[0]->deslocal;
+        //dd($localdev);
+        $localmerca = DB::table('locals')->select('id')->where('codlocal3','=', $localdev)->pluck('id');
+        //dd($data['localini']);
+        if($data['localini'] <> $localmerca )
+        {
+            return View::make('devolucionptoventa.devolucionptoventa')->with('devuelves', $devuelves)->withInput('usuario_id')->withErrors(['Local actual de la mercaderia diferente a local que genera la devolucion']);
+        }
+
         // hay que agregar un control de txn
         //$documento_id = $this->saveDocumento(Input::get('localini')); // cambio por numdocfisico
         $documento_id = $this->saveDocumento(Input::get('localini'), Input::get('numdocfisico'), Input::get('fechadocumento'));
