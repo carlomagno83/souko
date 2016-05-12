@@ -189,6 +189,9 @@
 								</li>
 
 								<li>
+									<a href="{{URL::to('/inventario')}}">Inventario</a>
+								</li>
+								<li>
 									<a href="{{URL::to('/consultaventa')}}">Consulta de Ventas por vendedor</a>
 								</li>
 								@endif

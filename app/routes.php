@@ -132,6 +132,8 @@ Route::resource('modelos', 'ModelosController');
 			Route::resource('consultastockadm', 'ConsultastockController');
 			Route::get('descargaexcelstockadm', 'ConsultastockController@descargaexcel');
 			Route::get('descargaexcelkardex', 'ConsultastockController@descargaexcelkardex');			
+			Route::get('pantallaexcelkardexdescanso', 'ConsultastockController@pantallaexcelkardexdescanso');			
+			Route::get('descargaexcelkardexdescanso', 'ConsultastockController@descargaexcelkardexdescanso');			
 						
 
 			Route::resource('consultastockdet', 'ConsultastockdetController');

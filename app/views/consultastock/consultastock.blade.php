@@ -27,10 +27,15 @@ tbody {
 
 <th width="84%"> Consulta de Stock actual (Administrativo)</th>    
 <th width="8%" align="right"> <a style="padding-top: 8px;" href="{{URL::to('descargaexcelstockadm')}}"  title="Descarga Stock administrativo"><img width="60px" src="{{asset('img/downloadXL.gif')}}"></a></th>
-<th width="8%" align="right"> <a style="padding-top: 8px;" href="{{URL::to('descargaexcelkardex')}}" title="Descarga Kardex"><img width="45px" src="{{asset('img/kardex.jpg')}}"></a></th>                       
+<th width="8%" align="right"> <a style="padding-top: 8px;" href="{{URL::to('descargaexcelkardex')}}" title="Descarga Kardex"><img width="45px" src="{{asset('img/kardex.jpg')}}"></a></th> 
+</h3>                      
+(Incluye mercaderías en estado Inactivo) <br>
+<p align="right">
+Si necesita elaborar el kardex luego de un día festivo, Haga click  
+ <a style="padding-top: 8px;" href="{{URL::to('pantallaexcelkardexdescanso')}}" title="Descarga Kardex Día Festivo">aquí</a>                 
+</p>
 
-</h3>
-(Incluye mercaderías en estado Inactivo) 
+
 <br>
 
 

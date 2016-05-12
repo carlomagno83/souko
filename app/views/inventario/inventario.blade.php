@@ -5,7 +5,10 @@
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
         <h3>Inventario por local</h3>
-        Genera el archivo Excel de un Pto de Venta para verificar existencias (Usar Pistola escanner)
+        Genera el archivo Excel de un Pto de Venta para verificar existencias (Usar Pistola escanner)<br>
+        Se incluyen mercaderías en estados ACT e INA <br>
+        En EXCEL presione "CTRL + i" (la rutina macro debe estar incluida en el programa MS-Excel)
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

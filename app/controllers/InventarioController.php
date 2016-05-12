@@ -32,11 +32,14 @@ class InventarioController extends BaseController {
 
 		    $local_id = Input::get('local_id');
 
-			$sql = "SELECT mercaderias.id, codproducto31
+			$sql = "SELECT mercaderias.id, codproducto31, codmarca3, codtipo8, codrango6
 								from mercaderias 
 								INNER JOIN productos ON mercaderias.producto_id=productos.id
+								INNER JOIN marcas ON productos.marca_id=marcas.id
+								INNER JOIN tipos ON productos.tipo_id=tipos.id
+								INNER JOIN rangos ON productos.rango_id=rangos.id
 								WHERE mercaderias.local_id=$local_id AND (mercaderias.estado='ACT' OR mercaderias.estado='INA')
-								ORDER BY mercaderias.id";
+								ORDER BY codmarca3, codtipo8, codrango6";		
 								
 	        $mercaderias = DB::select($sql);
 
