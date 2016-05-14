@@ -200,7 +200,7 @@ $(document).ready(function(){
         </tbody>
     </table>
 <br>
-<?php $cantidad = DB::table('entradas')->sum('cantidad'); $ptotal = DB::table('entradas')->selectRaw('SUM(cantidad * preciocompra) as total')->pluck('total');; ?>
+<?php $cantidad = DB::table('entradas')->sum('cantidad'); $ptotal = DB::table('entradas')->selectRaw('SUM(cantidad * preciocompra) as total')->where('usuario_id','=', Auth::user()->id)->pluck('total');; ?>
 <div class="alert alert-success" >
     <div class="row">
         <!--<div class="col-lg-5">-->
