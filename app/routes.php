@@ -184,6 +184,7 @@ Route::resource('modelos', 'ModelosController');
 				Route::post('registroeditarventa', 'RegistroeditarController@registroeditarventa');
 			}
 			Route::get('consultamercaderia/{cod}', 'RegistroagregarController@consultamercaderia');
+			Route::post('imprimeetiqueta', 'RegistroagregarController@imprimeetiqueta');
 
 			//mantenimiento
 			Route::resource('mantenimientobd', 'mantenimientobdController@mantenimientobd');

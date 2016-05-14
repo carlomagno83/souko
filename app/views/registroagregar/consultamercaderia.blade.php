@@ -14,19 +14,20 @@ $(document).ready(function(){
  });
 </script>
 
+<form method="POST" action="{{url('imprimeetiqueta')}}">
 @foreach ($detalles as $detalle)
 <div class="alert alert-info" >
     <div class="row">
         <div class="col-lg-3">
             <div class="input-group">
-                <span class="input-group-addon" id="cantidaditem"># mercadería</span>
-                <input type="text"  value="{{$detalle->id}}" readonly class="form-control" tabindex="-1">
+                <span class="input-group-addon"># mercadería</span>
+                <input type="text" name="id" value="{{$detalle->id}}" readonly class="form-control" tabindex="-1">
             </div>
         </div>       
         <div class="col-lg-6">
             <div class="input-group">
-                <span class="input-group-addon" id="cantidaditem">Cod Producto 31</span>
-                <input type="text"  value="{{$detalle->codproducto31}}" readonly class="form-control" tabindex="-1">
+                <span class="input-group-addon" >Cod Producto 31</span>
+                <input type="text" name="codproducto31" value="{{$detalle->codproducto31}}" readonly class="form-control" tabindex="-1">
             </div>
         </div>       
         <div class="col-lg-3">
@@ -50,12 +51,16 @@ $(document).ready(function(){
                 <input type="text"  value="{{$detalle->precioventa}}" readonly class="form-control" tabindex="-1">
             </div>
         </div>       
-
+        <div class="col-lg-6"  align="right">
+            <div class="input-group">
+                <input type="image" name="submit" title="Imprime etiqueta en caso de pérdida" src="{{asset('img/barcode.png')}}" onclick="return confirm('¿Desea imprimir la etiqueta de código de barras para esta mercadería?');">
+            </div>
+        </div> 
 
     </div>
 </div>
 @endforeach
-
+</form>
 
 
 

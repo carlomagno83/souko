@@ -166,5 +166,58 @@ class RegistroagregarController extends BaseController {
     }
 
 
+    public function imprimeetiqueta()
+    {
+        $data = Input::all();
+
+        //dd($data);
+        Excel::create('Etqta'.Input::get('id'), function($excel)
+        {
+            // Set the title
+        $excel->setTitle('Re-imprime Etiqueta');
+        $excel->sheet('Hoja1', function($sheet)
+        {
+            $sheet->setPageMargin(array( 0.2, 0.2, 0.2, 0.2 ));
+            $sheet->freezeFirstRow();
+            $sheet->setWidth('A',50);
+            $sheet->setWidth('B',50);
+            $sheet->setWidth('C',50);
+            $sheet->setHeight(1,20);
+
+
+            $sheet->setStyle(array( 'font' => array('name' => 'Bodoni MT Condensed','size' => 20,'bold' => false )));
+
+            $sheet->row(1, array('Reimpresión de etiqueta ','Se imprime un id por triplicado', 'Utilice una sola hoja para imprimir'));  
+            $sheet->cell('A2', function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); });
+            $sheet->cell('B2', function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); });
+            $sheet->cell('C2', function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); });
+
+            $sheet->row(2, array(Input::get('codproducto31'), Input::get('codproducto31'),Input::get('codproducto31') ));
+            $sheet->setHeight(2, 84);
+              
+            $sheet->cell('A3', function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); $cell->setFontFamily('MRV Code39MA Free'); $cell->setFontSize(22); });
+            $sheet->cell('B3', function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); $cell->setFontFamily('MRV Code39MA Free'); $cell->setFontSize(22); });
+            $sheet->cell('C3', function($cell) { $cell->setAlignment('center'); $cell->setValignment('center'); $cell->setFontFamily('MRV Code39MA Free'); $cell->setFontSize(22); });
+            $sheet->row(3, array('*'. Input::get('id') .'*', '*'. Input::get('id') .'*', '*'. Input::get('id') .'*' ));
+
+
+
+
+
+              $sheet->setHeight(4, 84); //ultima fila aparece 128.25
+
+              //$sheet->fromArray($mercaderias);.$fila
+              /*$fecha_ini = $_POST["fecha_ini_txt"];
+              $fecha_fin = $_POST["fecha_fin_txt"];
+              $movimientos = new Movimiento;
+              $movimientos = $this->Datos($fecha_ini ,$fecha_fin);
+              $sheet->fromArray($movimientos);*/
+            });
+        })->download('xlsx');
+
+
+    }
+
+
 }
 ?>
