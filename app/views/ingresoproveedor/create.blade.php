@@ -47,55 +47,54 @@ $(document).ready(function(){
 
 <br>
 
-<form method="POST" action="{{url('ingresos-proveedor-filtrar')}}">
+<form method="POST" action="{{url('ingresos-proveedor-filtrar')}}" name="form1">
 <div class="row">
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="provider_id">Proveedor</span>
-                {{Form::select('provider_id', [0=>''] + DB::table('providers')->orderby('desprovider')->lists('desprovider','id'), Input::get('provider_id'),array('class'=>'form-control'))}}
+                {{Form::select('provider_id', [0=>''] + DB::table('providers')->orderby('desprovider')->lists('desprovider','id'), Input::get('provider_id'),array('class'=>'form-control', 'onchange'=>'form2.provider_id.value=form1.provider_id.value'))}}
             </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="marca_id">Marca</span>
-                {{Form::select('marca_id',[0=>''] + DB::table('marcas')->orderby('desmarca')->lists('desmarca','id'), Input::get('marca_id'),array('class'=>'form-control'))}}
+                {{Form::select('marca_id',[0=>''] + DB::table('marcas')->orderby('desmarca')->lists('desmarca','id'), Input::get('marca_id'),array('class'=>'form-control', 'onchange'=>'form2.marca_id.value=form1.marca_id.value'))}}
            </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="tipo_id">Tipo</span>
-                {{Form::select('tipo_id', [0=>''] + DB::table('tipos')->orderby('destipo')->lists('destipo','id'), Input::get('tipo_id'),array('class'=>'form-control'))}}
+                {{Form::select('tipo_id', [0=>''] + DB::table('tipos')->orderby('destipo')->lists('destipo','id'), Input::get('tipo_id'),array('class'=>'form-control', 'onchange'=>'form2.tipo_id.value=form1.tipo_id.value'))}}
             </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="rango_id">Rango</span>
-                {{Form::select('rango_id',[0=>''] + DB::table('rangos')->orderby('desrango')->lists('desrango','id'), Input::get('rango_id'),array('class'=>'form-control'))}}
+                {{Form::select('rango_id',[0=>''] + DB::table('rangos')->orderby('desrango')->lists('desrango','id'), Input::get('rango_id'),array('class'=>'form-control', 'onchange'=>'form2.rango_id.value=form1.rango_id.value'))}}
             </div>
         </div><!-- /.col-lg-6 -->
                 
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="modelo_id">Modelo</span>
-                {{Form::select('modelo_id',[0=>''] + DB::table('modelos')->orderby('desmodelo')->lists('desmodelo','id'), Input::get('modelo_id'),array('class'=>'form-control'))}}
+                {{Form::select('modelo_id',[0=>''] + DB::table('modelos')->orderby('desmodelo')->lists('desmodelo','id'), Input::get('modelo_id'),array('class'=>'form-control', 'onchange'=>'form2.modelo_id.value=form1.modelo_id.value'))}}
            </div>
         </div><!-- /.col-lg-6 -->
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="material_id">Material</span>
-                {{Form::select('material_id', [0=>''] + DB::table('materials')->orderby('desmaterial')->lists('desmaterial','id'), Input::get('material_id'),array('class'=>'form-control'))}}
+                {{Form::select('material_id', [0=>''] + DB::table('materials')->orderby('desmaterial')->lists('desmaterial','id'), Input::get('material_id'),array('class'=>'form-control', 'onchange'=>'form2.material_id.value=form1.material_id.value'))}}
             </div>
         </div><!-- /.col-lg-6 -->
 
         <div class="col-lg-3">
             <div class="input-group">
                 <span class="input-group-addon" id="color_id">Color</span>
-                {{Form::select('color_id',[0=>''] + DB::table('colors')->orderby('descolor')->lists('descolor','id'), Input::get('color_id'),array('class'=>'form-control'))}}
+                {{Form::select('color_id',[0=>''] + DB::table('colors')->orderby('descolor')->lists('descolor','id'), Input::get('color_id'),array('class'=>'form-control', 'onchange'=>'form2.color_id.value=form1.color_id.value'))}}
            </div>
         </div><!-- /.col-lg-6 -->
         <br>
 </div>  
-<br>
 <div class="row">
     <div class="col-lg-10">
     </div>
@@ -105,8 +104,15 @@ $(document).ready(function(){
 </div> 
 </form>
 
-<br>
-<form method="POST" action="{{url('ingresos-proveedor-agregar')}}">
+<form method="POST" action="{{url('ingresos-proveedor-agregar')}}" name="form2">
+<input style="visibility:hidden" type="text" name="provider_id" value={{Input::get('provider_id')}}>
+<input style="visibility:hidden" type="text" name="marca_id" value={{Input::get('marca_id')}}>
+<input style="visibility:hidden" type="text" name="tipo_id" value={{Input::get('tipo_id')}}>
+<input style="visibility:hidden" type="text" name="rango_id" value={{Input::get('rango_id')}}>
+<input style="visibility:hidden" type="text" name="modelo_id" value={{Input::get('modelo_id')}}>
+<input style="visibility:hidden" type="text" name="material_id" value={{Input::get('material_id')}}>
+<input style="visibility:hidden" type="text" name="color_id" value={{Input::get('color_id')}}>
+
 @if (count($productos)>0)
 
 <!-- HTML Example by Way2Tutorial.com -->
@@ -159,7 +165,8 @@ $(document).ready(function(){
 
 <br>
 </form>
-<form method="POST" action="{{url('ingresos-proveedor-store')}}">
+<form method="POST" action="{{url('ingresos-proveedor-store')}}" name="form3">
+
 @if (count($entradas)>0)
 <h2>Productos para ingresar a Almacén</h2>
     <table class="table table-striped">

@@ -31,6 +31,7 @@ class IngresoproveedorController extends BaseController
 
     public function filtrar()
     { 
+      //dd(Input::all());
         //$entradas = DB::table('entradas')->where('usuario_id','=',1)->get();//hay que cambiar por usuario logueado
         //usuario logueado
         $entradas = DB::table('entradas')->where('usuario_id','=', Auth::user()->id)->get();//hay que cambiar por usuario logueado
@@ -128,11 +129,6 @@ class IngresoproveedorController extends BaseController
                                        'productos.codproducto31',
                                        'productos.preciocompra',
                                        'productos.precioventa')
-                                /*->whereNotIn('productos.id', function($query)
-                                              {
-                                                  $query->select('producto_id')
-                                                        ->from('entradas');
-                                              })*/
                                 ->orderBy('providers.codprovider3') 
                                 ->orderBy('productos.codproducto31')             
                                 ->get();
@@ -148,7 +144,7 @@ class IngresoproveedorController extends BaseController
     public function agregar() //agrega los registros a una segunda grilla y la tabla temporal
     {
         $data = Input::all();
-
+//dd($data['provider_id']);
         foreach($data as $key=>$value)
         {
             if($key=='cantidad')            
@@ -168,9 +164,13 @@ class IngresoproveedorController extends BaseController
               }
             }
         }    
-
-        return Redirect::to('ingresos-proveedor-create');
+$productos = Producto::find(0);
+$entradas = DB::table('entradas')->where('usuario_id','=', Auth::user()->id)->get();
+        //return Redirect::to('ingresos-proveedor-create')->withInput('provider_id', 'marca_id', 'tipo_id', 'modelo_id', 'material_id', 'color_id' , 'rango_id');
+        return View::make('ingresoproveedor.create')->withInput('provider_id', 'marca_id', 'tipo_id', 'modelo_id', 'material_id', 'color_id' , 'rango_id')->with('productos',$productos)->with('entradas', $entradas);
     }
+
+
 
 //guarda los datos correspondientes, imprime, y borra temporal
     public function store() 
@@ -269,7 +269,8 @@ class IngresoproveedorController extends BaseController
     }
     public function getDelete($id)
     {
-      //data = Input::all();
+      //$data = Input::all();
+
       DB::table('entradas')->where('id', '=', $id)->delete();
 
           $entradas = DB::table('entradas')->where('usuario_id','=', Auth::user()->id )->get();//usuario logueado
