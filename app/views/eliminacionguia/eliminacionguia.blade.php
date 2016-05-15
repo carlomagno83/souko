@@ -148,7 +148,7 @@ $(document).ready(function(){
 </table>
 @if($ok == 0)
     <div class="col-lg-4">
-    <input id="storebutton" type="submit" value="Borrar documento en caso de diferencia de cantidades" class="btn btn-danger">
+    <input id="storebutton" type="submit" value="Borrar documento en caso de diferencia de cantidades" class="btn btn-lg btn-primary">
     </div>  
 @endif    
 <br>

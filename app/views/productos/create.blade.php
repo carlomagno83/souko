@@ -70,7 +70,12 @@
             <div class="col-sm-2">
               {{ Form::select('provider_id',[""=>''] + $providers, Input::old('provider_id'), array('id'=>'provider_id', 'class'=>'form-control', 'autofocus' =>'autofocus')) }}
             </div>            
-
+        </div>
+    </div>
+</div>  
+<div class="row">
+    <div class="col-md-12 col-md-offset-0" style="background-color:#8181F7">
+        <div class="form-group">
             {{ Form::label('marca_id', 'Marca:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">
               {{ Form::select('marca_id',[""=>''] + $marcas, Input::old('marca_id'), array('id'=>'marca_id', 'class'=>'form-control')) }}
@@ -80,16 +85,20 @@
             <div class="col-sm-3">
               {{ Form::select('tipo_id',[""=>''] + $tipos, Input::old('tipo_id'), array('id'=>'tipo_id', 'class'=>'form-control')) }}
             </div>
+            {{ Form::label('rango_id', 'Rango:', array('class'=>'col-md-1 control-label')) }}
+            <div class="col-sm-2">
+              {{ Form::select('rango_id',[""=>''] + $rangos, Input::old('rango_id'), array('id'=>'rango_id', 'class'=>'form-control')) }}
+            </div>   
+            <div class="col-sm-1">
+              {{ Form::label('et', 'VISTA KARDEX', array('class'=>'col-md-3 control-label')) }} 
+            </div>         
         </div>
     </div>
 </div>            
 <div class="row">
     <div class="col-md-12 col-md-offset-0">
         <div class="form-group">
-            {{ Form::label('rango_id', 'Rango:', array('class'=>'col-md-1 control-label')) }}
-            <div class="col-sm-2">
-              {{ Form::select('rango_id',[""=>''] + $rangos, Input::old('rango_id'), array('id'=>'rango_id', 'class'=>'form-control')) }}
-            </div>
+
 
             {{ Form::label('modelo_id', 'Modelo:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">

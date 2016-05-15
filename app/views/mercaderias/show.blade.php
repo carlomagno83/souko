@@ -4,7 +4,7 @@
 
 <h3>Mostrar Mercaderia</h3>
 
-<p>{{ link_to_route('mercaderias.index', 'Regresar a la Tabla de mercaderias', null, array('class'=>'btn btn-lg btn-primary')) }}</p>
+<p>{{ link_to_route('mercaderias.index', 'Regresar a la Tabla de mercaderias', null, array('class'=>'btn btn-lg btn-success')) }}</p>
 <?php $productos = DB::table('productos')->select('codproducto31')->where('id', '=', $mercaderia["producto_id"])->pluck('codproducto31') ?>
 <?php $locals = DB::table('locals')->select('codlocal3')->where('id', '=', $mercaderia["local_id"])->pluck('codlocal3') ?>
 <?php $users = DB::table('users')->select('desusuario')->where('id', '=', $mercaderia["usuario_id"])->pluck('desusuario') ?>
