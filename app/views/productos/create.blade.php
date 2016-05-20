@@ -74,7 +74,7 @@
     </div>
 </div>  
 <div class="row">
-    <div class="col-md-12 col-md-offset-0" style="background-color:#8181F7">
+    <div class="col-md-12 col-md-offset-0" style="background-color:#F6CEF5">
         <div class="form-group">
             {{ Form::label('marca_id', 'Marca:', array('class'=>'col-md-1 control-label')) }}
             <div class="col-sm-2">

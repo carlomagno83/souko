@@ -151,7 +151,7 @@ class IngresoproveedorController extends BaseController
             {
               foreach($value as $key2=>$cantidad)
               {
-                if($cantidad>0 AND $data['preciocompra'][$key2]>0)
+                if($cantidad>0 AND $data['preciocompra'][$key2]<>'')
                 {
 //usuario logueado
                   DB::table('entradas')->insert(array('producto_id' => $data['producto_id'][$key2], 
@@ -204,9 +204,17 @@ $entradas = DB::table('entradas')->where('usuario_id','=', Auth::user()->id)->ge
                     for ($i = 1; $i <= $data['cantidad'][$key2]; $i++) 
                     {
                         $preciocompra = $data['preciocompra'][$key2];
-
-                        $mercaderia_id = $this->saveMercaderia($producto_id, $preciocompra);
-                        $this->saveMovimientos($mercaderia_id,$documento_id);
+                        if($preciocompra > 0)
+                        {
+                          $mercaderia_id = $this->saveMercaderia($producto_id, $preciocompra);
+                          $this->saveMovimientos($mercaderia_id,$documento_id);
+                        }
+                        else
+                        {
+                          $psugerido = DB::table('productos')->select('precioventa')->where('id','=',$data['producto_id'][$key2])->pluck('precioventa');
+                          $mercaderia_id = $this->saveMercaderia($producto_id, $psugerido);
+                          $this->saveMovimientos($mercaderia_id,$documento_id);
+                        }  
                     }
                 }
             }
