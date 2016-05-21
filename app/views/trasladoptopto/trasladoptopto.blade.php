@@ -159,7 +159,13 @@ $(document).ready(function(){
     </div><!-- /.row -->
     <br>
     <div class="row">
-            <div class="col-lg-7">
+            <div class="col-lg-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="cantidaditem">Cantidad Items</span>
+                    <input type="text"  value="{{count($traslados)}}" readonly class="form-control" tabindex="-1">
+                </div>
+            </div><!-- /.col-lg-6 -->    
+            <div class="col-lg-4">
                 <div class="input-group">
                     <input type="text" style="display: none;" name="localini" value={{ $localini_id }} readonly class="form-control">
                 </div>
@@ -174,7 +180,7 @@ $(document).ready(function(){
     <br>
     <div class="row">
             <div class="col-lg-7">
-            </div><!-- /.col-lg-6 -->
+            </div>
             <div class="col-lg-4">
                 <div class="input-group">
                     <span class="input-group-addon" id="numdocfisico">Número de Documento Físico</span>
