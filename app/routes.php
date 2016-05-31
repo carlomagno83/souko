@@ -182,6 +182,10 @@ Route::resource('modelos', 'ModelosController');
 				Route::get('registroeditar', 'RegistroeditarController@index');
 				Route::post('editaregistro-buscar', 'RegistroeditarController@buscar');
 				Route::post('registroeditarventa', 'RegistroeditarController@registroeditarventa');
+
+				Route::get('ingresoeditar', 'IngresoeditarController@index');
+				Route::post('ingresoeditar-buscar', 'IngresoeditarController@buscar');
+				Route::post('ingresoeditarcompra', 'IngresoeditarController@ingresoeditarcompra');				
 			}
 			Route::get('consultamercaderia/{cod}', 'RegistroagregarController@consultamercaderia');
 			Route::post('imprimeetiqueta', 'RegistroagregarController@imprimeetiqueta');

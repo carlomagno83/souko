@@ -38,8 +38,8 @@ $(document).ready(function(){
 
 <div class="row">
     <div class="col-md-0 col-md-offset-0">
-        <h3>Correcciones - Editar registro Venta (Precio Venta)</h3>
-        Valor puede ser negativo en caso de cambio por cliente 
+        <h3>Correcciones - Editar Guía de Ingreso Proveedor (Precio Compra)</h3>
+        Valores pueden ser cero(0) en caso de devolución al proveedor
         @if ($errors->any())
         	<div class="alert alert-danger">
         	    <ul>
@@ -67,10 +67,10 @@ $(document).ready(function(){
     </div><!-- /.col-lg-6 -->
     <div class="col-lg-4">
         <div class="input-group">
-            <span class="input-group-addon" id="fechadocumento">Total Items</span>
+            <span class="input-group-addon" >Total Items</span>
             <input type="text" class="form-control" value="{{count($devuelves)}}" aria-describedby="basic-addon1" readonly="" tabindex="-1">
-       </div>
-    </div><!-- /.col-lg-6 -->    
+       </div>   
+    </div>    
 </div><!-- /.row -->
 <br>
 <div class="row">
@@ -86,6 +86,12 @@ $(document).ready(function(){
             <input type="text" name="desusuario" class="form-control" value="{{$documento->desusuario}}" aria-describedby="basic-addon1" readonly="" tabindex="-1">
        </div>
     </div><!-- /.col-lg-6 -->
+    <div class="col-lg-4">
+        <div class="input-group">
+            <span class="input-group-addon" >Total Precio Compra</span>
+            <input type="text" class="form-control" value="{{$documento->totalcompra}}" aria-describedby="basic-addon1" readonly="" tabindex="-1">
+       </div>
+    </div><!-- /.col-lg-6 -->    
 <input type="text" style="visibility:hidden" name="localfin_id" value="{{$documento->localfin_id}}" aria-describedby="basic-addon1" readonly="" tabindex="-1">
 <input type="text" style="visibility:hidden" name="usuario_id" value="{{$documento->usuario_id}}" aria-describedby="basic-addon1" readonly="" tabindex="-1">
 
@@ -101,28 +107,26 @@ $(document).ready(function(){
         <tr>
             <th width="15%">Mercadería id</th>
             <th width="30%">Codproducto31</th>
-            <th width="10%">Estado</th>             
+            <th width="10%">Estado</th>   
+            <th width="10%">Precio Compra</th>          
             <th width="10%">P Sugerido</th>
-            <th width="10%">Precio Venta</th>
+            
             <th width="20%">Usuario</th> 
         </tr>    
     </thead>
 
-<form method="POST" id="validadorjs" action="{{url('registroeditarventa')}}">
+<form method="POST" id="validadorjs" action="{{url('ingresoeditarcompra')}}">
 @if (count($devuelves)>0)
     @foreach ($devuelves as $devuelve)
         <tr>
             <td width="15%"><input type="text" name="id[]" id="id[]" value="{{$devuelve->id}}" class="form-control" readonly tabindex="-1"></td>
             <td width="30%"><input type="text"  value="{{$devuelve->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
-            @if ($devuelve->devolucion < 0)
-                <td width="10%" class="danger"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
-                <td width="10%"><input type="text"  value="-{{$devuelve->preciosugerido}}" readonly class="form-control" tabindex="-1"></td>
-                <td width="10%"><input type="number" name="precioventa[]" id="precioventa[]" value="{{$devuelve->devolucion}}" min=1 max=500 class="form-control" required></td>
-            @else
-                <td width="10%"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
-                <td width="10%"><input type="text"  value="{{$devuelve->preciosugerido}}" readonly class="form-control" tabindex="-1"></td>
-                <td width="10%"><input type="number" name="precioventa[]" id="precioventa[]" value="{{$devuelve->precioventa}}" min=1 max=500 class="form-control" required></td>
-            @endif    
+
+            <td width="10%"><input type="text"  value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
+            <td width="10%"><input type="number" name="preciocompra[]" id="preciocompra[]" value="{{$devuelve->preciocompra}}" min=1 max=500 class="form-control" required></td>
+            <td width="10%"><input type="text"  value="{{$devuelve->preciosugerido}}" readonly class="form-control" tabindex="-1"></td>
+            
+
             
             
             <td width="20%"><input type="text"  value="{{$devuelve->desusuario}}" readonly class="form-control" tabindex="-1"></td>
