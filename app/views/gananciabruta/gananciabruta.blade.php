@@ -143,9 +143,9 @@ RESULTADOS PARA EL AÑO {{Input::get('anho') }}
     @endif    
 
 @endif   
-    <td width="120px" align="right">{{$suma}}</td>
+    <td width="120px" align="right">{{number_format($suma, 2)}}</td>
     </tr>  
-   
+
 @endfor  
 
 </tbody>
