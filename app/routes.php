@@ -159,10 +159,22 @@ Route::resource('modelos', 'ModelosController');
 			Route::get('consultadocs/detalle7/{doc_id}', 'ConsultadocsController@detalle7');
 			Route::post('eliminaguiaventa', 'ConsultadocsController@eliminaguiaventa');			
 
-
-			//correcciones
+			//reportes especiales y correciones
 			if( Auth::user()->rolusuario=='SUPER')
 			{
+				//reportes especiales
+				Route::resource('movimientocosto', 'MovimientocostoController');
+				Route::post('consulta-stock-historico', 'ConsultastockhistController@consulta');
+
+				Route::resource('gananciabruta', 'GananciabrutaController');
+				Route::post('gananciabrutabuscar', 'GananciabrutaController@buscar');
+
+				Route::resource('flujoventa', 'FlujoventaController');
+				Route::post('consulta-stock-historico', 'ConsultastockhistController@consulta');
+
+
+
+				// correciones
 				Route::get('documentoeditar', 'DocumentoeditarController@index');
 				Route::post('documentoeditar-buscar', 'DocumentoeditarController@buscar');
 				Route::post('documentoeditardocumento', 'DocumentoeditarController@documentoeditardocumento');

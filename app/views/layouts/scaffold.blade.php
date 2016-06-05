@@ -212,6 +212,22 @@
 									<a href="{{URL::to('/consultadocs')}}">Consulta Documentos</a>
 								</li>
 								@endif
+								@if( Auth::user()->rolusuario=='SUPER' )
+								<li role="presentation" class="divider"></li>	
+								<!--
+								<li>
+									<a href="{{URL::to('/movimientocosto')}}">Movimiento por costo</a>
+								</li>
+								-->
+								<li>
+									<a href="{{URL::to('/gananciabruta')}}">Ganancia Bruta por mes</a>
+								</li>
+								<!--
+								<li>
+									<a href="{{URL::to('/flujoventa')}}">Flujo de venta</a>
+								</li>
+								-->
+								@endif	
 
 							</ul>
 						</li>
