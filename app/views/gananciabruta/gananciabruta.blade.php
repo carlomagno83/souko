@@ -116,22 +116,36 @@ RESULTADOS PARA EL AÑO {{Input::get('anho') }}
     @if($m == 11) <td width="120px"> NOVIEMBRE </td> @endif
     @if($m == 12) <td width="120px"> DICIEMBRE </td> @endif
     
+@if($key>$todo)
     @for($p = 2 ; $p <= $puntos ; $p++)
-        @if($key>$todo)
-            <td width="75px" align="right">0.00</td>
-        @else
-            <?php $localcod = $resultados[$key]->local_id; ?>
-            @if( $localcod == $p)
-                <td width="75px" align="right"> {{$resultados[$key]->total}} </td>
-                <?php $suma=$suma+$resultados[$key]->total; $key=$key+1; ?>
+        <td width="75px" align="right">0.00</td>
+    @endfor    
+@else    
+    @if($resultados[$key]->mes==$m)
+        @for($p = 2 ; $p <= $puntos ; $p++)
+            @if($key>$todo)
+                <td width="75px" align="right">0.00</td>
             @else
-                <td width="75px" align="right">0.00</td>    
+                <?php $localcod = $resultados[$key]->local_id; ?>
+                @if( $localcod == $p)
+                    <td width="75px" align="right"> {{$resultados[$key]->total}} </td>
+                    <?php $suma=$suma+$resultados[$key]->total; $key=$key+1; ?>
+                @else
+                    <td width="75px" align="right">0.00</td>    
+                @endif
             @endif
-        @endif
-    @endfor
+        @endfor
+    @else
+        @for($p = 2 ; $p <= $puntos ; $p++)
+            <td width="75px" align="right">0.00</td>
+            <?php $suma=$suma+0;  ?>
+        @endfor     
+    @endif    
+
+@endif   
     <td width="120px" align="right">{{$suma}}</td>
     </tr>  
-      
+   
 @endfor  
 
 </tbody>
