@@ -142,7 +142,7 @@ class RegistroeliminarController extends BaseController {
             if(Input::get('estado') == "VEN")
             {    
                 DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
-                                    ->update(array('estado' => 'ACT', 'local_id' => $localpenultimomov, 'precioventa' => 0));
+                                    ->update(array('estado' => 'ACT', 'local_id' => $localpenultimomov));
             }
             else
             {

@@ -120,7 +120,9 @@ class VentasController extends BaseController {
 
             if ($data['estado'][$key]=='VEN')
                 { 
-                    DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => $data['local_id'], 'precioventa' => 0, 'estado' => 'ACT', 'usuario_id' => $data['usuario_id'])); 
+                    DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => $data['local_id'], 'estado' => 'ACT', 'usuario_id' => $data['usuario_id'])); 
+                    //DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key])->update(array('local_id' => $data['local_id'], 'precioventa' => 0, 'estado' => 'ACT', 'usuario_id' => $data['usuario_id'])); 
+                    //no debe borrar el precio de venta para los reportes
                     //DB::table('movimientos')->where('mercaderia_id', '=', $data['mercaderia_id'][$key])->where('tipomovimiento_id', '=', '3')->delete();
 
                 }
