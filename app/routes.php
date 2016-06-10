@@ -172,7 +172,8 @@ Route::resource('modelos', 'ModelosController');
 				Route::resource('flujoventa', 'FlujoventaController');
 				Route::post('consulta-stock-historico', 'ConsultastockhistController@consulta');
 
-
+				Route::resource('guiacuaderno', 'GuiacuadernoController');
+				Route::post('guiacuaderno-descargar', 'GuiacuadernoController@descargar');
 
 				// correciones
 				Route::get('documentoeditar', 'DocumentoeditarController@index');

@@ -227,6 +227,15 @@
 									<a href="{{URL::to('/flujoventa')}}">Flujo de venta</a>
 								</li>
 								-->
+								<li role="presentation" class="divider"></li>
+								<li>
+									<a href="{{URL::to('/guiacuaderno')}}">Guías y Cuadernos</a>
+								</li>
+								<!--
+								<li>
+									<a href="{{URL::to('/stockafecha')}}">Stock genérico a una fecha determinada</a>
+								</li>	
+								-->							
 								@endif	
 
 							</ul>
