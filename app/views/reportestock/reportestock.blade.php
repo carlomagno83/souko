@@ -47,9 +47,9 @@ tbody {
 ?>
 
 <table class="table table-hover table-striped">
-<thead> <th width="280px">CODIGO</th>
+<thead> <td width="280px">CODIGO</td>
         @foreach ($locals as $local)
-            <th width="55px">{{$local->codlocal3}}</th>
+            <td width="55px">{{$local->codlocal3}}</td>
         @endforeach
 </thead> 
 <tbody>

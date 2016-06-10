@@ -100,9 +100,9 @@ class ConsultadocsController extends BaseController {
         if ($tipomov == 7)
         {    
             //dd($sql);        
-            $sql = "SELECT documentos.id, numdocfisico, fechadocumento, codprovider3, 
+            $sql = "SELECT documentos.id, numdocfisico, fechadocumento, codprovider3, flagestado,
                 COUNT(movimientos.documento_id) AS cantidad, SUM(mercaderias.preciocompra) AS totalcompra,
-                SUM(mercaderias.precioventa), desusuario
+                SUM(mercaderias.precioventa), desusuario, documentos.created_at as docucrea
                 from movimientos 
                 INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
                 INNER JOIN mercaderias ON movimientos.mercaderia_id=mercaderias.id

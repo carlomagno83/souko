@@ -56,11 +56,11 @@ Si necesita elaborar el kardex luego de un día festivo, Haga click
 ?>
 
 <table class="table table-hover table-striped">
-<thead> <th width="250px">GENERICO</th>
+<thead> <td width="250px">GENERICO</td>
         @foreach ($locals as $local)
-            <th width="55px">{{$local->codlocal3}}</th>
+            <td width="55px">{{$local->codlocal3}}</td>
         @endforeach
-        <th>TOTAL</th>
+        <td>TOTAL</td>
 </thead> 
 <tbody>
 @foreach( $mercaderias as $key=>$value)

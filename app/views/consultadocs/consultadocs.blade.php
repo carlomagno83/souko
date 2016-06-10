@@ -223,7 +223,9 @@ $(document).ready(function(){
     <tr>
         <th># Doc</th>
         <th># Físico</th>
-        <th>Fecha Doc</th>
+        <td>Fecha Creación</td>
+        <th>Fecha Liq</th>
+        <th>Estado</th>>
         <th>Devolución A</th>
         <th>Creado por</th>
         <th>Items</th>
@@ -234,8 +236,18 @@ $(document).ready(function(){
 @foreach( $documentos as $documento)
     <tr> 
         <td> {{$documento->id}} </td> 
-        <td> {{$documento->numdocfisico}} </td> 
-        <td> {{$documento->fechadocumento}} </td> 
+        <td> {{$documento->numdocfisico}} </td>
+        @if($documento->flagestado =='BAJ')
+            <td>{{date('Y-m-d', strtotime($documento->docucrea))}}</td>
+        @else
+            <td> {{$documento->fechadocumento}} </td>
+        @endif 
+        @if($documento->flagestado =='BAJ')
+            <td> {{$documento->fechadocumento}} </td>
+        @else
+            <td>0000-00-00</td>
+        @endif         
+        <td> {{$documento->flagestado}} </td>
         <td> {{$documento->codprovider3}} </font></td> 
         <td> {{$documento->desusuario}} </font></td> 
         <td> {{$documento->cantidad}} </font></td> 

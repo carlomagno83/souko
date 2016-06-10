@@ -44,6 +44,7 @@ class LiquidacionguiadevController extends BaseController {
     public function store()
     {
         $data = Input::all();
+
         $numguias = '';
         foreach($data as $key=>$value)
         {
@@ -60,7 +61,7 @@ class LiquidacionguiadevController extends BaseController {
 											->update(array('estado' => 'BAJ'));
 					DB::table('documentos')->where('documentos.id', '=', $data['id'][$key2])
 											->where('documentos.tipomovimiento_id', '=', '7')
-											->update(array('flagestado' => 'BAJ', 'usuario_id' =>  Auth::user()->id ));
+											->update(array( 'fechadocumento' => date('Y-m-d'),'flagestado' => 'BAJ', 'usuario_id' =>  Auth::user()->id ));
                 }
             }
         }
