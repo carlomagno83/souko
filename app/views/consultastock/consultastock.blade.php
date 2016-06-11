@@ -2,18 +2,18 @@
 @section('main')
 
 <style>
-table {
+#cuadro table {
     width: 100%;
     display:block;
 }
-thead {
+#cuadro thead {
     display: inline-block;
     width: 100%;
     height: 30px;
     font-weight: bolder;
     font-style: oblique;
 }
-tbody {
+#cuadro tbody {
     height: 450px;
     display: inline-block;
     width: 100%;
@@ -24,10 +24,12 @@ tbody {
 
 
 <h3>
-
-<th width="84%"> Consulta de Stock actual (Administrativo)</th>    
+<table>
+<th width="40%"> Consulta de Stock actual (Administrativo)</th>   
+<th width="40%"> </th>
 <th width="8%" align="right"> <a style="padding-top: 8px;" href="{{URL::to('descargaexcelstockadm')}}"  title="Descarga Stock administrativo"><img width="60px" src="{{asset('img/downloadXL.gif')}}"></a></th>
 <th width="8%" align="right"> <a style="padding-top: 8px;" href="{{URL::to('descargaexcelkardex')}}" title="Descarga Kardex"><img width="45px" src="{{asset('img/kardex.jpg')}}"></a></th> 
+</table>
 </h3>                      
 (Incluye mercaderías en estado Inactivo) <br>
 <p align="right">
@@ -55,7 +57,7 @@ Si necesita elaborar el kardex luego de un día festivo, Haga click
     //dd($expresion[1]); 
 ?>
 
-<table class="table table-hover table-striped">
+<table id ="cuadro" class="table table-hover table-striped">
 <thead> <td width="250px">GENERICO</td>
         @foreach ($locals as $local)
             <td width="55px">{{$local->codlocal3}}</td>

@@ -175,6 +175,10 @@ Route::resource('modelos', 'ModelosController');
 				Route::resource('guiacuaderno', 'GuiacuadernoController');
 				Route::post('guiacuaderno-descargar', 'GuiacuadernoController@descargar');
 
+				Route::resource('stockafecha', 'StockafechaController');
+				Route::post('stockafecha-consultar', 'StockafechaController@consultar');
+				Route::post('stockafecha-descargar', 'StockafechaController@descargar');
+
 				// correciones
 				Route::get('documentoeditar', 'DocumentoeditarController@index');
 				Route::post('documentoeditar-buscar', 'DocumentoeditarController@buscar');

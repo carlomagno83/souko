@@ -2,30 +2,48 @@
 @section('main')
 
 <style>
-table {
+#cuadro table {
     width: 100%;
     display:block;
 }
-thead {
+#cuadro thead {
     display: inline-block;
     width: 100%;
     height: 30px;
     font-weight: bolder;
     font-style: oblique;
 }
-tbody {
+#cuadro tbody {
     height: 450px;
     display: inline-block;
     width: 100%;
     overflow: auto;
 }
+
+#pie table {
+    width: 100%;
+    display:block;
+}
+#pie thead {
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    font-weight: bolder;
+    font-style: oblique;
+}
+#pie tbody {
+    display: inline-block;
+    width: 100%;
+}
 </style>
 
 <h3>
 
-<td width="70%"> Reporte de Stock actual</td>                           
-<td width="30%" align="right"> <a style="padding-top: 8px;" href="{{URL::to('descargaexcel')}}"><img width="60px" src="{{asset('img/downloadXL.gif')}}"></a></td>
-
+<table>
+<td width="25%"> Reporte de Stock actual</td>    
+<td width="50%"></td>                       
+<td width="25%" align="right"> <a style="padding-top: 8px;" href="{{URL::to('descargaexcel')}}"><img width="60px" src="{{asset('img/downloadXL.gif')}}"></a></td>
+</table>
 
 </h3>
 
@@ -46,7 +64,7 @@ tbody {
     //dd($expresion[1]); 
 ?>
 
-<table class="table table-hover table-striped">
+<table id="cuadro" class="table table-hover table-striped">
 <thead> <td width="280px">CODIGO</td>
         @foreach ($locals as $local)
             <td width="55px">{{$local->codlocal3}}</td>
@@ -64,6 +82,8 @@ tbody {
 @endforeach
 
 </tbody>
+</table>
+<table id="pie" class="table table-hover table-striped">
 @foreach( $totales as $key=>$value)
     <tr> 
         <td width="280px"> </td> 
