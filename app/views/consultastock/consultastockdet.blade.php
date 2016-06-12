@@ -97,7 +97,7 @@ tbody {
 
 <?php 
     $cantidad_locales = DB::table('locals')->count('id');
-    $locals = DB::table('locals')->select('codlocal3')->get();
+    $locals = DB::table('locals')->select('codlocal3')->orderby('id')->get();
     //$locals = DB::select("SELECT codlocal3 FROM locals");
     //$expresion = "<td> ";
     //dd($locals[0]->codlocal3);

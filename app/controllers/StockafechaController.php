@@ -58,14 +58,15 @@ class StockafechaController extends BaseController {
 $expresion = '- COUNT(IF (movimientos.tipomovimiento_id=1 and documentos.localfin_id=1 ,movimientos.mercaderia_id,NULL))
 + COUNT(IF (movimientos.tipomovimiento_id=2 and documentos.localini_id=1 ,movimientos.mercaderia_id,NULL)) 
 - COUNT(IF (movimientos.tipomovimiento_id=6, movimientos.mercaderia_id,null)) 
-+ COUNT(IF (movimientos.tipomovimiento_id=7 and flagestado="BAJ", movimientos.mercaderia_id,null)) 
-- COUNT(IF (movimientos.tipomovimiento_id=7 and flagestado="ACT", movimientos.mercaderia_id,null)) 
+
++ COUNT(IF (movimientos.tipomovimiento_id=7, movimientos.mercaderia_id,null)) 
 AS ALM,';
 for ($i = 2; $i <= $cantidad_locales; $i++) 
 {
 	$expresion .= '
 - COUNT(IF (movimientos.tipomovimiento_id=2 and documentos.localfin_id='.$i.', movimientos.mercaderia_id,NULL)) 
 - COUNT(IF (movimientos.tipomovimiento_id=4 and documentos.localfin_id='.$i.', movimientos.mercaderia_id,NULL))
++ COUNT(IF (movimientos.tipomovimiento_id=4 and documentos.localini_id='.$i.', movimientos.mercaderia_id,NULL)) 
 + COUNT(IF (movimientos.tipomovimiento_id=3 and documentos.localfin_id='.$i.' and devolucion>=0, movimientos.mercaderia_id,null)) 
 - COUNT(IF (movimientos.tipomovimiento_id=3 and documentos.localfin_id='.$i.'  and devolucion<0, movimientos.mercaderia_id,null)) 
 + COUNT(IF (movimientos.tipomovimiento_id=6 and documentos.localini_id='.$i.' , movimientos.mercaderia_id,null)) AS "'. $locals[$i-1].'",';
@@ -82,7 +83,7 @@ INNER JOIN rangos on productos.rango_id=rangos.id
 INNER JOIN locals ON mercaderias.local_id=locals.id
 inner JOIN marcas on productos.marca_id=marcas.id
 INNER JOIN tipos on productos.tipo_id=tipos.id
-WHERE  documentos.fechadocumento>='$fec'
+WHERE  documentos.fechadocumento>'$fec'
 GROUP BY marca_id, tipo_id, rango_id
 ORDER BY desmarca, destipo, codrango6";
 
@@ -106,7 +107,7 @@ $movimientos = DB::select($sql);
 
 		$excel->sheet('Hoja1', function($sheet) {
 		$sheet->freezeFirstRow();
-		
+
 		$fec = Input::get('fecha');	
 	    $cantidad_locales = DB::table('locals')->count('id');
 	    $locals = DB::table('locals')->select('codlocal3')->orderBy('id')->lists('codlocal3');
@@ -143,14 +144,15 @@ $movimientos = DB::select($sql);
 $expresion = '- COUNT(IF (movimientos.tipomovimiento_id=1 and documentos.localfin_id=1 ,movimientos.mercaderia_id,NULL))
 + COUNT(IF (movimientos.tipomovimiento_id=2 and documentos.localini_id=1 ,movimientos.mercaderia_id,NULL)) 
 - COUNT(IF (movimientos.tipomovimiento_id=6, movimientos.mercaderia_id,null)) 
-+ COUNT(IF (movimientos.tipomovimiento_id=7 and flagestado="BAJ", movimientos.mercaderia_id,null)) 
-- COUNT(IF (movimientos.tipomovimiento_id=7 and flagestado="ACT", movimientos.mercaderia_id,null)) 
+
++ COUNT(IF (movimientos.tipomovimiento_id=7, movimientos.mercaderia_id,null)) 
 AS ALM,';
 for ($i = 2; $i <= $cantidad_locales; $i++) 
 {
 	$expresion .= '
 - COUNT(IF (movimientos.tipomovimiento_id=2 and documentos.localfin_id='.$i.', movimientos.mercaderia_id,NULL)) 
 - COUNT(IF (movimientos.tipomovimiento_id=4 and documentos.localfin_id='.$i.', movimientos.mercaderia_id,NULL))
++ COUNT(IF (movimientos.tipomovimiento_id=4 and documentos.localini_id='.$i.', movimientos.mercaderia_id,NULL)) 
 + COUNT(IF (movimientos.tipomovimiento_id=3 and documentos.localfin_id='.$i.' and devolucion>=0, movimientos.mercaderia_id,null)) 
 - COUNT(IF (movimientos.tipomovimiento_id=3 and documentos.localfin_id='.$i.'  and devolucion<0, movimientos.mercaderia_id,null)) 
 + COUNT(IF (movimientos.tipomovimiento_id=6 and documentos.localini_id='.$i.' , movimientos.mercaderia_id,null)) AS "'. $locals[$i-1].'",';
@@ -167,7 +169,7 @@ INNER JOIN rangos on productos.rango_id=rangos.id
 INNER JOIN locals ON mercaderias.local_id=locals.id
 inner JOIN marcas on productos.marca_id=marcas.id
 INNER JOIN tipos on productos.tipo_id=tipos.id
-WHERE  documentos.fechadocumento>='$fec'
+WHERE  documentos.fechadocumento>'$fec'
 GROUP BY marca_id, tipo_id, rango_id
 ORDER BY desmarca, destipo, codrango6";
 

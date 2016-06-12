@@ -5,7 +5,7 @@
 <body>
 <?php 
     $cantidad_locales = DB::table('locals')->count('id');
-    $locals = DB::table('locals')->select('codlocal3')->get();
+    $locals = DB::table('locals')->select('codlocal3')->orderby('id')->get();
 
     for ($i = 1; $i <= $cantidad_locales; $i++) 
     {
