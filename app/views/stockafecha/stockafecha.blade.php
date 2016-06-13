@@ -95,6 +95,7 @@ $(document).ready(function(){
     //dd($expresion[1]); 
     $maxmov=0;
     if (count($movimientos) > 0) $maxmov=count($movimientos); 
+    $key=0;
     $key2=0;
     $fin=0;
     $comodin=0;
@@ -110,34 +111,37 @@ $(document).ready(function(){
 <tbody>
 
 @if (count($movimientos) > 0)
-@foreach( $mercaderias as $key=>$value)
+@while($key<=count($mercaderias)-1 )
     <tr>
     <?php 
-        $gen1=$value->codmarca3."-".$value->codtipo8."-".$value->codrango6 ;
+
+        $gen1=$mercaderias[$key]->codmarca3."-".$mercaderias[$key]->codtipo8."-".$mercaderias[$key]->codrango6  ;
+
         if($key2<$maxmov)
         {
         $gen2=$movimientos[$key2]->codmarca3."-".$movimientos[$key2]->codtipo8."-".$movimientos[$key2]->codrango6 ;
         }
     ?> 
 
-    <td>key es {{$key}}</td>
-    <td>key2 es {{$key2}}</td>
+    <td>{{$key}}</td>
+    <td>{{$key2}}</td>
 
 
     @if($gen1 < $gen2 and $fin==0)
 
-        <td width="250px"> {{$value->codmarca3}}-{{$value->codtipo8}}-{{$value->codrango6}} </td> 
+        <td width="250px"> {{$mercaderias[$key]->codmarca3}}-{{$mercaderias[$key]->codtipo8}}-{{$mercaderias[$key]->codrango6}} </td> 
         @for ($i = 1; $i <= $cantidad_locales; $i++) 
-            <td width="55px">{{$value->$expresion[$i-1]}}</td>
+            <td width="55px">{{$mercaderias[$key]->$expresion[$i-1]}}</td>
         @endfor
-
+        <?php $key++ ; ?>
     @endif
     @if($gen1 == $gen2 and $fin==0)
-        <td width="250px"> {{$value->codmarca3}}-{{$value->codtipo8}}-{{$value->codrango6}} </td> 
+        <td width="250px"> {{$mercaderias[$key]->codmarca3}}-{{$mercaderias[$key]->codtipo8}}-{{$mercaderias[$key]->codrango6}} </td> 
         @for ($i = 1; $i <= $cantidad_locales; $i++) 
-            <td width="55px">{{$value->$expresion[$i-1] + $movimientos[$key2]->$expresion[$i-1]}}</td>
+            <td width="55px">{{$mercaderias[$key]->$expresion[$i-1] + $movimientos[$key2]->$expresion[$i-1]}}</td>
         @endfor
         <?php 
+            $key++ ;
             if($key2<$maxmov and $fin==0) 
                 {
                     $key2=$key2+1; 
@@ -149,10 +153,11 @@ $(document).ready(function(){
         ?>
     @endif
     @if($gen1 > $gen2 and $fin==1)
-        <td width="250px"> {{$value->codmarca3}}-{{$value->codtipo8}}-{{$value->codrango6}} </td> 
+        <td width="250px"> {{$mercaderias[$key]->codmarca3}}-{{$mercaderias[$key]->codtipo8}}-{{$mercaderias[$key]->codrango6}} </td> 
         @for ($i = 1; $i <= $cantidad_locales; $i++) 
-            <td width="55px">{{$value->$expresion[$i-1]}}</td>
+            <td width="55px">{{$mercaderias[$key]->$expresion[$i-1]}}</td>
         @endfor
+        <?php $key++ ; ?>
     @endif 
 
     @if($gen1 > $gen2 and $fin==0)
@@ -192,10 +197,10 @@ $(document).ready(function(){
             ?>
             
         @endwhile
-        <?php $key=$key-1?>
+
     @endif
     </tr>
-@endforeach
+@endwhile
 @endif
 
 
