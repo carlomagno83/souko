@@ -119,10 +119,13 @@ $(document).ready(function(){
         $gen2=$movimientos[$key2]->codmarca3."-".$movimientos[$key2]->codtipo8."-".$movimientos[$key2]->codrango6 ;
         }
     ?> 
+    
+    <td>key es {{$key}}</td>
+    <td>key2 es {{$key2}}</td>
+
 
     @if($gen1 < $gen2 and $fin==0)
-    <td>key es {{$key}}</td>>
-    <td>key2 es {{$key2}}</td>
+
         <td width="250px"> {{$value->codmarca3}}-{{$value->codtipo8}}-{{$value->codrango6}} </td> 
         @for ($i = 1; $i <= $cantidad_locales; $i++) 
             <td width="55px">{{$value->$expresion[$i-1]}}</td>
