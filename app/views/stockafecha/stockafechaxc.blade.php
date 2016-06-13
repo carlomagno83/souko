@@ -39,7 +39,7 @@
         $gen2=$movimientos[$key2]->codmarca3."-".$movimientos[$key2]->codtipo8."-".$movimientos[$key2]->codrango6 ;
         }
     ?> 
-    
+
     @if($gen1 < $gen2 and $fin==0)
         <td> {{$value->codmarca3}}-{{$value->codtipo8}}-{{$value->codrango6}} </td> 
         @for ($i = 1; $i <= $cantidad_locales; $i++) 
@@ -62,7 +62,6 @@
                         }
                   } 
         ?>
-
     @endif
     @if($gen1 > $gen2 and $fin==1)
         <td> {{$value->codmarca3}}-{{$value->codtipo8}}-{{$value->codrango6}} </td> 
@@ -72,7 +71,7 @@
     @endif 
 
     @if($gen1 > $gen2 and $fin==0)
-        <td> {{$movimientos[$key2]->codmarca3}}-{{$movimientos[$key2]->codtipo8}}-{{$movimientos[$key2]->codrango6}} </td>
+       <td> {{$movimientos[$key2]->codmarca3}}-{{$movimientos[$key2]->codtipo8}}-{{$movimientos[$key2]->codrango6}} </td>
         @for ($i = 1; $i <= $cantidad_locales; $i++) 
             <td>{{$movimientos[$key2]->$expresion[$i-1]}}</td>
         @endfor
@@ -85,13 +84,34 @@
                             $fin=1;
                         }
                 } 
+            $gen2=$movimientos[$key2]->codmarca3."-".$movimientos[$key2]->codtipo8."-".$movimientos[$key2]->codrango6 ;    
         ?>
-
+        
+        @while ($gen1 > $gen2 and $fin==0)
+            <tr>
+            <td> {{$movimientos[$key2]->codmarca3}}-{{$movimientos[$key2]->codtipo8}}-{{$movimientos[$key2]->codrango6}} </td>
+            @for ($i = 1; $i <= $cantidad_locales; $i++) 
+                <td>{{$movimientos[$key2]->$expresion[$i-1]}}</td>
+            @endfor
+            </tr>
+            <?php
+                if($key2<$maxmov and $fin==0) 
+                    {
+                        $key2=$key2+1;
+                        if($maxmov==$key2) 
+                            {
+                                $fin=1;
+                            }
+                    } 
+                $gen2=$movimientos[$key2]->codmarca3."-".$movimientos[$key2]->codtipo8."-".$movimientos[$key2]->codrango6 ;
+            ?>
+        @endwhile
     @endif
-   
     </tr>
 @endforeach
 @endif
+
+
 @if (count($movimientos) == 0)
 @foreach( $mercaderias as $key=>$value)
     <tr>

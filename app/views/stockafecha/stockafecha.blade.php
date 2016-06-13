@@ -98,6 +98,7 @@ $(document).ready(function(){
     $key2=0;
     $fin=0;
     $comodin=0;
+    $mayor=0;
 ?>
 
 <table id="cuadro" class="table table-hover table-striped">
@@ -118,7 +119,7 @@ $(document).ready(function(){
         $gen2=$movimientos[$key2]->codmarca3."-".$movimientos[$key2]->codtipo8."-".$movimientos[$key2]->codrango6 ;
         }
     ?> 
-    
+
     @if($gen1 < $gen2 and $fin==0)
         <td width="250px"> {{$value->codmarca3}}-{{$value->codtipo8}}-{{$value->codrango6}} </td> 
         @for ($i = 1; $i <= $cantidad_locales; $i++) 
@@ -141,7 +142,6 @@ $(document).ready(function(){
                         }
                   } 
         ?>
-
     @endif
     @if($gen1 > $gen2 and $fin==1)
         <td width="250px"> {{$value->codmarca3}}-{{$value->codtipo8}}-{{$value->codrango6}} </td> 
@@ -151,7 +151,7 @@ $(document).ready(function(){
     @endif 
 
     @if($gen1 > $gen2 and $fin==0)
-        <td width="250px"> {{$movimientos[$key2]->codmarca3}}-{{$movimientos[$key2]->codtipo8}}-{{$movimientos[$key2]->codrango6}} </td>
+       <td width="250px"> {{$movimientos[$key2]->codmarca3}}-{{$movimientos[$key2]->codtipo8}}-{{$movimientos[$key2]->codrango6}} </td>
         @for ($i = 1; $i <= $cantidad_locales; $i++) 
             <td width="55px">{{$movimientos[$key2]->$expresion[$i-1]}}</td>
         @endfor
@@ -164,13 +164,36 @@ $(document).ready(function(){
                             $fin=1;
                         }
                 } 
+            $gen2=$movimientos[$key2]->codmarca3."-".$movimientos[$key2]->codtipo8."-".$movimientos[$key2]->codrango6 ;    
         ?>
-
+        
+        @while ($gen1 > $gen2 and $fin==0)
+            <tr>
+            <td width="250px"> {{$movimientos[$key2]->codmarca3}}-{{$movimientos[$key2]->codtipo8}}-{{$movimientos[$key2]->codrango6}} </td>
+            @for ($i = 1; $i <= $cantidad_locales; $i++) 
+                <td width="55px">{{$movimientos[$key2]->$expresion[$i-1]}}</td>
+            @endfor
+            </tr>
+            <?php
+                if($key2<$maxmov and $fin==0) 
+                    {
+                        $key2=$key2+1;
+                        if($maxmov==$key2) 
+                            {
+                                $fin=1;
+                            }
+                    } 
+                $gen2=$movimientos[$key2]->codmarca3."-".$movimientos[$key2]->codtipo8."-".$movimientos[$key2]->codrango6 ;
+            ?>
+            
+        @endwhile
     @endif
-   
     </tr>
 @endforeach
 @endif
+
+
+
 @if (count($movimientos) == 0)
 @foreach( $mercaderias as $key=>$value)
     <tr>
