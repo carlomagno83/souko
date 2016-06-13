@@ -119,7 +119,7 @@ $(document).ready(function(){
         $gen2=$movimientos[$key2]->codmarca3."-".$movimientos[$key2]->codtipo8."-".$movimientos[$key2]->codrango6 ;
         }
     ?> 
-    
+
     <td>key es {{$key}}</td>
     <td>key2 es {{$key2}}</td>
 
@@ -192,6 +192,7 @@ $(document).ready(function(){
             ?>
             
         @endwhile
+        <?php $key=$key-1?>
     @endif
     </tr>
 @endforeach
