@@ -93,13 +93,6 @@ $(document).ready(function(){
         $expresion[$i-1] = $locals[$i-1]->codlocal3 ;
     }   
     //dd($expresion[1]); 
-    $maxmov=0;
-    if (count($movimientos) > 0) $maxmov=count($movimientos); 
-    $key=0;
-    $key2=0;
-    $fin=0;
-    $comodin=0;
-    $mayor=0;
 ?>
 
 <table id="cuadro" class="table table-hover table-striped">
@@ -109,112 +102,16 @@ $(document).ready(function(){
         @endforeach
 </thead> 
 <tbody>
-
-@if (count($movimientos) > 0)
-@while($key<=count($mercaderias)-1 )
-    <tr>
-    <?php 
-
-        $gen1=$mercaderias[$key]->codmarca3."-".$mercaderias[$key]->codtipo8."-".$mercaderias[$key]->codrango6  ;
-
-        if($key2<$maxmov)
-        {
-        $gen2=$movimientos[$key2]->codmarca3."-".$movimientos[$key2]->codtipo8."-".$movimientos[$key2]->codrango6 ;
-        }
-    ?> 
-
-    <td>{{$key}}</td>
-    <td>{{$key2}}</td>
-
-
-    @if($gen1 < $gen2 and $fin==0)
-
-        <td width="250px"> {{$mercaderias[$key]->codmarca3}}-{{$mercaderias[$key]->codtipo8}}-{{$mercaderias[$key]->codrango6}} </td> 
-        @for ($i = 1; $i <= $cantidad_locales; $i++) 
-            <td width="55px">{{$mercaderias[$key]->$expresion[$i-1]}}</td>
-        @endfor
-        <?php $key++ ; ?>
-    @endif
-    @if($gen1 == $gen2 and $fin==0)
-        <td width="250px"> {{$mercaderias[$key]->codmarca3}}-{{$mercaderias[$key]->codtipo8}}-{{$mercaderias[$key]->codrango6}} </td> 
-        @for ($i = 1; $i <= $cantidad_locales; $i++) 
-            <td width="55px">{{$mercaderias[$key]->$expresion[$i-1] + $movimientos[$key2]->$expresion[$i-1]}}</td>
-        @endfor
-        <?php 
-            $key++ ;
-            if($key2<$maxmov and $fin==0) 
-                {
-                    $key2=$key2+1; 
-                    if($maxmov==$key2) 
-                        {
-                            $fin=1;
-                        }
-                  } 
-        ?>
-    @endif
-    @if($gen1 > $gen2 and $fin==1)
-        <td width="250px"> {{$mercaderias[$key]->codmarca3}}-{{$mercaderias[$key]->codtipo8}}-{{$mercaderias[$key]->codrango6}} </td> 
-        @for ($i = 1; $i <= $cantidad_locales; $i++) 
-            <td width="55px">{{$mercaderias[$key]->$expresion[$i-1]}}</td>
-        @endfor
-        <?php $key++ ; ?>
-    @endif 
-
-    @if($gen1 > $gen2 and $fin==0)
-       <td width="250px"> {{$movimientos[$key2]->codmarca3}}-{{$movimientos[$key2]->codtipo8}}-{{$movimientos[$key2]->codrango6}} </td>
-        @for ($i = 1; $i <= $cantidad_locales; $i++) 
-            <td width="55px">{{$movimientos[$key2]->$expresion[$i-1]}}</td>
-        @endfor
-        <?php
-            if($key2<$maxmov and $fin==0) 
-                {
-                    $key2=$key2+1;
-                    if($maxmov==$key2) 
-                        {
-                            $fin=1;
-                        }
-                } 
-            $gen2=$movimientos[$key2]->codmarca3."-".$movimientos[$key2]->codtipo8."-".$movimientos[$key2]->codrango6 ;    
-        ?>
-        
-        @while ($gen1 > $gen2 and $fin==0)
-            <tr>
-            <td width="250px"> {{$movimientos[$key2]->codmarca3}}-{{$movimientos[$key2]->codtipo8}}-{{$movimientos[$key2]->codrango6}} </td>
-            @for ($i = 1; $i <= $cantidad_locales; $i++) 
-                <td width="55px">{{$movimientos[$key2]->$expresion[$i-1]}}</td>
-            @endfor
-            </tr>
-            <?php
-                if($key2<$maxmov and $fin==0) 
-                    {
-                        $key2=$key2+1;
-                        if($maxmov==$key2) 
-                            {
-                                $fin=1;
-                            }
-                    } 
-                $gen2=$movimientos[$key2]->codmarca3."-".$movimientos[$key2]->codtipo8."-".$movimientos[$key2]->codrango6 ;
-            ?>
-            
-        @endwhile
-
-    @endif
-    </tr>
-@endwhile
-@endif
-
-
-
-@if (count($movimientos) == 0)
 @foreach( $mercaderias as $key=>$value)
-    <tr>
+    <tr> 
         <td width="250px"> {{$value->codmarca3}}-{{$value->codtipo8}}-{{$value->codrango6}} </td> 
         @for ($i = 1; $i <= $cantidad_locales; $i++) 
-            <td width="55px">{{$value->$expresion[$i-1]}}</td>
+                <td width="55px">{{$value->$expresion[$i-1]}}</td>
+
         @endfor
+          
     </tr>
 @endforeach
-@endif
 </tbody>
 </table>
 

@@ -52,7 +52,7 @@ class ConsultastockdetController extends BaseController {
 										INNER JOIN tipos on productos.tipo_id=tipos.id
 										WHERE mercaderias.estado='ACT'
 										GROUP BY marca_id, tipo_id, rango_id, modelo_id, material_id, color_id, talla_id 
-										ORDER BY codproducto31";
+										ORDER BY codmarca3, codtipo8, codrango6";
 			//dd($sql);							
 	        $mercaderias = DB::select($sql);
 			return View::make('consultastock.consultastockdet')->with('mercaderias',$mercaderias);	
@@ -111,7 +111,7 @@ class ConsultastockdetController extends BaseController {
 										INNER JOIN tipos on productos.tipo_id=tipos.id
 										WHERE mercaderias.estado='ACT' " .$donde. "
 										GROUP BY marca_id, tipo_id, rango_id, modelo_id, material_id, color_id, talla_id 
-										ORDER BY codproducto31";
+										ORDER BY codmarca3, codtipo8, codrango6";
 			//dd($sql);							
 	        $mercaderias = DB::select($sql);
 

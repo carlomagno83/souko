@@ -109,6 +109,7 @@
                     <td>
                         {{ link_to_route('mercaderias.edit', 'Editar', array($mercaderia->id), array('class' => 'btn btn-info')) }}
                     </td>
+                    <td width="5%"><a href="{{URL::to('consultamercaderia/'.$mercaderia->id)}}" target="_blank"><img width="30px" src="{{asset('img/lupa.png')}}"></a></td>
 				</tr>
 			@endforeach
 		</tbody>

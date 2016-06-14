@@ -63,6 +63,10 @@ $(document).ready(function(){
 </form>
 
 
+<?php 
+    $cantidad_locales = DB::table('locals')->count('id');
+    $locals = DB::table('locals')->select('id', 'codlocal3')->orderby('id')->get();
+?>
 
 <table class="table table-striped">
     <thead>
@@ -70,7 +74,8 @@ $(document).ready(function(){
             <th width="15%"># Documento</th>
             <th></th>
             <th width="25%">Movimiento</th>             
-            <th width="25%">Local</th>
+            <th width="12%">Origen</th>
+            <th width="12%">Destino</th>
             <th width="15%">Fecha creación doc</th>
             <th width="20%">Fecha sistema</th>
 
@@ -84,10 +89,15 @@ $(document).ready(function(){
             <td width="15%"><input type="text" name="id[]" id="id[]" value="{{$mercaderia->Numdoc}}" class="form-control" readonly tabindex="-1"></td>
             <td><input style="visibility:hidden;" type="text"  name="codproducto31[]" value="{{$mercaderia->tipomovimiento_id}}" readonly class="form-control" tabindex="-1"></td>
             @if ($mercaderia->devolucion < 0)
-                <td width="25%"><input type="text"  value="CAMBIO CLIENTE (R. VENTA)" readonly class="form-control" tabindex="-1"></td>
+                <td width="12%"><input type="text"  value="CAMBIO CLIENTE (R. VENTA)" readonly class="form-control" tabindex="-1"></td>
             @else
-                <td width="25%"><input type="text"  value="{{$mercaderia->destipomovimiento}}" readonly class="form-control" tabindex="-1"></td>
-            @endif    
+                <td width="12%"><input type="text"  value="{{$mercaderia->destipomovimiento}}" readonly class="form-control" tabindex="-1"></td>
+            @endif 
+            @if ($mercaderia->tipomovimiento_id==4 or $mercaderia->tipomovimiento_id==6) 
+                <td width="12%"><input type="text"  value="{{$locals[$mercaderia->origen - 1]->codlocal3}}" readonly class="form-control" tabindex="-1"></td>
+            @else
+                <td width="12%"><input type="text"  value="" readonly class="form-control" tabindex="-1"></td>
+            @endif               
             <td width="10%"><input type="text"  value="{{$mercaderia->codlocal3}}" readonly class="form-control" tabindex="-1"></td>
             <td width="15%"><input type="text"  value="{{$mercaderia->fechadocumento}}" readonly class="form-control" tabindex="-1"></td>
             <td width="20%"><input type="text"  value="{{$mercaderia->created_at}}" readonly class="form-control" tabindex="-1"></td>

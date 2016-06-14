@@ -29,7 +29,7 @@ class ConsultastockController extends BaseController {
 							INNER JOIN tipos on productos.tipo_id=tipos.id
 							WHERE mercaderias.estado='ACT' OR mercaderias.estado='INA'
 							GROUP BY  marca_id, tipo_id, rango_id
-							ORDER BY desmarca, destipo, codrango6,deslocal";
+							ORDER BY codmarca3, codtipo8, codrango6, deslocal";
 
 		//dd($sql);							
         $mercaderias = DB::select($sql);
@@ -72,7 +72,7 @@ class ConsultastockController extends BaseController {
 								INNER JOIN tipos on productos.tipo_id=tipos.id
 								WHERE mercaderias.estado='ACT' OR mercaderias.estado='INA'
 								GROUP BY  marca_id, tipo_id, rango_id
-								ORDER BY desmarca, destipo, codrango6,deslocal";
+								ORDER BY codmarca3, codtipo8, codrango6, deslocal";
 
 			//dd($sql);							
 	        $mercaderias = DB::select($sql);
@@ -151,7 +151,7 @@ INTERVAL 1 DAY) AND movimientos.tipomovimiento_id=3
 								INNER JOIN tipos on productos.tipo_id=tipos.id
 								WHERE mercaderias.estado='ACT' OR mercaderias.estado='INA'
 								GROUP BY  marca_id, tipo_id, rango_id
-								ORDER BY desmarca, destipo, codrango6,deslocal";
+								ORDER BY codmarca3, codtipo8, codrango6, deslocal ";
 
 			//dd($sql);							
 	        $mercaderias = DB::select($sql);
@@ -282,7 +282,7 @@ INTERVAL 1 DAY) AND movimientos.tipomovimiento_id=3
 								INNER JOIN tipos on productos.tipo_id=tipos.id
 								WHERE mercaderias.estado='ACT' OR mercaderias.estado='INA'
 								GROUP BY  marca_id, tipo_id, rango_id
-								ORDER BY desmarca, destipo, codrango6,deslocal";
+								ORDER BY codmarca3, codtipo8, codrango6, deslocal";
 
 			//dd($sql);							
 	        $mercaderias = DB::select($sql);
