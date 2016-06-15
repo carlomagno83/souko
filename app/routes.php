@@ -164,7 +164,7 @@ Route::resource('modelos', 'ModelosController');
 			{
 				//reportes especiales
 				Route::resource('movimientocosto', 'MovimientocostoController');
-				Route::post('consulta-stock-historico', 'ConsultastockhistController@consulta');
+				Route::post('movimientocostobuscar', 'MovimientocostoController@buscar');
 
 				Route::resource('gananciabruta', 'GananciabrutaController');
 				Route::post('gananciabrutabuscar', 'GananciabrutaController@buscar');
