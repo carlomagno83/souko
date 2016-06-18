@@ -4,20 +4,20 @@
 
 <style>
 table {
-    width: 1000px;
+    width: 1350px;
 
 }
 thead {
     display: inline-block;
-    width: 1000px;
-    height: 30px;
+    width: 1350px;
+    height: 50px;
     font-weight: bolder;
     font-style: oblique;
 }
 tbody {
-    height: 450px;
+    height: 550px;
     display: inline-block;
-    width: 100%;
+    width: 1350px;
     overflow: auto;
 }
 </style>
@@ -87,37 +87,10 @@ $("form").ready(function() {
 RESULTADOS PARA EL AÑO {{Input::get('anho') }}
 <br>
 <br>
+
+<?php $tit=1; ?>
+
 <table class="table table-sm">
-<thead> 
-    <tr>
-    <td width="18%"> GENERICO </td>
-    <td width="120px"> ENE </td>
-    <td width="120px">  </td>
-    <td width="120px"> FEB </td>
-    <td width="120px">  </td>
-    <td width="120px"> MAR </td>
-    <td width="120px">  </td>
-    <td width="120px"> ABR </td>
-    <td width="120px">  </td>
-    <td width="120px"> MAY </td>
-    <td width="120px">  </td>
-    <td width="120px">  </td>
-    <td width="120px"> JUN </td>
-    <td width="120px">  </td>
-    <td width="120px"> JUL </td>
-    <td width="120px">  </td>
-    <td width="120px"> AGO </td>
-    <td width="120px">  </td>
-    <td width="120px"> SEP </td>
-    <td width="120px">  </td>
-    <td width="120px"> OCT </td>
-    <td width="120px">  </td>
-    <td width="120px"> NOV </td>
-    <td width="120px">  </td>
-    <td width="120px"> DIC </td>
-    <td width="120px">  </td>
-    </tr>
-</thead> 
 <tbody>
 @foreach($resultados as $resultado)
 <?php 
@@ -134,111 +107,189 @@ RESULTADOS PARA EL AÑO {{Input::get('anho') }}
     if($resultado->oct>$mayor) $mayor=$resultado->oct ; 
     if($resultado->nov>$mayor) $mayor=$resultado->nov ; 
     if($resultado->dic>$mayor) $mayor=$resultado->dic ; 
-
 ?>
+
+    @if($tit==1 or $tit % 15 == 0)
+
     <tr>
-    <td width="18%" style="border-right: 2px solid #0B3B39;"> {{$resultado->codmarca3}}-{{$resultado->codtipo8}}-{{$resultado->codrango6}} </td>
+    <i><b>
+    <td width="310px" bgcolor="#A9D0F5" style="border-right: 2px solid #FFFFFF;"><i><b> GENERICO </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5"><i><b> ENE </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;">  </td>
+    <td width="50px" bgcolor="#A9D0F5"><i><b> FEB </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;">  </td>
+    <td width="50px" bgcolor="#A9D0F5"><i><b> MAR </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;">  </td>
+    <td width="50px" bgcolor="#A9D0F5"><i><b> ABR </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;">  </td>
+    <td width="50px" bgcolor="#A9D0F5"><i><b> MAY </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;">  </td>
+    <td width="50px" bgcolor="#A9D0F5"><i><b> JUN </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;">  </td>
+    <td width="50px" bgcolor="#A9D0F5"><i><b> JUL </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;">  </td>
+    <td width="50px" bgcolor="#A9D0F5"><i><b> AGO </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;">  </td>
+    <td width="50px" bgcolor="#A9D0F5"><i><b> SEP </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;">  </td>
+    <td width="50px" bgcolor="#A9D0F5"><i><b> OCT </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;">  </td>
+    <td width="50px" bgcolor="#A9D0F5"><i><b> NOV </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;">  </td>
+    <td width="50px" bgcolor="#A9D0F5"><i><b> DIC </b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;">  </td>
+    
+    </tr>
+
+    <tr>
+    <td width="310px" bgcolor="#A9D0F5" style="border-right: 2px solid #FFFFFF;"><i><b></b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Cant</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Costo</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Cant</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Costo</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Cant</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Costo</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Cant</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Costo</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Cant</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Costo</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Cant</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Costo</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Cant</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Costo</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Cant</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Costo</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Cant</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Costo</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Cant</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Costo</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Cant</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Costo</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Cant</b></i></td>
+    <td width="50px" bgcolor="#A9D0F5" style="border-right: 1px solid #FFFFFF;"><i><b>Costo</b></i></td>
+
+
+    </tr>
+
+    @endif
+<?php $tit++ ?>
+    <tr>
+    <td width="310px" style="border-right: 2px solid #0B3B39;"> {{$resultado->codmarca3}}-{{$resultado->codtipo8}}-{{$resultado->codrango6}} </td>
     
     @if($resultado->ene==$mayor)
-    <td width="120px" bgcolor="#CEF6CE"> {{$resultado->ene}} </td>
-    <td width="120px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->enep == "") 0.00 @else {{$resultado->enep}} @endif </td>    
+    <td width="50px" bgcolor="#CEF6CE"> {{$resultado->ene}} </td>
+    <td width="50px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->enep == "") 0.00 @else {{$resultado->enep}} @endif </td>    
     @else
-    <td width="120px"> {{$resultado->ene}} </td>
-    <td width="120px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->enep == "") 0.00 @else {{$resultado->enep}} @endif </td>
+    <td width="50px"> {{$resultado->ene}} </td>
+    <td width="50px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->enep == "") 0.00 @else {{$resultado->enep}} @endif </td>
     @endif
     
     @if($resultado->feb==$mayor)
-    <td width="120px" bgcolor="#CEF6CE"> {{$resultado->feb}} </td>
-    <td width="120px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->febp == "") 0.00 @else {{$resultado->febp}} @endif </td>
+    <td width="50px" bgcolor="#CEF6CE"> {{$resultado->feb}} </td>
+    <td width="50px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->febp == "") 0.00 @else {{$resultado->febp}} @endif </td>
     @else
-    <td width="120px"> {{$resultado->feb}} </td>
-    <td width="120px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->febp == "") 0.00 @else {{$resultado->febp}} @endif </td>
+    <td width="50px"> {{$resultado->feb}} </td>
+    <td width="50px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->febp == "") 0.00 @else {{$resultado->febp}} @endif </td>
     @endif
     
     @if($resultado->mar==$mayor)
-    <td width="120px" bgcolor="#CEF6CE"> {{$resultado->mar}} </td>
-    <td width="120px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->marp == "") 0.00 @else {{$resultado->marp}} @endif </td>
+    <td width="50px" bgcolor="#CEF6CE"> {{$resultado->mar}} </td>
+    <td width="50px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->marp == "") 0.00 @else {{$resultado->marp}} @endif </td>
     @else
-    <td width="120px"> {{$resultado->mar}} </td>
-    <td width="120px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->marp == "") 0.00 @else {{$resultado->marp}} @endif </td>
+    <td width="50px"> {{$resultado->mar}} </td>
+    <td width="50px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->marp == "") 0.00 @else {{$resultado->marp}} @endif </td>
     @endif
     
     @if($resultado->abr==$mayor)
-    <td width="120px" bgcolor="#CEF6CE"> {{$resultado->abr}} </td>
-    <td width="120px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->abrp == "") 0.00 @else {{$resultado->abrp}} @endif</td>
+    <td width="50px" bgcolor="#CEF6CE"> {{$resultado->abr}} </td>
+    <td width="50px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->abrp == "") 0.00 @else {{$resultado->abrp}} @endif</td>
     @else
-    <td width="120px"> {{$resultado->abr}} </td>
-    <td width="120px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->abrp == "") 0.00 @else {{$resultado->abrp}} @endif</td>
+    <td width="50px"> {{$resultado->abr}} </td>
+    <td width="50px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->abrp == "") 0.00 @else {{$resultado->abrp}} @endif</td>
     @endif
 
     @if($resultado->may==$mayor)
-    <td width="120px" bgcolor="#CEF6CE"> {{$resultado->may}} </td>
-    <td width="120px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->mayp == "") 0.00 @else {{$resultado->mayp}} @endif </td>
+    <td width="50px" bgcolor="#CEF6CE"> {{$resultado->may}} </td>
+    <td width="50px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->mayp == "") 0.00 @else {{$resultado->mayp}} @endif </td>
     @else
-    <td width="120px"> {{$resultado->may}} </td>
-    <td width="120px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->mayp == "") 0.00 @else {{$resultado->mayp}} @endif </td>
+    <td width="50px"> {{$resultado->may}} </td>
+    <td width="50px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->mayp == "") 0.00 @else {{$resultado->mayp}} @endif </td>
     @endif
     
     @if($resultado->jun==$mayor)
-    <td width="120px" bgcolor="#CEF6CE"> {{$resultado->jun}} </td>
-    <td width="120px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->junp == "") 0.00 @else {{$resultado->junp}} @endif </td>
+    <td width="50px" bgcolor="#CEF6CE"> {{$resultado->jun}} </td>
+    <td width="50px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->junp == "") 0.00 @else {{$resultado->junp}} @endif </td>
     @else
-    <td width="120px"> {{$resultado->jun}} </td>
-    <td width="120px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->junp == "") 0.00 @else {{$resultado->junp}} @endif </td>
+    <td width="50px"> {{$resultado->jun}} </td>
+    <td width="50px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->junp == "") 0.00 @else {{$resultado->junp}} @endif </td>
     @endif
     
     @if($resultado->jul==$mayor)
-    <td width="120px" bgcolor="#CEF6CE"> {{$resultado->jul}} </td>
-    <td width="120px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->julp == "") 0.00 @else {{$resultado->julp}} @endif </td>
+    <td width="50px" bgcolor="#CEF6CE"> {{$resultado->jul}} </td>
+    <td width="50px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->julp == "") 0.00 @else {{$resultado->julp}} @endif </td>
     @else
-    <td width="120px"> {{$resultado->jul}} </td>
-    <td width="120px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->julp == "") 0.00 @else {{$resultado->julp}} @endif </td>
+    <td width="50px"> {{$resultado->jul}} </td>
+    <td width="50px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->julp == "") 0.00 @else {{$resultado->julp}} @endif </td>
     @endif
     
     @if($resultado->ago==$mayor)
-    <td width="120px" bgcolor="#CEF6CE"> {{$resultado->ago}} </td>
-    <td width="120px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->agop == "") 0.00 @else {{$resultado->agop}} @endif </td>
+    <td width="50px" bgcolor="#CEF6CE"> {{$resultado->ago}} </td>
+    <td width="50px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->agop == "") 0.00 @else {{$resultado->agop}} @endif </td>
     @else
-    <td width="120px"> {{$resultado->ago}} </td>
-    <td width="120px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->agop == "") 0.00 @else {{$resultado->agop}} @endif </td>
+    <td width="50px"> {{$resultado->ago}} </td>
+    <td width="50px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->agop == "") 0.00 @else {{$resultado->agop}} @endif </td>
     @endif
     
     @if($resultado->sep==$mayor)
-    <td width="120px" bgcolor="#CEF6CE" bgcolor="#CEF6CE"> {{$resultado->sep}} </td>
-    <td width="120px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->sepp == "") 0.00 @else {{$resultado->sepp}} @endif </td>
+    <td width="50px" bgcolor="#CEF6CE" bgcolor="#CEF6CE"> {{$resultado->sep}} </td>
+    <td width="50px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->sepp == "") 0.00 @else {{$resultado->sepp}} @endif </td>
     @else
-    <td width="120px"> {{$resultado->sep}} </td>
-    <td width="120px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->sepp == "") 0.00 @else {{$resultado->sepp}} @endif </td>
+    <td width="50px"> {{$resultado->sep}} </td>
+    <td width="50px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->sepp == "") 0.00 @else {{$resultado->sepp}} @endif </td>
     @endif
     
     @if($resultado->oct==$mayor)
-    <td width="120px" bgcolor="#CEF6CE"> {{$resultado->oct}} </td>
-    <td width="120px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->octp == "") 0.00 @else {{$resultado->octp}} @endif </td>
+    <td width="50px" bgcolor="#CEF6CE"> {{$resultado->oct}} </td>
+    <td width="50px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->octp == "") 0.00 @else {{$resultado->octp}} @endif </td>
     @else
-    <td width="120px"> {{$resultado->oct}} </td>
-    <td width="120px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->octp == "") 0.00 @else {{$resultado->octp}} @endif </td>
+    <td width="50px"> {{$resultado->oct}} </td>
+    <td width="50px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->octp == "") 0.00 @else {{$resultado->octp}} @endif </td>
     @endif
     
     @if($resultado->nov==$mayor)
-    <td width="120px" bgcolor="#CEF6CE"> {{$resultado->nov}} </td>
-    <td width="120px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->novp == "") 0.00 @else {{$resultado->novp}} @endif </td>
+    <td width="50px" bgcolor="#CEF6CE"> {{$resultado->nov}} </td>
+    <td width="50px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->novp == "") 0.00 @else {{$resultado->novp}} @endif </td>
     @else
-    <td width="120px"> {{$resultado->nov}} </td>
-    <td width="120px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->novp == "") 0.00 @else {{$resultado->novp}} @endif </td>
+    <td width="50px"> {{$resultado->nov}} </td>
+    <td width="50px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->novp == "") 0.00 @else {{$resultado->novp}} @endif </td>
     @endif
     
     @if($resultado->dic==$mayor)
-    <td width="120px" bgcolor="#CEF6CE"> {{$resultado->dic}} </td>
-    <td width="120px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->dicp == "") 0.00 @else {{$resultado->dicp}} @endif </td>
+    <td width="50px" bgcolor="#CEF6CE"> {{$resultado->dic}} </td>
+    <td width="50px" bgcolor="#CEF6CE" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->dicp == "") 0.00 @else {{$resultado->dicp}} @endif </td>
     @else
-    <td width="120px"> {{$resultado->dic}} </td>
-    <td width="120px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->dicp == "") 0.00 @else {{$resultado->dicp}} @endif </td>
+    <td width="50px"> {{$resultado->dic}} </td>
+    <td width="50px" align="right" style="border-right: 1px solid #cdd0d4;"> @if($resultado->dicp == "") 0.00 @else {{$resultado->dicp}} @endif </td>
     @endif
 
     </tr>
 @endforeach
 </tbody>
 </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @endif
 

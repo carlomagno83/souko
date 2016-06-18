@@ -163,8 +163,7 @@ Route::resource('modelos', 'ModelosController');
 			if( Auth::user()->rolusuario=='SUPER')
 			{
 				//reportes especiales
-				Route::resource('movimientocosto', 'MovimientocostoController');
-				Route::post('movimientocostobuscar', 'MovimientocostoController@buscar');
+
 
 				Route::resource('gananciabruta', 'GananciabrutaController');
 				Route::post('gananciabrutabuscar', 'GananciabrutaController@buscar');
@@ -204,6 +203,10 @@ Route::resource('modelos', 'ModelosController');
 				Route::post('ingresoeditar-buscar', 'IngresoeditarController@buscar');
 				Route::post('ingresoeditarcompra', 'IngresoeditarController@ingresoeditarcompra');				
 			}
+
+			Route::resource('movimientocosto', 'MovimientocostoController');
+			Route::post('movimientocostobuscar', 'MovimientocostoController@buscar');
+
 			Route::get('consultamercaderia/{cod}', 'RegistroagregarController@consultamercaderia');
 			Route::post('imprimeetiqueta', 'RegistroagregarController@imprimeetiqueta');
 
