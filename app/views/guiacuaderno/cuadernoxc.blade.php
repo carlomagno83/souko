@@ -8,6 +8,9 @@
 	<tr>
 		<td>Doc ID</td>
 		<td>Fecha</td>
+		<td>Anho</td>
+		<td>Mes</td>
+		<td>Dia</td>
 		<td>Vendedora</td>
 		<td>Stand</td>
 		<td>Id mercaderia</td>
@@ -16,6 +19,7 @@
 		<td>Subtotal</td>
 		<td>P Costo</td>
 		<td>Ganancia</td>
+		<td>Sub Ganancia</td>
 	</tr>
 </thead>
 <tbody>
@@ -24,11 +28,15 @@
 	$max=count($mercaderias);
 	$i=1;
 	$subtotal=0;
+	$gantot=0;
 ?>
 @foreach( $mercaderias as $key=>$value)
     <tr> 
     	<td> {{$value->id}}</td>
         <td> {{$value->fechadocumento}}</td> 
+        <td> {{date("Y", strtotime($value->fechadocumento))}}</td> 
+        <td> {{date("n", strtotime($value->fechadocumento))}}</td> 
+        <td> {{date("j", strtotime($value->fechadocumento))}}</td> 
         <td> {{$value->desusuario}}</td> 
         <td> {{$value->codlocal3}}</td> 
         <td> {{$value->merca_id}}</td> 
@@ -45,9 +53,20 @@
 	        	<?php $subtotal = 0; ?>
 	        @endif
 	    @endif    
-	    <?php $i++ ?>
         <td> {{$value->compra}}</td> 
         <td> {{$value->ganancia}}</td> 
+        <?php $gantot = $gantot + $value->ganancia; ?>
+        @if($i==$max)
+        	<td>{{$gantot}}</td>
+        @else
+	        @if($mercaderias[$i]->id==$value->id)
+	        	<td></td>
+	        @else
+	        	<td>{{$gantot}}</td>
+	        	<?php $gantot = 0; ?>
+	        @endif
+	    @endif    
+	    <?php $i++ ?>        
     </tr>
 @endforeach
 </tbody>

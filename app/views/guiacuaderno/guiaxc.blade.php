@@ -8,6 +8,9 @@
 	<tr>
 		<td>Origen</td>
 		<td>Fecha</td>
+		<td>Anho</td>
+		<td>Mes</td>
+		<td>Dia</td>		
 		<td>Num doc</td>
 		<td>Doc fisico</td>
 		<td>Destino</td>
@@ -21,6 +24,9 @@
     <tr> 
         <td> {{$value->origen}}</td> 
         <td> {{$value->fechadocumento}}</td> 
+        <td> {{date("Y", strtotime($value->fechadocumento))}}</td> 
+        <td> {{date("n", strtotime($value->fechadocumento))}}</td> 
+        <td> {{date("j", strtotime($value->fechadocumento))}}</td> 
         <td> {{$value->id}}</td> 
         <td> {{$value->numdocfisico}}</td> 
         <td> {{$value->destino}}</td> 
