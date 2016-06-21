@@ -7,7 +7,6 @@
 <thead>
 	<tr>
 		<td>Doc ID</td>
-		<td>Fecha</td>
 		<td>Anho</td>
 		<td>Mes</td>
 		<td>Dia</td>
@@ -33,7 +32,6 @@
 @foreach( $mercaderias as $key=>$value)
     <tr> 
     	<td> {{$value->id}}</td>
-        <td> {{$value->fechadocumento}}</td> 
         <td> {{date("Y", strtotime($value->fechadocumento))}}</td> 
         <td> {{date("n", strtotime($value->fechadocumento))}}</td> 
         <td> {{date("j", strtotime($value->fechadocumento))}}</td> 
