@@ -144,11 +144,15 @@ class GeneraguiadevController extends BaseController {
             $codprovider_id = DB::table('providers')->select('id')->where('codprovider3', '=', $codprovider3)->pluck('id');
             
             $documento_id = $this->saveDocumento($codprovider_id, Input::get('numdocfisico'), Input::get('fechadocumento'));
+//dd($documento_id);
+//dd($value);
             foreach($value as $key2=>$indice)
             {
                 //dd($key2); //el key2 muestra el indice                       
                 //DB::table('movimientos')->insert(array('mercaderia_id' => $data['mercaderia_id'][$key2], 'documento_id' => $documento_id, 'flagoferta' => 0));
                 //cambio para timestamp
+                //dd( $data['mercaderia_id'][$key2]);
+                //dd($documento_id);
                 $movimiento = new Movimiento();
                 $movimiento->mercaderia_id = $data['mercaderia_id'][$key2];
                 $movimiento->documento_id = $documento_id;
@@ -161,7 +165,7 @@ class GeneraguiadevController extends BaseController {
             }
             $this->imprimeguia(Input::get('fechadocumento'));
         }        
-
+dd("pasa");
         //$devueltos = DB::table('devueltos')->where('usuario_id','=', Auth::user()->id  )->get();//usuario logueado
 		//return View::make('generaguiadev.generaguiadev')->with('devueltos', $devueltos);
         $this->index();
