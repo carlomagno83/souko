@@ -58,7 +58,7 @@ class LiquidacionguiadevController extends BaseController {
 					DB::table('mercaderias')->join('movimientos', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
 											->where('movimientos.documento_id', '=', $data['id'][$key2])
 											->where('movimientos.tipomovimiento_id', '=', '7')
-											->update(array('estado' => 'BAJ'));
+											->update(array('estado' => 'BAJ','usuario_id' =>  Auth::user()->id ));
 					DB::table('documentos')->where('documentos.id', '=', $data['id'][$key2])
 											->where('documentos.tipomovimiento_id', '=', '7')
 											->update(array( 'created_at' => date('Y-m-d'),'flagestado' => 'BAJ', 'usuario_id' =>  Auth::user()->id ));

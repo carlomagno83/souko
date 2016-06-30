@@ -107,12 +107,21 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 
 
 <div class="row">
+    @if(Auth::user()->rolusuario=='SUPER')
     <div class="col-lg-4">
         <div class="input-group">
             <span class="input-group-addon" >Nuevo estado</span>
-            {{Form::select('estado', [''=>'', 'ACT'=>'ACT', 'INA'=>'INA', 'BAJ'=>'BAJ'] , Input::get('usuario_id'), array('id'=>'estado', 'class'=>'form-control', 'required'=>'required'))}}
+            {{Form::select('estado', [''=>'', 'ACT'=>'ACT', 'INA'=>'INA', 'BAJ'=>'BAJ', 'DEV'=>'DEV', 'VEN'=>'VEN'] , Input::get('usuario_id'), array('id'=>'estado', 'class'=>'form-control', 'required'=>'required'))}}
         </div>
     </div>
+    @else
+    <div class="col-lg-4">
+        <div class="input-group">
+            <span class="input-group-addon" >Nuevo estado</span>
+            {{Form::select('estado', [''=>'', 'ACT'=>'ACT', 'INA'=>'INA'] , Input::get('usuario_id'), array('id'=>'estado', 'class'=>'form-control', 'required'=>'required'))}}
+        </div>
+    </div>    
+    @endif
  <div class="row">
     <div class="col-lg-4">
         <input id="storebutton" type="submit" value="Cambiar estado" class="btn btn-lg btn-primary">

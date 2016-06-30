@@ -80,17 +80,23 @@ class ConsultadocsController extends BaseController {
                 ORDER BY documentos.id";  */
             $sql = "SELECT documentos.id, numdocfisico, fechadocumento, documentos.localini_id, ini.codlocal3 as localini, 
                 documentos.localfin_id, fin.codlocal3 as localfin,
+us1.desusuario as vende, us1.id as vende_id,
                 COUNT(movimientos.documento_id) AS cantidad, SUM(mercaderias.preciocompra) AS totalcompra,
-                SUM(CASE WHEN movimientos.devolucion=0 THEN mercaderias.precioventa ELSE 0 END) AS totalventa, SUM(movimientos.devolucion) AS devolucion, desusuario
+                SUM(CASE WHEN movimientos.devolucion=0 THEN mercaderias.precioventa ELSE 0 END) AS totalventa, SUM(movimientos.devolucion) AS devolucion, 
+users.desusuario
                 from movimientos 
                 INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
                 INNER JOIN mercaderias ON movimientos.mercaderia_id=mercaderias.id
                 INNER JOIN locals ini ON documentos.localini_id=ini.id
                 INNER JOIN locals fin ON documentos.localfin_id=fin.id
                 INNER JOIN users ON documentos.usuario_id=users.id
+INNER JOIN users us1 on us1.id=mercaderias.usuario_id
                 WHERE fechadocumento>='$fec' AND documentos.tipomovimiento_id=" .$tipomov. "
                 GROUP BY movimientos.documento_id
                 ORDER BY documentos.fechadocumento";
+
+
+                
 
     //dd($sql);
             $documentos = DB::select($sql);

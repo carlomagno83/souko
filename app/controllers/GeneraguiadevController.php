@@ -161,11 +161,11 @@ class GeneraguiadevController extends BaseController {
                 $movimiento->save();          
                       
 //hay que cambiar por usuario logueado
-                DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key2])->update(array('estado' => 'DEV', 'usuario_id' =>1 )); 
+                DB::table('mercaderias')->where('id', '=', $data['mercaderia_id'][$key2])->update(array('estado' => 'DEV', 'usuario_id' => Auth::user()->id )); 
             }
             $this->imprimeguia(Input::get('fechadocumento'));
         }        
-dd("pasa");
+//dd("pasa");
         //$devueltos = DB::table('devueltos')->where('usuario_id','=', Auth::user()->id  )->get();//usuario logueado
 		//return View::make('generaguiadev.generaguiadev')->with('devueltos', $devueltos);
         $this->index();

@@ -43,7 +43,11 @@ class CambioestadoController extends BaseController {
                 //dd($encuentra);
 	            if($encuentra != null)
 	            {
-	                //if ($encuentra=="ACT" OR $encuentra=="INA")
+
+
+if ($encuentra=="ACT" OR $encuentra=="INA")
+{	
+
                     if ($encuentra)
 
 	                {
@@ -66,6 +70,43 @@ class CambioestadoController extends BaseController {
 
 						return View::make('cambioestado.cambioestado')->withInput('usuario_id', 'local_id')->with('cambios', $cambios);
 					}	
+}	
+else
+{
+	if(Auth::user()->rolusuario=='SUPER')
+	{
+                    if ($encuentra)
+
+	                {
+		                $producto_id = DB::table('mercaderias')->select('producto_id')->where('id', '=', Input::get('mercaderia_id'))->pluck('producto_id');
+		                $codproducto31 =  DB::table('productos')->select('codproducto31')->where('id', '=', $producto_id)->pluck('codproducto31');
+		         		//$deslocal = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')->select('deslocal')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('deslocal');
+                        $deslocal = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')->select('codlocal3')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('codlocal3');
+		         		$estado = DB::table('mercaderias')->select('estado')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('estado');
+		                
+				        $cambio = new Cambio();
+				        $cambio->mercaderia_id = Input::get('mercaderia_id');
+				        $cambio->producto_id = $producto_id;
+				        $cambio->codproducto31 = $codproducto31;
+				        $cambio->deslocal = $deslocal;
+				        $cambio->estado = $estado;
+				        $cambio->usuario_id = Auth::user()->id; //usuario logueado 
+				        $cambio->save();
+
+			        	$cambios = DB::table('cambios')->where('usuario_id','=',Auth::user()->id )->get();
+
+						return View::make('cambioestado.cambioestado')->withInput('usuario_id', 'local_id')->with('cambios', $cambios);
+					}	
+
+
+	}	
+	else
+	{
+		$cambios = DB::table('cambios')->where('usuario_id','=',Auth::user()->id )->get();	
+		return View::make('cambioestado.cambioestado')->withInput('usuario_id', 'local_id')->with('cambios', $cambios)->withErrors(['Estado de la mercaderia no es ACT o INA']);		
+	}	
+				
+}				
 	            }
 	        }    
         } 

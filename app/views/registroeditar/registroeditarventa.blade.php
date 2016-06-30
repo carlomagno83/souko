@@ -92,7 +92,11 @@ $(document).ready(function(){
 </div><!-- /.row -->
 <br>
 
-<?php $localdocumento = $documento->codlocal3 ?>
+<?php 
+    $localdocumento = $documento->codlocal3;
+    $vendeid=0;
+
+?>
 
 @endforeach
 
@@ -126,15 +130,32 @@ $(document).ready(function(){
             
             
             <td width="20%"><input type="text"  value="{{$devuelve->desusuario}}" readonly class="form-control" tabindex="-1"></td>
+            <?php $vendeid=$devuelve->vende_id; ?>
         </tr>
     @endforeach
+
 </table>
 
+<div class="row" class="danger">
+    <div class="col-lg-6" >
+    </div>
+    <div class="col-lg-6" >
+            <div class="input-group">
+                <span class="input-group-addon" id="vende_id"><strong><mark>Editar Vendedor (Cambiar en caso de error)</mark></strong></span>
+                {{Form::select('vende_id', [0=>''] + DB::table('users')->where('rolusuario','=','VENDE')->orderby('desusuario')->lists('desusuario','id'), $vendeid, array('class'=>'form-control'))}}
+            </div>
+    </div>
+</div> 
+
+<br>
+<br>
 <div class="row">
     <div class="col-lg-4">
         <input id="storebutton" type="submit" value="Editar precios" class="btn btn-danger">
     </div>
-</div>    
+</div>  
+
+  
 <div class="row">
     <div class="col-lg-4">
         <input id="muestramsg" style="display:none;" type="submit" value="Finalizado..." class="btn btn-lg btn-success" disabled>

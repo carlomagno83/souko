@@ -140,9 +140,9 @@ $(document).ready(function(){
 <thead>
     <tr>
         <th># Doc</th>
-        <th># Físico</th>
         <th>Fecha Doc</th>
         <th>Pto Venta</th>
+        <th>Vendedor</th>
         <th>Creado por</th>
         <th>Items</th>
         <th>Total Ventas</th>
@@ -152,9 +152,9 @@ $(document).ready(function(){
 @foreach( $documentos as $documento)
     <tr> 
         <td> {{$documento->id}} </td> 
-        <td> {{$documento->numdocfisico}} </td> 
         <td> {{$documento->fechadocumento}} </td> 
         <td> {{$documento->localfin}} </font></td> 
+        <td> {{$documento->vende}} </font></td> 
         <td> {{$documento->desusuario}} </font></td> 
         <td> {{$documento->cantidad}} </font></td> 
         <td><b> {{$documento->totalventa + $documento->devolucion }} </b></td>

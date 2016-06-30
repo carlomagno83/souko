@@ -258,13 +258,14 @@ dd($mercaderias);
 	{
 		$input = array_except(Input::all(), '_method');
 		$input = array_except($input, ['q']); //error cambio al server
+//dd($input);		
 		$validation = Validator::make($input, Mercaderia::$rules);
 
 		if ($validation->passes())
 		{
 			$mercaderia = $this->mercaderia->find($id);
 			//usuario logueado
-			$input['usuario_id'] = Auth::user()->id;			
+			//$input['usuario_id'] = Auth::user()->id;			
 			$mercaderia->update($input);
 
 			return Redirect::route('mercaderias.show', $id);
