@@ -35,7 +35,7 @@ class ConsultadocsController extends BaseController {
                 INNER JOIN users ON documentos.usuario_id=users.id
                 WHERE fechadocumento>='$fec'  AND documentos.tipomovimiento_id=" .$tipomov. "
                 GROUP BY movimientos.documento_id
-                ORDER BY documentos.fechadocumento";        
+                ORDER BY documentos.fechadocumento, documentos.id";        
     //dd($sql);
             $documentos = DB::select($sql);
             //dd($mercaderias);
@@ -56,7 +56,7 @@ class ConsultadocsController extends BaseController {
                 INNER JOIN users ON documentos.usuario_id=users.id
                 WHERE fechadocumento>='$fec' AND documentos.tipomovimiento_id=" .$tipomov. "
                 GROUP BY movimientos.documento_id
-                ORDER BY documentos.fechadocumento";        
+                ORDER BY documentos.fechadocumento, documentos.id";        
     //dd($sql);
             $documentos = DB::select($sql);
             //dd(Input::get('fechadocumento'));
@@ -93,7 +93,7 @@ users.desusuario
 INNER JOIN users us1 on us1.id=mercaderias.usuario_id
                 WHERE fechadocumento>='$fec' AND documentos.tipomovimiento_id=" .$tipomov. "
                 GROUP BY movimientos.documento_id
-                ORDER BY documentos.fechadocumento";
+                ORDER BY documentos.fechadocumento, documentos.id";
 
 
                 
@@ -116,7 +116,7 @@ INNER JOIN users us1 on us1.id=mercaderias.usuario_id
                 INNER JOIN users ON documentos.usuario_id=users.id
                 WHERE fechadocumento>='$fec'  AND documentos.tipomovimiento_id=" .$tipomov. "
                 GROUP BY movimientos.documento_id
-                ORDER BY documentos.fechadocumento";        
+                ORDER BY documentos.fechadocumento, documentos.id";        
     //dd($sql);
             $documentos = DB::select($sql);
             //dd($mercaderias);
