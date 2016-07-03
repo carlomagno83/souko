@@ -60,11 +60,7 @@ $(document).ready(function(){
                 {{Form::select('tipomovimiento_id',[0=>''] + DB::table('tipomovimientos')->orderby('id')->where('destipomovimiento', '<>', '')->lists('destipomovimiento','id'), Input::get('tipomovimiento_id'),array('class'=>'form-control',  'id'=>'tipomovimiento_id', 'required'=>'required'))}}
            </div>
         </div><!-- /.col-lg-6 -->
-
-
-        <br>
 </div>  
-<br>
 <div class="row">
     <div class="col-lg-10">
     </div>
@@ -74,11 +70,10 @@ $(document).ready(function(){
 </div> 
 </form>
 
-<br>
-
-
-
 @if (count($documentos) > 0)
+<form method="POST" action="{{url('consulta-docs-editar')}}">
+
+<input type="text" name="tipomovimiento_id" id="tipomovimiento_id" value={{Input::get('tipomovimiento_id')}} class="form-control" style="visibility:hidden;" >
 
 <div class="jumbotron">
 
@@ -98,9 +93,23 @@ $(document).ready(function(){
 <tbody>
 @foreach( $documentos as $documento)
     <tr> 
-        <td> {{$documento->id}} </td> 
-        <td> {{$documento->numdocfisico}} </td> 
-        <td> {{$documento->fechadocumento}} </td> 
+        
+        @if(Auth::user()->rolusuario=='SUPER')
+            <td width="110px">  
+            <input type="text" name="id[]" id="id[]"value="{{$documento->id}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;" readonly tabindex="-1">
+            </td>
+            <td width="110px">  
+            <input type="text" name="numdocfisico[]" id="numdocfisico[]"value="{{$documento->numdocfisico}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;">
+            </td>
+            <td width="110px">  
+            <input type="text" name="fechadocumento[]" id="fechadocumento[]"value="{{$documento->fechadocumento}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;">
+            </td>
+        @else
+            <td> {{$documento->id}} </td> 
+            <td> {{$documento->numdocfisico}} </td> 
+            <td> {{$documento->fechadocumento}} </td> 
+        @endif    
+        
         <td> {{$documento->codprovider3}} </td> 
         <td> {{$documento->desusuario}} </td> 
         <td> {{$documento->cantidad}} </td> 
@@ -125,9 +134,21 @@ $(document).ready(function(){
 <tbody>
 @foreach( $documentos as $documento)
     <tr> 
-        <td> {{$documento->id}} </td> 
-        <td> {{$documento->numdocfisico}} </td> 
-        <td> {{$documento->fechadocumento}} </td> 
+        @if(Auth::user()->rolusuario=='SUPER')
+            <td width="110px">  
+            <input type="text" name="id[]" id="id[]"value="{{$documento->id}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;" readonly tabindex="-1">
+            </td>
+            <td width="110px">  
+            <input type="text" name="numdocfisico[]" id="numdocfisico[]"value="{{$documento->numdocfisico}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;">
+            </td>
+            <td width="110px">  
+            <input type="text" name="fechadocumento[]" id="fechadocumento[]"value="{{$documento->fechadocumento}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;">
+            </td>
+        @else    
+            <td> {{$documento->id}} </td> 
+            <td> {{$documento->numdocfisico}} </td> 
+            <td> {{$documento->fechadocumento}} </td> 
+        @endif
         <td> {{$documento->desusuario}} </td> 
         <td> {{$documento->localfin}} </font></td> 
         <td> {{$documento->cantidad}} </font></td> 
@@ -151,8 +172,17 @@ $(document).ready(function(){
 <tbody>
 @foreach( $documentos as $documento)
     <tr> 
-        <td> {{$documento->id}} </td> 
-        <td> {{$documento->fechadocumento}} </td> 
+        @if(Auth::user()->rolusuario=='SUPER')
+            <td width="110px">  
+            <input type="text" name="id[]" id="id[]"value="{{$documento->id}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;" readonly tabindex="-1">
+            </td>
+            <td width="110px">  
+            <input type="text" name="fechadocumento[]" id="fechadocumento[]"value="{{$documento->fechadocumento}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;">
+            </td>
+        @else      
+            <td> {{$documento->id}} </td> 
+            <td> {{$documento->fechadocumento}} </td> 
+        @endif    
         <td> {{$documento->localfin}} </font></td> 
         <td> {{$documento->vende}} </font></td> 
         <td> {{$documento->desusuario}} </font></td> 
@@ -179,9 +209,21 @@ $(document).ready(function(){
 <tbody>
 @foreach( $documentos as $documento)
     <tr> 
-        <td> {{$documento->id}} </td> 
-        <td> {{$documento->numdocfisico}} </td> 
-        <td> {{$documento->fechadocumento}} </td> 
+        @if(Auth::user()->rolusuario=='SUPER')
+            <td width="110px">  
+            <input type="text" name="id[]" id="id[]"value="{{$documento->id}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;" readonly tabindex="-1">
+            </td>
+            <td width="110px">  
+            <input type="text" name="numdocfisico[]" id="numdocfisico[]"value="{{$documento->numdocfisico}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;">
+            </td>
+            <td width="110px">  
+            <input type="text" name="fechadocumento[]" id="fechadocumento[]"value="{{$documento->fechadocumento}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;">
+            </td>
+        @else       
+            <td> {{$documento->id}} </td> 
+            <td> {{$documento->numdocfisico}} </td> 
+            <td> {{$documento->fechadocumento}} </td> 
+        @endif    
         <td> {{$documento->localini}} </font></td> 
         <td> {{$documento->localfin}} </font></td> 
         <td> {{$documento->desusuario}} </font></td> 
@@ -206,9 +248,21 @@ $(document).ready(function(){
 <tbody>
 @foreach( $documentos as $documento)
     <tr> 
-        <td> {{$documento->id}} </td> 
-        <td> {{$documento->numdocfisico}} </td> 
-        <td> {{$documento->fechadocumento}} </td> 
+        @if(Auth::user()->rolusuario=='SUPER')
+            <td width="110px">  
+            <input type="text" name="id[]" id="id[]"value="{{$documento->id}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;" readonly tabindex="-1">
+            </td>
+            <td width="110px">  
+            <input type="text" name="numdocfisico[]" id="numdocfisico[]"value="{{$documento->numdocfisico}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;">
+            </td>
+            <td width="110px">  
+            <input type="text" name="fechadocumento[]" id="fechadocumento[]"value="{{$documento->fechadocumento}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;">
+            </td>
+        @else     
+            <td> {{$documento->id}} </td> 
+            <td> {{$documento->numdocfisico}} </td> 
+            <td> {{$documento->fechadocumento}} </td> 
+        @endif    
         <td> {{$documento->localini}} </font></td> 
         <td> {{$documento->desusuario}} </font></td> 
         <td> {{$documento->cantidad}} </font></td> 
@@ -225,7 +279,7 @@ $(document).ready(function(){
         <th># Físico</th>
         <td>Fecha Creación</td>
         <th>Fecha Liq</th>
-        <th>Estado</th>>
+        <th>Estado</th>
         <th>Devolución A</th>
         <th>Creado por</th>
         <th>Items</th>
@@ -235,18 +289,27 @@ $(document).ready(function(){
 <tbody>
 @foreach( $documentos as $documento)
     <tr> 
-        <td> {{$documento->id}} </td> 
-        <td> {{$documento->numdocfisico}} </td>
+        @if(Auth::user()->rolusuario=='SUPER')
+            <td width="110px">  
+            <input type="text" name="id[]" id="id[]"value="{{$documento->id}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;" readonly tabindex="-1">
+            </td>
+            <td width="110px">  
+            <input type="text" name="numdocfisico[]" id="numdocfisico[]"value="{{$documento->numdocfisico}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;">
+            </td>
+            <td width="110px">  
+            <input type="text" name="fechadocumento[]" id="fechadocumento[]"value="{{$documento->fechadocumento}}" class="form-control" style="padding-top:0px; height:19px; padding-bottom:0px;">
+            </td>
+        @else       
+            <td> {{$documento->id}} </td> 
+            <td> {{$documento->numdocfisico}} </td>
+            <td> {{$documento->fechadocumento}} </td>
+        @endif
         @if($documento->flagestado =='BAJ')
             <td>{{date('Y-m-d', strtotime($documento->docucrea))}}</td>
         @else
-            <td> {{$documento->fechadocumento}} </td>
-        @endif 
-        @if($documento->flagestado =='BAJ')
-            <td> {{$documento->fechadocumento}} </td>
-        @else
             <td>0000-00-00</td>
-        @endif         
+        @endif 
+      
         <td> {{$documento->flagestado}} </td>
         <td> {{$documento->codprovider3}} </font></td> 
         <td> {{$documento->desusuario}} </font></td> 
@@ -264,6 +327,17 @@ $(document).ready(function(){
 
 </tbody>
 </table>
+@if(Auth::user()->rolusuario=='SUPER')
+<div class="row">
+    <div class="col-lg-10">
+    </div>
+    <div class="col-lg-2">
+                <button type="submit" id="consultabutton" class="btn btn-danger">Actualizar Datos Modificados</button>
+    </div><!-- /.col-lg-6 -->     
+</div> 
+@endif
+</form>
+
 @endif 
 </div>
 </div>

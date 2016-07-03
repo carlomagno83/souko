@@ -294,9 +294,45 @@ INNER JOIN users us1 on us1.id=mercaderias.usuario_id
         $documentos = Documento::find(0);
         return View::make('consultadocs.consultadocs', compact('documentos'))->withErrors(['Documento Eliminado ...']);;
 
-
-
     }
+
+
+    public function editar()
+    {
+        $data = Input::all();
+        //dd($data);
+        $tipomov = Input::get('tipomovimiento_id');
+
+        if ($tipomov == 1 OR $tipomov == 2 OR $tipomov ==4 OR $tipomov == 6 OR $tipomov == 7 )
+        {    
+            foreach($data['id'] as $key=>$value)
+            {
+                DB::table('documentos')->where('id', '=', $data['id'][$key])
+                                       ->where('tipomovimiento_id', '=', $tipomov)
+                                       ->update(array('numdocfisico' => $data['numdocfisico'][$key],
+                                                      'fechadocumento' => $data['fechadocumento'][$key]
+                                                      ));
+            }
+                $documentos = Documento::find(0);
+                return View::make('consultadocs.consultadocs', compact('documentos'))->withErrors(['Documentos Editados ...']);    
+        }        
+  
+        if ($tipomov == 3)
+        {    
+            foreach($data['id'] as $key=>$value)
+            {
+                DB::table('documentos')->where('id', '=', $data['id'][$key])
+                                       ->where('tipomovimiento_id', '=', $tipomov)
+                                       ->update(array('fechadocumento' => $data['fechadocumento'][$key]
+                                                      ));
+            }
+                $documentos = Documento::find(0);
+                return View::make('consultadocs.consultadocs', compact('documentos'))->withErrors(['Documentos Editados ...']);      
+        }           
+    }    
+
+
+
 
 }    
 ?>

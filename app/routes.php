@@ -148,9 +148,13 @@ Route::resource('modelos', 'ModelosController');
 			Route::resource('consultastockhistdet', 'ConsultastockhistdetController');
 			Route::post('consulta-stock-historico-det', 'ConsultastockhistdetController@consulta');
 
+			Route::resource('consultamerca', 'ConsultamercaController');	
+			Route::post('consultamercaderia', 'ConsultamercaController@consulta');
 
 			Route::resource('consultadocs', 'ConsultadocsController');			
 			Route::post('consulta-docs', 'ConsultadocsController@consulta');
+			Route::post('consulta-docs-editar', 'ConsultadocsController@editar');
+
 			Route::get('consultadocs/detalle1/{doc_id}', 'ConsultadocsController@detalle1');
 			Route::get('consultadocs/detalle2/{doc_id}', 'ConsultadocsController@detalle2');
 			Route::get('consultadocs/detalle3/{doc_id}', 'ConsultadocsController@detalle3');
