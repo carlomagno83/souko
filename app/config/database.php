@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'mysql_amazon',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -58,6 +58,17 @@ return array(
 			'database'  => 'souko',
 			'username'  => 'souko',
 			'password'  => 'yaita89T',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),
+
+		'mysql_amazon' => array(
+			'driver'    => 'mysql',
+			'host'      => 'dbmatrizmedia.csg4j3hnggyb.us-east-1.rds.amazonaws.com',
+			'database'  => 'embajador_shoes',
+			'username'  => 'embajadorshoe',
+			'password'  => '.$shoe8#.EoH',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
