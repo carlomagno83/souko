@@ -24,7 +24,9 @@ class ConsultadocsController extends BaseController {
 
         if ($tipomov == 1)
         {    
-            //dd($sql);        
+            //dd($sql);  
+            if(Auth::user()->rolusuario=='SUPER')
+            {      
             $sql = "SELECT documentos.id, numdocfisico, fechadocumento, documentos.localini_id, codprovider3, documentos.localfin_id, 
                 COUNT(movimientos.documento_id) AS cantidad, SUM(mercaderias.preciocompra) AS totalcompra,
                 SUM(mercaderias.precioventa), desusuario
@@ -35,7 +37,22 @@ class ConsultadocsController extends BaseController {
                 INNER JOIN users ON documentos.usuario_id=users.id
                 WHERE fechadocumento>='$fec'  AND documentos.tipomovimiento_id=" .$tipomov. "
                 GROUP BY movimientos.documento_id
-                ORDER BY documentos.fechadocumento, documentos.id";        
+                ORDER BY documentos.fechadocumento, documentos.numdocfisico, documentos.id";  
+            }
+            else     
+            {
+            $sql = "SELECT documentos.id, numdocfisico, fechadocumento, documentos.localini_id, codprovider3, documentos.localfin_id, 
+                COUNT(movimientos.documento_id) AS cantidad, SUM(mercaderias.preciocompra) AS totalcompra,
+                SUM(mercaderias.precioventa), desusuario
+                from movimientos 
+                INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
+                INNER JOIN mercaderias ON movimientos.mercaderia_id=mercaderias.id
+                INNER JOIN providers ON documentos.localini_id=providers.id
+                INNER JOIN users ON documentos.usuario_id=users.id
+                WHERE fechadocumento>='$fec'  AND documentos.tipomovimiento_id=" .$tipomov. "
+                GROUP BY movimientos.documento_id
+                ORDER BY documentos.fechadocumento, documentos.id";  
+            }         
     //dd($sql);
             $documentos = DB::select($sql);
             //dd($mercaderias);
@@ -43,7 +60,9 @@ class ConsultadocsController extends BaseController {
         }        
         if ($tipomov == 2 OR $tipomov ==4 OR $tipomov ==5 OR $tipomov == 6 )
         {    
-            //dd($sql);        
+            //dd($sql);  
+            if(Auth::user()->rolusuario=='SUPER')
+            {                    
             $sql = "SELECT documentos.id, numdocfisico, fechadocumento, documentos.localini_id, ini.codlocal3 as localini, 
                 documentos.localfin_id, fin.codlocal3 as localfin,
                 COUNT(movimientos.documento_id) AS cantidad, SUM(mercaderias.preciocompra) AS totalcompra,
@@ -56,16 +75,11 @@ class ConsultadocsController extends BaseController {
                 INNER JOIN users ON documentos.usuario_id=users.id
                 WHERE fechadocumento>='$fec' AND documentos.tipomovimiento_id=" .$tipomov. "
                 GROUP BY movimientos.documento_id
-                ORDER BY documentos.fechadocumento, documentos.id";        
-    //dd($sql);
-            $documentos = DB::select($sql);
-            //dd(Input::get('fechadocumento'));
-                return View::make('consultadocs.consultadocs')->withInput('local_id', 'fechadocumento')->with('documentos',$documentos);    
-        }    
-        if ($tipomov == 3)
-        {    
-            //dd($sql);   
-            /*$sql = "SELECT documentos.id, numdocfisico, fechadocumento, documentos.localini_id, ini.codlocal3 as localini, 
+                ORDER BY documentos.fechadocumento, documentos.numdocfisico, documentos.id";        
+            }
+            else
+            {    
+            $sql = "SELECT documentos.id, numdocfisico, fechadocumento, documentos.localini_id, ini.codlocal3 as localini, 
                 documentos.localfin_id, fin.codlocal3 as localfin,
                 COUNT(movimientos.documento_id) AS cantidad, SUM(mercaderias.preciocompra) AS totalcompra,
                 SUM(mercaderias.precioventa) AS totalventa, SUM(movimientos.devolucion) AS devolucion, desusuario
@@ -77,7 +91,16 @@ class ConsultadocsController extends BaseController {
                 INNER JOIN users ON documentos.usuario_id=users.id
                 WHERE fechadocumento>='$fec' AND documentos.tipomovimiento_id=" .$tipomov. "
                 GROUP BY movimientos.documento_id
-                ORDER BY documentos.id";  */
+                ORDER BY documentos.fechadocumento,documentos.id";   
+            }         
+    //dd($sql);
+            $documentos = DB::select($sql);
+            //dd(Input::get('fechadocumento'));
+                return View::make('consultadocs.consultadocs')->withInput('local_id', 'fechadocumento')->with('documentos',$documentos);    
+        }    
+        if ($tipomov == 3)
+        {    
+
             $sql = "SELECT documentos.id, numdocfisico, fechadocumento, documentos.localini_id, ini.codlocal3 as localini, 
                 documentos.localfin_id, fin.codlocal3 as localfin,
 us1.desusuario as vende, us1.id as vende_id,
@@ -106,6 +129,8 @@ INNER JOIN users us1 on us1.id=mercaderias.usuario_id
         if ($tipomov == 7)
         {    
             //dd($sql);        
+            if(Auth::user()->rolusuario=='SUPER')
+            {   
             $sql = "SELECT documentos.id, numdocfisico, fechadocumento, codprovider3, flagestado,
                 COUNT(movimientos.documento_id) AS cantidad, SUM(mercaderias.preciocompra) AS totalcompra,
                 SUM(mercaderias.precioventa), desusuario, documentos.created_at as docucrea
@@ -116,7 +141,22 @@ INNER JOIN users us1 on us1.id=mercaderias.usuario_id
                 INNER JOIN users ON documentos.usuario_id=users.id
                 WHERE fechadocumento>='$fec'  AND documentos.tipomovimiento_id=" .$tipomov. "
                 GROUP BY movimientos.documento_id
-                ORDER BY documentos.fechadocumento, documentos.id";        
+                ORDER BY documentos.fechadocumento, documentos.numdocfisico, documentos.id";        
+            }
+            else
+            {    
+            $sql = "SELECT documentos.id, numdocfisico, fechadocumento, codprovider3, flagestado,
+                COUNT(movimientos.documento_id) AS cantidad, SUM(mercaderias.preciocompra) AS totalcompra,
+                SUM(mercaderias.precioventa), desusuario, documentos.created_at as docucrea
+                from movimientos 
+                INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
+                INNER JOIN mercaderias ON movimientos.mercaderia_id=mercaderias.id
+                INNER JOIN providers ON documentos.localfin_id=providers.id
+                INNER JOIN users ON documentos.usuario_id=users.id
+                WHERE fechadocumento>='$fec'  AND documentos.tipomovimiento_id=" .$tipomov. "
+                GROUP BY movimientos.documento_id
+                ORDER BY documentos.fechadocumento, documentos.numdocfisico, documentos.id";        
+            }    
     //dd($sql);
             $documentos = DB::select($sql);
             //dd($mercaderias);
