@@ -264,7 +264,7 @@
 										<a href="{{URL::to('/ingresoeditar')}}">Guía de Ingreso (P. Compra)</a>
 									</li>
 									<li>
-										<a href="{{URL::to('/registroeditar')}}">Guía de Venta (P. Venta)</a>
+										<a href="{{URL::to('/registroeditar')}}">Guía de Venta</a>
 									</li>
 								</ul>
 							</li>

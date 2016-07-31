@@ -116,7 +116,7 @@ users.desusuario
 INNER JOIN users us1 on us1.id=mercaderias.usuario_id
                 WHERE fechadocumento>='$fec' AND documentos.tipomovimiento_id=" .$tipomov. "
                 GROUP BY movimientos.documento_id
-                ORDER BY documentos.fechadocumento, documentos.id";
+                ORDER BY documentos.fechadocumento, fin.codlocal3";
 
 
                 
