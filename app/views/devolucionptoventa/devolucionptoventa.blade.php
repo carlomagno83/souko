@@ -164,6 +164,12 @@ $foul = 0; ?>
                 <input type="text" id="datepicker1" name="fechadocumento" class="form-control" aria-describedby="basic-addon1">
             </div>
         </div><!-- /.col-lg-6 -->
+        <div class="col-lg-3">
+            <div class="input-group">
+                <span class="input-group-addon">Cantidad Items</span>
+                <input type="text" value={{count($devuelves)}} class="form-control" aria-describedby="basic-addon1" readonly tabindex="-1">
+            </div>
+        </div><!-- /.col-lg-6 -->        
     </div><!-- /.row -->
     <div class="row">
         <div class="col-lg-3">
