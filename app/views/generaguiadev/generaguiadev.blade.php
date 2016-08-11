@@ -70,7 +70,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
         </tr>    
     </thead>
     @if (count($mercaderias)>0)
-        <?php $i=0 ?>
+        <?php $i=0; $totprecio=0; ?>
         @foreach ($mercaderias as $mercaderia)
         <tr>
             <td width="10%"><input type="text" name="codprovider3[]" id="mercaderia_id[]" value="{{$mercaderia->codprovider3}}" class="form-control" readonly tabindex="-1"></td>
@@ -85,14 +85,27 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             <td width="15%"><input type="text" name="deslocal[]" value="{{$mercaderia->deslocal}}" readonly class="form-control" tabindex="-1"></td>
             <td width="8%"><input type="text" name="preciocompra[]" value="{{$mercaderia->preciocompra}}" readonly class="form-control" tabindex="-1"></td>
             <td width="10%"><input type="checkbox" name="checkbox[{{$i}}]" class="form-control"/></td>
-            <?php $i=$i+1 ?>
+            <?php $i=$i+1; $totprecio = $totprecio + $mercaderia->preciocompra; ?>
         </tr>
         @endforeach
     @endif
 </table>
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-1">
     </div>
+    <div class="col-lg-2">
+    @if (count($mercaderias)>0)
+        Total sin seleccionar : {{count($mercaderias)}}
+    @endif
+    </div>   
+    <div class="col-lg-4">
+    @if (count($mercaderias)>0)
+        Total Precio de Compra s/seleccionar : {{number_format($totprecio,2)}}    
+    @endif    
+    </div>     
+    <div class="col-lg-1">
+    </div>     
+   
     <div class="col-lg-3">
         <input type="submit" value="Agrega Mercaderías Seleccionadas" class="btn btn-lg btn-success">
     </div>
@@ -163,10 +176,24 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             </div>    
         </div>
     </div>  
-    <br>
-    @if (count($devueltos)>0)
-        Total de items : {{count($devueltos)}} 
-    @endif         
+<br>
+
+    <div class="row">    
+        <div class="col-lg-1">
+        </div>
+        <div class="col-lg-3">
+            @if (count($devueltos)>0)
+                Total de items seleccionados : {{count($devueltos)}} 
+            @endif          
+        </div>
+        <div class="col-lg-4">
+            @if (count($devueltos)>0)
+                <?php $totalprecio = DB::table('devueltos')->sum('preciocompra'); ?>
+                Total Precio de Compra seleccionados : {{$totalprecio}} 
+            @endif          
+        </div>
+    </div>
+       
 </div>
 <div class="row">
     <div class="col-lg-4">
