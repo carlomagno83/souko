@@ -133,8 +133,12 @@ $foul = 0;
             @if ($estadomercaderia == 'ACT' || $estadomercaderia == 'INA')
                 <td width="10%"><input type="text" name="estado" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
             @else
-                <td width="10%" class="danger"><input type="text" name="estado" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
-                <?php $foul = $foul + 1 ?>
+                @if ($estadomercaderia == 'VEN')
+                    <td width="10%" class="danger"><input type="text" name="estado" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
+                @else
+                    <td width="10%" class="danger"><input type="text" name="estado" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
+                    <?php $foul = $foul + 1 ?>
+                @endif
             @endif
             <td width="10%"><input type="text" name="precioventa"  value="{{$mercaderia->precioventa}}" readonly class="form-control" tabindex="-1"></td>
             <td width="20%"><input type="text"  value="{{$mercaderia->desusuario}}" readonly class="form-control" tabindex="-1"></td>
@@ -156,7 +160,12 @@ $foul = 0;
                 <span class="input-group-addon" id="numdocfisico">Precio de venta</span>
                 <input type="text" id="precioventaregistro" name="precioventaregistro" class="form-control" placeholder="" aria-describedby="basic-addon1" required autofocus>
             </div>
-        </div>           
+        </div>
+        <div class="col-lg-6">
+        @if ($estadomercaderia == 'VEN')
+            <strong><mark>Ingrese el precio de venta en negativo por ser cambio de cliente</mark></strong>
+        @endif 
+        </div>                    
     </div><!-- /.row -->
 </div>    
 

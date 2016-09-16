@@ -66,11 +66,28 @@ class RegistroagregarController extends BaseController {
                 {  
                     if( $tipomovimiento_id == "3") 
                     {
+                        $encuentras = DB::table('documentos')
+                        ->join('movimientos', function($join)
+                                    {
+                                $join->on('documentos.id', '=',  'movimientos.documento_id');
+                                $join->on('documentos.tipomovimiento_id','=', 'movimientos.tipomovimiento_id');
+                                    })
+                        ->join('mercaderias', 'mercaderias.id', '=', 'movimientos.mercaderia_id')
+                        ->where('movimientos.documento_id', '=', Input::get('documento_id'))
+                        ->where('movimientos.tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
+                        ->where('movimientos.mercaderia_id', '=', Input::get('mercaderia_id'))
+                        ->select('mercaderias.id')
+                        ->get();
+                        //dd($encuentras);
+                        if($encuentras == null)
+                        {   
                         return View::make('registroagregar.registroagregarventa')
                                 ->withInput('documento_id', 'tipomovimiento_id')
                                 ->with('devuelves', $devuelves)
                                 ->with('documentos', $documentos)
                                 ->with('mercaderias', $mercaderias);
+                        }
+                        return View::make('registroagregar.registroagregar')->withErrors(['Número de mercadería ya está registrado en ese documento']);        
                     }
                     elseif ($tipomovimiento_id == "4") 
                     {
@@ -124,12 +141,24 @@ class RegistroagregarController extends BaseController {
     public function registroagregarventa()
     {
         $data = Input::all();
-
-        $vende_id = DB::table('movimientos')->join('mercaderias', 'mercaderias.id', '=', 'movimientos.mercaderia_id')->select('mercaderias.usuario_id')->where('documento_id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', 3)->pluck('mercaderias.usuario_id');
+//dd($data);
+        $vende_id = DB::table('movimientos')->join('mercaderias', 'mercaderias.id', '=', 'movimientos.mercaderia_id')->select('mercaderias.usuario_id')->where('documento_id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', 3)->pluck('mercaderias.usuario_id');   //id del vendedor de ese documento
         //dd($vende_id);
+        if (Input::get('estado')=='VEN') 
+        {
+            DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
+                                    ->update(array('estado' => 'ACT', 'usuario_id' => $vende_id));
+            $movimiento = new Movimiento();
+            $movimiento->mercaderia_id = Input::get('mercaderia_id');
+            $movimiento->documento_id = Input::get('documento_id');
+            $movimiento->tipomovimiento_id = 3; //cambio tipo movimiento
+            $movimiento->flagoferta = 0;
+            $movimiento->devolucion = Input::get('precioventaregistro');
+            $movimiento->save();   
+            return View::make('registroagregar.registroagregar')->withErrors(['Registro agregado ....']);
+        }
         DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
                                 ->update(array('estado' => 'VEN', 'precioventa' => Input::get('precioventaregistro'), 'usuario_id' => $vende_id));
-        //DB::table('movimientos')->insert(array('tipomovimiento_id' => '3', 'mercaderia_id' => Input::get('mercaderia_id'), 'documento_id' => Input::get('documento_id'))); 
         $movimiento = new Movimiento();
         $movimiento->mercaderia_id = Input::get('mercaderia_id');
         $movimiento->documento_id = Input::get('documento_id');

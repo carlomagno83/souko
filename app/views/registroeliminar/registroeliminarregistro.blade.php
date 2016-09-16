@@ -72,7 +72,8 @@ $(document).ready(function(){
     <?php 
         $localdocumento = $documento->codlocal3; 
         $eliminardocumento_id = $documento->id; 
-        $eliminardocumento_tipomovimiento = $documento->tipomovimiento_id; 
+        $eliminardocumento_tipomovimiento = $documento->tipomovimiento_id;
+        $muestra = 0; 
     ?>
 
 @endforeach
@@ -106,7 +107,13 @@ $(document).ready(function(){
                 <td width="30%" class="info"><input type="text"  value="{{$devuelve->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
                 <td width="10%" class="info"><input type="text" id="estado" name="estado" value="{{$devuelve->estado}}" readonly class="form-control" tabindex="-1"></td>
                 <td width="10%" class="info"><input type="text"  value="{{$devuelve->preciocompra}}" readonly class="form-control" tabindex="-1"></td>
-                <td width="10%" class="info"><input type="text" name="precioventa" value="{{$devuelve->precioventa}}" readonly class="form-control" tabindex="-1"></td>
+                @if ($devuelve->devolucion < 0 )
+                    <td width="10%" class="danger"><input type="text" name="precioventa" value="{{$devuelve->devolucion}}" readonly class="form-control" tabindex="-1"></td>
+                    <?php $muestra = $muestra + 1; ?>
+                @else    
+                    <td width="10%" class="info"><input type="text" name="precioventa" value="{{$devuelve->precioventa}}" readonly class="form-control" tabindex="-1"></td>
+                @endif                  
+
                 <td width="20%" class="info"><input type="text"  value="{{$devuelve->desusuario}}" readonly class="form-control" tabindex="-1"></td>
                 <td><input style="visibility:hidden;" type="text" name="mercaderialocal_id" id="mercaderialocal_id" value="{{$devuelve->local_id}}" class="form-control" readonly tabindex="-1"></td>
                 <td><input style="visibility:hidden;" type="text" name="mercaderiausuario_id" id="mercaderiausuario_id" value="{{$devuelve->usuario_id}}" class="form-control" readonly tabindex="-1"></td>
@@ -126,6 +133,7 @@ $(document).ready(function(){
         </tr>
         @endforeach
 </table>
+
 @endif
 
 @foreach ($ultimos as $ultimo)
@@ -152,7 +160,11 @@ $(document).ready(function(){
     <div class="col-lg-4">
         <input id="storebutton" type="submit" value="Eliminar mercadería " class="btn btn-danger">
     </div>
-</div>    
+</div>  
+<br>
+    @if ($muestra > 0 )
+    <strong><mark>Eliminar un registro de cambio puede que necesite corregir el usuario vendedor de la guía anterior. Ingrese a CORRECCIONES-GUIA DE VENTA de la guía anterior a esta, en donde se efectuó la venta</mark></strong>
+    @endif  
 <div class="row">
     <div class="col-lg-4">
     <input id="muestramsg" style="display:none;" type="submit" value="Finalizado..." class="btn btn-lg btn-success" disabled>

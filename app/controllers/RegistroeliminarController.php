@@ -47,7 +47,7 @@ class RegistroeliminarController extends BaseController {
                             ->join('users', 'mercaderias.usuario_id', '=', 'users.id')
                             ->where('movimientos.documento_id', '=', Input::get('documento_id'))
                             ->where('movimientos.tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
-                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.codlocal3', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
+                            ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.codlocal3', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario','movimientos.devolucion')
                             ->get();
                 $tipomovimiento_id = Input::get('tipomovimiento_id');
                 $documentos = DB::table('documentos')
