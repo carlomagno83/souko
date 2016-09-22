@@ -71,7 +71,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
 
 <br>
 </form>  
-
+<?php $llave=0; ?>
 <form method="POST" id="validadorjs" action="{{url('cambioestado-store')}}">
 <table class="table table-striped">
     <thead>
@@ -92,13 +92,16 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             <td><input type="text"  value="{{$cambio->codproducto31}}" readonly class="form-control" tabindex="-1"></td>
             @if ($cambio->deslocal<>'ALM')
                 <td class="danger"><input type="text"  value="{{$cambio->deslocal}}" readonly class="form-control" tabindex="-1"></td>
+                <?php $llave=$llave+1; ?>
             @else
                 <td><input type="text"  value="{{$cambio->deslocal}}" readonly class="form-control" tabindex="-1"></td>
             @endif
-                
+            @if ($cambio->estado=='ACT')    
             <td width="10%"><input type="text" value="{{$cambio->estado}}" readonly class="form-control" tabindex="-1"></td>
-            
-            <td><a id="link_delete" href=" {{ URL::to('cambioestado/delete/'.$cambio->mercaderia_id) }} ">Eliminar</a>  </td>
+            @else
+            <td width="10%" class="danger"><input type="text" value="{{$cambio->estado}}" readonly class="form-control" tabindex="-1"></td>
+            @endif
+            <td width="5%"><a id="link_delete" href=" {{ URL::to('cambioestado/delete/'.$cambio->mercaderia_id) }} "><img width="30px" src="{{asset('img/eliminar.png')}}"></a></td>
         </tr>
         @endforeach
     
@@ -124,7 +127,9 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
     @endif
  <div class="row">
     <div class="col-lg-4">
+        @if($llave==0)
         <input id="storebutton" type="submit" value="Cambiar estado" class="btn btn-lg btn-primary">
+        @endif
     </div>
 </div>
 </div> 

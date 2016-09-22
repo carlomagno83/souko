@@ -24,7 +24,7 @@ class GeneraguiadevController extends BaseController {
         DB::table('devueltos')->where('usuario_id','=', Auth::user()->id )->delete();
 		$data = Input::all();
         $devueltos = DB::table('devueltos')->where('usuario_id','=', Auth::user()->id )->get();//usuario logueado
-
+//dd($devueltos);
         if(Input::get('desprovider')<>'') 
         {
             $provider_id = DB::table('providers')->select('id')->where('providers.desprovider', '=', Input::get('desprovider'))->pluck('id');
@@ -38,7 +38,7 @@ class GeneraguiadevController extends BaseController {
         											'productos.codproducto31',
         											'mercaderias.estado',
                                                     'mercaderias.preciocompra',
-        											'locals.deslocal')
+        											'locals.codlocal3')
         										->where('productos.provider_id', '=', $provider_id)
         										->where('mercaderias.estado', '=', 'INA')
         										->get();

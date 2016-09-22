@@ -70,7 +70,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
         </tr>    
     </thead>
     @if (count($mercaderias)>0)
-        <?php $i=0; $totprecio=0; ?>
+        <?php $i=0; $totprecio=0; $bien=0; ?>
         @foreach ($mercaderias as $mercaderia)
         <tr>
             <td width="10%"><input type="text" name="codprovider3[]" id="mercaderia_id[]" value="{{$mercaderia->codprovider3}}" class="form-control" readonly tabindex="-1"></td>
@@ -81,8 +81,13 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
             @else
                 <td width="8%" class="danger"><input type="text" name="estado[]" value="{{$mercaderia->estado}}" readonly class="form-control" tabindex="-1"></td>
             @endif              
+            @if ($mercaderia->codlocal3=='ALM')
+            <td width="15%"><input type="text" name="deslocal[]" value="{{$mercaderia->codlocal3}}" readonly class="form-control" tabindex="-1"></td>
+            @else
+            <td width="15%" class="danger"><input type="text" name="deslocal[]" value="{{$mercaderia->codlocal3}}" readonly class="form-control" tabindex="-1"></td>
+            <?php $bien=$bien+1; ?>
+            @endif            
 
-            <td width="15%"><input type="text" name="deslocal[]" value="{{$mercaderia->deslocal}}" readonly class="form-control" tabindex="-1"></td>
             <td width="8%"><input type="text" name="preciocompra[]" value="{{$mercaderia->preciocompra}}" readonly class="form-control" tabindex="-1"></td>
             <td width="10%"><input type="checkbox" name="checkbox[{{$i}}]" class="form-control"/></td>
             <?php $i=$i+1; $totprecio = $totprecio + $mercaderia->preciocompra; ?>
@@ -107,7 +112,9 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
     </div>     
    
     <div class="col-lg-3">
+        @if($bien==0)
         <input type="submit" value="Agrega Mercaderías Seleccionadas" class="btn btn-lg btn-success">
+        @endif
     </div>
 </div>        
 <br><br>

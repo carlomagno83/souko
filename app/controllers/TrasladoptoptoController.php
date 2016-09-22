@@ -29,11 +29,18 @@ class TrasladoptoptoController extends BaseController {
 	        {	
 	            if(DB::table('mercaderias')->find(Input::get('mercaderia_id')))
 	            {
+$estado = DB::table('mercaderias')->select('estado')->where('id', '=', Input::get('mercaderia_id'))->pluck('estado');
+$deslocal = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')->select('codlocal3')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('codlocal3');
+if($deslocal<>'ALM')   
+{
+
+if($estado=='ACT' or $estado=='INA')    
+{
 
 	                $producto_id = DB::table('mercaderias')->select('producto_id')->where('id', '=', Input::get('mercaderia_id'))->pluck('producto_id');
-	                $estado = DB::table('mercaderias')->select('estado')->where('id', '=', Input::get('mercaderia_id'))->pluck('estado');
+	                //$estado = DB::table('mercaderias')->select('estado')->where('id', '=', Input::get('mercaderia_id'))->pluck('estado');
 	                $codproducto31 =  DB::table('productos')->select('codproducto31')->where('id', '=', $producto_id)->pluck('codproducto31');
-	                $deslocal = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')->select('codlocal3')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('codlocal3');
+	                //$deslocal = DB::table('locals')->join('mercaderias', 'locals.id', '=', 'mercaderias.local_id')->select('codlocal3')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('codlocal3');
 	                $desusuario = DB::table('users')->join('mercaderias', 'users.id', '=', 'mercaderias.usuario_id')->select('desusuario')->where('mercaderias.id','=', Input::get('mercaderia_id'))->pluck('desusuario');
 
 			        $traslado = new Traslado();
@@ -49,6 +56,16 @@ class TrasladoptoptoController extends BaseController {
 		        	$traslados = DB::table('traslados')->where('usuario_id','=', Auth::user()->id )->get();
 
 					return View::make('trasladoptopto.trasladoptopto')->with('traslados', $traslados);
+}
+        $traslados = DB::table('traslados')->where('usuario_id','=', Auth::user()->id )->get();
+        //usuario logueado
+        return View::make('trasladoptopto.trasladoptopto')->withInput('usuario_id', 'local_id')->with('traslados', $traslados)->withErrors(['Estado de mercadería diferente de ACT o INA']);  
+}
+        $traslados = DB::table('traslados')->where('usuario_id','=', Auth::user()->id )->get();
+        //usuario logueado
+        return View::make('trasladoptopto.trasladoptopto')->withInput('usuario_id', 'local_id')->with('traslados', $traslados)->withErrors(['Local actual debe ser diferente de almacen']);  
+
+
 	            }
 	        }    
         } 
