@@ -236,6 +236,10 @@
 								</li>
 								<li>
 									<a href="{{URL::to('/stockafecha')}}">Stock genérico a una fecha determinada</a>
+								</li>
+								<li role="presentation" class="divider"></li>	
+								<li>
+									<a href="{{URL::to('/buscaincomp')}}">Buscar Incompatibilidad</a>
 								</li>	
 
 								@endif	

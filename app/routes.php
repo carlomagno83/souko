@@ -182,6 +182,10 @@ Route::resource('modelos', 'ModelosController');
 				Route::post('stockafecha-consultar', 'StockafechaController@consultar');
 				Route::post('stockafecha-descargar', 'StockafechaController@descargar');
 
+				Route::resource('buscaincomp', 'BuscaincompController');
+				Route::post('buscaincomp-consultar', 'StockafechaController@consultar');
+
+
 				// correciones
 				Route::get('documentoeditar', 'DocumentoeditarController@index');
 				Route::post('documentoeditar-buscar', 'DocumentoeditarController@buscar');
@@ -193,6 +197,7 @@ Route::resource('modelos', 'ModelosController');
 				Route::post('registroagregarventa', 'RegistroagregarController@registroagregarventa');
 				Route::post('registroagregartrasladoalm', 'RegistroagregarController@registroagregartrasladoalm');
 				Route::post('registroagregartrasladopto', 'RegistroagregarController@registroagregartrasladopto');
+				Route::post('registroagregardevolucionprov', 'RegistroagregarController@registroagregardevolucionprov');
 
 				Route::get('registroeliminar', 'RegistroeliminarController@index');
 				Route::post('eliminaregistro-buscar', 'RegistroeliminarController@buscar');	

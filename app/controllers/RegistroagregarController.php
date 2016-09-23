@@ -47,13 +47,25 @@ class RegistroagregarController extends BaseController {
                             ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.codlocal3', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario')
                             ->get();
                 $tipomovimiento_id = Input::get('tipomovimiento_id');
-                $documentos = DB::table('documentos')
-                            ->join('locals', 'locals.id', '=', 'documentos.localfin_id')
-                            ->join('users', 'documentos.usuario_id', '=', 'users.id')
-                            ->where('documentos.id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
-                            ->select('documentos.id', 'fechadocumento', 'localfin_id', 'codlocal3','flagestado', 'documentos.usuario_id', 'desusuario')
-                            ->get();
-
+                if ($tipomovimiento_id<>7)
+                {
+                    $documentos = DB::table('documentos')
+                                            ->join('locals', 'locals.id', '=', 'documentos.localfin_id')
+                                            ->join('users', 'documentos.usuario_id', '=', 'users.id')
+                                            ->where('documentos.id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
+                                            ->select('documentos.id', 'fechadocumento', 'localfin_id', 'codlocal3','flagestado', 'documentos.usuario_id', 'desusuario')
+                                            ->get();
+                }
+                else
+                {
+                    $documentos = DB::table('documentos')
+                                            ->join('providers', 'providers.id', '=', 'documentos.localfin_id')
+                                            ->join('users', 'documentos.usuario_id', '=', 'users.id')
+                                            ->where('documentos.id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
+                                            ->select('documentos.id', 'fechadocumento', 'localfin_id', 'codprovider3 as codlocal3','flagestado', 'documentos.usuario_id', 'desusuario')
+                                            ->get();
+                }    
+                
                 $mercaderias = DB::table('mercaderias')
                                 ->join('productos', 'mercaderias.producto_id', '=', 'productos.id')
                                 ->join('locals', 'locals.id', '=', 'mercaderias.local_id')
@@ -93,8 +105,15 @@ class RegistroagregarController extends BaseController {
                     {
                         return View::make('registroagregar.registroagregartrasladopto')->with('devuelves', $devuelves)->with('documentos', $documentos)->with('mercaderias', $mercaderias);
                     }
-                    //por ultimo si el tipo movimiento es 2
-                    return View::make('registroagregar.registroagregartrasladoalm')->with('devuelves', $devuelves)->with('documentos', $documentos)->with('mercaderias', $mercaderias);
+                    elseif ($tipomovimiento_id == "2") 
+                    {    
+                        return View::make('registroagregar.registroagregartrasladoalm')->with('devuelves', $devuelves)->with('documentos', $documentos)->with('mercaderias', $mercaderias);
+                    }
+                    else    //POR ULTIMO SI ES 7
+                    {
+                        return View::make('registroagregar.registroagregardevolucionprov')->with('devuelves', $devuelves)->with('documentos', $documentos)->with('mercaderias', $mercaderias);                    
+                    }
+
                 }
                 return View::make('registroagregar.registroagregar')->withErrors(['Número de mercadería no encontrado']);
             }
@@ -108,14 +127,6 @@ class RegistroagregarController extends BaseController {
 
     public function consultamercaderia($cod)
     {
-        //$mercaderia = Mercaderia::find($cod);
-/*        $mercaderias = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, devolucion, tipomovimientos.destipomovimiento, locals.codlocal3, documentos.localini_id as origen, documentos.fechadocumento , documentos.created_at
-                        from movimientos
-                        INNER JOIN tipomovimientos ON tipomovimientos.id = movimientos.tipomovimiento_id
-                        INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
-                        INNER JOIN locals ON locals.id = documentos.localfin_id
-                        WHERE movimientos.mercaderia_id = '$cod'
-                        ORDER BY documentos.created_at");*/
 
         $mercaderias = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, 
                         devolucion, tipomovimientos.destipomovimiento, 
@@ -201,6 +212,25 @@ class RegistroagregarController extends BaseController {
         $movimiento->mercaderia_id = Input::get('mercaderia_id');
         $movimiento->documento_id = Input::get('documento_id');
         $movimiento->tipomovimiento_id = 4; //cambio tipo movimiento
+        $movimiento->flagoferta = 0;
+        $movimiento->save();   
+        return View::make('registroagregar.registroagregar')->withErrors(['Registro agregado ....']);
+    }
+
+
+
+    public function registroagregardevolucionprov()
+    {
+
+        $data = Input::all();
+
+        DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
+                                ->update(array('estado' => 'DEV', 'local_id' => 1, 'usuario_id' => Input::get('usuario_id')));
+        //DB::table('movimientos')->insert(array('tipomovimiento_id' => '3', 'mercaderia_id' => Input::get('mercaderia_id'), 'documento_id' => Input::get('documento_id'))); 
+        $movimiento = new Movimiento();
+        $movimiento->mercaderia_id = Input::get('mercaderia_id');
+        $movimiento->documento_id = Input::get('documento_id');
+        $movimiento->tipomovimiento_id = 7; //cambio tipo movimiento
         $movimiento->flagoferta = 0;
         $movimiento->save();   
         return View::make('registroagregar.registroagregar')->withErrors(['Registro agregado ....']);

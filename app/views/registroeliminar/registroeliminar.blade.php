@@ -55,7 +55,7 @@ $( "#datepicker1" ).datepicker('option', {dateFormat: 'yy/mm/dd'});
     <div class="col-lg-5">
         <div class="input-group">
             <span class="input-group-addon" id="tipomovimiento_id">Tipo de movimiento</span>
-            {{Form::select('tipomovimiento_id',[''=>'', '2'=>'TRASLADO ALMAC A PTO', '4'=>'TRASLADO PTO A PTO', '3'=>'VENTA'] ,null,array('class'=>'form-control', 'required'=>'required'))}} <!-- cambio para escoger motivo -->
+            {{Form::select('tipomovimiento_id',[''=>'', '2'=>'TRASLADO ALMAC A PTO', '4'=>'TRASLADO PTO A PTO', '3'=>'VENTA', '7'=>'DEVOLUCION A PROVEEDOR'] ,null,array('class'=>'form-control', 'required'=>'required'))}} <!-- cambio para escoger motivo -->
        </div>
     </div><!-- /.col-lg-6 -->
 </div><!-- /.row -->

@@ -44,7 +44,11 @@ class AuthController extends BaseController {
             DB::table('cambios')->where('usuario_id', '=', Auth::user()->id )->delete();
 
             // Si nuestros datos son correctos mostramos la página de inicio
-            return Redirect::intended('/');
+            if(Auth::user()->rolusuario=='SUPER')
+                return Redirect::intended('/buscaincomp');
+            else    
+                return Redirect::intended('/');
+            
 
             }
         }

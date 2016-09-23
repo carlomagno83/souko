@@ -50,12 +50,25 @@ class RegistroeliminarController extends BaseController {
                             ->select('mercaderias.id', 'productos.codproducto31', 'mercaderias.local_id', 'locals.codlocal3', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id', 'users.desusuario','movimientos.devolucion')
                             ->get();
                 $tipomovimiento_id = Input::get('tipomovimiento_id');
+                if( Input::get('tipomovimiento_id')<>7)
+                {    
                 $documentos = DB::table('documentos')
                             ->join('locals', 'locals.id', '=', 'documentos.localfin_id')
                             ->join('users', 'documentos.usuario_id', '=', 'users.id')
                             ->where('documentos.id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
                             ->select('documentos.id', 'fechadocumento', 'documentos.tipomovimiento_id', 'localfin_id', 'codlocal3','flagestado', 'documentos.usuario_id', 'desusuario')
                             ->get();
+                }
+                else
+                {
+                $documentos = DB::table('documentos')
+                            //->join('locals', 'locals.id', '=', 'documentos.localfin_id')
+                            ->join('providers', 'providers.id', '=', 'documentos.localfin_id')
+                            ->join('users', 'documentos.usuario_id', '=', 'users.id')
+                            ->where('documentos.id', '=', Input::get('documento_id'))->where('tipomovimiento_id', '=', Input::get('tipomovimiento_id'))
+                            ->select('documentos.id', 'fechadocumento', 'documentos.tipomovimiento_id', 'providers.id as localfin_id', 'providers.codprovider3 as codlocal3','flagestado', 'documentos.usuario_id', 'desusuario')
+                            ->get();                    
+                }            
 
                 $mercaderias = DB::table('documentos')
                             ->join('movimientos', function($join)
@@ -69,11 +82,13 @@ class RegistroeliminarController extends BaseController {
                             ->where('movimientos.mercaderia_id', '=', Input::get('mercaderia_id'))
                             ->select('mercaderias.id', 'mercaderias.local_id', 'mercaderias.estado','mercaderias.preciocompra', 'mercaderias.precioventa', 'mercaderias.usuario_id')
                             ->get();
-
+//dd($documentos);
 
                 if($mercaderias != null)
                 {  
                     $cod = Input::get('mercaderia_id');
+                    if(Input::get('tipomovimiento_id')<>7)
+                    {    
                     $ultimos = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, tipomovimientos.destipomovimiento, locals.codlocal3, documentos.fechadocumento 
                             from movimientos
                             INNER JOIN tipomovimientos ON tipomovimientos.id = movimientos.tipomovimiento_id
@@ -81,6 +96,18 @@ class RegistroeliminarController extends BaseController {
                             INNER JOIN locals ON locals.id = documentos.localfin_id
                             WHERE movimientos.mercaderia_id = '$cod'
                             ORDER BY documentos.created_at DESC LIMIT 1");
+                    }
+                    else
+                    {
+                    $ultimos = DB::select("SELECT movimientos.documento_id AS Numdoc, movimientos.tipomovimiento_id, tipomovimientos.destipomovimiento, providers.codprovider3 as codlocal3, documentos.fechadocumento 
+                            from movimientos
+                            INNER JOIN tipomovimientos ON tipomovimientos.id = movimientos.tipomovimiento_id
+                            INNER JOIN documentos ON movimientos.documento_id=documentos.id AND movimientos.tipomovimiento_id=documentos.tipomovimiento_id
+                            INNER JOIN providers ON providers.id = documentos.localfin_id
+                            WHERE movimientos.mercaderia_id = '$cod'
+                            ORDER BY documentos.created_at DESC LIMIT 1");                        
+                    }    
+                    //dd($ultimos);
                     return View::make('registroeliminar.registroeliminarregistro')
                             ->withInput('documento_id', 'tipomovimiento_id')
                             ->with('devuelves', $devuelves)
@@ -150,6 +177,11 @@ class RegistroeliminarController extends BaseController {
                                     ->update(array('estado' => 'VEN', 'local_id' => $localpenultimomov, 'precioventa' => Input::get('precioventa')*(-1)));
 
             }                        
+        }
+        elseif ($tipomovimiento_id == '7')
+        {
+            DB::table('mercaderias')->where('id', '=', Input::get('mercaderia_id'))
+                                    ->update(array('estado' => 'INA', 'local_id' => 1));
         }
         else
         {
