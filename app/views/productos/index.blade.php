@@ -84,7 +84,8 @@
 	<table class="table table-striped">
 		<thead>
 			<tr> 
-                <th width="5%">Proveedor</th>
+                <th width="5%">Id</th>
+                <th width="5%">Proveedor</th>                
                 <th width="20%">Etiqueta</th>
                 <th width="1%"></th>
                 <th width="8%">P. Venta Sug.</th>
@@ -98,6 +99,7 @@
 
 			@foreach ($productos as $producto)
 				<tr>
+                    <td>{{{ $producto->id }}}</td>
                     <td>{{{ $producto->codprovider3 }}}</td>
                     <td>{{{ $producto->codproducto31 }}}</td>
                     <td><input style="visibility:hidden;" type="text" name="producto_id[]" id="producto_id[]" value="{{$producto->id}}" class="form-control" readonly tabindex="-1"></td>

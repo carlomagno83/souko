@@ -313,6 +313,7 @@ class ProductosController extends BaseController {
 			->with('message', 'There were validation errors.');
 	}
 
+
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -321,7 +322,6 @@ class ProductosController extends BaseController {
 	 */
 	public function destroy($id)
 	{ 
-
         $data = DB::table('mercaderias')->where("producto_id", "=", $id)->get();
         if ($data)
         {
