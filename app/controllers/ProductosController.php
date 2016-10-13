@@ -23,7 +23,7 @@ class ProductosController extends BaseController {
 	public function index()
 	{
 		//filtro de busqueda
-		//dd($request->get('marca_id'));
+		//dd(Input::all());
 		$productos = Producto::find(0);
 	//	$productos = $this->producto->all(); //cambio para mostrar datos
 
@@ -320,8 +320,26 @@ class ProductosController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+/*	public function destroy($id)
 	{ 
+		//dd(Input::all());
+        $data = DB::table('mercaderias')->where("producto_id", "=", $id)->get();
+        if ($data)
+        {
+        	//$this->filtrar();
+			return Redirect::route('productos.index')->withErrors(['No se puede eliminar. Mercaderías existentes con este número de producto']);
+        }
+        else
+        {	
+			$this->producto->find($id)->delete();
+			return Redirect::route('productos.index')->withErrors(['Producto eliminado']);
+		}	
+	}
+*/
+
+	public function destruye($id)
+	{ 
+		//dd($id);
         $data = DB::table('mercaderias')->where("producto_id", "=", $id)->get();
         if ($data)
         {

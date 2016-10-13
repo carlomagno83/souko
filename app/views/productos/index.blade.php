@@ -106,14 +106,17 @@
                     <td><input type="text" name="precioventa[]" id="precioventa[]"value="{{$producto->precioventa}}" class="form-control"></td>
                     <td>{{{ $producto->preciocompra }}}</td>
 
-
+<!-- 
                     <td>
                         {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'route' => array('productos.destroy', $producto->id))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger',  'tabindex'=>'-1')) }}
                         {{ Form::close() }}
 
 
-                    </td>
+                    </td>   -->
+                    <td><a id="link_delete" href=" {{ URL::to('productos/destruye/'.$producto->id) }} " class="btn btn-danger">Eliminar</a>  </td>
+
+
                     <?php $i=$i+1 ?>
 				</tr>
 			@endforeach

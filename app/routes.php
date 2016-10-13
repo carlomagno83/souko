@@ -61,6 +61,7 @@ Route::resource('modelos', 'ModelosController');
 			Route::get('productos-index', 'ProductosController@index');//filtros para busqueda de producto
 			Route::any('productos-filtrar', 'ProductosController@filtrar');
 			Route::any('editabloque', 'ProductosController@editabloque');
+			Route::get('productos/destruye/{id}', 'ProductosController@destruye');
 
 			Route::resource('mercaderias', 'MercaderiasController');
 			Route::resource('mercaderias-filtrar', 'MercaderiasController@filtrar');
