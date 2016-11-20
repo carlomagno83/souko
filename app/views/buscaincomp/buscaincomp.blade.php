@@ -73,7 +73,6 @@ Herramienta Buscador de Inconsistencias</th>
 ?>
 
 
-
 <table id ="cuadro" class="table table-hover table-striped">
 <thead> <td width="250px">GENERICO</td>
         @foreach ($locals as $local)
