@@ -85,8 +85,9 @@ class RegistroeditarController extends BaseController {
             else
             {
                 DB::table('mercaderias')->where('id', '=', $data['id'][$key])
-                                    ->update(array('precioventa' => $data['precioventa'][$key],
-                                        'usuario_id' => $data['vende_id']));
+                                    //->update(array('precioventa' => $data['precioventa'][$key],
+                                    //    'usuario_id' => $data['vende_id']));
+                                    ->update(array('usuario_id' => $data['vende_id']));
                 DB::table('movimientos')->where('mercaderia_id', '=', $data['id'][$key])->where('tipomovimiento_id', '=', 3)->where('devolucion', '<', 0)->update(array('devolucion' => $data['precioventa'][$key]));                 
             }                        
         }
